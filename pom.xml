@@ -195,7 +195,7 @@
       <artifactId>FabledSkyblock</artifactId>
       <version>0.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/lib/FabledSkyblock.jar</systemPath>
+      <systemPath>${project.basedir}/lib/FabledSkyBlock.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>com.sk89q.worldguard</groupId>
