@@ -169,7 +169,7 @@
     <dependency>
       <groupId>world.bentobox</groupId>
       <artifactId>level</artifactId>
-      <version>2.6.1</version>
+      <version>2.6.3</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
