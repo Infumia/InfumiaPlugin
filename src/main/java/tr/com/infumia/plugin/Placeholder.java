@@ -25,37 +25,39 @@
 
 package tr.com.infumia.plugin;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
-
-  @Nullable
-  private static InfumiaPlugin instance;
-
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+@RequiredArgsConstructor
+public final class Placeholder {
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
+  private final String regex;
+
+  @NotNull
+  private final Object replace;
+
+  @NotNull
+  public static Placeholder from(@NotNull final String regex, @NotNull final Object replace) {
+    return new Placeholder(regex, replace);
   }
 
-  @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
+  @NotNull
+  public String replace(@NotNull final String text) {
+    return text.replace(this.regex, this.replace());
   }
 
-  @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
+  @NotNull
+  public List<String> replace(@NotNull final List<String> list) {
+    return list.stream()
+      .map(s -> s.replace(this.regex, this.replace()))
+      .collect(Collectors.toList());
+  }
+
+  @NotNull
+  private String replace() {
+    return String.valueOf(this.replace);
   }
 }
