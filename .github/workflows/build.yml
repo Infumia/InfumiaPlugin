@@ -16,7 +16,7 @@ jobs:
         with:
           java-version: 11
 
-      - run: mvn install
+      - run: mvn clean install
 
       - uses: codecov/codecov-action@v1.0.14
 
