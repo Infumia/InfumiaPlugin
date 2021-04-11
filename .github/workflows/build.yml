@@ -16,17 +16,7 @@ jobs:
         with:
           java-version: 11
 
-      - run: |
-          cd lib
-          git clone https://github.com/rocogamer/FabledSkyBlock.git
-          cd FabledSkyBlock
-          git fetch
-          git switch patch-1
-          git fetch
-          git pull
-          mvn clean install
-          cd ..
-          mvn clean install
+      - run: mvn clean install
 
       - uses: codecov/codecov-action@v1.0.14
 
