@@ -34,14 +34,14 @@ import tr.com.infumia.plugin.Wrapped;
 
 public final class LuckPermsHook implements Hook {
 
-  public static final String LUCKPERMS_ID = "LuckPerms";
+  public static final String LUCK_PERMS_ID = "LuckPerms";
 
   private LuckPerms luckPerms;
 
   @NotNull
   @Override
   public String id() {
-    return LuckPermsHook.LUCKPERMS_ID;
+    return LuckPermsHook.LUCK_PERMS_ID;
   }
 
   @Override

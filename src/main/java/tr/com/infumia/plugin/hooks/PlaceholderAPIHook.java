@@ -34,7 +34,7 @@ import tr.com.infumia.plugin.Wrapped;
 
 public final class PlaceholderAPIHook implements Hook {
 
-  public static final String PLACEHOLDERAPI_ID = "PlaceholderAPI";
+  public static final String PLACEHOLDER_API_ID = "PlaceholderAPI";
 
   @Nullable
   private PlaceholderAPIPlugin placeholderAPI;
@@ -42,7 +42,7 @@ public final class PlaceholderAPIHook implements Hook {
   @NotNull
   @Override
   public String id() {
-    return PlaceholderAPIHook.PLACEHOLDERAPI_ID;
+    return PlaceholderAPIHook.PLACEHOLDER_API_ID;
   }
 
   @Override

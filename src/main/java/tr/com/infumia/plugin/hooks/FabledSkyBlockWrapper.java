@@ -36,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.plugin.Wrapped;
 
 @RequiredArgsConstructor
-public final class FabledSkyblockWrapper implements Wrapped {
+public final class FabledSkyBlockWrapper implements Wrapped {
 
   @NotNull
   private final SkyBlock skyBlock;
@@ -51,14 +51,14 @@ public final class FabledSkyblockWrapper implements Wrapped {
   }
 
   public void removeIslandLevel(@NotNull final Plugin plugin, @NotNull final UUID uuid, final long level) {
-    throw new UnsupportedOperationException("FabledSkyblock does not support to remove island level!");
+    throw new UnsupportedOperationException("FabledSkyBlock does not support to remove island level!");
   }
 
   public void addIslandLevel(@NotNull final Plugin plugin, @NotNull final UUID uuid, final long level) {
-    throw new UnsupportedOperationException("FabledSkyblock does not support to add island level!");
+    throw new UnsupportedOperationException("FabledSkyBlock does not support to add island level!");
   }
 
   public void setIslandLevel(@NotNull final Plugin plugin, @NotNull final UUID uuid, final long level) {
-    throw new UnsupportedOperationException("FabledSkyblock does not support to set island level!");
+    throw new UnsupportedOperationException("FabledSkyBlock does not support to set island level!");
   }
 }

@@ -32,14 +32,14 @@ import tr.com.infumia.plugin.Hook;
 
 public final class PermissionsExHook implements Hook {
 
-  public static final String PERMISSONSEX_ID = "PermissionsEx";
+  public static final String PERMISSONS_EX_ID = "PermissionsEx";
 
   private PermissionsEx permissionsEx;
 
   @NotNull
   @Override
   public String id() {
-    return PermissionsExHook.PERMISSONSEX_ID;
+    return PermissionsExHook.PERMISSONS_EX_ID;
   }
 
   @Override

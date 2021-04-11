@@ -33,14 +33,14 @@ import tr.com.infumia.plugin.Wrapped;
 
 public final class GroupManagerHook implements Hook {
 
-  public static final String GROUPMANAGER_ID = "GroupManager";
+  public static final String GROUP_MANAGER_ID = "GroupManager";
 
   private GroupManager groupManager;
 
   @NotNull
   @Override
   public String id() {
-    return GroupManagerHook.GROUPMANAGER_ID;
+    return GroupManagerHook.GROUP_MANAGER_ID;
   }
 
   @Override

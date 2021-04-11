@@ -30,21 +30,21 @@ import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.plugin.Hook;
 
-public final class FabledSkyblockHook implements Hook {
+public final class FabledSkyBlockHook implements Hook {
 
-  public static final String FABLEDSKYBLOCK_ID = "FabledSkyblock";
+  public static final String FABLED_SKY_BLOCK_ID = "FabledSkyBlock";
 
   private SkyBlock skyBlock;
 
   @NotNull
   @Override
   public String id() {
-    return FabledSkyblockHook.FABLEDSKYBLOCK_ID;
+    return FabledSkyBlockHook.FABLED_SKY_BLOCK_ID;
   }
 
   @Override
   public boolean initiate() {
-    if (Bukkit.getPluginManager().getPlugin("FabledSkyblock") != null) {
+    if (Bukkit.getPluginManager().getPlugin("FabledSkyBlock") != null) {
       this.skyBlock = SkyBlock.getInstance();
     }
     return this.skyBlock != null;
@@ -52,10 +52,10 @@ public final class FabledSkyblockHook implements Hook {
 
   @NotNull
   @Override
-  public FabledSkyblockWrapper create() {
+  public FabledSkyBlockWrapper create() {
     if (this.skyBlock == null) {
-      throw new IllegalStateException("FabledSkyblock not initiated! Use FabledSkyblockHook#initiate() method.");
+      throw new IllegalStateException("FabledSkyBlock not initiated! Use FabledSkyBlockHook#initiate() method.");
     }
-    return new FabledSkyblockWrapper(this.skyBlock);
+    return new FabledSkyBlockWrapper(this.skyBlock);
   }
 }

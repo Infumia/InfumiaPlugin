@@ -48,12 +48,12 @@ public class Hooks {
 
   @NotNull
   public Optional<PlaceholderAPIWrapper> getPlaceholderAPI() {
-    return Hooks.getWrapper(PlaceholderAPIHook.PLACEHOLDERAPI_ID);
+    return Hooks.getWrapper(PlaceholderAPIHook.PLACEHOLDER_API_ID);
   }
 
   @NotNull
   public Optional<LuckPermsWrapper> getLuckPerms() {
-    return Hooks.getWrapper(LuckPermsHook.LUCKPERMS_ID);
+    return Hooks.getWrapper(LuckPermsHook.LUCK_PERMS_ID);
   }
 
   @NotNull
@@ -67,23 +67,23 @@ public class Hooks {
   }
 
   @NotNull
-  public Optional<FabledSkyblockWrapper> getFabledSkyBlock() {
-    return Hooks.getWrapper(FabledSkyblockHook.FABLEDSKYBLOCK_ID);
+  public Optional<FabledSkyBlockWrapper> getFabledSkyBlock() {
+    return Hooks.getWrapper(FabledSkyBlockHook.FABLED_SKYBLOCK_ID);
   }
 
   @NotNull
   public Optional<GroupManagerWrapper> getGroupManager() {
-    return Hooks.getWrapper(GroupManagerHook.GROUPMANAGER_ID);
+    return Hooks.getWrapper(GroupManagerHook.GROUP_MANAGER_ID);
   }
 
   @NotNull
   public Optional<PermissionsExWrapper> getPermissionsEx() {
-    return Hooks.getWrapper(PermissionsExHook.PERMISSONSEX_ID);
+    return Hooks.getWrapper(PermissionsExHook.PERMISSONS_EX_ID);
   }
 
   public void loadHooks() {
     Stream.of(new LuckPermsHook(), new PlaceholderAPIHook(), new VaultHook(), new ASkyBlockHook(),
-      new BentoBoxHook(), new FabledSkyblockHook(), new GroupManagerHook(), new PermissionsExHook())
+      new BentoBoxHook(), new FabledSkyBlockHook(), new GroupManagerHook(), new PermissionsExHook())
       .filter(Hook::initiate)
       .forEach(hook -> Hooks.WRAPPERS.put(hook.id(), hook.create()));
     Hooks.WRAPPERS.keySet().forEach(Hooks::sendHookNotify);

@@ -52,8 +52,7 @@ public final class VaultHook implements Hook {
     if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
       return false;
     }
-    final RegisteredServiceProvider<Economy> economyProvider =
-      Bukkit.getServicesManager().getRegistration(Economy.class);
+    final var economyProvider = Bukkit.getServicesManager().getRegistration(Economy.class);
     if (economyProvider != null) {
       this.economy = economyProvider.getProvider();
     }

@@ -40,8 +40,8 @@ public class Islands {
       ((ASkyBlockWrapper) wrapper).addIslandLevel(plugin, uniqueId, level);
     } else if (wrapper instanceof BentoBoxWrapper) {
       ((BentoBoxWrapper) wrapper).addIslandLevel(plugin, uniqueId, level);
-    } else if (wrapper instanceof FabledSkyblockWrapper) {
-      ((FabledSkyblockWrapper) wrapper).addIslandLevel(plugin, uniqueId, level);
+    } else if (wrapper instanceof FabledSkyBlockWrapper) {
+      ((FabledSkyBlockWrapper) wrapper).addIslandLevel(plugin, uniqueId, level);
     }
   }
 
@@ -52,8 +52,8 @@ public class Islands {
     if (wrapper instanceof BentoBoxWrapper) {
       return ((BentoBoxWrapper) wrapper).getIslandLevel(uniqueId);
     }
-    if (wrapper instanceof FabledSkyblockWrapper) {
-      return ((FabledSkyblockWrapper) wrapper).getIslandLevel(uniqueId);
+    if (wrapper instanceof FabledSkyBlockWrapper) {
+      return ((FabledSkyBlockWrapper) wrapper).getIslandLevel(uniqueId);
     }
     return 0L;
   }
