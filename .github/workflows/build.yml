@@ -16,9 +16,7 @@ jobs:
         with:
           java-version: 11
 
-      - run: |
-          mvn install -Pcheckstyle
-          mvn test -Pcoverage jacoco:report
+      - run: mvn install -Pcheckstyle
 
       - uses: codecov/codecov-action@v1.0.14
 
