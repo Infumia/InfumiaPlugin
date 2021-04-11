@@ -68,7 +68,7 @@ public class Hooks {
 
   @NotNull
   public Optional<FabledSkyBlockWrapper> getFabledSkyBlock() {
-    return Hooks.getWrapper(FabledSkyBlockHook.FABLED_SKYBLOCK_ID);
+    return Hooks.getWrapper(FabledSkyBlockHook.FABLED_SKY_BLOCK_ID);
   }
 
   @NotNull
