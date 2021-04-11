@@ -123,10 +123,10 @@ public enum PlaceType {
 
   @NotNull
   public static <T> Map<String, T> parse(@NotNull final Object... objects) {
-    final Map<String, T> map = new HashMap<>();
-    boolean isKey = true;
-    String previousKey = "";
-    for (final Object object : objects) {
+    final var map = new HashMap<String, T>();
+    var isKey = true;
+    var previousKey = "";
+    for (final var object : objects) {
       if (isKey) {
         isKey = false;
         previousKey = (String) object;
@@ -171,11 +171,11 @@ public enum PlaceType {
     }
     return this.keyAndTypes.entrySet().stream()
       .allMatch(entry -> {
-        final Object o = objects.get(entry.getKey());
+        final var o = objects.get(entry.getKey());
         if (o == null) {
           return false;
         }
-        final Class<?> aClass = o.getClass();
+        final var aClass = o.getClass();
         return new ClassOf<>(aClass)
           .getField("TYPE")
           .map(refField -> refField.of(o))

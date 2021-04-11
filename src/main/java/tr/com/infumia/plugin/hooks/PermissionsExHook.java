@@ -23,40 +23,36 @@
  *
  */
 
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hooks;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
+import tr.com.infumia.plugin.Hook;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
+public final class PermissionsExHook implements Hook {
 
-  @Nullable
-  private static InfumiaPlugin instance;
+  public static final String PERMISSONSEX_ID = "PermissionsEx";
 
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+  private PermissionsEx permissionsEx;
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
+  @Override
+  public String id() {
+    return PermissionsExHook.PERMISSONSEX_ID;
   }
 
   @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
+  public boolean initiate() {
+    return (this.permissionsEx = (PermissionsEx) Bukkit.getPluginManager().getPlugin("PermissionsEx")) != null;
   }
 
   @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
-    this.inventory.init();
+  @NotNull
+  public PermissionsExWrapper create() {
+    if (this.permissionsEx == null) {
+      throw new IllegalStateException("PermissionsEx not initiated! Use PermissionsExHook#initiate method.");
+    }
+    return new PermissionsExWrapper(this.permissionsEx);
   }
 }

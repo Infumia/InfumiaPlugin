@@ -23,40 +23,35 @@
  *
  */
 
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hooks;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
+import tr.com.infumia.plugin.Wrapped;
 
-  @Nullable
-  private static InfumiaPlugin instance;
-
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+public final class VaultWrapper implements Wrapped {
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
+  private final Economy economy;
+
+  public VaultWrapper(@NotNull final Economy economy) {
+    this.economy = economy;
   }
 
-  @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
+  public void addMoney(@NotNull final Player player, final double money) {
+    this.economy.depositPlayer(player, money);
   }
 
-  @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
-    this.inventory.init();
+  public void removeMoney(@NotNull final Player player, final double money) {
+    if (this.getMoney(player) < money) {
+      return;
+    }
+    this.economy.withdrawPlayer(player, money);
+  }
+
+  public double getMoney(@NotNull final Player player) {
+    return this.economy.getBalance(player);
   }
 }

@@ -23,40 +23,37 @@
  *
  */
 
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hooks;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.anjocaido.groupmanager.GroupManager;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.plugin.Hook;
+import tr.com.infumia.plugin.Wrapped;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
+public final class GroupManagerHook implements Hook {
 
-  @Nullable
-  private static InfumiaPlugin instance;
+  public static final String GROUPMANAGER_ID = "GroupManager";
 
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+  private GroupManager groupManager;
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
+  @Override
+  public String id() {
+    return GroupManagerHook.GROUPMANAGER_ID;
   }
 
   @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
+  public boolean initiate() {
+    return (this.groupManager = (GroupManager) Bukkit.getPluginManager().getPlugin("GroupManager")) != null;
   }
 
   @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
-    this.inventory.init();
+  @NotNull
+  public Wrapped create() {
+    if (this.groupManager == null) {
+      throw new IllegalStateException("GroupManager not initiated! Use GroupManagerHook#initiate method.");
+    }
+    return new GroupManagerWrapper(this.groupManager);
   }
 }

@@ -23,40 +23,46 @@
  *
  */
 
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hooks;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import net.luckperms.api.LuckPerms;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.plugin.Hook;
+import tr.com.infumia.plugin.Wrapped;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
+public final class LuckPermsHook implements Hook {
 
-  @Nullable
-  private static InfumiaPlugin instance;
+  public static final String LUCKPERMS_ID = "LuckPerms";
 
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+  private LuckPerms luckPerms;
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
+  @Override
+  public String id() {
+    return LuckPermsHook.LUCKPERMS_ID;
   }
 
   @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
+  public boolean initiate() {
+    final boolean check = Bukkit.getPluginManager().getPlugin("LuckPerms") != null;
+    if (check) {
+      final RegisteredServiceProvider<LuckPerms> provider =
+        Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+      if (provider != null) {
+        this.luckPerms = provider.getProvider();
+      }
+    }
+    return this.luckPerms != null;
   }
 
   @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
-    this.inventory.init();
+  @NotNull
+  public Wrapped create() {
+    if (this.luckPerms == null) {
+      throw new IllegalStateException("LuckPerms not initiated! Use LuckPermsHook#initiate method.");
+    }
+    return new LuckPermsWrapper(this.luckPerms);
   }
 }

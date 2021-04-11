@@ -30,6 +30,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.logging.Level;
+import java.util.stream.IntStream;
 import lombok.experimental.UtilityClass;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -114,22 +115,21 @@ public class TaskUtilities {
 
       @Override
       public void run() {
-        for (int i = 0; i < perTick; i++) {
-          if (this.current >= objects.size()) {
-            break;
-          }
-          final T object = objects.get(this.current);
-          try {
-            runArgument.accept(object);
-          } catch (final RuntimeException e) {
-            TaskUtilities.getPlugin().getLogger().log(
-              Level.SEVERE,
-              "TaskUtilities#forAll() iteration failed for object: " +
-                object + (object != null ? " (" + object.getClass().getName() + ")" : ""),
-              e);
-          }
-          this.current++;
-        }
+        IntStream.range(0, perTick)
+          .takeWhile(i -> this.current < objects.size())
+          .mapToObj(i -> objects.get(this.current))
+          .forEach(object -> {
+            try {
+              runArgument.accept(object);
+            } catch (final RuntimeException e) {
+              TaskUtilities.getPlugin().getLogger().log(
+                Level.SEVERE,
+                "TaskUtilities#forAll() iteration failed for object: " +
+                  object + (object != null ? " (" + object.getClass().getName() + ")" : ""),
+                e);
+            }
+            this.current++;
+          });
         if (this.current >= objects.size()) {
           this.cancel();
           onDone.run();

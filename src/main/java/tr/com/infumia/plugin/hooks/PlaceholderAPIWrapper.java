@@ -23,40 +23,17 @@
  *
  */
 
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hooks;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.plugin.Wrapped;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
-
-  @Nullable
-  private static InfumiaPlugin instance;
-
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+public final class PlaceholderAPIWrapper implements Wrapped {
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
-  }
-
-  @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
-  }
-
-  @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
-    this.inventory.init();
+  public String apply(@NotNull final OfflinePlayer player, @NotNull final String string) {
+    return PlaceholderAPI.setPlaceholders(player, string);
   }
 }

@@ -23,40 +23,39 @@
  *
  */
 
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hooks;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.wasteofplastic.askyblock.ASkyBlockAPI;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.plugin.Hook;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
+public final class ASkyBlockHook implements Hook {
 
-  @Nullable
-  private static InfumiaPlugin instance;
+  public static final String ASKYBLOCK_ID = "ASkyBlock";
 
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+  private ASkyBlockAPI skyBlockAPI;
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
+  @Override
+  public String id() {
+    return ASkyBlockHook.ASKYBLOCK_ID;
   }
 
   @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
+  public boolean initiate() {
+    if (Bukkit.getPluginManager().getPlugin("ASkyBlock") != null) {
+      this.skyBlockAPI = ASkyBlockAPI.getInstance();
+    }
+    return this.skyBlockAPI != null;
   }
 
+  @NotNull
   @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
-    this.inventory.init();
+  public ASkyBlockWrapper create() {
+    if (this.skyBlockAPI == null) {
+      throw new IllegalStateException("ASkyBlock not initiated! Use ASkyBlockHook#initiate() method.");
+    }
+    return new ASkyBlockWrapper(this.skyBlockAPI);
   }
 }

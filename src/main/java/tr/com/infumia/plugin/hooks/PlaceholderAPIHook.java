@@ -23,40 +23,39 @@
  *
  */
 
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hooks;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import me.clip.placeholderapi.PlaceholderAPIPlugin;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.plugin.Hook;
+import tr.com.infumia.plugin.Wrapped;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
+public final class PlaceholderAPIHook implements Hook {
+
+  public static final String PLACEHOLDERAPI_ID = "PlaceholderAPI";
 
   @Nullable
-  private static InfumiaPlugin instance;
-
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+  private PlaceholderAPIPlugin placeholderAPI;
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
+  @Override
+  public String id() {
+    return PlaceholderAPIHook.PLACEHOLDERAPI_ID;
   }
 
   @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
+  public boolean initiate() {
+    return (this.placeholderAPI = (PlaceholderAPIPlugin) Bukkit.getPluginManager().getPlugin("PlaceholderAPI")) != null;
   }
 
   @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
-    this.inventory.init();
+  @NotNull
+  public Wrapped create() {
+    if (this.placeholderAPI == null) {
+      throw new IllegalStateException("PlaceholderAPI not initiated! Use PlaceholderAPIHook#initiate method.");
+    }
+    return new PlaceholderAPIWrapper();
   }
 }

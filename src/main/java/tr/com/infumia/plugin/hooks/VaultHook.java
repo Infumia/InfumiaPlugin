@@ -23,40 +23,49 @@
  *
  */
 
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hooks;
 
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.util.Objects;
-import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * main class of the Infumia plugin.
- */
-public final class InfumiaPlugin extends JavaPlugin {
+import tr.com.infumia.plugin.Hook;
+import tr.com.infumia.plugin.Wrapped;
+
+public final class VaultHook implements Hook {
+
+  public static final String VAULT_ID = "Vault";
 
   @Nullable
-  private static InfumiaPlugin instance;
-
-  @Getter
-  private final SmartInventory inventory = new BasicSmartInventory(this);
+  private Economy economy;
 
   @NotNull
-  public static InfumiaPlugin getInstance() {
-    return Objects.requireNonNull(InfumiaPlugin.instance, "not initiated");
+  @Override
+  public String id() {
+    return VaultHook.VAULT_ID;
   }
 
   @Override
-  public void onLoad() {
-    InfumiaPlugin.instance = this;
+  public boolean initiate() {
+    if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
+      return false;
+    }
+    final RegisteredServiceProvider<Economy> economyProvider =
+      Bukkit.getServicesManager().getRegistration(Economy.class);
+    if (economyProvider != null) {
+      this.economy = economyProvider.getProvider();
+    }
+    return this.economy != null;
   }
 
+  @NotNull
   @Override
-  public void onEnable() {
-    TaskUtilities.init(this);
-    this.inventory.init();
+  public Wrapped create() {
+    if (this.economy == null) {
+      throw new IllegalStateException("Vault not initiated! Use VaultHook#initiate() method.");
+    }
+    return new VaultWrapper(this.economy);
   }
 }

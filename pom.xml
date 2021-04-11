@@ -23,6 +23,24 @@
       </resource>
     </resources>
   </build>
+  <repositories>
+    <repository>
+      <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+      <id>placeholderapi</id>
+    </repository>
+    <repository>
+      <url>https://dl.bintray.com/tastybento/maven-repo</url>
+      <id>bintray-tastybento-maven-repo</id>
+    </repository>
+    <repository>
+      <url>https://maven.enginehub.org/repo/</url>
+      <id>sk89q-repo</id>
+    </repository>
+    <repository>
+      <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+      <id>codemc-snapshots</id>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>io.github.portlek</groupId>
@@ -55,9 +73,140 @@
       <version>0.49</version>
     </dependency>
     <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>input</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>4.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.bananapuncher714</groupId>
+      <artifactId>NBTEditor</artifactId>
+      <version>7.16</version>
+    </dependency>
+    <dependency>
+      <groupId>net.wesjd</groupId>
+      <artifactId>anvilgui</artifactId>
+      <version>1.5.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>version-matched</artifactId>
+      <version>2.9</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>bukkit-version</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>bukkit-location</artifactId>
+      <version>2.0.10</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>BukkitItemBuilder</artifactId>
+      <version>4.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.cryptomorin</groupId>
+      <artifactId>XSeries</artifactId>
+      <version>7.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>reflection</artifactId>
+      <version>4.0.11</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>replaceable</artifactId>
+      <version>1.6</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>version</artifactId>
+      <version>1.6</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>mapentry</artifactId>
+      <version>2.0.10</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.portlek</groupId>
+      <artifactId>equilibrium</artifactId>
+      <version>2.1.5</version>
+    </dependency>
+    <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
       <version>1.16.5-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>me.clip</groupId>
+      <artifactId>placeholderapi</artifactId>
+      <version>2.10.9</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.luckperms</groupId>
+      <artifactId>api</artifactId>
+      <version>5.3</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>world.bentobox</groupId>
+      <artifactId>bentobox</artifactId>
+      <version>1.16.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>world.bentobox</groupId>
+      <artifactId>level</artifactId>
+      <version>2.6.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.wasteofplastic</groupId>
+      <artifactId>askyblock</artifactId>
+      <version>3.0.9.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.anjocaido</groupId>
+      <artifactId>groupmanagerx</artifactId>
+      <version>2.2-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>ru.tehkode</groupId>
+      <artifactId>PermissionsEx</artifactId>
+      <version>1.23.5-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>x.y.z</groupId>
+      <artifactId>FabledSkyblock</artifactId>
+      <version>0.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/FabledSkyblock.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89q.worldguard</groupId>
+      <artifactId>worldguard-bukkit</artifactId>
+      <version>7.0.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>7.2.2</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
