@@ -16,7 +16,7 @@ jobs:
         with:
           java-version: 11
 
-      - run: mvn install -Pcheckstyle
+      - run: mvn install
 
       - uses: codecov/codecov-action@v1.0.14
 
