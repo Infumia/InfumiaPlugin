@@ -144,7 +144,7 @@
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>replaceable</artifactId>
-      <version>1.6</version>
+      <version>2.2.0</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
