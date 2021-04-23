@@ -17,8 +17,9 @@ jobs:
           java-version: 11
 
       - run: |
-          chmod +x install.sh
-          install.sh
+          cd lib
+          mvn install:install-file -Dfile="FabledSkyblock.jar" -DgroupId=xxx -DartifactId=xxx -Dversion=xxx -Dpackaging=jar -DgeneratePom=true
+          cd ..
           mvn clean install
 
       - uses: codecov/codecov-action@v1.0.14
