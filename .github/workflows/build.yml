@@ -17,8 +17,8 @@ jobs:
           java-version: 11
 
       - run: |
-        chmod +x install.sh
-        install.sh
-        mvn clean install
+          chmod +x install.sh
+          install.sh
+          mvn clean install
 
       - uses: codecov/codecov-action@v1.0.14
