@@ -1,7 +1,6 @@
 # InfumiaPlugin
 
 ```xml
-  ```xml
 <dependency>
   <groupId>tr.com.infumia</groupId>
   <artifactId>InfumiaPlugin</artifactId>
