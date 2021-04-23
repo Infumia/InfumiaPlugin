@@ -54,7 +54,6 @@ jobs:
           mvn deploy -Psonatype
 
       - uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           tag_name: '${{ steps.bump-semver.outputs.new_version }}'
           name: '${{ steps.bump-semver.outputs.new_version }}'
