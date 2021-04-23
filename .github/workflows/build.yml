@@ -23,3 +23,8 @@ jobs:
           mvn clean install
 
       - uses: codecov/codecov-action@v1.0.14
+
+      - uses: actions/upload-artifact@v2.2.2
+        with:
+          name: InfumiaPlugin
+          path: target/InfumiaPlugin.jar
