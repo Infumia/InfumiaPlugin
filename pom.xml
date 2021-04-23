@@ -210,11 +210,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>xxx</groupId>
-      <artifactId>xxx</artifactId>
-      <version>xxx</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/lib/FabledSkyBlock.jar</systemPath>
+      <groupId>fabledskyblock</groupId>
+      <artifactId>fabledskyblock</artifactId>
+      <version>fabledskyblock</version>
     </dependency>
     <dependency>
       <groupId>com.sk89q.worldguard</groupId>

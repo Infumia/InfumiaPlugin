@@ -1,4 +1,4 @@
 #!/bin/bash
 cd lib
-mvn install:install-file -Dfile="FabledSkyblock.jar" -DgroupId=xxx -DartifactId=xxx -Dversion=xxx -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -Dfile="FabledSkyblock.jar" -DgroupId=fabledskyblock -DartifactId=fabledskyblock -Dversion=fabledskyblock -Dpackaging=jar -DgeneratePom=true
 cd ..
