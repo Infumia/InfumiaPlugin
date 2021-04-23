@@ -60,7 +60,7 @@ public class Hooks {
     Stream.of(new LuckPermsHook(), new PlaceholderAPIHook(), new VaultHook(), new ASkyBlockHook(), new BentoBoxHook(),
       new GroupManagerHook(), new PermissionsExHook())
       .filter(Hook::initiate)
-      .forEach(hook -> Hooks.addHook(hook.id(), hook.create());
+      .forEach(hook -> Hooks.addHook(hook.id(), hook.create()));
   }
 
   @NotNull
