@@ -16,6 +16,11 @@ public class Hooks {
 
   private final Map<String, Wrapped> WRAPPERS = new HashMap<>();
 
+  public void addHook(@NotNull final String key, @NotNull final Wrapped wrapper) {
+    Hooks.WRAPPERS.put(key, wrapper);
+    Hooks.sendHookNotify(key);
+  }
+
   @NotNull
   public Optional<ASkyBlockWrapper> getASkyBlock() {
     return Hooks.getWrapper(ASkyBlockHook.ASKYBLOCK_ID);
@@ -24,11 +29,6 @@ public class Hooks {
   @NotNull
   public Optional<BentoBoxWrapper> getBentoBox() {
     return Hooks.getWrapper(BentoBoxHook.BENTOBOX_ID);
-  }
-
-  @NotNull
-  public Optional<FabledSkyBlockWrapper> getFabledSkyBlock() {
-    return Hooks.getWrapper(FabledSkyBlockHook.FABLED_SKY_BLOCK_ID);
   }
 
   @NotNull
@@ -57,11 +57,10 @@ public class Hooks {
   }
 
   public void loadHooks() {
-    Stream.of(new LuckPermsHook(), new PlaceholderAPIHook(), new VaultHook(), new ASkyBlockHook(),
-      new BentoBoxHook(), new FabledSkyBlockHook(), new GroupManagerHook(), new PermissionsExHook())
+    Stream.of(new LuckPermsHook(), new PlaceholderAPIHook(), new VaultHook(), new ASkyBlockHook(), new BentoBoxHook(),
+      new GroupManagerHook(), new PermissionsExHook())
       .filter(Hook::initiate)
-      .forEach(hook -> Hooks.WRAPPERS.put(hook.id(), hook.create()));
-    Hooks.WRAPPERS.keySet().forEach(Hooks::sendHookNotify);
+      .forEach(hook -> Hooks.addHook(hook.id(), hook.create());
   }
 
   @NotNull
@@ -72,8 +71,6 @@ public class Hooks {
   }
 
   private void sendHookNotify(@NotNull final String id) {
-    Bukkit.getConsoleSender().sendMessage(
-      ColorUtil.colored(
-        id + " is hooking"));
+    Bukkit.getConsoleSender().sendMessage(ColorUtil.colored(id + " is hooking"));
   }
 }
