@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.cactoos.map.MapEntry;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
@@ -165,7 +164,7 @@ public enum PlaceType {
   @NotNull
   public Map<String, Object> defaultValues() {
     return this.keyAndTypes.entrySet().stream()
-      .map(entry -> new MapEntry<>(entry.getKey(), PlaceType.def(entry.getValue())))
+      .map(entry -> Map.entry(entry.getKey(), PlaceType.def(entry.getValue())))
       .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 
