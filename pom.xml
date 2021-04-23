@@ -209,12 +209,6 @@
       <version>1.23.5-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
-    <!-- Run install.sh to install this dependency -->
-    <dependency>
-      <groupId>fabledskyblock</groupId>
-      <artifactId>fabledskyblock</artifactId>
-      <version>fabledskyblock</version>
-    </dependency>
     <dependency>
       <groupId>com.sk89q.worldguard</groupId>
       <artifactId>worldguard-bukkit</artifactId>
