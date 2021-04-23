@@ -56,9 +56,9 @@ jobs:
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: ${{ steps.bump-semver.outputs.new_version }}
-          name: ${{ steps.bump-semver.outputs.new_version }}
-          body: [Changelog](https://github.com/Infumia/InfumiaPlugin/compare/${{ steps.version.outputs.release }}...${{ steps.bump-semver.outputs.new_version }})
+          tag_name: '${{ steps.bump-semver.outputs.new_version }}'
+          name: '${{ steps.bump-semver.outputs.new_version }}'
+          body: '[Changelog](https://github.com/Infumia/InfumiaPlugin/compare/${{ steps.version.outputs.release }}...${{ steps.bump-semver.outputs.new_version }})'
           files: target/InfumiaPlugin.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
