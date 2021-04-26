@@ -1,11 +1,11 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.plugin.Hook;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.Hook;
+import tr.com.infumia.plugin.hook.Wrapped;
 
 public final class VaultHook implements Hook {
 

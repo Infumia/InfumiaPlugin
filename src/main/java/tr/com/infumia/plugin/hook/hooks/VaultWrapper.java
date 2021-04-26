@@ -1,10 +1,10 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import lombok.RequiredArgsConstructor;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.Wrapped;
 
 @RequiredArgsConstructor
 public final class VaultWrapper implements Wrapped {

@@ -1,10 +1,10 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import com.wasteofplastic.askyblock.ASkyBlockAPI;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.plugin.Hook;
+import tr.com.infumia.plugin.hook.Hook;
 
 public final class ASkyBlockHook implements Hook {
 

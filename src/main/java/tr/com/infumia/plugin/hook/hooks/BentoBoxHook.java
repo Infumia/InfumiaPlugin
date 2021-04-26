@@ -1,13 +1,10 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
-import java.util.Optional;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.plugin.Hook;
+import tr.com.infumia.plugin.hook.Hook;
 import world.bentobox.bentobox.BentoBox;
-import world.bentobox.bentobox.api.addons.Addon;
-import world.bentobox.bentobox.api.addons.AddonClassLoader;
 
 public final class BentoBoxHook implements Hook {
 

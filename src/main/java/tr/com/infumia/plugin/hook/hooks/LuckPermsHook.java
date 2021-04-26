@@ -1,12 +1,12 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.plugin.Hook;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.Hook;
+import tr.com.infumia.plugin.hook.Wrapped;
 
 public final class LuckPermsHook implements Hook {
 

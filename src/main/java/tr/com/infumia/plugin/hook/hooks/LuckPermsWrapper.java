@@ -1,4 +1,4 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import net.luckperms.api.node.NodeType;
 import net.luckperms.api.node.types.ChatMetaNode;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.Wrapped;
 
 @RequiredArgsConstructor
 public final class LuckPermsWrapper implements Wrapped {

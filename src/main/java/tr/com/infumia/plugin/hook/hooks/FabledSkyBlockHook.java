@@ -1,9 +1,9 @@
-//package tr.com.infumia.plugin.hooks;
+//package tr.com.infumia.plugin.hook.hooks;
 //
 //import com.songoda.skyblock.SkyBlock;
 //import org.bukkit.Bukkit;
 //import org.jetbrains.annotations.NotNull;
-//import tr.com.infumia.plugin.Hook;
+//import tr.com.infumia.plugin.hook.Hook;
 //
 //public final class FabledSkyBlockHook implements Hook {
 //

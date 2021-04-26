@@ -1,4 +1,4 @@
-package tr.com.infumia.plugin;
+package tr.com.infumia.plugin.hook;
 
 import org.jetbrains.annotations.NotNull;
 

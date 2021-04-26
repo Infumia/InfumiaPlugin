@@ -1,11 +1,11 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.Wrapped;
 
 @RequiredArgsConstructor
 public final class PlaceholderAPIWrapper implements Wrapped {

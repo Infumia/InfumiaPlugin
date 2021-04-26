@@ -1,4 +1,4 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.Wrapped;
 import world.bentobox.bentobox.BentoBox;
 import world.bentobox.bentobox.api.addons.AddonClassLoader;
 import world.bentobox.bentobox.api.user.User;
