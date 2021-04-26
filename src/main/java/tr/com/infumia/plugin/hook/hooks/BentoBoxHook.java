@@ -1,17 +1,16 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
-import java.util.Optional;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Hook;
+import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.plugin.hook.Hook;
 import world.bentobox.bentobox.BentoBox;
-import world.bentobox.bentobox.api.addons.Addon;
-import world.bentobox.bentobox.api.addons.AddonClassLoader;
 
 public final class BentoBoxHook implements Hook {
 
-  public static final String BENTOBOX_ID = "BentoBox";
+  public static final String BENTO_BOX_ID = "BentoBox";
 
+  @Nullable
   private BentoBox bentoBox;
 
   @NotNull
@@ -20,11 +19,11 @@ public final class BentoBoxHook implements Hook {
     if (this.bentoBox == null) {
       throw new IllegalStateException("BentoBox not initiated! Use BentoBoxHook#initiate() method.");
     }
-    final Optional<Addon> addon = this.bentoBox.getAddonsManager().getAddonByName("Level");
-    if (!addon.isPresent()) {
+    final var addon = this.bentoBox.getAddonsManager().getAddonByName("Level");
+    if (addon.isEmpty()) {
       throw new IllegalStateException("BentoBox not initiated! Use BentoBoxHook#initiate() method.");
     }
-    final AddonClassLoader loader = this.bentoBox.getAddonsManager().getLoader(addon.get());
+    final var loader = this.bentoBox.getAddonsManager().getLoader(addon.get());
     if (loader == null) {
       throw new IllegalStateException("Couldn't find any AddonClassLoader instance.");
     }
@@ -34,7 +33,7 @@ public final class BentoBoxHook implements Hook {
   @NotNull
   @Override
   public String id() {
-    return BentoBoxHook.BENTOBOX_ID;
+    return BentoBoxHook.BENTO_BOX_ID;
   }
 
   @Override

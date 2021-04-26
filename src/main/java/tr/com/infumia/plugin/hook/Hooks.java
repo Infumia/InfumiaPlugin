@@ -1,4 +1,4 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook;
 
 import io.github.portlek.bukkititembuilder.util.ColorUtil;
 import java.util.HashMap;
@@ -8,8 +8,20 @@ import java.util.stream.Stream;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Hook;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.hooks.ASkyBlockHook;
+import tr.com.infumia.plugin.hook.hooks.ASkyBlockWrapper;
+import tr.com.infumia.plugin.hook.hooks.BentoBoxHook;
+import tr.com.infumia.plugin.hook.hooks.BentoBoxWrapper;
+import tr.com.infumia.plugin.hook.hooks.GroupManagerHook;
+import tr.com.infumia.plugin.hook.hooks.GroupManagerWrapper;
+import tr.com.infumia.plugin.hook.hooks.LuckPermsHook;
+import tr.com.infumia.plugin.hook.hooks.LuckPermsWrapper;
+import tr.com.infumia.plugin.hook.hooks.PermissionsExHook;
+import tr.com.infumia.plugin.hook.hooks.PermissionsExWrapper;
+import tr.com.infumia.plugin.hook.hooks.PlaceholderAPIHook;
+import tr.com.infumia.plugin.hook.hooks.PlaceholderAPIWrapper;
+import tr.com.infumia.plugin.hook.hooks.VaultHook;
+import tr.com.infumia.plugin.hook.hooks.VaultWrapper;
 
 @UtilityClass
 public class Hooks {
@@ -18,17 +30,17 @@ public class Hooks {
 
   public void addHook(@NotNull final String key, @NotNull final Wrapped wrapper) {
     Hooks.WRAPPERS.put(key, wrapper);
-    Hooks.sendHookNotify(key);
+    Hooks.sendHookNotify("&a" + key);
   }
 
   @NotNull
   public Optional<ASkyBlockWrapper> getASkyBlock() {
-    return Hooks.getWrapper(ASkyBlockHook.ASKYBLOCK_ID);
+    return Hooks.getWrapper(ASkyBlockHook.A_SKY_BLOCK_ID);
   }
 
   @NotNull
   public Optional<BentoBoxWrapper> getBentoBox() {
-    return Hooks.getWrapper(BentoBoxHook.BENTOBOX_ID);
+    return Hooks.getWrapper(BentoBoxHook.BENTO_BOX_ID);
   }
 
   @NotNull
@@ -43,7 +55,7 @@ public class Hooks {
 
   @NotNull
   public Optional<PermissionsExWrapper> getPermissionsEx() {
-    return Hooks.getWrapper(PermissionsExHook.PERMISSONS_EX_ID);
+    return Hooks.getWrapper(PermissionsExHook.PERMISSIONS_EX_ID);
   }
 
   @NotNull

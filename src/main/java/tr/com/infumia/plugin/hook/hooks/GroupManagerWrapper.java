@@ -1,19 +1,17 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.anjocaido.groupmanager.GroupManager;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.Wrapped;
 
+@RequiredArgsConstructor
 public final class GroupManagerWrapper implements Wrapped {
 
   @NotNull
   private final GroupManager groupManager;
-
-  public GroupManagerWrapper(@NotNull final GroupManager groupManager) {
-    this.groupManager = groupManager;
-  }
 
   @NotNull
   public Optional<String> getGroup(final @NotNull String world, @NotNull final Player player) {

@@ -1,43 +1,28 @@
 package tr.com.infumia.plugin;
 
-import io.github.portlek.configs.Loader;
-import io.github.portlek.configs.annotation.Route;
-import io.github.portlek.configs.loaders.BaseFieldLoader;
-import io.github.portlek.reflection.RefField;
+import io.github.portlek.configs.configuration.ConfigurationSection;
+import io.github.portlek.configs.loaders.SectionFieldLoader;
+import java.util.Optional;
 import java.util.function.Supplier;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public final class FlFileElement extends BaseFieldLoader {
+public final class FlFileElement extends SectionFieldLoader<FileElement> {
 
   public static final Supplier<FlFileElement> INSTANCE = FlFileElement::new;
 
-  @Override
-  public boolean canLoad(@NotNull final Loader loader, @NotNull final RefField field) {
-    return FileElement.class == field.getType();
+  private FlFileElement() {
+    super(FileElement.class);
   }
 
+  @NotNull
   @Override
-  public void onLoad(@NotNull final Loader loader, @NotNull final RefField field) {
-    final var path = field.getAnnotation(Route.class)
-      .map(Route::value)
-      .orElse(field.getName());
-    final var fieldValue = field.getValue();
-    final var currentSection = this.getSection(loader);
-    var section = currentSection.getConfigurationSection(path);
-    if (section == null) {
-      section = currentSection.createSection(path);
+  public Optional<FileElement> toFinal(@NotNull final ConfigurationSection section,
+                                       @Nullable final FileElement fieldValue) {
+    final var deserialize = FileElement.deserialize(section);
+    if (fieldValue == null) {
+      return deserialize;
     }
-    final var valueAtPath = FileElement.from(section);
-    if (fieldValue.isPresent()) {
-      final var fileElement = (FileElement) fieldValue.get();
-      if (valueAtPath.isPresent()) {
-        field.setValue(valueAtPath.get()
-          .changeEvent(fileElement.events()));
-      } else {
-        FileElement.to(section, fileElement);
-      }
-    } else {
-      valueAtPath.ifPresent(field::setValue);
-    }
+    return deserialize.map(fileElement -> fileElement.changeEvent(fieldValue.events()));
   }
 }

@@ -1,11 +1,11 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook.hooks;
 
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.plugin.Hook;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.Hook;
+import tr.com.infumia.plugin.hook.Wrapped;
 
 public final class PlaceholderAPIHook implements Hook {
 
@@ -20,7 +20,7 @@ public final class PlaceholderAPIHook implements Hook {
     if (this.placeholderAPI == null) {
       throw new IllegalStateException("PlaceholderAPI not initiated! Use PlaceholderAPIHook#initiate method.");
     }
-    return new PlaceholderAPIWrapper();
+    return new PlaceholderAPIWrapper(this.placeholderAPI);
   }
 
   @NotNull

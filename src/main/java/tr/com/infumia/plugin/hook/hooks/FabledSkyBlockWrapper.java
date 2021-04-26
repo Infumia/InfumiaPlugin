@@ -1,4 +1,4 @@
-//package tr.com.infumia.plugin.hooks;
+//package tr.com.infumia.plugin.hook.hooks;
 //
 //import com.songoda.skyblock.SkyBlock;
 //import com.songoda.skyblock.island.Island;
@@ -8,7 +8,7 @@
 //import org.bukkit.Bukkit;
 //import org.bukkit.plugin.Plugin;
 //import org.jetbrains.annotations.NotNull;
-//import tr.com.infumia.plugin.Wrapped;
+//import tr.com.infumia.plugin.hook.Wrapped;
 //
 //@RequiredArgsConstructor
 //public final class FabledSkyBlockWrapper implements Wrapped {

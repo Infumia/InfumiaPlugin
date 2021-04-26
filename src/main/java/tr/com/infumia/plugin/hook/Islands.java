@@ -1,10 +1,11 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin.hook;
 
 import java.util.UUID;
 import lombok.experimental.UtilityClass;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hook.hooks.ASkyBlockWrapper;
+import tr.com.infumia.plugin.hook.hooks.BentoBoxWrapper;
 
 @UtilityClass
 public class Islands {
