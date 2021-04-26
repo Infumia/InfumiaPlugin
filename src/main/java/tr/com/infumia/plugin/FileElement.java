@@ -4,6 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import io.github.portlek.bukkititembuilder.ItemStackBuilder;
 import io.github.portlek.bukkititembuilder.util.ItemStackUtil;
 import io.github.portlek.configs.configuration.ConfigurationSection;
+import io.github.portlek.configs.loaders.DataSerializer;
 import io.github.portlek.smartinventory.Icon;
 import io.github.portlek.smartinventory.InventoryContents;
 import io.github.portlek.smartinventory.event.abs.ClickEvent;
@@ -22,7 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
-public final class FileElement {
+public final class FileElement implements DataSerializer {
 
   @NotNull
   private final List<Consumer<ClickEvent>> events;
@@ -519,34 +520,6 @@ public final class FileElement {
   }
 
   @NotNull
-  public static Optional<FileElement> from(@NotNull final ConfigurationSection section) {
-    final var itemSection = section.getConfigurationSection("item");
-    if (itemSection == null) {
-      return Optional.empty();
-    }
-    final var itemStackOptional = ItemStackUtil.from(itemSection.getMapValues(false));
-    final var typeOptional = section.getString("type");
-    if (itemStackOptional.isEmpty() || typeOptional == null) {
-      return Optional.empty();
-    }
-    final var type = PlaceType.fromString(typeOptional);
-    final var values = Optional.ofNullable(section.getConfigurationSection("values"))
-      .map(configurationSection -> configurationSection.getMapValues(false))
-      .orElse(new HashMap<>());
-    if (type.control(values)) {
-      return Optional.of(FileElement.from(itemStackOptional.get(), type, values));
-    }
-    final var defaults = type.defaultValues();
-    if (defaults.isEmpty()) {
-      section.set("values", null);
-    } else {
-      defaults.forEach((s, o) ->
-        section.set("values." + s, o));
-    }
-    return Optional.empty();
-  }
-
-  @NotNull
   public static FileElement from(@NotNull final ItemStack itemStack, @NotNull final PlaceType placeType,
                                  @NotNull final Map<String, Object> values,
                                  @NotNull final List<Consumer<ClickEvent>> events) {
@@ -683,12 +656,31 @@ public final class FileElement {
     return FileElement.slots(ItemStackBuilder.from(material), slots, events);
   }
 
-  public static void to(@NotNull final ConfigurationSection section, @NotNull final FileElement fileElement) {
-    section.set("item", ItemStackUtil.to(fileElement.itemStack()));
-    section.set("type", fileElement.type().name());
-    section.set("values", null);
-    fileElement.values().forEach((s, o) ->
-      section.set("values." + s, o));
+  @NotNull
+  static Optional<FileElement> deserialize(@NotNull final ConfigurationSection section) {
+    final var itemSection = section.getConfigurationSection("item");
+    if (itemSection == null) {
+      return Optional.empty();
+    }
+    final var itemStackOptional = ItemStackUtil.from(itemSection.getMapValues(false));
+    final var typeOptional = section.getString("type");
+    if (itemStackOptional.isEmpty() || typeOptional == null) {
+      return Optional.empty();
+    }
+    final var type = PlaceType.fromString(typeOptional);
+    final var values = Optional.ofNullable(section.getConfigurationSection("values"))
+      .map(configurationSection -> configurationSection.getMapValues(false))
+      .orElse(new HashMap<>());
+    if (type.control(values)) {
+      return Optional.of(FileElement.from(itemStackOptional.get(), type, values));
+    }
+    final var defaults = type.defaultValues();
+    if (defaults.isEmpty()) {
+      section.set("values", null);
+    } else {
+      defaults.forEach((s, o) -> section.set("values." + s, o));
+    }
+    return Optional.empty();
   }
 
   public FileElement addEvent(@NotNull final Consumer<ClickEvent> event) {
@@ -848,6 +840,15 @@ public final class FileElement {
       clone.setItemMeta(itemMeta);
     });
     return this.changeItemStack(clone);
+  }
+
+  @Override
+  public void serialize(@NotNull final ConfigurationSection section) {
+    section.set("item", ItemStackUtil.to(this.itemStack()));
+    section.set("type", this.type().name());
+    section.set("values", null);
+    this.values().forEach((s, o) ->
+      section.set("values." + s, o));
   }
 
   public void set(@NotNull final InventoryContents contents, final int row, final int column) {
