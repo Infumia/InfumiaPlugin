@@ -35,12 +35,12 @@ public class Hooks {
 
   @NotNull
   public Optional<ASkyBlockWrapper> getASkyBlock() {
-    return Hooks.getWrapper(ASkyBlockHook.ASKYBLOCK_ID);
+    return Hooks.getWrapper(ASkyBlockHook.A_SKY_BLOCK_ID);
   }
 
   @NotNull
   public Optional<BentoBoxWrapper> getBentoBox() {
-    return Hooks.getWrapper(BentoBoxHook.BENTOBOX_ID);
+    return Hooks.getWrapper(BentoBoxHook.BENTO_BOX_ID);
   }
 
   @NotNull
@@ -55,7 +55,7 @@ public class Hooks {
 
   @NotNull
   public Optional<PermissionsExWrapper> getPermissionsEx() {
-    return Hooks.getWrapper(PermissionsExHook.PERMISSONS_EX_ID);
+    return Hooks.getWrapper(PermissionsExHook.PERMISSIONS_EX_ID);
   }
 
   @NotNull

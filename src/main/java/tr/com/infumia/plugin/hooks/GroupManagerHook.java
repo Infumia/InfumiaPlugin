@@ -3,6 +3,7 @@ package tr.com.infumia.plugin.hooks;
 import org.anjocaido.groupmanager.GroupManager;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.Hook;
 import tr.com.infumia.plugin.Wrapped;
 
@@ -10,6 +11,7 @@ public final class GroupManagerHook implements Hook {
 
   public static final String GROUP_MANAGER_ID = "GroupManager";
 
+  @Nullable
   private GroupManager groupManager;
 
   @Override

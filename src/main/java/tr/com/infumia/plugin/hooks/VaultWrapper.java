@@ -1,18 +1,16 @@
 package tr.com.infumia.plugin.hooks;
 
+import lombok.RequiredArgsConstructor;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.plugin.Wrapped;
 
+@RequiredArgsConstructor
 public final class VaultWrapper implements Wrapped {
 
   @NotNull
   private final Economy economy;
-
-  public VaultWrapper(@NotNull final Economy economy) {
-    this.economy = economy;
-  }
 
   public void addMoney(@NotNull final Player player, final double money) {
     this.economy.depositPlayer(player, money);

@@ -5,10 +5,12 @@ import com.wasteofplastic.askyblock.ASkyBlockAPI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.plugin.Wrapped;
 
+@RequiredArgsConstructor
 public final class ASkyBlockWrapper implements Wrapped {
 
   private static final Map<Plugin, Boolean> CACHE = new HashMap<>();
@@ -16,16 +18,12 @@ public final class ASkyBlockWrapper implements Wrapped {
   @NotNull
   private final ASkyBlockAPI skyBlockAPI;
 
-  public ASkyBlockWrapper(@NotNull final ASkyBlockAPI skyBlockAPI) {
-    this.skyBlockAPI = skyBlockAPI;
-  }
-
-  public static boolean isKekoUtil(@NotNull final Plugin plugin) {
+  public static boolean isCache(@NotNull final Plugin plugin) {
     return ASkyBlockWrapper.CACHE.getOrDefault(plugin, false);
   }
 
-  public static void setKekoUtil(@NotNull final Plugin plugin, final boolean kekoUtil) {
-    ASkyBlockWrapper.CACHE.put(plugin, kekoUtil);
+  public static void setCache(@NotNull final Plugin plugin, final boolean cache) {
+    ASkyBlockWrapper.CACHE.put(plugin, cache);
   }
 
   public void addIslandLevel(@NotNull final Plugin plugin, @NotNull final UUID uuid, final long level) {
@@ -41,8 +39,8 @@ public final class ASkyBlockWrapper implements Wrapped {
   }
 
   public void setIslandLevel(@NotNull final Plugin plugin, @NotNull final UUID uuid, final long level) {
-    if (!ASkyBlockWrapper.isKekoUtil(plugin)) {
-      ASkyBlockWrapper.setKekoUtil(plugin, true);
+    if (!ASkyBlockWrapper.isCache(plugin)) {
+      ASkyBlockWrapper.setCache(plugin, true);
       this.skyBlockAPI.calculateIslandLevel(uuid);
     }
     ASkyBlock.getPlugin().getPlayers().setIslandLevel(uuid, level);

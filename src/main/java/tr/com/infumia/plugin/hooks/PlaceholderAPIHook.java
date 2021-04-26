@@ -20,7 +20,7 @@ public final class PlaceholderAPIHook implements Hook {
     if (this.placeholderAPI == null) {
       throw new IllegalStateException("PlaceholderAPI not initiated! Use PlaceholderAPIHook#initiate method.");
     }
-    return new PlaceholderAPIWrapper();
+    return new PlaceholderAPIWrapper(placeholderAPI);
   }
 
   @NotNull

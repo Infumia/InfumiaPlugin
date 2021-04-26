@@ -3,12 +3,14 @@ package tr.com.infumia.plugin.hooks;
 import com.wasteofplastic.askyblock.ASkyBlockAPI;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.Hook;
 
 public final class ASkyBlockHook implements Hook {
 
-  public static final String ASKYBLOCK_ID = "ASkyBlock";
+  public static final String A_SKY_BLOCK_ID = "ASkyBlock";
 
+  @Nullable
   private ASkyBlockAPI skyBlockAPI;
 
   @NotNull
@@ -23,7 +25,7 @@ public final class ASkyBlockHook implements Hook {
   @NotNull
   @Override
   public String id() {
-    return ASkyBlockHook.ASKYBLOCK_ID;
+    return ASkyBlockHook.A_SKY_BLOCK_ID;
   }
 
   @Override
