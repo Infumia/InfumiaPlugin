@@ -18,7 +18,7 @@ public class Hooks {
 
   public void addHook(@NotNull final String key, @NotNull final Wrapped wrapper) {
     Hooks.WRAPPERS.put(key, wrapper);
-    Hooks.sendHookNotify(key);
+    Hooks.sendHookNotify("&a" + key);
   }
 
   @NotNull
