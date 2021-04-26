@@ -7,7 +7,6 @@ import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.plugin.hooks.Hooks;
 
 /**
  * main class of the Infumia plugin.

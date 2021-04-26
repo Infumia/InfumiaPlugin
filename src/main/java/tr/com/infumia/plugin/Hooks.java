@@ -1,4 +1,4 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin;
 
 import io.github.portlek.bukkititembuilder.util.ColorUtil;
 import java.util.HashMap;
@@ -8,8 +8,20 @@ import java.util.stream.Stream;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.Hook;
-import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hooks.ASkyBlockHook;
+import tr.com.infumia.plugin.hooks.ASkyBlockWrapper;
+import tr.com.infumia.plugin.hooks.BentoBoxHook;
+import tr.com.infumia.plugin.hooks.BentoBoxWrapper;
+import tr.com.infumia.plugin.hooks.GroupManagerHook;
+import tr.com.infumia.plugin.hooks.GroupManagerWrapper;
+import tr.com.infumia.plugin.hooks.LuckPermsHook;
+import tr.com.infumia.plugin.hooks.LuckPermsWrapper;
+import tr.com.infumia.plugin.hooks.PermissionsExHook;
+import tr.com.infumia.plugin.hooks.PermissionsExWrapper;
+import tr.com.infumia.plugin.hooks.PlaceholderAPIHook;
+import tr.com.infumia.plugin.hooks.PlaceholderAPIWrapper;
+import tr.com.infumia.plugin.hooks.VaultHook;
+import tr.com.infumia.plugin.hooks.VaultWrapper;
 
 @UtilityClass
 public class Hooks {

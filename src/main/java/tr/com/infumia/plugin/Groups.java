@@ -1,4 +1,4 @@
-package tr.com.infumia.plugin.hooks;
+package tr.com.infumia.plugin;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -6,6 +6,9 @@ import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.plugin.Wrapped;
+import tr.com.infumia.plugin.hooks.GroupManagerWrapper;
+import tr.com.infumia.plugin.hooks.LuckPermsWrapper;
+import tr.com.infumia.plugin.hooks.PermissionsExWrapper;
 
 @UtilityClass
 public class Groups {
