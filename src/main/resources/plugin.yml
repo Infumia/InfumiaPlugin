@@ -2,6 +2,3 @@ name: ${project.name}
 version: ${project.version}
 main: tr.com.infumia.plugin.InfumiaPlugin
 api-version: 1.16
-commands:
-  infumia:
-    description: Main command of Infumia Plugin.
