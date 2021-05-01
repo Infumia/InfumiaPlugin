@@ -31,12 +31,6 @@
             <configuration>
               <minimizeJar>false</minimizeJar>
               <createDependencyReducedPom>false</createDependencyReducedPom>
-              <relocations>
-                <relocation>
-                  <pattern>dev.jorel.commandapi</pattern>
-                  <shadedPattern>tr.com.infumia.plugin.commandapi</shadedPattern>
-                </relocation>
-              </relocations>
             </configuration>
           </execution>
         </executions>
