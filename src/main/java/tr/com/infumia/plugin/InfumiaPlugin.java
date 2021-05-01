@@ -34,12 +34,12 @@ public final class InfumiaPlugin extends JavaPlugin {
     TaskUtilities.init(this);
     InfumiaConfig.load(this);
     CommandAPI.onLoad(new CommandAPIConfig());
-    new InfumiaPluginCommands(this).register();
   }
 
   @Override
   public void onEnable() {
     CommandAPI.onEnable(this);
+    new InfumiaPluginCommands(this).register();
     this.inventory.init();
     Hooks.loadHooks();
     if (InfumiaConfig.checkForUpdate) {
