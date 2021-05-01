@@ -18,7 +18,7 @@ public class InventoryUtilities {
    * @param player the player to check.
    * @param item the item to check.
    *
-   * @return {@link true} if the player's inventory can't get the given item.
+   * @return {@code true} if the player's inventory can't get the given item.
    */
   public boolean isInventoryFull(@NotNull final Player player, @NotNull final ItemStack item) {
     if (item.getType() == Material.AIR) {
@@ -53,7 +53,7 @@ public class InventoryUtilities {
    * @param player the player to check.
    * @param item the item to check.
    *
-   * @return {@link true} if the player's inventory can get the given item.
+   * @return {@code true} if the player's inventory can get the given item.
    */
   public boolean isInventoryNotFull(@NotNull final Player player, @NotNull final ItemStack item) {
     return !InventoryUtilities.isInventoryFull(player, item);
