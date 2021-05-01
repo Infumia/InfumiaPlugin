@@ -104,6 +104,7 @@ public class GitHubUpdateChecker {
       .append(Component.text("/releases/latest/")
         .color(NamedTextColor.GOLD)
         .decorate(TextDecoration.UNDERLINED))
+      .append(Component.text())
       .build();
   }
 }
