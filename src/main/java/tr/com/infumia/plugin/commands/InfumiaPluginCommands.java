@@ -47,7 +47,7 @@ public final class InfumiaPluginCommands {
   @NotNull
   private CommandAPICommand getMainCommand() {
     return new CommandAPICommand("infumia")
-      .withPermission("infumiaplugin.command.main")
+      .withPermission(Permissions.MAIN)
       .executes((sender, objects) -> {
         sender.sendMessage(this.getVersionMessage());
       });
@@ -61,7 +61,7 @@ public final class InfumiaPluginCommands {
   @NotNull
   private CommandAPICommand getReloadCommand() {
     return new CommandAPICommand("reload")
-      .withPermission("infumiaplugin.command.reload")
+      .withPermission(Permissions.RELOAD)
       .executes((sender, objects) -> {
         InfumiaConfig.load(this.plugin, true).whenComplete((configLoader, throwable) -> {
           sender.sendMessage(this.getReloadCompleteMessage());
@@ -92,7 +92,7 @@ public final class InfumiaPluginCommands {
   @NotNull
   private CommandAPICommand getUpdateCommand() {
     return new CommandAPICommand("update")
-      .withPermission("infumiaplugin.command.update")
+      .withPermission(Permissions.UPDATE)
       .executes((sender, objects) -> {
         GitHubUpdateChecker.checkForUpdate(sender, this.plugin, "Infumia", "InfumiaPlugin");
       });
@@ -122,5 +122,26 @@ public final class InfumiaPluginCommands {
         .decorate(TextDecoration.UNDERLINED)
         .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/InfumiaPlugin/releases/latest/")))
       .build();
+  }
+
+  /**
+   * a class that contains constant value of the permissions.
+   */
+  private static final class Permissions {
+
+    /**
+     * the main.
+     */
+    private static final String MAIN = "infumiaplugin.command.main";
+
+    /**
+     * the reload.
+     */
+    private static final String RELOAD = "infumiaplugin.command.reload";
+
+    /**
+     * the update.
+     */
+    private static final String UPDATE = "infumiaplugin.command.update";
   }
 }

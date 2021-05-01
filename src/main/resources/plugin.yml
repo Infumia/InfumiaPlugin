@@ -6,25 +6,3 @@ commands:
     usage: /infumia [reload|update]
     permission: infumiaplugin.command.main
     description: Main command of Infumia Plugin.
-permissions:
-  infumiaplugin.*:
-    description: Allows you to access all features of Infumia Plugin.
-    default: op
-    children:
-      - infumiaplugin.command.*
-  infumiaplugin.command.*:
-    description: Allows you to access all command of Infumia Plugin.
-    default: op
-    children:
-      - infumiaplugin.command.reload
-      - infumiaplugin.command.main
-      - infumiaplugin.command.update
-  infumiaplugin.command.main:
-    description: Allows you to use main command of Infumia Plugin.
-    default: op
-  infumiaplugin.command.reload:
-    description: Allows you to use reload command of Infumia Plugin.
-    default: op
-  infumiaplugin.command.update:
-    description: Allows you to use update command of Infumia Plugin.
-    default: op
