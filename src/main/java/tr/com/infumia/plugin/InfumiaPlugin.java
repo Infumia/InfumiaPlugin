@@ -2,7 +2,6 @@ package tr.com.infumia.plugin;
 
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIConfig;
-import io.github.portlek.input.Task;
 import io.github.portlek.smartinventory.SmartInventory;
 import io.github.portlek.smartinventory.manager.BasicSmartInventory;
 import java.util.Objects;
