@@ -1,6 +1,7 @@
 package tr.com.infumia.plugin.commands;
 
 import dev.jorel.commandapi.CommandAPICommand;
+import dev.jorel.commandapi.CommandPermission;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -20,17 +21,17 @@ public final class InfumiaPluginCommands {
   /**
    * the main.
    */
-  private static final String MAIN = "infumiaplugin.command.main";
+  private static final CommandPermission MAIN = CommandPermission.fromString("infumiaplugin.command.main");
 
   /**
    * the reload.
    */
-  private static final String RELOAD = "infumiaplugin.command.reload";
+  private static final CommandPermission RELOAD = CommandPermission.fromString("infumiaplugin.command.reload");
 
   /**
    * the update.
    */
-  private static final String UPDATE = "infumiaplugin.command.update";
+  private static final CommandPermission UPDATE = CommandPermission.fromString("infumiaplugin.command.update");
 
   /**
    * the plugin.
