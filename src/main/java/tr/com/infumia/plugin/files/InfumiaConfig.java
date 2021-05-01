@@ -2,6 +2,7 @@ package tr.com.infumia.plugin.files;
 
 import io.github.portlek.configs.ConfigHolder;
 import io.github.portlek.configs.ConfigLoader;
+import io.github.portlek.configs.annotation.Route;
 import io.github.portlek.configs.yaml.YamlType;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,6 +18,7 @@ public final class InfumiaConfig implements ConfigHolder {
   /**
    * the check for update.
    */
+  @Route("check-for-update")
   public static boolean checkForUpdate = true;
 
   /**
