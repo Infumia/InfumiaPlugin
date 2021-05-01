@@ -7,6 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.plugin.hooks.hooks.ASkyBlockWrapper;
 import tr.com.infumia.plugin.hooks.hooks.BentoBoxWrapper;
 
+/**
+ * a class that contains utility methods for island plugins.
+ */
 @UtilityClass
 public class Islands {
 
@@ -17,8 +20,7 @@ public class Islands {
    * @param uniqueId the unique id to add.
    * @param level the level to add.
    */
-  public void addFirstIslandLevel(@NotNull final Plugin plugin,
-                                  @NotNull final UUID uniqueId, final long level) {
+  public void addFirstIslandLevel(@NotNull final Plugin plugin, @NotNull final UUID uniqueId, final long level) {
     Hooks.getASkyBlock().ifPresentOrElse(wrapper ->
       Islands.addFirstIslandLevel(wrapper, plugin, uniqueId, level), () ->
       Hooks.getBentoBox().ifPresent(wrapper ->
