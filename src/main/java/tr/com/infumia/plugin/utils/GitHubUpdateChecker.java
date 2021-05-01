@@ -50,8 +50,8 @@ public class GitHubUpdateChecker {
           .getTagName();
         final var pluginVersion = plugin.getDescription().getVersion();
         if (!version.equals(pluginVersion)) {
-          sender.sendMessage(
-            GitHubUpdateChecker.createUpdateMessage(plugin, organizationName, repositoryName));
+          sender.sendMessage(GitHubUpdateChecker.createUpdateMessage0(plugin));
+          sender.sendMessage(GitHubUpdateChecker.createUpdateMessage1(organizationName, repositoryName));
         }
       } catch (final IOException e) {
         plugin.getSLF4JLogger().warn("Something went wrong when connecting to GitHub.", e);
@@ -63,34 +63,47 @@ public class GitHubUpdateChecker {
    * creates a new update message.
    *
    * @param plugin the plugin to create.
-   * @param organizationName the organization name to create.
-   * @param repositoryName the repository name to create.
    *
    * @return a newly created update message.
    */
   @NotNull
-  public static TextComponent createUpdateMessage(@NotNull final Plugin plugin, @NotNull final String organizationName,
-                                                  @NotNull final String repositoryName) {
+  private static TextComponent createUpdateMessage0(@NotNull final Plugin plugin) {
     return Component.text()
       .append(Component.text("[InfumiaPlugin] Update available for ")
         .color(NamedTextColor.YELLOW))
       .append(Component.text(plugin.getName()))
       .append(Component.text(" download the newest version here:")
         .color(NamedTextColor.YELLOW))
-      .append(Component.newline())
-      .append(Component.text("https://github.com/%organization_name%/%repository_name%/releases/latest")
+      .build();
+  }
+
+  /**
+   * creates a new update message.
+   *
+   * @param organizationName the organization name to create.
+   * @param repositoryName the repository name to create.
+   *
+   * @return a newly created update message.
+   */
+  @NotNull
+  private static TextComponent createUpdateMessage1(@NotNull final String organizationName,
+                                                    @NotNull final String repositoryName) {
+    return Component.text()
+      .append(Component.text("https://github.com/")
         .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED)
-        .replaceText(TextReplacementConfig.builder()
-          .matchLiteral("%organization_name%")
-          .once()
-          .replacement(organizationName)
-          .build())
-        .replaceText(TextReplacementConfig.builder()
-          .matchLiteral("%repository_name%")
-          .once()
-          .replacement(repositoryName)
-          .build()))
+        .decorate(TextDecoration.UNDERLINED))
+      .append(Component.text(organizationName)
+        .color(NamedTextColor.GOLD)
+        .decorate(TextDecoration.UNDERLINED))
+      .append(Component.text("/")
+        .color(NamedTextColor.GOLD)
+        .decorate(TextDecoration.UNDERLINED))
+      .append(Component.text(repositoryName)
+        .color(NamedTextColor.GOLD)
+        .decorate(TextDecoration.UNDERLINED))
+      .append(Component.text("/releases/latest/")
+        .color(NamedTextColor.GOLD)
+        .decorate(TextDecoration.UNDERLINED))
       .build();
   }
 }

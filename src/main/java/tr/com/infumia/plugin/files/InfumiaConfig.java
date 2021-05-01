@@ -3,6 +3,8 @@ package tr.com.infumia.plugin.files;
 import io.github.portlek.configs.ConfigHolder;
 import io.github.portlek.configs.ConfigLoader;
 import io.github.portlek.configs.yaml.YamlType;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.concurrent.CompletableFuture;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +38,14 @@ public final class InfumiaConfig implements ConfigHolder {
    */
   @NotNull
   public static CompletableFuture<ConfigLoader> load(@NotNull final Plugin plugin, final boolean async) {
-    return ConfigLoader.builder("config.yml", plugin.getDataFolder(), YamlType.get())
+    try {
+      final var path = plugin.getDataFolder().toPath();
+      if (Files.notExists(path)) {
+        Files.createDirectories(path);
+      }
+    } catch (final IOException ignored) {
+    }
+    return ConfigLoader.builder("config", plugin.getDataFolder(), YamlType.get())
       .setConfigHolder(new InfumiaConfig())
       .build()
       .load(true, async);
