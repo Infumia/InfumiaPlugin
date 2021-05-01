@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.hooks.Hook;
 import world.bentobox.bentobox.BentoBox;
 
-public final class BentoBoxHook implements Hook {
+public final class BentoBoxHook implements Hook<BentoBoxWrapper> {
 
   public static final String BENTO_BOX_ID = "BentoBox";
 

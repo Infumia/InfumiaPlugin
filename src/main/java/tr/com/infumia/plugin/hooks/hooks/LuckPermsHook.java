@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.hooks.Hook;
 import tr.com.infumia.plugin.hooks.Wrapped;
 
-public final class LuckPermsHook implements Hook {
+public final class LuckPermsHook implements Hook<LuckPermsWrapper> {
 
   public static final String LUCK_PERMS_ID = "LuckPerms";
 
@@ -17,7 +17,7 @@ public final class LuckPermsHook implements Hook {
 
   @Override
   @NotNull
-  public Wrapped create() {
+  public LuckPermsWrapper create() {
     if (this.luckPerms == null) {
       throw new IllegalStateException("LuckPerms not initiated! Use LuckPermsHook#initiate method.");
     }

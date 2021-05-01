@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.hooks.Hook;
 import tr.com.infumia.plugin.hooks.Wrapped;
 
-public final class PlaceholderAPIHook implements Hook {
+public final class PlaceholderAPIHook implements Hook<PlaceholderAPIWrapper> {
 
   public static final String PLACEHOLDER_API_ID = "PlaceholderAPI";
 
@@ -16,7 +16,7 @@ public final class PlaceholderAPIHook implements Hook {
 
   @Override
   @NotNull
-  public Wrapped create() {
+  public PlaceholderAPIWrapper create() {
     if (this.placeholderAPI == null) {
       throw new IllegalStateException("PlaceholderAPI not initiated! Use PlaceholderAPIHook#initiate method.");
     }
