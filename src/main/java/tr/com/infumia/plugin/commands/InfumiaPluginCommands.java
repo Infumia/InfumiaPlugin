@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.plugin.files.InfumiaConfig;
@@ -129,16 +128,13 @@ public final class InfumiaPluginCommands {
         .color(NamedTextColor.YELLOW))
       .append(Component.text("Infumia")
         .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED)
         .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/")))
       .append(Component.newline())
       .append(Component.text("Current version")
         .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED)
         .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/InfumiaPlugin/releases/tag/" + this.plugin.getDescription().getVersion())))
       .append(Component.text("Latest version")
         .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED)
         .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/InfumiaPlugin/releases/latest/")))
       .build();
   }

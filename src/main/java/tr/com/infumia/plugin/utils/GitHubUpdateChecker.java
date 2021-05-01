@@ -5,7 +5,6 @@ import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -89,20 +88,15 @@ public class GitHubUpdateChecker {
                                                     @NotNull final String repositoryName) {
     return Component.text()
       .append(Component.text("https://github.com/")
-        .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED))
+        .color(NamedTextColor.GOLD))
       .append(Component.text(organizationName)
-        .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED))
+        .color(NamedTextColor.GOLD))
       .append(Component.text("/")
-        .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED))
+        .color(NamedTextColor.GOLD))
       .append(Component.text(repositoryName)
-        .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED))
+        .color(NamedTextColor.GOLD))
       .append(Component.text("/releases/latest/")
-        .color(NamedTextColor.GOLD)
-        .decorate(TextDecoration.UNDERLINED))
+        .color(NamedTextColor.GOLD))
       .append(Component.text())
       .build();
   }
