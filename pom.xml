@@ -33,7 +33,7 @@
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <relocations>
                 <relocation>
-                  <pattern>dev.jorel.commandapi-shade</pattern>
+                  <pattern>dev.jorel.commandapi</pattern>
                   <shadedPattern>tr.com.infumia.plugin.commandapi</shadedPattern>
                 </relocation>
               </relocations>
