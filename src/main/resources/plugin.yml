@@ -4,6 +4,7 @@ main: tr.com.infumia.plugin.InfumiaPlugin
 commands:
   infumia:
     usage: /infumia [reload|update]
+    permission: infumiaplugin.command.main
     description: Main command of Infumia Plugin.
 permissions:
   infumiaplugin.*:
