@@ -40,7 +40,7 @@ public class GitHubUpdateChecker {
    */
   public static void checkForUpdate(@NotNull final CommandSender sender, @NotNull final Plugin plugin,
                                     @NotNull final String organizationName, @NotNull final String repositoryName) {
-    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+    TaskUtilities.async(() -> {
       try {
         final var version = GitHub.connect()
           .getOrganization(organizationName)
