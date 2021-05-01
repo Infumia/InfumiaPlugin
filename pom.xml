@@ -31,6 +31,12 @@
             <configuration>
               <minimizeJar>false</minimizeJar>
               <createDependencyReducedPom>false</createDependencyReducedPom>
+              <relocations>
+                <relocation>
+                  <pattern>dev.jorel.commandapi-shade</pattern>
+                  <shadedPattern>tr.com.infumia.plugin.commandapi</shadedPattern>
+                </relocation>
+              </relocations>
             </configuration>
           </execution>
         </executions>
@@ -45,20 +51,24 @@
   </build>
   <repositories>
     <repository>
-      <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-      <id>placeholderapi</id>
+      <url>https://papermc.io/repo/repository/maven-public/</url>
+      <id>papermc</id>
     </repository>
     <repository>
-      <url>https://dl.bintray.com/tastybento/maven-repo</url>
-      <id>bintray-tastybento-maven-repo</id>
+      <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+      <id>placeholderapi</id>
     </repository>
     <repository>
       <url>https://maven.enginehub.org/repo/</url>
       <id>sk89q-repo</id>
     </repository>
     <repository>
-      <url>https://repo.codemc.io/repository/maven-snapshots/</url>
-      <id>codemc-snapshots</id>
+      <url>https://dl.bintray.com/tastybento/maven-repo</url>
+      <id>bintray-tastybento-maven-repo</id>
+    </repository>
+    <repository>
+      <url>https://raw.githubusercontent.com/JorelAli/CommandAPI/mvn-repo/</url>
+      <id>commandapi</id>
     </repository>
   </repositories>
   <dependencies>
@@ -149,17 +159,22 @@
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
-      <artifactId>mapentry</artifactId>
-      <version>2.0.10</version>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
       <artifactId>equilibrium</artifactId>
       <version>2.1.9</version>
     </dependency>
     <dependency>
-      <groupId>org.spigotmc</groupId>
-      <artifactId>spigot-api</artifactId>
+      <groupId>org.kohsuke</groupId>
+      <artifactId>github-api</artifactId>
+      <version>1.128</version>
+    </dependency>
+    <dependency>
+      <groupId>dev.jorel</groupId>
+      <artifactId>commandapi-shade</artifactId>
+      <version>5.10</version>
+    </dependency>
+    <dependency>
+      <groupId>com.destroystokyo.paper</groupId>
+      <artifactId>paper-api</artifactId>
       <version>1.16.5-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
