@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.hooks.Hook;
 import tr.com.infumia.plugin.hooks.Wrapped;
 
-public final class GroupManagerHook implements Hook {
+public final class GroupManagerHook implements Hook<GroupManagerWrapper> {
 
   public static final String GROUP_MANAGER_ID = "GroupManager";
 
@@ -16,7 +16,7 @@ public final class GroupManagerHook implements Hook {
 
   @Override
   @NotNull
-  public Wrapped create() {
+  public GroupManagerWrapper create() {
     if (this.groupManager == null) {
       throw new IllegalStateException("GroupManager not initiated! Use GroupManagerHook#initiate method.");
     }

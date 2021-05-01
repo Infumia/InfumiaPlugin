@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 import tr.com.infumia.plugin.hooks.Hook;
 
-public final class PermissionsExHook implements Hook {
+public final class PermissionsExHook implements Hook<PermissionsExWrapper> {
 
   public static final String PERMISSIONS_EX_ID = "PermissionsEx";
 

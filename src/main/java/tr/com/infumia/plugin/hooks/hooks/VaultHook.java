@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.hooks.Hook;
 import tr.com.infumia.plugin.hooks.Wrapped;
 
-public final class VaultHook implements Hook {
+public final class VaultHook implements Hook<VaultWrapper> {
 
   public static final String VAULT_ID = "Vault";
 
@@ -16,7 +16,7 @@ public final class VaultHook implements Hook {
 
   @NotNull
   @Override
-  public Wrapped create() {
+  public VaultWrapper create() {
     if (this.economy == null) {
       throw new IllegalStateException("Vault not initiated! Use VaultHook#initiate() method.");
     }

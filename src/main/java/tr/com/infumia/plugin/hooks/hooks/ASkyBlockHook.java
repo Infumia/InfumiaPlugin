@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.hooks.Hook;
 
-public final class ASkyBlockHook implements Hook {
+public final class ASkyBlockHook implements Hook<ASkyBlockWrapper> {
 
   public static final String A_SKY_BLOCK_ID = "ASkyBlock";
 
