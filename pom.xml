@@ -12,6 +12,7 @@
   <artifactId>InfumiaPlugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>InfumiaPlugin</name>
+  <description>A library-like plugin that allows you to use Infumia's Minecraft Bukkit plugins.</description>
   <properties>
     <java.version>11</java.version>
   </properties>
