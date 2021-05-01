@@ -7,10 +7,19 @@ import java.util.function.Supplier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * an implementation of {@link SectionFieldLoader} for {@link FileElement}.
+ */
 public final class FlFileElement extends SectionFieldLoader<FileElement> {
 
+  /**
+   * the instance.
+   */
   public static final Supplier<FlFileElement> INSTANCE = FlFileElement::new;
 
+  /**
+   * ctor.
+   */
   private FlFileElement() {
     super(FileElement.class);
   }
