@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.stream.IntStream;
 import lombok.experimental.UtilityClass;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -34,12 +35,7 @@ public class TaskUtilities {
    */
   @NotNull
   public BukkitTask async(@NotNull final Runnable job) {
-    return new BukkitRunnable() {
-      @Override
-      public void run() {
-        job.run();
-      }
-    }.runTaskAsynchronously(TaskUtilities.getPlugin());
+    return Bukkit.getScheduler().runTaskAsynchronously(TaskUtilities.getPlugin(), job);
   }
 
   /**
@@ -52,12 +48,7 @@ public class TaskUtilities {
    */
   @NotNull
   public BukkitTask asyncLater(final long delay, @NotNull final Runnable job) {
-    return new BukkitRunnable() {
-      @Override
-      public void run() {
-        job.run();
-      }
-    }.runTaskLaterAsynchronously(TaskUtilities.getPlugin(), delay);
+    return Bukkit.getScheduler().runTaskLaterAsynchronously(TaskUtilities.getPlugin(), job, delay);
   }
 
   /**
@@ -118,12 +109,7 @@ public class TaskUtilities {
    */
   @NotNull
   public BukkitTask asyncTimerLater(final long delay, final long period, @NotNull final Runnable job) {
-    return new BukkitRunnable() {
-      @Override
-      public void run() {
-        job.run();
-      }
-    }.runTaskTimerAsynchronously(TaskUtilities.getPlugin(), delay, period);
+    return Bukkit.getScheduler().runTaskTimerAsynchronously(TaskUtilities.getPlugin(), job, delay, period);
   }
 
   /**
@@ -216,12 +202,7 @@ public class TaskUtilities {
    */
   @NotNull
   public BukkitTask sync(@NotNull final Runnable job) {
-    return new BukkitRunnable() {
-      @Override
-      public void run() {
-        job.run();
-      }
-    }.runTask(TaskUtilities.getPlugin());
+    return Bukkit.getScheduler().runTask(TaskUtilities.getPlugin(), job);
   }
 
   /**
@@ -234,12 +215,7 @@ public class TaskUtilities {
    */
   @NotNull
   public BukkitTask syncLater(final long delay, @NotNull final Runnable job) {
-    return new BukkitRunnable() {
-      @Override
-      public void run() {
-        job.run();
-      }
-    }.runTaskLater(TaskUtilities.getPlugin(), delay);
+    return Bukkit.getScheduler().runTaskLater(TaskUtilities.getPlugin(), job, delay);
   }
 
   /**
@@ -300,12 +276,7 @@ public class TaskUtilities {
    */
   @NotNull
   public BukkitTask syncTimerLater(final long delay, final long period, @NotNull final Runnable job) {
-    return new BukkitRunnable() {
-      @Override
-      public void run() {
-        job.run();
-      }
-    }.runTaskTimer(TaskUtilities.getPlugin(), delay, period);
+    return Bukkit.getScheduler().runTaskTimer(TaskUtilities.getPlugin(), job, delay, period);
   }
 
   /**

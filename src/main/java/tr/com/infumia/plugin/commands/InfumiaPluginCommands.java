@@ -1,6 +1,7 @@
 package tr.com.infumia.plugin.commands;
 
 import dev.jorel.commandapi.CommandAPICommand;
+import dev.jorel.commandapi.CommandPermission;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -11,8 +12,26 @@ import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.plugin.files.InfumiaConfig;
 import tr.com.infumia.plugin.utils.GitHubUpdateChecker;
 
+/**
+ * a class that contains Infumia plugin's commands.
+ */
 @RequiredArgsConstructor
 public final class InfumiaPluginCommands {
+
+  /**
+   * the main.
+   */
+  private static final CommandPermission MAIN = CommandPermission.fromString("infumiaplugin.command.main");
+
+  /**
+   * the reload.
+   */
+  private static final CommandPermission RELOAD = CommandPermission.fromString("infumiaplugin.command.reload");
+
+  /**
+   * the update.
+   */
+  private static final CommandPermission UPDATE = CommandPermission.fromString("infumiaplugin.command.update");
 
   /**
    * the plugin.
@@ -47,7 +66,7 @@ public final class InfumiaPluginCommands {
   @NotNull
   private CommandAPICommand getMainCommand() {
     return new CommandAPICommand("infumia")
-      .withPermission("infumiaplugin.command.main")
+      .withPermission(InfumiaPluginCommands.MAIN)
       .executes((sender, objects) -> {
         sender.sendMessage(this.getVersionMessage());
       });
@@ -61,7 +80,7 @@ public final class InfumiaPluginCommands {
   @NotNull
   private CommandAPICommand getReloadCommand() {
     return new CommandAPICommand("reload")
-      .withPermission("infumiaplugin.command.reload")
+      .withPermission(InfumiaPluginCommands.RELOAD)
       .executes((sender, objects) -> {
         InfumiaConfig.load(this.plugin, true).whenComplete((configLoader, throwable) -> {
           sender.sendMessage(this.getReloadCompleteMessage());
@@ -92,7 +111,7 @@ public final class InfumiaPluginCommands {
   @NotNull
   private CommandAPICommand getUpdateCommand() {
     return new CommandAPICommand("update")
-      .withPermission("infumiaplugin.command.update")
+      .withPermission(InfumiaPluginCommands.UPDATE)
       .executes((sender, objects) -> {
         GitHubUpdateChecker.checkForUpdate(sender, this.plugin, "Infumia", "InfumiaPlugin");
       });

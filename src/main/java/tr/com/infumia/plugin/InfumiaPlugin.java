@@ -31,6 +31,7 @@ public final class InfumiaPlugin extends JavaPlugin {
   @Override
   public void onLoad() {
     InfumiaPlugin.instance = this;
+    TaskUtilities.init(this);
     InfumiaConfig.load(this);
     CommandAPI.onLoad(new CommandAPIConfig());
     new InfumiaPluginCommands(this).register();
@@ -39,7 +40,6 @@ public final class InfumiaPlugin extends JavaPlugin {
   @Override
   public void onEnable() {
     CommandAPI.onEnable(this);
-    TaskUtilities.init(this);
     this.inventory.init();
     Hooks.loadHooks();
     if (InfumiaConfig.checkForUpdate) {
