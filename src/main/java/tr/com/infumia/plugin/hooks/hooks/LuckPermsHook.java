@@ -6,7 +6,6 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.hooks.Hook;
-import tr.com.infumia.plugin.hooks.Wrapped;
 
 public final class LuckPermsHook implements Hook<LuckPermsWrapper> {
 

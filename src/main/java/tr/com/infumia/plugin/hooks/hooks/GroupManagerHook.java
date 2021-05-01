@@ -5,7 +5,6 @@ import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.plugin.hooks.Hook;
-import tr.com.infumia.plugin.hooks.Wrapped;
 
 public final class GroupManagerHook implements Hook<GroupManagerWrapper> {
 
