@@ -4,7 +4,7 @@
 <dependency>
   <groupId>tr.com.infumia</groupId>
   <artifactId>InfumiaPlugin</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>${version}</version>
   <scope>provided</scope>
 </dependency>
 ```
