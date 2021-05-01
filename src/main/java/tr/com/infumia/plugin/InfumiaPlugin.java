@@ -33,7 +33,7 @@ public final class InfumiaPlugin extends JavaPlugin {
     InfumiaPlugin.instance = this;
     InfumiaConfig.load(this);
     CommandAPI.onLoad(new CommandAPIConfig());
-    InfumiaPluginCommands.register(this);
+    new InfumiaPluginCommands(this).register();
   }
 
   @Override
