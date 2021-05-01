@@ -3,5 +3,4 @@ version: ${project.version}
 main: tr.com.infumia.plugin.InfumiaPlugin
 commands:
   infumia:
-    usage: /infumia [reload|update]
     description: Main command of Infumia Plugin.
