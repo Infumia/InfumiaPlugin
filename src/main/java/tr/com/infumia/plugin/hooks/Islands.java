@@ -4,7 +4,6 @@ import java.util.UUID;
 import lombok.experimental.UtilityClass;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.hooks.hooks.ASkyBlockWrapper;
 import tr.com.infumia.plugin.hooks.hooks.BentoBoxWrapper;
 
 /**
@@ -21,10 +20,8 @@ public class Islands {
    * @param level the level to add.
    */
   public void addFirstIslandLevel(@NotNull final Plugin plugin, @NotNull final UUID uniqueId, final long level) {
-    Hooks.getASkyBlock().ifPresentOrElse(wrapper ->
-      Islands.addFirstIslandLevel(wrapper, plugin, uniqueId, level), () ->
-      Hooks.getBentoBox().ifPresent(wrapper ->
-        Islands.addFirstIslandLevel(wrapper, plugin, uniqueId, level)));
+    Hooks.getBentoBox().ifPresent(wrapper ->
+      Islands.addFirstIslandLevel(wrapper, plugin, uniqueId, level));
   }
 
   /**
@@ -37,9 +34,7 @@ public class Islands {
    */
   public void addFirstIslandLevel(@NotNull final Wrapped wrapper, @NotNull final Plugin plugin,
                                   @NotNull final UUID uniqueId, final long level) {
-    if (wrapper instanceof ASkyBlockWrapper) {
-      ((ASkyBlockWrapper) wrapper).addIslandLevel(plugin, uniqueId, level);
-    } else if (wrapper instanceof BentoBoxWrapper) {
+    if (wrapper instanceof BentoBoxWrapper) {
       ((BentoBoxWrapper) wrapper).addIslandLevel(plugin, uniqueId, level);
     }
   }
@@ -52,13 +47,10 @@ public class Islands {
    * @return level of the first island.
    */
   public long getFirstIslandLevel(@NotNull final UUID uniqueId) {
-    return Hooks.getASkyBlock()
+    return Hooks.getBentoBox()
       .map(wrapper ->
         Islands.getFirstIslandLevel(wrapper, uniqueId))
-      .orElse(Hooks.getBentoBox()
-        .map(wrapper ->
-          Islands.getFirstIslandLevel(wrapper, uniqueId))
-        .orElse(0L));
+      .orElse(0L);
   }
 
   /**
@@ -70,9 +62,6 @@ public class Islands {
    * @return level of the first island.
    */
   public long getFirstIslandLevel(@NotNull final Wrapped wrapper, @NotNull final UUID uniqueId) {
-    if (wrapper instanceof ASkyBlockWrapper) {
-      return ((ASkyBlockWrapper) wrapper).getIslandLevel(uniqueId);
-    }
     if (wrapper instanceof BentoBoxWrapper) {
       return ((BentoBoxWrapper) wrapper).getIslandLevel(uniqueId);
     }

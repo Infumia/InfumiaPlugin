@@ -58,10 +58,6 @@
       <id>sk89q-repo</id>
     </repository>
     <repository>
-      <url>https://dl.bintray.com/tastybento/maven-repo</url>
-      <id>bintray-tastybento-maven-repo</id>
-    </repository>
-    <repository>
       <url>https://raw.githubusercontent.com/JorelAli/CommandAPI/mvn-repo/</url>
       <id>commandapi</id>
     </repository>
@@ -195,12 +191,6 @@
       <groupId>world.bentobox</groupId>
       <artifactId>level</artifactId>
       <version>2.6.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.wasteofplastic</groupId>
-      <artifactId>askyblock</artifactId>
-      <version>3.0.9.4</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
