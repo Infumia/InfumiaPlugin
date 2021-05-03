@@ -7,8 +7,6 @@ import java.util.Optional;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.plugin.hooks.hooks.ASkyBlockHook;
-import tr.com.infumia.plugin.hooks.hooks.ASkyBlockWrapper;
 import tr.com.infumia.plugin.hooks.hooks.BentoBoxHook;
 import tr.com.infumia.plugin.hooks.hooks.BentoBoxWrapper;
 import tr.com.infumia.plugin.hooks.hooks.GroupManagerHook;
@@ -44,26 +42,6 @@ public class Hooks {
       Hooks.WRAPPERS.put(id, hook.create());
       Bukkit.getConsoleSender().sendMessage(ColorUtil.colored(String.format("%s is hooking", id)));
     }
-  }
-
-  /**
-   * obtains the a sky block wrapper.
-   *
-   * @return a sky block wrapper.
-   */
-  @NotNull
-  public Optional<ASkyBlockWrapper> getASkyBlock() {
-    return Hooks.getWrapper(ASkyBlockHook.A_SKY_BLOCK_ID);
-  }
-
-  /**
-   * obtains the a sky block wrapper.
-   *
-   * @return a sky block wrapper.
-   */
-  @NotNull
-  public ASkyBlockWrapper getASkyBlockOrThrow() {
-    return Hooks.getASkyBlock().orElseThrow();
   }
 
   /**
@@ -193,7 +171,6 @@ public class Hooks {
     Hooks.addHook(new LuckPermsHook());
     Hooks.addHook(new PlaceholderAPIHook());
     Hooks.addHook(new VaultHook());
-    Hooks.addHook(new ASkyBlockHook());
     Hooks.addHook(new BentoBoxHook());
     Hooks.addHook(new GroupManagerHook());
     Hooks.addHook(new PermissionsExHook());
