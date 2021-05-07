@@ -164,6 +164,11 @@
       <version>5.10</version>
     </dependency>
     <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-sync</artifactId>
+      <version>4.2.3</version>
+    </dependency>
+    <dependency>
       <groupId>com.destroystokyo.paper</groupId>
       <artifactId>paper-api</artifactId>
       <version>1.16.5-R0.1-SNAPSHOT</version>
