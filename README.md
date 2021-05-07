@@ -1,7 +1,9 @@
 # InfumiaPlugin
 
 ## How to Use
+
 Clone the project, run the `mvn clean install`, put this dependency to your pom file.
+
 ```xml
 <dependency>
   <groupId>tr.com.infumia</groupId>
