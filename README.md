@@ -1,6 +1,6 @@
 # InfumiaPlugin
 
-## How to Use
+## How to Use (Developers)
 
 Clone the project, run the `mvn clean install`, put this dependency to your pom file.
 
@@ -12,3 +12,7 @@ Clone the project, run the `mvn clean install`, put this dependency to your pom 
   <scope>provided</scope>
 </dependency>
 ```
+
+## How to Use (Server Owners)
+
+Download the latest Jar file here https://github.com/Infumia/InfumiaPlugin/releases/latest
