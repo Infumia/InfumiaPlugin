@@ -112,7 +112,7 @@
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>version-matched</artifactId>
-      <version>2.9</version>
+      <version>3.0.0</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
