@@ -3,7 +3,6 @@ updates:
   - package-ecosystem: maven
     labels:
       - "automerge"
-      - "release/patch"
     directory: "/"
     schedule:
       interval: daily
