@@ -15,7 +15,7 @@
   <description>A library-like plugin that allows you to use Infumia's Minecraft Bukkit plugins.</description>
   <properties>
     <java.version>11</java.version>
-    <configs.version>5.17.2</configs.version>
+    <configs.version>5.17.5</configs.version>
   </properties>
   <build>
     <finalName>${project.name}</finalName>
