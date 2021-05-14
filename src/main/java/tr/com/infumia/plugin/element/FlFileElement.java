@@ -25,7 +25,7 @@ public final class FlFileElement extends SectionFieldLoader<FileElement> {
    * @param finalClass the final class.
    */
   private FlFileElement(@NotNull final ConfigHolder holder, @NotNull final ConfigurationSection section) {
-    super(holder, section, finalClass);
+    super(holder, section, FileElement.class);
   }
 
   @NotNull
