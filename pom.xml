@@ -137,7 +137,7 @@
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>reflection</artifactId>
-      <version>4.2.0</version>
+      <version>4.2.1</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
