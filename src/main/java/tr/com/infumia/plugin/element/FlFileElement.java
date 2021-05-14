@@ -1,9 +1,9 @@
 package tr.com.infumia.plugin.element;
 
+import io.github.portlek.configs.ConfigHolder;
 import io.github.portlek.configs.configuration.ConfigurationSection;
 import io.github.portlek.configs.loaders.SectionFieldLoader;
 import java.util.Optional;
-import java.util.function.Supplier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,13 +15,16 @@ public final class FlFileElement extends SectionFieldLoader<FileElement> {
   /**
    * the instance.
    */
-  public static final Supplier<FlFileElement> INSTANCE = FlFileElement::new;
+  public static final Func INSTANCE = FlFileElement::new;
 
   /**
    * ctor.
+   *
+   * @param holder the holder.
+   * @param section the section.
    */
-  private FlFileElement() {
-    super(FileElement.class);
+  private FlFileElement(@NotNull final ConfigHolder holder, @NotNull final ConfigurationSection section) {
+    super(holder, section, FileElement.class);
   }
 
   @NotNull
