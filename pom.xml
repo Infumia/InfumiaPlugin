@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.github.portlek</groupId>
-    <artifactId>ppom</artifactId>
-    <version>2.6.4</version>
+    <artifactId>depp</artifactId>
+    <version>1.1.0</version>
   </parent>
   <groupId>tr.com.infumia</groupId>
   <artifactId>InfumiaPlugin</artifactId>
@@ -15,7 +15,6 @@
   <description>A library-like plugin that allows you to use Infumia's Minecraft Bukkit plugins.</description>
   <properties>
     <java.version>11</java.version>
-    <configs.version>6.0.0</configs.version>
   </properties>
   <build>
     <finalName>${project.name}</finalName>
@@ -50,134 +49,99 @@
       <url>https://papermc.io/repo/repository/maven-public/</url>
       <id>papermc</id>
     </repository>
-    <repository>
-      <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-      <id>placeholderapi</id>
-    </repository>
-    <repository>
-      <url>https://maven.enginehub.org/repo/</url>
-      <id>sk89q-repo</id>
-    </repository>
-    <repository>
-      <url>https://raw.githubusercontent.com/JorelAli/CommandAPI/mvn-repo/</url>
-      <id>commandapi</id>
-    </repository>
   </repositories>
   <dependencies>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>configs-core</artifactId>
-      <version>${configs.version}</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>configs-json</artifactId>
-      <version>${configs.version}</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>configs-yaml</artifactId>
-      <version>${configs.version}</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>configs-bukkit</artifactId>
-      <version>${configs.version}</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>SmartInventory</artifactId>
-      <version>4.3.1</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>input</artifactId>
-      <version>2.5.0</version>
     </dependency>
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
-      <version>4.0.3</version>
     </dependency>
     <dependency>
       <groupId>io.github.bananapuncher714</groupId>
       <artifactId>NBTEditor</artifactId>
-      <version>7.16</version>
     </dependency>
     <dependency>
       <groupId>net.wesjd</groupId>
       <artifactId>anvilgui</artifactId>
-      <version>1.5.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>version-matched</artifactId>
-      <version>3.0.2</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>bukkit-version</artifactId>
-      <version>2.1.2</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>bukkit-location</artifactId>
-      <version>3.0.1</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>BukkitItemBuilder</artifactId>
-      <version>5.0.3</version>
     </dependency>
     <dependency>
       <groupId>com.github.cryptomorin</groupId>
       <artifactId>XSeries</artifactId>
-      <version>7.9.1.1</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>reflection</artifactId>
-      <version>4.2.1</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>replaceable</artifactId>
-      <version>2.3.1</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>version</artifactId>
-      <version>1.6</version>
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
       <artifactId>equilibrium</artifactId>
-      <version>3.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.kohsuke</groupId>
       <artifactId>github-api</artifactId>
-      <version>1.128</version>
     </dependency>
     <dependency>
       <groupId>dev.jorel</groupId>
       <artifactId>commandapi-shade</artifactId>
-      <version>5.10</version>
     </dependency>
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-sync</artifactId>
-      <version>4.2.3</version>
     </dependency>
     <dependency>
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
-      <version>3.17.0</version>
     </dependency>
     <dependency>
       <groupId>net.kyori</groupId>
       <artifactId>adventure-text-minimessage</artifactId>
-      <version>4.1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.destroystokyo.paper</groupId>
@@ -188,56 +152,38 @@
     <dependency>
       <groupId>me.clip</groupId>
       <artifactId>placeholderapi</artifactId>
-      <version>2.10.9</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>net.luckperms</groupId>
       <artifactId>api</artifactId>
-      <version>5.3</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>world.bentobox</groupId>
       <artifactId>bentobox</artifactId>
-      <version>1.16.1</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>world.bentobox</groupId>
       <artifactId>level</artifactId>
-      <version>2.6.3</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.anjocaido</groupId>
       <artifactId>groupmanagerx</artifactId>
-      <version>2.2-SNAPSHOT</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>ru.tehkode</groupId>
       <artifactId>PermissionsEx</artifactId>
-      <version>1.23.5-SNAPSHOT</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.sk89q.worldguard</groupId>
       <artifactId>worldguard-bukkit</artifactId>
-      <version>7.0.4</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.sk89q.worldedit</groupId>
       <artifactId>worldedit-bukkit</artifactId>
-      <version>7.2.5</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.github.MilkBowl</groupId>
       <artifactId>VaultAPI</artifactId>
-      <version>1.7</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
