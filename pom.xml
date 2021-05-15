@@ -73,7 +73,7 @@
     </dependency>
     <dependency>
       <groupId>io.github.portlek</groupId>
-      <artifactId>input</artifactId>
+      <artifactId>input-paper</artifactId>
     </dependency>
     <dependency>
       <groupId>com.zaxxer</groupId>
