@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.github.portlek</groupId>
-    <artifactId>depp</artifactId>
-    <version>1.1.1</version>
+    <artifactId>depp-portlek</artifactId>
+    <version>1.1.4</version>
   </parent>
   <groupId>tr.com.infumia</groupId>
   <artifactId>InfumiaPlugin</artifactId>
