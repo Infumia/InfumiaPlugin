@@ -29,7 +29,7 @@ public final class FlFileElement extends SectionFieldLoader<FileElement> {
 
   @NotNull
   @Override
-  public Optional<FileElement> toFinal(@NotNull final ConfigurationSection section,
+  public Optional<FileElement> toFinal(@NotNull final ConfigurationSection section, @NotNull final String path,
                                        @Nullable final FileElement fieldValue) {
     final var deserialize = FileElement.deserialize(section);
     if (fieldValue == null) {

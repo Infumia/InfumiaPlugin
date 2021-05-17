@@ -4,9 +4,9 @@ import io.github.portlek.configs.ConfigHolder;
 import io.github.portlek.configs.ConfigLoader;
 import io.github.portlek.configs.annotation.Route;
 import io.github.portlek.configs.yaml.YamlType;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.util.concurrent.CompletableFuture;
+import lombok.SneakyThrows;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,13 +39,11 @@ public final class InfumiaConfig implements ConfigHolder {
    * @return completed future.
    */
   @NotNull
+  @SneakyThrows
   public static CompletableFuture<ConfigLoader> load(@NotNull final Plugin plugin, final boolean async) {
-    try {
-      final var path = plugin.getDataFolder().toPath();
-      if (Files.notExists(path)) {
-        Files.createDirectories(path);
-      }
-    } catch (final IOException ignored) {
+    final var path = plugin.getDataFolder().toPath();
+    if (Files.notExists(path)) {
+      Files.createDirectories(path);
     }
     return ConfigLoader.builder("config", plugin.getDataFolder(), YamlType.get())
       .setConfigHolder(new InfumiaConfig())

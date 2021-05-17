@@ -6,7 +6,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +39,7 @@ final class ProtobufHttp {
   }
 
   @Nullable <T extends GeneratedMessageV3> T get(@NotNull final String url,
-                                                          @NotNull final T defaultInstance) {
+                                                 @NotNull final T defaultInstance) {
     final var request = HttpRequest.newBuilder()
       .GET()
       .uri(URI.create(url))
