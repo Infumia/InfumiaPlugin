@@ -130,7 +130,7 @@
       <artifactId>github-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>dev.jorel</groupId>
+      <groupId>com.github.JorelAli.CommandAPI</groupId>
       <artifactId>commandapi-shade</artifactId>
     </dependency>
     <dependency>
