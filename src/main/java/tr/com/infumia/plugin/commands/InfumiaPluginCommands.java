@@ -39,6 +39,21 @@ public final class InfumiaPluginCommands {
   private final Plugin plugin;
 
   /**
+   * obtains the reload complete message.
+   *
+   * @return reload complete message.
+   */
+  @NotNull
+  private static Component getReloadCompleteMessage() {
+    return Component.text()
+      .append(Component.text("[InfumiaPlugin] ")
+        .color(NamedTextColor.YELLOW))
+      .append(Component.text("Reload complete!")
+        .color(NamedTextColor.GREEN))
+      .build();
+  }
+
+  /**
    * registers the InfumiaPlugin's command.
    */
   public void register() {
@@ -82,24 +97,9 @@ public final class InfumiaPluginCommands {
       .withPermission(InfumiaPluginCommands.RELOAD)
       .executes((sender, objects) -> {
         InfumiaConfig.load(this.plugin, true).whenComplete((configLoader, throwable) -> {
-          sender.sendMessage(this.getReloadCompleteMessage());
+          sender.sendMessage(InfumiaPluginCommands.getReloadCompleteMessage());
         });
       });
-  }
-
-  /**
-   * obtains the reload complete message.
-   *
-   * @return reload complete message.
-   */
-  @NotNull
-  private Component getReloadCompleteMessage() {
-    return Component.text()
-      .append(Component.text("[InfumiaPlugin] ")
-        .color(NamedTextColor.YELLOW))
-      .append(Component.text("Reload complete!")
-        .color(NamedTextColor.GREEN))
-      .build();
   }
 
   /**
