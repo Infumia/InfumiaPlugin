@@ -9,10 +9,10 @@
     <version>1.2.3</version>
   </parent>
   <groupId>tr.com.infumia</groupId>
-  <artifactId>InfumiaPlugin</artifactId>
+  <artifactId>InfumiaParent</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>InfumiaPlugin</name>
-  <description>A library-like plugin that allows you to use Infumia's Minecraft Paper plugins.</description>
+  <name>InfumiaParent</name>
+  <description>A library for Infumia's Java projects.</description>
   <properties>
     <java.version>11</java.version>
   </properties>
