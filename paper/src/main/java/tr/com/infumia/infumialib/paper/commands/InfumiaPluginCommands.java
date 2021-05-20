@@ -8,7 +8,7 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.files.InfumiaConfig;
+import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 
 /**
@@ -96,7 +96,7 @@ public final class InfumiaPluginCommands {
     return new CommandAPICommand("reload")
       .withPermission(InfumiaPluginCommands.RELOAD)
       .executes((sender, objects) -> {
-        InfumiaConfig.load(this.plugin, true).whenComplete((configLoader, throwable) -> {
+        InfumiaLibConfig.load(this.plugin, true).whenComplete((configLoader, throwable) -> {
           sender.sendMessage(InfumiaPluginCommands.getReloadCompleteMessage());
         });
       });

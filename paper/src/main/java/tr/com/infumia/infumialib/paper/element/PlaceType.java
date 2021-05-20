@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.functions.TriConsumer;
+import tr.com.infumia.infumialib.functions.TriConsumer;
 
 @RequiredArgsConstructor
 public enum PlaceType {

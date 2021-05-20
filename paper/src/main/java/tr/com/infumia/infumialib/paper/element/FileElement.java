@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.element.Placeholder;
 
 @RequiredArgsConstructor
 public final class FileElement implements DataSerializer {
@@ -40,110 +41,110 @@ public final class FileElement implements DataSerializer {
   @SafeVarargs
   @NotNull
   public static FileElement fill(@NotNull final ItemStack itemStack, @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL, events);
+    return FileElement.from(itemStack, PlaceType.FILL, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fill(@NotNull final ItemStackBuilder builder,
                                  @NotNull final Consumer<ClickEvent>... events) {
-    return fill(builder.getItemStack(), events);
+    return FileElement.fill(builder.getItemStack(), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fill(@NotNull final Material material, @NotNull final Consumer<ClickEvent>... events) {
-    return fill(ItemStackBuilder.from(material), events);
+    return FileElement.fill(ItemStackBuilder.from(material), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fill(@NotNull final XMaterial material, @NotNull final Consumer<ClickEvent>... events) {
-    return fill(ItemStackBuilder.from(material), events);
+    return FileElement.fill(ItemStackBuilder.from(material), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillBorders(@NotNull final ItemStack itemStack,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_BORDERS, events);
+    return FileElement.from(itemStack, PlaceType.FILL_BORDERS, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillBorders(@NotNull final ItemStackBuilder builder,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillBorders(builder.getItemStack(), events);
+    return FileElement.fillBorders(builder.getItemStack(), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillBorders(@NotNull final Material material,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillBorders(ItemStackBuilder.from(material), events);
+    return FileElement.fillBorders(ItemStackBuilder.from(material), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillBorders(@NotNull final XMaterial material,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillBorders(ItemStackBuilder.from(material), events);
+    return FileElement.fillBorders(ItemStackBuilder.from(material), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillColumn(@NotNull final ItemStack itemStack, final int column,
                                        @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_COLUMN, PlaceType.parse("column", column), events);
+    return FileElement.from(itemStack, PlaceType.FILL_COLUMN, PlaceType.parse("column", column), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillColumn(@NotNull final ItemStackBuilder builder, final int column,
                                        @NotNull final Consumer<ClickEvent>... events) {
-    return fillColumn(builder.getItemStack(), column, events);
+    return FileElement.fillColumn(builder.getItemStack(), column, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillColumn(@NotNull final Material material, final int column,
                                        @NotNull final Consumer<ClickEvent>... events) {
-    return fillColumn(ItemStackBuilder.from(material), column, events);
+    return FileElement.fillColumn(ItemStackBuilder.from(material), column, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillColumn(@NotNull final XMaterial material, final int column,
                                        @NotNull final Consumer<ClickEvent>... events) {
-    return fillColumn(ItemStackBuilder.from(material), column, events);
+    return FileElement.fillColumn(ItemStackBuilder.from(material), column, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillEmpties(@NotNull final ItemStack itemStack,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_EMPTIES, events);
+    return FileElement.from(itemStack, PlaceType.FILL_EMPTIES, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillEmpties(@NotNull final ItemStackBuilder builder,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillEmpties(builder.getItemStack(), events);
+    return FileElement.fillEmpties(builder.getItemStack(), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillEmpties(@NotNull final Material material,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillEmpties(ItemStackBuilder.from(material), events);
+    return FileElement.fillEmpties(ItemStackBuilder.from(material), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillEmpties(@NotNull final XMaterial material,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillEmpties(ItemStackBuilder.from(material), events);
+    return FileElement.fillEmpties(ItemStackBuilder.from(material), events);
   }
 
   @SafeVarargs
@@ -151,7 +152,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPattern(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                         @NotNull final String[] pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_PATTERN,
+    return FileElement.from(itemStack, PlaceType.FILL_PATTERN,
       PlaceType.parse("wrapAround", wrapAround, "pattern", pattern), events);
   }
 
@@ -160,7 +161,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPattern(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                         @NotNull final String[] pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillPattern(builder.getItemStack(), wrapAround, pattern, events);
+    return FileElement.fillPattern(builder.getItemStack(), wrapAround, pattern, events);
   }
 
   @SafeVarargs
@@ -168,7 +169,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPattern(@NotNull final Material material, final boolean wrapAround,
                                         @NotNull final String[] pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
+    return FileElement.fillPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
   }
 
   @SafeVarargs
@@ -176,7 +177,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPattern(@NotNull final XMaterial material, final boolean wrapAround,
                                         @NotNull final String[] pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return fillPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
+    return FileElement.fillPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
   }
 
   @SafeVarargs
@@ -184,7 +185,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPatternStart(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                              @NotNull final String[] pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_PATTERN_START,
+    return FileElement.from(itemStack, PlaceType.FILL_PATTERN_START,
       PlaceType.parse("wrapAround", wrapAround, "pattern", pattern, "startRow", startRow, "startColumn", startColumn), events);
   }
 
@@ -193,7 +194,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPatternStart(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                              @NotNull final String[] pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
-    return fillPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn, events);
+    return FileElement.fillPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn, events);
   }
 
   @SafeVarargs
@@ -201,7 +202,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPatternStart(@NotNull final Material material, final boolean wrapAround,
                                              @NotNull final String[] pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
-    return fillPatternStart(ItemStackBuilder.from(material), wrapAround, pattern, startRow, startColumn,
+    return FileElement.fillPatternStart(ItemStackBuilder.from(material), wrapAround, pattern, startRow, startColumn,
       events);
   }
 
@@ -210,7 +211,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPatternStart(@NotNull final XMaterial material, final boolean wrapAround,
                                              @NotNull final String[] pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
-    return fillPatternStart(ItemStackBuilder.from(material), wrapAround, pattern, startRow, startColumn,
+    return FileElement.fillPatternStart(ItemStackBuilder.from(material), wrapAround, pattern, startRow, startColumn,
       events);
   }
 
@@ -219,7 +220,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPatternStartIndex(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                                   @NotNull final String[] pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_PATTERN_START_INDEX,
+    return FileElement.from(itemStack, PlaceType.FILL_PATTERN_START_INDEX,
       PlaceType.parse("wrapAround", wrapAround, "pattern", pattern, "startIndex", startIndex), events);
   }
 
@@ -228,7 +229,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPatternStartIndex(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                                   @NotNull final String[] pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
-    return fillPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex, events);
+    return FileElement.fillPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex, events);
   }
 
   @SafeVarargs
@@ -236,7 +237,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPatternStartIndex(@NotNull final Material material, final boolean wrapAround,
                                                   @NotNull final String[] pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
-    return fillPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern, startIndex,
+    return FileElement.fillPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern, startIndex,
       events);
   }
 
@@ -245,7 +246,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillPatternStartIndex(@NotNull final XMaterial material, final boolean wrapAround,
                                                   @NotNull final String[] pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
-    return fillPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern, startIndex,
+    return FileElement.fillPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern, startIndex,
       events);
   }
 
@@ -254,7 +255,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillRectFromTo(@NotNull final ItemStack itemStack, final int fromRow, final int fromColumn,
                                            final int toRow, final int toColumn,
                                            @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_RECT_FROM_TO,
+    return FileElement.from(itemStack, PlaceType.FILL_RECT_FROM_TO,
       PlaceType.parse("fromRow", fromRow, "fromColumn", fromColumn, "toRow", toRow, "toColumn", toColumn), events);
   }
 
@@ -263,7 +264,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillRectFromTo(@NotNull final ItemStackBuilder builder, final int fromRow,
                                            final int fromColumn, final int toRow, final int toColumn,
                                            @NotNull final Consumer<ClickEvent>... events) {
-    return fillRectFromTo(builder.getItemStack(), fromRow, fromColumn, toRow, toColumn, events);
+    return FileElement.fillRectFromTo(builder.getItemStack(), fromRow, fromColumn, toRow, toColumn, events);
   }
 
   @SafeVarargs
@@ -271,7 +272,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillRectFromTo(@NotNull final Material material, final int fromRow, final int fromColumn,
                                            final int toRow, final int toColumn,
                                            @NotNull final Consumer<ClickEvent>... events) {
-    return fillRectFromTo(ItemStackBuilder.from(material), fromRow, fromColumn, toRow, toColumn,
+    return FileElement.fillRectFromTo(ItemStackBuilder.from(material), fromRow, fromColumn, toRow, toColumn,
       events);
   }
 
@@ -280,7 +281,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillRectFromTo(@NotNull final XMaterial material, final int fromRow, final int fromColumn,
                                            final int toRow, final int toColumn,
                                            @NotNull final Consumer<ClickEvent>... events) {
-    return fillRectFromTo(ItemStackBuilder.from(material), fromRow, fromColumn, toRow, toColumn,
+    return FileElement.fillRectFromTo(ItemStackBuilder.from(material), fromRow, fromColumn, toRow, toColumn,
       events);
   }
 
@@ -288,7 +289,7 @@ public final class FileElement implements DataSerializer {
   @NotNull
   public static FileElement fillRectIndex(@NotNull final ItemStack itemStack, final int fromIndex, final int toIndex,
                                           @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_RECT_INDEX,
+    return FileElement.from(itemStack, PlaceType.FILL_RECT_INDEX,
       PlaceType.parse("fromIndex", fromIndex, "toIndex", toIndex), events);
   }
 
@@ -296,21 +297,21 @@ public final class FileElement implements DataSerializer {
   @NotNull
   public static FileElement fillRectIndex(@NotNull final ItemStackBuilder builder, final int fromIndex,
                                           final int toIndex, @NotNull final Consumer<ClickEvent>... events) {
-    return fillRectIndex(builder.getItemStack(), fromIndex, toIndex, events);
+    return FileElement.fillRectIndex(builder.getItemStack(), fromIndex, toIndex, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillRectIndex(@NotNull final Material material, final int fromIndex, final int toIndex,
                                           @NotNull final Consumer<ClickEvent>... events) {
-    return fillRectIndex(ItemStackBuilder.from(material), fromIndex, toIndex, events);
+    return FileElement.fillRectIndex(ItemStackBuilder.from(material), fromIndex, toIndex, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillRectIndex(@NotNull final XMaterial material, final int fromIndex, final int toIndex,
                                           @NotNull final Consumer<ClickEvent>... events) {
-    return fillRectIndex(ItemStackBuilder.from(material), fromIndex, toIndex, events);
+    return FileElement.fillRectIndex(ItemStackBuilder.from(material), fromIndex, toIndex, events);
   }
 
   @SafeVarargs
@@ -318,7 +319,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillRepeatingPattern(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                                  @NotNull final String[] pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_REPEATING_PATTERN,
+    return FileElement.from(itemStack, PlaceType.FILL_REPEATING_PATTERN,
       PlaceType.parse("wrapAround", wrapAround, "pattern", pattern), events);
   }
 
@@ -327,7 +328,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillRepeatingPattern(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                                  @NotNull final String[] pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPattern(builder.getItemStack(), wrapAround, pattern, events);
+    return FileElement.fillRepeatingPattern(builder.getItemStack(), wrapAround, pattern, events);
   }
 
   @SafeVarargs
@@ -335,7 +336,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillRepeatingPattern(@NotNull final Material material, final boolean wrapAround,
                                                  @NotNull final String[] pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
+    return FileElement.fillRepeatingPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
   }
 
   @SafeVarargs
@@ -343,7 +344,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillRepeatingPattern(@NotNull final XMaterial material, final boolean wrapAround,
                                                  @NotNull final String[] pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
+    return FileElement.fillRepeatingPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
   }
 
   @SafeVarargs
@@ -352,7 +353,7 @@ public final class FileElement implements DataSerializer {
                                                       @NotNull final String[] pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_REPEATING_PATTERN_START,
+    return FileElement.from(itemStack, PlaceType.FILL_REPEATING_PATTERN_START,
       PlaceType.parse("wrapAround", wrapAround, "pattern", pattern, "startRow", startRow, "startColumn", startColumn, "endRow", endRow, "endColumn", endColumn),
       events);
   }
@@ -363,7 +364,7 @@ public final class FileElement implements DataSerializer {
                                                       @NotNull final String[] pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn,
+    return FileElement.fillRepeatingPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn,
       endRow, endColumn, events);
   }
 
@@ -373,7 +374,7 @@ public final class FileElement implements DataSerializer {
                                                       @NotNull final String[] pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPatternStart(ItemStackBuilder.from(material), wrapAround, pattern,
+    return FileElement.fillRepeatingPatternStart(ItemStackBuilder.from(material), wrapAround, pattern,
       startRow, startColumn, endRow, endColumn, events);
   }
 
@@ -383,7 +384,7 @@ public final class FileElement implements DataSerializer {
                                                       @NotNull final String[] pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPatternStart(ItemStackBuilder.from(material), wrapAround, pattern,
+    return FileElement.fillRepeatingPatternStart(ItemStackBuilder.from(material), wrapAround, pattern,
       startRow, startColumn, endRow, endColumn, events);
   }
 
@@ -393,7 +394,7 @@ public final class FileElement implements DataSerializer {
                                                            final boolean wrapAround, @NotNull final String[] pattern,
                                                            final int startIndex, final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_REPEATING_PATTERN_START_INDEX,
+    return FileElement.from(itemStack, PlaceType.FILL_REPEATING_PATTERN_START_INDEX,
       PlaceType.parse("wrapAround", wrapAround, "pattern", pattern, "startIndex", startIndex, "endIndex", endIndex), events);
   }
 
@@ -403,7 +404,7 @@ public final class FileElement implements DataSerializer {
                                                            final boolean wrapAround, @NotNull final String[] pattern,
                                                            final int startIndex, final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex,
+    return FileElement.fillRepeatingPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex,
       endIndex, events);
   }
 
@@ -413,7 +414,7 @@ public final class FileElement implements DataSerializer {
                                                            @NotNull final String[] pattern, final int startIndex,
                                                            final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern,
+    return FileElement.fillRepeatingPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern,
       startIndex, endIndex, events);
   }
 
@@ -423,7 +424,7 @@ public final class FileElement implements DataSerializer {
                                                            @NotNull final String[] pattern, final int startIndex,
                                                            final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
-    return fillRepeatingPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern,
+    return FileElement.fillRepeatingPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern,
       startIndex, endIndex, events);
   }
 
@@ -431,28 +432,28 @@ public final class FileElement implements DataSerializer {
   @NotNull
   public static FileElement fillRow(@NotNull final ItemStack itemStack, final int row,
                                     @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_ROW, PlaceType.parse("row", row), events);
+    return FileElement.from(itemStack, PlaceType.FILL_ROW, PlaceType.parse("row", row), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillRow(@NotNull final ItemStackBuilder builder, final int row,
                                     @NotNull final Consumer<ClickEvent>... events) {
-    return fillRow(builder.getItemStack(), row, events);
+    return FileElement.fillRow(builder.getItemStack(), row, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillRow(@NotNull final Material material, final int row,
                                     @NotNull final Consumer<ClickEvent>... events) {
-    return fillRow(ItemStackBuilder.from(material), row, events);
+    return FileElement.fillRow(ItemStackBuilder.from(material), row, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillRow(@NotNull final XMaterial material, final int row,
                                     @NotNull final Consumer<ClickEvent>... events) {
-    return fillRow(ItemStackBuilder.from(material), row, events);
+    return FileElement.fillRow(ItemStackBuilder.from(material), row, events);
   }
 
   @SafeVarargs
@@ -460,7 +461,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillSquareFromTo(@NotNull final ItemStack itemStack, final int fromRow,
                                              final int fromColumn, final int toRow, final int toColumn,
                                              @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_SQUARE_FROM_TO,
+    return FileElement.from(itemStack, PlaceType.FILL_SQUARE_FROM_TO,
       PlaceType.parse("fromRow", fromRow, "fromColumn", fromColumn, "toRow", toRow, "toColumn", toColumn), events);
   }
 
@@ -469,7 +470,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillSquareFromTo(@NotNull final ItemStackBuilder builder, final int fromRow,
                                              final int fromColumn, final int toRow, final int toColumn,
                                              @NotNull final Consumer<ClickEvent>... events) {
-    return fillSquareFromTo(builder.getItemStack(), fromRow, fromColumn, toRow, toColumn, events);
+    return FileElement.fillSquareFromTo(builder.getItemStack(), fromRow, fromColumn, toRow, toColumn, events);
   }
 
   @SafeVarargs
@@ -477,7 +478,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillSquareFromTo(@NotNull final Material material, final int fromRow,
                                              final int fromColumn, final int toRow, final int toColumn,
                                              @NotNull final Consumer<ClickEvent>... events) {
-    return fillSquareFromTo(ItemStackBuilder.from(material), fromRow, fromColumn, toRow, toColumn,
+    return FileElement.fillSquareFromTo(ItemStackBuilder.from(material), fromRow, fromColumn, toRow, toColumn,
       events);
   }
 
@@ -486,7 +487,7 @@ public final class FileElement implements DataSerializer {
   public static FileElement fillSquareFromTo(@NotNull final XMaterial material, final int fromRow,
                                              final int fromColumn, final int toRow, final int toColumn,
                                              @NotNull final Consumer<ClickEvent>... events) {
-    return fillSquareFromTo(ItemStackBuilder.from(material), fromRow, fromColumn, toRow, toColumn,
+    return FileElement.fillSquareFromTo(ItemStackBuilder.from(material), fromRow, fromColumn, toRow, toColumn,
       events);
   }
 
@@ -494,7 +495,7 @@ public final class FileElement implements DataSerializer {
   @NotNull
   public static FileElement fillSquareIndex(@NotNull final ItemStack itemStack, final int fromIndex,
                                             final int toIndex, @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.FILL_SQUARE_INDEX,
+    return FileElement.from(itemStack, PlaceType.FILL_SQUARE_INDEX,
       PlaceType.parse("fromIndex", fromIndex, "toIndex", toIndex), events);
   }
 
@@ -502,21 +503,21 @@ public final class FileElement implements DataSerializer {
   @NotNull
   public static FileElement fillSquareIndex(@NotNull final ItemStackBuilder builder, final int fromIndex,
                                             final int toIndex, @NotNull final Consumer<ClickEvent>... events) {
-    return fillSquareIndex(builder.getItemStack(), fromIndex, toIndex, events);
+    return FileElement.fillSquareIndex(builder.getItemStack(), fromIndex, toIndex, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillSquareIndex(@NotNull final Material material, final int fromIndex, final int toIndex,
                                             @NotNull final Consumer<ClickEvent>... events) {
-    return fillSquareIndex(ItemStackBuilder.from(material), fromIndex, toIndex, events);
+    return FileElement.fillSquareIndex(ItemStackBuilder.from(material), fromIndex, toIndex, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillSquareIndex(@NotNull final XMaterial material, final int fromIndex, final int toIndex,
                                             @NotNull final Consumer<ClickEvent>... events) {
-    return fillSquareIndex(ItemStackBuilder.from(material), fromIndex, toIndex, events);
+    return FileElement.fillSquareIndex(ItemStackBuilder.from(material), fromIndex, toIndex, events);
   }
 
   @NotNull
@@ -551,109 +552,109 @@ public final class FileElement implements DataSerializer {
   @NotNull
   public static FileElement insert(@NotNull final ItemStack itemStack, final int row, final int column,
                                    @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.INSERT, PlaceType.parse("row", row, "column", column), events);
+    return FileElement.from(itemStack, PlaceType.INSERT, PlaceType.parse("row", row, "column", column), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement insert(@NotNull final ItemStackBuilder builder, final int row, final int column,
                                    @NotNull final Consumer<ClickEvent>... events) {
-    return insert(builder.getItemStack(), row, column, events);
+    return FileElement.insert(builder.getItemStack(), row, column, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement insert(@NotNull final Material material, final int row, final int column,
                                    @NotNull final Consumer<ClickEvent>... events) {
-    return insert(ItemStackBuilder.from(material), row, column, events);
+    return FileElement.insert(ItemStackBuilder.from(material), row, column, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement insert(@NotNull final XMaterial material, final int row, final int column,
                                    @NotNull final Consumer<ClickEvent>... events) {
-    return insert(ItemStackBuilder.from(material), row, column, events);
+    return FileElement.insert(ItemStackBuilder.from(material), row, column, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement insertIndex(@NotNull final ItemStack itemStack, final int index,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.INSERT_INDEX, PlaceType.parse("index", index), events);
+    return FileElement.from(itemStack, PlaceType.INSERT_INDEX, PlaceType.parse("index", index), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement insertIndex(@NotNull final ItemStackBuilder builder, final int index,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return insertIndex(builder.getItemStack(), index, events);
+    return FileElement.insertIndex(builder.getItemStack(), index, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement insertIndex(@NotNull final Material material, final int index,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return insertIndex(ItemStackBuilder.from(material), index, events);
+    return FileElement.insertIndex(ItemStackBuilder.from(material), index, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement insertIndex(@NotNull final XMaterial material, final int index,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return insertIndex(ItemStackBuilder.from(material), index, events);
+    return FileElement.insertIndex(ItemStackBuilder.from(material), index, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement none(@NotNull final ItemStack itemStack, @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.NONE, events);
+    return FileElement.from(itemStack, PlaceType.NONE, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement none(@NotNull final ItemStackBuilder builder,
                                  @NotNull final Consumer<ClickEvent>... events) {
-    return none(builder.getItemStack(), events);
+    return FileElement.none(builder.getItemStack(), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement none(@NotNull final Material material, @NotNull final Consumer<ClickEvent>... events) {
-    return none(ItemStackBuilder.from(material), events);
+    return FileElement.none(ItemStackBuilder.from(material), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement none(@NotNull final XMaterial material, @NotNull final Consumer<ClickEvent>... events) {
-    return none(ItemStackBuilder.from(material), events);
+    return FileElement.none(ItemStackBuilder.from(material), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement slots(@NotNull final ItemStack itemStack, @NotNull final List<Integer> slots,
                                   @NotNull final Consumer<ClickEvent>... events) {
-    return from(itemStack, PlaceType.SLOTS, PlaceType.parse("slots", slots), events);
+    return FileElement.from(itemStack, PlaceType.SLOTS, PlaceType.parse("slots", slots), events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement slots(@NotNull final ItemStackBuilder builder, @NotNull final List<Integer> slots,
                                   @NotNull final Consumer<ClickEvent>... events) {
-    return slots(builder.getItemStack(), slots, events);
+    return FileElement.slots(builder.getItemStack(), slots, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement slots(@NotNull final Material material, @NotNull final List<Integer> slots,
                                   @NotNull final Consumer<ClickEvent>... events) {
-    return slots(ItemStackBuilder.from(material), slots, events);
+    return FileElement.slots(ItemStackBuilder.from(material), slots, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement slots(@NotNull final XMaterial material, @NotNull final List<Integer> slots,
                                   @NotNull final Consumer<ClickEvent>... events) {
-    return slots(ItemStackBuilder.from(material), slots, events);
+    return FileElement.slots(ItemStackBuilder.from(material), slots, events);
   }
 
   @NotNull

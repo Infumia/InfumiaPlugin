@@ -11,7 +11,7 @@ import net.luckperms.api.node.NodeType;
 import net.luckperms.api.node.types.ChatMetaNode;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.hooks.Wrapped;
+import tr.com.infumia.infumialib.hooks.Wrapped;
 
 @RequiredArgsConstructor
 public final class LuckPermsWrapper implements Wrapped {

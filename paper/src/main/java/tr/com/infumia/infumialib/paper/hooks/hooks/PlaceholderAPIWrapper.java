@@ -5,7 +5,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.hooks.Wrapped;
+import tr.com.infumia.infumialib.hooks.Wrapped;
 
 @RequiredArgsConstructor
 public final class PlaceholderAPIWrapper implements Wrapped {

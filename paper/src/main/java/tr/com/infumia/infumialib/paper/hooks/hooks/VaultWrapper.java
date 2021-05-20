@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.hooks.Wrapped;
+import tr.com.infumia.infumialib.hooks.Wrapped;
 
 @RequiredArgsConstructor
 public final class VaultWrapper implements Wrapped {

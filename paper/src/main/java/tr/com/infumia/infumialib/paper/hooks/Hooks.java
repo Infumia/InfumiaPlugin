@@ -7,6 +7,8 @@ import java.util.Optional;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.hooks.Hook;
+import tr.com.infumia.infumialib.hooks.Wrapped;
 import tr.com.infumia.infumialib.paper.hooks.hooks.BentoBoxHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.BentoBoxWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.GroupManagerHook;
@@ -14,10 +16,10 @@ import tr.com.infumia.infumialib.paper.hooks.hooks.GroupManagerWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.LuckPermsHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.LuckPermsWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.PermissionsExHook;
-import tr.com.infumia.infumialib.paper.hooks.hooks.PlaceholderAPIWrapper;
-import tr.com.infumia.infumialib.paper.hooks.hooks.VaultHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.PermissionsExWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.PlaceholderAPIHook;
+import tr.com.infumia.infumialib.paper.hooks.hooks.PlaceholderAPIWrapper;
+import tr.com.infumia.infumialib.paper.hooks.hooks.VaultHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.VaultWrapper;
 
 /**

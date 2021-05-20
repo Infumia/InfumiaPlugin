@@ -5,6 +5,7 @@ import java.util.Optional;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.hooks.Wrapped;
 import tr.com.infumia.infumialib.paper.hooks.hooks.GroupManagerWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.LuckPermsWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.PermissionsExWrapper;

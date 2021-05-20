@@ -4,7 +4,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.hooks.Hook;
+import tr.com.infumia.infumialib.hooks.Hook;
 
 public final class VaultHook implements Hook<VaultWrapper> {
 

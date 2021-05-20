@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.paper.functions;
+package tr.com.infumia.infumialib.functions;
 
 import org.jetbrains.annotations.NotNull;
 

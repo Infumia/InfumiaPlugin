@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.paper.hooks;
+package tr.com.infumia.infumialib.hooks;
 
 /**
  * a marker interface for the hook system.

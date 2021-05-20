@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
-import tr.com.infumia.infumialib.paper.hooks.Hook;
+import tr.com.infumia.infumialib.hooks.Hook;
 
 public final class PermissionsExHook implements Hook<PermissionsExWrapper> {
 

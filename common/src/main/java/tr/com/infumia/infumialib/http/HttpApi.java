@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.paper.http;
+package tr.com.infumia.infumialib.http;
 
 import com.google.protobuf.GeneratedMessageV3;
 import lombok.AccessLevel;

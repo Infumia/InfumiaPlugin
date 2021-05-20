@@ -4,6 +4,7 @@ import java.util.UUID;
 import lombok.experimental.UtilityClass;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.hooks.Wrapped;
 import tr.com.infumia.infumialib.paper.hooks.hooks.BentoBoxWrapper;
 
 /**

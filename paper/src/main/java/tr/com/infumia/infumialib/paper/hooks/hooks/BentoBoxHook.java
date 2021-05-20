@@ -3,7 +3,7 @@ package tr.com.infumia.infumialib.paper.hooks.hooks;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.hooks.Hook;
+import tr.com.infumia.infumialib.hooks.Hook;
 import world.bentobox.bentobox.BentoBox;
 
 public final class BentoBoxHook implements Hook<BentoBoxWrapper> {

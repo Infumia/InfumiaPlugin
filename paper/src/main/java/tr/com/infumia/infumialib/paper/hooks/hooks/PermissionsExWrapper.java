@@ -5,8 +5,8 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.hooks.Wrapped;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
+import tr.com.infumia.infumialib.hooks.Wrapped;
 
 @RequiredArgsConstructor
 public final class PermissionsExWrapper implements Wrapped {

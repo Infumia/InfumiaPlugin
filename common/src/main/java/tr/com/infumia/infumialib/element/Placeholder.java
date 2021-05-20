@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.paper.element;
+package tr.com.infumia.infumialib.element;
 
 import java.util.List;
 import java.util.stream.Collectors;

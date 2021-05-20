@@ -9,8 +9,8 @@ import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.files.InfumiaConfig;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
+import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.hooks.Hooks;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
@@ -32,7 +32,7 @@ public final class InfumiaLib extends JavaPlugin {
   public void onLoad() {
     InfumiaLib.instance = this;
     TaskUtilities.init(this);
-    InfumiaConfig.load(this);
+    InfumiaLibConfig.load(this.getDataFolder());
     CommandAPI.onLoad(new CommandAPIConfig());
   }
 
@@ -42,7 +42,7 @@ public final class InfumiaLib extends JavaPlugin {
     new InfumiaPluginCommands(this).register();
     this.inventory.init();
     Hooks.loadHooks();
-    if (InfumiaConfig.checkForUpdate) {
+    if (InfumiaLibConfig.checkForUpdate) {
       GitHubUpdateChecker.checkForUpdate(this, "Infumia", "InfumiaPlugin");
     }
   }
