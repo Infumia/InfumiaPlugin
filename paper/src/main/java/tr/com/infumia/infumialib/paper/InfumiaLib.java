@@ -6,11 +6,12 @@ import io.github.portlek.smartinventory.SmartInventory;
 import io.github.portlek.smartinventory.manager.BasicSmartInventory;
 import java.util.Objects;
 import lombok.Getter;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
+import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
 import tr.com.infumia.infumialib.paper.hooks.Hooks;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
@@ -45,5 +46,6 @@ public final class InfumiaLib extends JavaPlugin {
     if (InfumiaLibConfig.checkForUpdate) {
       GitHubUpdateChecker.checkForUpdate(this, "Infumia", "InfumiaLib");
     }
+    new Metrics(this, 11422);
   }
 }

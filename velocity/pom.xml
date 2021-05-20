@@ -45,5 +45,9 @@
       <groupId>com.velocitypowered</groupId>
       <artifactId>velocity-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.bstats</groupId>
+      <artifactId>bstats-velocity</artifactId>
+    </dependency>
   </dependencies>
 </project>
