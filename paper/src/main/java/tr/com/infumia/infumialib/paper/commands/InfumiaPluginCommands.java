@@ -96,7 +96,7 @@ public final class InfumiaPluginCommands {
     return new CommandAPICommand("reload")
       .withPermission(InfumiaPluginCommands.RELOAD)
       .executes((sender, objects) -> {
-        InfumiaLibConfig.load(this.plugin, true).whenComplete((configLoader, throwable) -> {
+        InfumiaLibConfig.load(this.plugin.getDataFolder(), true).whenComplete((configLoader, throwable) -> {
           sender.sendMessage(InfumiaPluginCommands.getReloadCompleteMessage());
         });
       });
@@ -112,7 +112,7 @@ public final class InfumiaPluginCommands {
     return new CommandAPICommand("update")
       .withPermission(InfumiaPluginCommands.UPDATE)
       .executes((sender, objects) -> {
-        GitHubUpdateChecker.checkForUpdate(sender, this.plugin, "Infumia", "InfumiaPlugin");
+        GitHubUpdateChecker.checkForUpdate(sender, this.plugin, "Infumia", "InfumiaLib");
       });
   }
 

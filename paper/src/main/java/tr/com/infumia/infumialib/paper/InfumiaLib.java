@@ -43,7 +43,7 @@ public final class InfumiaLib extends JavaPlugin {
     this.inventory.init();
     Hooks.loadHooks();
     if (InfumiaLibConfig.checkForUpdate) {
-      GitHubUpdateChecker.checkForUpdate(this, "Infumia", "InfumiaPlugin");
+      GitHubUpdateChecker.checkForUpdate(this, "Infumia", "InfumiaLib");
     }
   }
 }
