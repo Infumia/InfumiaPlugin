@@ -27,7 +27,7 @@ jobs:
         id: version
         with:
           owner: Infumia
-          repo: InfumiaPlugin
+          repo: InfumiaLib
 
       - uses: actions-ecosystem/action-bump-semver@v1
         id: bump-semver
@@ -57,7 +57,7 @@ jobs:
         with:
           tag_name: '${{ steps.bump-semver.outputs.new_version }}'
           name: '${{ steps.bump-semver.outputs.new_version }}'
-          body: '[Changelog](https://github.com/Infumia/InfumiaPlugin/compare/${{ steps.version.outputs.release }}...${{ steps.bump-semver.outputs.new_version }})'
+          body: '[Changelog](https://github.com/Infumia/InfumiaLib/compare/${{ steps.version.outputs.release }}...${{ steps.bump-semver.outputs.new_version }})'
           files: target/InfumiaPlugin.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
