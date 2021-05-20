@@ -27,7 +27,7 @@
           <relocations>
             <relocation>
               <pattern>org.bstats</pattern>
-              <shadedPattern>tr.com.infumia.infumialib.shade</shadedPattern>
+              <shadedPattern>tr.com.infumia.infumialib.paper.shade</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
