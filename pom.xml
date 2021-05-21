@@ -6,23 +6,31 @@
   <parent>
     <groupId>io.github.portlek</groupId>
     <artifactId>depp-portlek</artifactId>
-    <version>1.2.3</version>
+    <version>1.2.4</version>
   </parent>
   <groupId>tr.com.infumia</groupId>
-  <artifactId>InfumiaPlugin</artifactId>
+  <artifactId>InfumiaLib</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>InfumiaPlugin</name>
-  <description>A library-like plugin that allows you to use Infumia's Minecraft Paper plugins.</description>
+  <name>InfumiaLib</name>
+  <packaging>pom</packaging>
+  <description>A library for Infumia's Java projects.</description>
   <properties>
     <java.version>11</java.version>
+    <velocity.version>1.1.5</velocity.version>
+    <paper.version>1.16.5-R0.1-SNAPSHOT</paper.version>
   </properties>
+  <modules>
+    <module>common</module>
+    <module>paper</module>
+    <module>velocity</module>
+  </modules>
   <build>
     <finalName>${project.name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>${maven-shade.version}</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -37,150 +45,18 @@
         </executions>
       </plugin>
     </plugins>
-    <resources>
-      <resource>
-        <filtering>true</filtering>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
   </build>
   <repositories>
+    <repository>
+      <url>https://nexus.velocitypowered.com/repository/maven-public/</url>
+      <id>velocity</id>
+    </repository>
     <repository>
       <url>https://papermc.io/repo/repository/maven-public/</url>
       <id>papermc</id>
     </repository>
   </repositories>
   <dependencies>
-    <dependency>
-      <groupId>com.destroystokyo.paper</groupId>
-      <artifactId>paper-api</artifactId>
-      <version>1.16.5-R0.1-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>configs-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>configs-json</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>configs-yaml</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>configs-bukkit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>SmartInventory</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>input-paper</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.zaxxer</groupId>
-      <artifactId>HikariCP</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.bananapuncher714</groupId>
-      <artifactId>NBTEditor</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>net.wesjd</groupId>
-      <artifactId>anvilgui</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>version-matched</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>bukkit-version</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>bukkit-location</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>BukkitItemBuilder</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.cryptomorin</groupId>
-      <artifactId>XSeries</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>reflection</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>replaceable</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.portlek</groupId>
-      <artifactId>equilibrium</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.kohsuke</groupId>
-      <artifactId>github-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.JorelAli.CommandAPI</groupId>
-      <artifactId>commandapi-shade</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongodb-driver-sync</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>net.kyori</groupId>
-      <artifactId>adventure-text-minimessage</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>me.clip</groupId>
-      <artifactId>placeholderapi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>net.luckperms</groupId>
-      <artifactId>api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>world.bentobox</groupId>
-      <artifactId>bentobox</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>world.bentobox</groupId>
-      <artifactId>level</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.anjocaido</groupId>
-      <artifactId>groupmanagerx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>ru.tehkode</groupId>
-      <artifactId>PermissionsEx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.sk89q.worldguard</groupId>
-      <artifactId>worldguard-bukkit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.sk89q.worldedit</groupId>
-      <artifactId>worldedit-bukkit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.MilkBowl</groupId>
-      <artifactId>VaultAPI</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
@@ -190,4 +66,25 @@
       <artifactId>lombok</artifactId>
     </dependency>
   </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>tr.com.infumia</groupId>
+        <artifactId>InfumiaCommon</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.destroystokyo.paper</groupId>
+        <artifactId>paper-api</artifactId>
+        <version>${paper.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.velocitypowered</groupId>
+        <artifactId>velocity-api</artifactId>
+        <version>${velocity.version}</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

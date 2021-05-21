@@ -1,4 +1,0 @@
-name: ${project.name}
-version: ${project.version}
-main: tr.com.infumia.plugin.InfumiaPlugin
-api-version: 1.16

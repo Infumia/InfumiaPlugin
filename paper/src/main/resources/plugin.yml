@@ -1,0 +1,4 @@
+name: InfumiaLib
+version: ${project.version}
+main: tr.com.infumia.infumialib.paper.InfumiaLib
+api-version: 1.16

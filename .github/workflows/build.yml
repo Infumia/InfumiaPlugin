@@ -16,4 +16,4 @@ jobs:
         with:
           java-version: 11
 
-      - run: mvn clean install
+      - run: mvn clean install -T 2
