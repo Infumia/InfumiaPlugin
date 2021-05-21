@@ -1,0 +1,10 @@
+{
+  "id": "infumialib",
+  "name": "InfumiaLib",
+  "version": "${project.version}",
+  "authors": [
+    "Infumia"
+  ],
+  "dependencies": [],
+  "main": "tr.com.infumia.infumialib.velocity.InfumiaLib"
+}
