@@ -58,6 +58,8 @@ jobs:
           tag_name: '${{ steps.bump-semver.outputs.new_version }}'
           name: '${{ steps.bump-semver.outputs.new_version }}'
           body: '[Changelog](https://github.com/Infumia/InfumiaLib/compare/${{ steps.version.outputs.release }}...${{ steps.bump-semver.outputs.new_version }})'
-          files: target/InfumiaPlugin.jar
+          files: |
+            paper/target/InfumiaPaper.jar
+            velocity/target/InfumiaVelocity.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
