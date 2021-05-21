@@ -6,7 +6,6 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import org.bstats.velocity.Metrics;
 
-@Plugin(id = "infumialib")
 public final class InfumiaLib {
 
   private final Metrics.Factory metricsFactory;
