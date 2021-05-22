@@ -78,5 +78,9 @@
       <groupId>org.yaml</groupId>
       <artifactId>snakeyaml</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.github.tomas-langer</groupId>
+      <artifactId>chalk</artifactId>
+    </dependency>
   </dependencies>
 </project>
