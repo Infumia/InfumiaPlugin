@@ -115,5 +115,13 @@
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>guava</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.github.Querz</groupId>
+      <artifactId>NBT</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
   </dependencies>
 </project>
