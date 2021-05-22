@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
 
@@ -16,4 +17,8 @@ jobs:
         with:
           java-version: 11
 
-      - run: mvn clean install -T 2
+      - run: |
+          mvn package -T 2
+          mvn test -Pcoverage jacoco:report
+
+      - uses: codecov/codecov-action@v1.0.14
