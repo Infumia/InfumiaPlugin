@@ -56,16 +56,20 @@
       <artifactId>paper-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek.configs</groupId>
       <artifactId>configs-bukkit</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek</groupId>
       <artifactId>SmartInventory</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek.input</groupId>
       <artifactId>input-paper</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.portlek.scoreboard</groupId>
+      <artifactId>scoreboard-bukkit</artifactId>
     </dependency>
     <dependency>
       <groupId>io.github.bananapuncher714</groupId>
@@ -76,19 +80,19 @@
       <artifactId>anvilgui</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek</groupId>
       <artifactId>version-matched</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek</groupId>
       <artifactId>bukkit-version</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek</groupId>
       <artifactId>bukkit-location</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek</groupId>
       <artifactId>BukkitItemBuilder</artifactId>
     </dependency>
     <dependency>

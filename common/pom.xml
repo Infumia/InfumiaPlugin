@@ -15,15 +15,15 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek.configs</groupId>
       <artifactId>configs-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek.configs</groupId>
       <artifactId>configs-json</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek.configs</groupId>
       <artifactId>configs-yaml</artifactId>
     </dependency>
     <dependency>
@@ -31,15 +31,15 @@
       <artifactId>HikariCP</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek</groupId>
       <artifactId>reflection</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek</groupId>
       <artifactId>replaceable</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.github.portlek</groupId>
+      <groupId>com.github.portlek</groupId>
       <artifactId>equilibrium</artifactId>
     </dependency>
     <dependency>
