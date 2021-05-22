@@ -111,5 +111,9 @@
       <artifactId>cactoos</artifactId>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>com.github.ben-manes.caffeine</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
   </dependencies>
 </project>
