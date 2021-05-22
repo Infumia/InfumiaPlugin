@@ -21,13 +21,13 @@
 ```xml
 <dependencies>
   <dependency>
-    <groupId>com.github.infumia.infumialib</groupId>
+    <groupId>com.github.Infumia.InfumiaLib</groupId>
     <artifactId>InfumiaPaper</artifactId>
     <version>${version}</version>
     <scope>provided</scope>
   </dependency>
   <dependency>
-    <groupId>com.github.infumia.infumialib</groupId>
+    <groupId>com.github.Infumia.InfumiaLib</groupId>
     <artifactId>InfumiaVelocity</artifactId>
     <version>${version}</version>
     <scope>provided</scope>
@@ -47,8 +47,8 @@ repositories {
 
 ```groovy
 dependencies {
-    compileOnly("com.github.infumia.infumialib:InfumiaPaper:${version}")
-    compileOnly("com.github.infumia.infumialib:InfumiaVelocity:${version}")
+    compileOnly("com.github.Infumia.InfumiaLib:InfumiaPaper:${version}")
+    compileOnly("com.github.Infumia.InfumiaLib:InfumiaVelocity:${version}")
 }
 ```
 
