@@ -1,5 +1,10 @@
 # Infumia Library
 
+[![idea](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
+
+![master](https://github.com/Infumia/InfumiaLib/workflows/build/badge.svg)
+[![Release](https://jitpack.io/v/Infumia/InfumiaLib.svg)](https://jitpack.io/#Infumia/InfumiaLib)
+
 ## How to Use (Developers)
 
 ### Maven
