@@ -23,14 +23,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <version>${maven-shade.version}</version>
-        <configuration>
-          <relocations>
-            <relocation>
-              <pattern>org.bstats</pattern>
-              <shadedPattern>tr.com.infumia.infumialib.paper.shade</shadedPattern>
-            </relocation>
-          </relocations>
-        </configuration>
         <executions>
           <execution>
             <phase>package</phase>
