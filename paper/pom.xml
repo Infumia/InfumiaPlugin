@@ -18,33 +18,6 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>${maven-shade.version}</version>
-        <configuration>
-          <relocations>
-            <relocation>
-              <pattern>org.bstats</pattern>
-              <shadedPattern>tr.com.infumia.infumialib.paper.shade</shadedPattern>
-            </relocation>
-          </relocations>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <minimizeJar>false</minimizeJar>
-              <createDependencyReducedPom>false</createDependencyReducedPom>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
   <dependencies>
     <dependency>
@@ -144,8 +117,20 @@
       <artifactId>VaultAPI</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.bstats</groupId>
-      <artifactId>bstats-bukkit</artifactId>
+      <groupId>net.pl3x.map</groupId>
+      <artifactId>pl3xmap-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.citizensnpcs</groupId>
+      <artifactId>citizens-main</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.SirBlobman.combatlogx</groupId>
+      <artifactId>CombatLogX-API</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.gmail.filoghost.holographicdisplays</groupId>
+      <artifactId>holographicdisplays-api</artifactId>
     </dependency>
   </dependencies>
 </project>

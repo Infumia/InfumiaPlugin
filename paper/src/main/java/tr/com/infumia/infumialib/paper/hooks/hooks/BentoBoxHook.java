@@ -19,11 +19,12 @@ public final class BentoBoxHook implements Hook<BentoBoxWrapper> {
     if (this.bentoBox == null) {
       throw new IllegalStateException("BentoBox not initiated! Use BentoBoxHook#initiate() method.");
     }
-    final var addon = this.bentoBox.getAddonsManager().getAddonByName("Level");
+    final var addonsManager = this.bentoBox.getAddonsManager();
+    final var addon = addonsManager.getAddonByName("Level");
     if (addon.isEmpty()) {
       throw new IllegalStateException("BentoBox not initiated! Use BentoBoxHook#initiate() method.");
     }
-    final var loader = this.bentoBox.getAddonsManager().getLoader(addon.get());
+    final var loader = addonsManager.getLoader(addon.get());
     if (loader == null) {
       throw new IllegalStateException("Couldn't find any AddonClassLoader instance.");
     }
