@@ -2,3 +2,15 @@ name: InfumiaLib
 version: ${project.version}
 main: tr.com.infumia.infumialib.paper.InfumiaLib
 api-version: 1.16
+softdepend:
+  - Vault
+  - PermissionsEx
+  - WorldEdit
+  - WorldGuard
+  - BentoBox
+  - GroupManager
+  - PlaceholderAPI
+  - HolographicDisplays
+  - CombatLogX
+  - Pl3xMap
+  - Citizens

@@ -41,10 +41,6 @@ public final class InfumiaLibConfig implements ConfigHolder {
   @NotNull
   @SneakyThrows
   public static CompletableFuture<ConfigLoader> load(@NotNull final File folder, final boolean async) {
-    final var path = folder.toPath();
-    if (Files.notExists(path)) {
-      Files.createDirectories(path);
-    }
     return ConfigLoader.builder("config", folder, YamlType.get())
       .setConfigHolder(new InfumiaLibConfig())
       .build()

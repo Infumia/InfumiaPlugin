@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.github.parentpom</groupId>
     <artifactId>ppom-portlek</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.5</version>
   </parent>
   <groupId>tr.com.infumia</groupId>
   <artifactId>InfumiaLib</artifactId>
@@ -16,6 +16,7 @@
   <description>A library for Infumia's Java projects.</description>
   <properties>
     <java.version>11</java.version>
+    <minimize.jar>false</minimize.jar>
     <velocity.version>1.1.5</velocity.version>
     <paper.version>1.16.5-R0.1-SNAPSHOT</paper.version>
   </properties>
@@ -26,36 +27,6 @@
   </modules>
   <build>
     <finalName>${project.name}</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>${maven-shade.version}</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-            <configuration>
-              <minimizeJar>false</minimizeJar>
-              <createDependencyReducedPom>false</createDependencyReducedPom>
-              <filters>
-                <filter>
-                  <artifact>*:*</artifact>
-                  <excludes>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                    <exclude>**/*.java</exclude>
-                  </excludes>
-                </filter>
-              </filters>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
   <repositories>
     <repository>

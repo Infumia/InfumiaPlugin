@@ -144,6 +144,22 @@
       <artifactId>VaultAPI</artifactId>
     </dependency>
     <dependency>
+      <groupId>net.pl3x.map</groupId>
+      <artifactId>pl3xmap-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.citizensnpcs</groupId>
+      <artifactId>citizens-main</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.SirBlobman.combatlogx</groupId>
+      <artifactId>CombatLogX-API</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.gmail.filoghost.holographicdisplays</groupId>
+      <artifactId>holographicdisplays-api</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.bstats</groupId>
       <artifactId>bstats-bukkit</artifactId>
     </dependency>
