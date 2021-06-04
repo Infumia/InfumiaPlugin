@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.hooks.Hook;
 import world.bentobox.bentobox.BentoBox;
-import world.bentobox.bentobox.managers.AddonsManager;
 
 public final class BentoBoxHook implements Hook<BentoBoxWrapper> {
 

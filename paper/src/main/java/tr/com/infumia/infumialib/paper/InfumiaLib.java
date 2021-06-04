@@ -38,7 +38,7 @@ public final class InfumiaLib extends JavaPlugin {
     if (Files.notExists(path)) {
       try {
         Files.createDirectories(path);
-      } catch (IOException e) {
+      } catch (final IOException e) {
         e.printStackTrace();
       }
     }
