@@ -2,6 +2,7 @@ package tr.com.infumia.infumialib.paper;
 
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIConfig;
+import io.github.portlek.bukkitversion.BukkitVersion;
 import io.github.portlek.smartinventory.SmartInventory;
 import io.github.portlek.smartinventory.manager.BasicSmartInventory;
 import java.io.IOException;
@@ -19,6 +20,8 @@ import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
 
 public final class InfumiaLib extends JavaPlugin {
+
+  public static final BukkitVersion SERVER_VERSION = new BukkitVersion();
 
   @Nullable
   private static InfumiaLib instance;
