@@ -53,7 +53,7 @@ public final class LuckPermsWrapper implements Wrapped {
   }
 
   @NotNull
-  public Optional<String> getGroup(final @NotNull String world, @NotNull final Player player) {
+  public Optional<String> getGroup(@NotNull final String world, @NotNull final Player player) {
     return Optional.ofNullable(this.luckPerms.getUserManager().getUser(player.getUniqueId()))
       .map(User::getPrimaryGroup);
   }
