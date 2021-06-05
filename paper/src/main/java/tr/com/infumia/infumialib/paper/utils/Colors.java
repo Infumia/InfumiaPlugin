@@ -120,549 +120,186 @@ public final class Colors {
 
   public static final Colors GREY = Colors.GRAY;
 
-  /**
-   * The color honeydew with an RGB value of #F0FFF0
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#F0FFF0;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors HONEYDEW = new Colors(0.9411765f, 1.0f, 0.9411765f);
 
-  /**
-   * The color hot pink with an RGB value of #FF69B4
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FF69B4;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors HOTPINK = new Colors(1.0f, 0.4117647f, 0.7058824f);
 
-  /**
-   * The color indian red with an RGB value of #CD5C5C
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#CD5C5C;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors INDIANRED = new Colors(0.8039216f, 0.36078432f, 0.36078432f);
 
-  /**
-   * The color indigo with an RGB value of #4B0082
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#4B0082;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors INDIGO = new Colors(0.29411766f, 0.0f, 0.50980395f);
 
-  /**
-   * The color ivory with an RGB value of #FFFFF0
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFFFF0;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors IVORY = new Colors(1.0f, 1.0f, 0.9411765f);
 
-  /**
-   * The color khaki with an RGB value of #F0E68C
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#F0E68C;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors KHAKI = new Colors(0.9411765f, 0.9019608f, 0.54901963f);
 
-  /**
-   * The color lavender with an RGB value of #E6E6FA
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#E6E6FA;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LAVENDER = new Colors(0.9019608f, 0.9019608f, 0.98039216f);
 
-  /**
-   * The color lavender blush with an RGB value of #FFF0F5
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFF0F5;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LAVENDERBLUSH = new Colors(1.0f, 0.9411765f, 0.9607843f);
 
-  /**
-   * The color lawn green with an RGB value of #7CFC00
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#7CFC00;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LAWNGREEN = new Colors(0.4862745f, 0.9882353f, 0.0f);
 
-  /**
-   * The color lemon chiffon with an RGB value of #FFFACD
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFFACD;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LEMONCHIFFON = new Colors(1.0f, 0.98039216f, 0.8039216f);
 
-  /**
-   * The color light blue with an RGB value of #ADD8E6
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#ADD8E6;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTBLUE = new Colors(0.6784314f, 0.84705883f, 0.9019608f);
 
-  /**
-   * The color light coral with an RGB value of #F08080
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#F08080;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTCORAL = new Colors(0.9411765f, 0.5019608f, 0.5019608f);
 
-  /**
-   * The color light cyan with an RGB value of #E0FFFF
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#E0FFFF;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTCYAN = new Colors(0.8784314f, 1.0f, 1.0f);
 
-  /**
-   * The color light goldenrod yellow with an RGB value of #FAFAD2
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FAFAD2;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTGOLDENRODYELLOW = new Colors(0.98039216f, 0.98039216f, 0.8235294f);
 
-  /**
-   * The color light gray with an RGB value of #D3D3D3
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#D3D3D3;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTGRAY = new Colors(0.827451f, 0.827451f, 0.827451f);
 
-  /**
-   * The color light green with an RGB value of #90EE90
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#90EE90;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTGREEN = new Colors(0.5647059f, 0.93333334f, 0.5647059f);
 
-  /**
-   * The color light grey with an RGB value of #D3D3D3
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#D3D3D3;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTGREY = Colors.LIGHTGRAY;
 
-  /**
-   * The color light pink with an RGB value of #FFB6C1
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFB6C1;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTPINK = new Colors(1.0f, 0.7137255f, 0.75686276f);
 
-  /**
-   * The color light salmon with an RGB value of #FFA07A
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFA07A;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTSALMON = new Colors(1.0f, 0.627451f, 0.47843137f);
 
-  /**
-   * The color light sea green with an RGB value of #20B2AA
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#20B2AA;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTSEAGREEN = new Colors(0.1254902f, 0.69803923f, 0.6666667f);
 
-  /**
-   * The color light sky blue with an RGB value of #87CEFA
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#87CEFA;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTSKYBLUE = new Colors(0.5294118f, 0.80784315f, 0.98039216f);
 
-  /**
-   * The color light slate gray with an RGB value of #778899
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#778899;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTSLATEGRAY = new Colors(0.46666667f, 0.53333336f, 0.6f);
 
-  /**
-   * The color light slate grey with an RGB value of #778899
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#778899;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTSLATEGREY = Colors.LIGHTSLATEGRAY;
 
-  /**
-   * The color light steel blue with an RGB value of #B0C4DE
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#B0C4DE;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTSTEELBLUE = new Colors(0.6901961f, 0.76862746f, 0.87058824f);
 
-  /**
-   * The color light yellow with an RGB value of #FFFFE0
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFFFE0;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIGHTYELLOW = new Colors(1.0f, 1.0f, 0.8784314f);
 
-  /**
-   * The color lime with an RGB value of #00FF00
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#00FF00;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIME = new Colors(0.0f, 1.0f, 0.0f);
 
-  /**
-   * The color lime green with an RGB value of #32CD32
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#32CD32;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LIMEGREEN = new Colors(0.19607843f, 0.8039216f, 0.19607843f);
 
-  /**
-   * The color linen with an RGB value of #FAF0E6
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FAF0E6;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors LINEN = new Colors(0.98039216f, 0.9411765f, 0.9019608f);
 
-  /**
-   * The color magenta with an RGB value of #FF00FF
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FF00FF;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MAGENTA = new Colors(1.0f, 0.0f, 1.0f);
 
-  /**
-   * The color maroon with an RGB value of #800000
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#800000;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MAROON = new Colors(0.5019608f, 0.0f, 0.0f);
 
-  /**
-   * The color medium aquamarine with an RGB value of #66CDAA
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#66CDAA;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMAQUAMARINE = new Colors(0.4f, 0.8039216f, 0.6666667f);
 
-  /**
-   * The color medium blue with an RGB value of #0000CD
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#0000CD;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMBLUE = new Colors(0.0f, 0.0f, 0.8039216f);
 
-  /**
-   * The color medium orchid with an RGB value of #BA55D3
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#BA55D3;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMORCHID = new Colors(0.7294118f, 0.33333334f, 0.827451f);
 
-  /**
-   * The color medium purple with an RGB value of #9370DB
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#9370DB;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMPURPLE = new Colors(0.5764706f, 0.4392157f, 0.85882354f);
 
-  /**
-   * The color medium sea green with an RGB value of #3CB371
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#3CB371;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMSEAGREEN = new Colors(0.23529412f, 0.7019608f, 0.44313726f);
 
-  /**
-   * The color medium slate blue with an RGB value of #7B68EE
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#7B68EE;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMSLATEBLUE = new Colors(0.48235294f, 0.40784314f, 0.93333334f);
 
-  /**
-   * The color medium spring green with an RGB value of #00FA9A
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#00FA9A;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMSPRINGGREEN = new Colors(0.0f, 0.98039216f, 0.6039216f);
 
-  /**
-   * The color medium turquoise with an RGB value of #48D1CC
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#48D1CC;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMTURQUOISE = new Colors(0.28235295f, 0.81960785f, 0.8f);
 
-  /**
-   * The color medium violet red with an RGB value of #C71585
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#C71585;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MEDIUMVIOLETRED = new Colors(0.78039217f, 0.08235294f, 0.52156866f);
 
-  /**
-   * The color midnight blue with an RGB value of #191970
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#191970;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MIDNIGHTBLUE = new Colors(0.09803922f, 0.09803922f, 0.4392157f);
 
-  /**
-   * The color mint cream with an RGB value of #F5FFFA
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#F5FFFA;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MINTCREAM = new Colors(0.9607843f, 1.0f, 0.98039216f);
 
-  /**
-   * The color misty rose with an RGB value of #FFE4E1
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFE4E1;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MISTYROSE = new Colors(1.0f, 0.89411765f, 0.88235295f);
 
-  /**
-   * The color moccasin with an RGB value of #FFE4B5
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFE4B5;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors MOCCASIN = new Colors(1.0f, 0.89411765f, 0.70980394f);
 
-  /**
-   * The color navajo white with an RGB value of #FFDEAD
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFDEAD;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors NAVAJOWHITE = new Colors(1.0f, 0.87058824f, 0.6784314f);
 
-  /**
-   * The color navy with an RGB value of #000080
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#000080;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors NAVY = new Colors(0.0f, 0.0f, 0.5019608f);
 
-  /**
-   * The color old lace with an RGB value of #FDF5E6
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FDF5E6;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors OLDLACE = new Colors(0.99215686f, 0.9607843f, 0.9019608f);
 
-  /**
-   * The color olive with an RGB value of #808000
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#808000;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors OLIVE = new Colors(0.5019608f, 0.5019608f, 0.0f);
 
-  /**
-   * The color olive drab with an RGB value of #6B8E23
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#6B8E23;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors OLIVEDRAB = new Colors(0.41960785f, 0.5568628f, 0.13725491f);
 
-  /**
-   * The color orange with an RGB value of #FFA500
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFA500;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors ORANGE = new Colors(1.0f, 0.64705884f, 0.0f);
 
-  /**
-   * The color orange red with an RGB value of #FF4500
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FF4500;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors ORANGERED = new Colors(1.0f, 0.27058825f, 0.0f);
 
-  /**
-   * The color orchid with an RGB value of #DA70D6
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#DA70D6;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors ORCHID = new Colors(0.85490197f, 0.4392157f, 0.8392157f);
 
-  /**
-   * The color pale goldenrod with an RGB value of #EEE8AA
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#EEE8AA;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PALEGOLDENROD = new Colors(0.93333334f, 0.9098039f, 0.6666667f);
 
-  /**
-   * The color pale green with an RGB value of #98FB98
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#98FB98;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PALEGREEN = new Colors(0.59607846f, 0.9843137f, 0.59607846f);
 
-  /**
-   * The color pale turquoise with an RGB value of #AFEEEE
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#AFEEEE;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PALETURQUOISE = new Colors(0.6862745f, 0.93333334f, 0.93333334f);
 
-  /**
-   * The color pale violet red with an RGB value of #DB7093
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#DB7093;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PALEVIOLETRED = new Colors(0.85882354f, 0.4392157f, 0.5764706f);
 
-  /**
-   * The color papaya whip with an RGB value of #FFEFD5
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFEFD5;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PAPAYAWHIP = new Colors(1.0f, 0.9372549f, 0.8352941f);
 
-  /**
-   * The color peach puff with an RGB value of #FFDAB9
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFDAB9;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PEACHPUFF = new Colors(1.0f, 0.85490197f, 0.7254902f);
 
-  /**
-   * The color peru with an RGB value of #CD853F
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#CD853F;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PERU = new Colors(0.8039216f, 0.52156866f, 0.24705882f);
 
-  /**
-   * The color pink with an RGB value of #FFC0CB
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFC0CB;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PINK = new Colors(1.0f, 0.7529412f, 0.79607844f);
 
-  /**
-   * The color plum with an RGB value of #DDA0DD
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#DDA0DD;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PLUM = new Colors(0.8666667f, 0.627451f, 0.8666667f);
 
-  /**
-   * The color powder blue with an RGB value of #B0E0E6
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#B0E0E6;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors POWDERBLUE = new Colors(0.6901961f, 0.8784314f, 0.9019608f);
 
-  /**
-   * The color purple with an RGB value of #800080
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#800080;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors PURPLE = new Colors(0.5019608f, 0.0f, 0.5019608f);
 
-  /**
-   * The color red with an RGB value of #FF0000
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FF0000;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors RED = new Colors(1.0f, 0.0f, 0.0f);
 
-  /**
-   * The color rosy brown with an RGB value of #BC8F8F
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#BC8F8F;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors ROSYBROWN = new Colors(0.7372549f, 0.56078434f, 0.56078434f);
 
-  /**
-   * The color royal blue with an RGB value of #4169E1
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#4169E1;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors ROYALBLUE = new Colors(0.25490198f, 0.4117647f, 0.88235295f);
 
-  /**
-   * The color saddle brown with an RGB value of #8B4513
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#8B4513;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SADDLEBROWN = new Colors(0.54509807f, 0.27058825f, 0.07450981f);
 
-  /**
-   * The color salmon with an RGB value of #FA8072
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FA8072;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SALMON = new Colors(0.98039216f, 0.5019608f, 0.44705883f);
 
-  /**
-   * The color sandy brown with an RGB value of #F4A460
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#F4A460;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SANDYBROWN = new Colors(0.95686275f, 0.6431373f, 0.3764706f);
 
-  /**
-   * The color sea green with an RGB value of #2E8B57
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#2E8B57;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SEAGREEN = new Colors(0.18039216f, 0.54509807f, 0.34117648f);
 
-  /**
-   * The color sea shell with an RGB value of #FFF5EE
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFF5EE;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SEASHELL = new Colors(1.0f, 0.9607843f, 0.93333334f);
 
-  /**
-   * The color sienna with an RGB value of #A0522D
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#A0522D;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SIENNA = new Colors(0.627451f, 0.32156864f, 0.1764706f);
 
-  /**
-   * The color silver with an RGB value of #C0C0C0
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#C0C0C0;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SILVER = new Colors(0.7529412f, 0.7529412f, 0.7529412f);
 
-  /**
-   * The color sky blue with an RGB value of #87CEEB
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#87CEEB;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SKYBLUE = new Colors(0.5294118f, 0.80784315f, 0.92156863f);
 
-  /**
-   * The color slate blue with an RGB value of #6A5ACD
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#6A5ACD;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SLATEBLUE = new Colors(0.41568628f, 0.3529412f, 0.8039216f);
 
-  /**
-   * The color slate gray with an RGB value of #708090
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#708090;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SLATEGRAY = new Colors(0.4392157f, 0.5019608f, 0.5647059f);
 
-  /**
-   * The color slate grey with an RGB value of #708090
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#708090;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SLATEGREY = Colors.SLATEGRAY;
 
-  /**
-   * The color snow with an RGB value of #FFFAFA
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFFAFA;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SNOW = new Colors(1.0f, 0.98039216f, 0.98039216f);
 
-  /**
-   * The color spring green with an RGB value of #00FF7F
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#00FF7F;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors SPRINGGREEN = new Colors(0.0f, 1.0f, 0.49803922f);
 
-  /**
-   * The color steel blue with an RGB value of #4682B4
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#4682B4;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors STEELBLUE = new Colors(0.27450982f, 0.50980395f, 0.7058824f);
 
-  /**
-   * The color tan with an RGB value of #D2B48C
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#D2B48C;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors TAN = new Colors(0.8235294f, 0.7058824f, 0.54901963f);
 
-  /**
-   * The color teal with an RGB value of #008080
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#008080;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors TEAL = new Colors(0.0f, 0.5019608f, 0.5019608f);
 
-  /**
-   * The color thistle with an RGB value of #D8BFD8
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#D8BFD8;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors THISTLE = new Colors(0.84705883f, 0.7490196f, 0.84705883f);
 
-  /**
-   * The color tomato with an RGB value of #FF6347
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FF6347;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors TOMATO = new Colors(1.0f, 0.3882353f, 0.2784314f);
 
-  /**
-   * A fully transparent color with an ARGB value of #00000000.
-   */
   public static final Colors TRANSPARENT = new Colors(0f, 0f, 0f, 0f);
 
-  /**
-   * The color turquoise with an RGB value of #40E0D0
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#40E0D0;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors TURQUOISE = new Colors(0.2509804f, 0.8784314f, 0.8156863f);
 
-  /**
-   * The color violet with an RGB value of #EE82EE
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#EE82EE;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors VIOLET = new Colors(0.93333334f, 0.50980395f, 0.93333334f);
 
-  /**
-   * The color wheat with an RGB value of #F5DEB3
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#F5DEB3;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors WHEAT = new Colors(0.9607843f, 0.87058824f, 0.7019608f);
 
-  /**
-   * The color white with an RGB value of #FFFFFF
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFFFFF;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors WHITE = new Colors(1.0f, 1.0f, 1.0f);
 
-  /**
-   * The color white smoke with an RGB value of #F5F5F5
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#F5F5F5;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors WHITESMOKE = new Colors(0.9607843f, 0.9607843f, 0.9607843f);
 
-  /**
-   * The color yellow with an RGB value of #FFFF00
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#FFFF00;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors YELLOW = new Colors(1.0f, 1.0f, 0.0f);
 
-  /**
-   * The color yellow green with an RGB value of #9ACD32
-   * <div style="border:1px solid black;width:40px;height:20px;background-color:#9ACD32;float:right;margin: 0 10px 0 0"></div><br/><br/>
-   */
   public static final Colors YELLOWGREEN = new Colors(0.6039216f, 0.8039216f, 0.19607843f);
 
   private static final int PARSE_ALPHA = 3; // clamped to [0.0,1.0]
