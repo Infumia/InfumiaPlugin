@@ -25,7 +25,7 @@ public class GitHubUpdateChecker {
    * @param repositoryName the repository name to check.
    */
   public void checkForUpdate(@NotNull final Plugin plugin, @NotNull final String organizationName,
-                                    @NotNull final String repositoryName) {
+                             @NotNull final String repositoryName) {
     GitHubUpdateChecker.checkForUpdate(Bukkit.getConsoleSender(), plugin, organizationName, repositoryName);
   }
 
@@ -38,7 +38,7 @@ public class GitHubUpdateChecker {
    * @param repositoryName the repository name to check.
    */
   public void checkForUpdate(@NotNull final CommandSender sender, @NotNull final Plugin plugin,
-                                    @NotNull final String organizationName, @NotNull final String repositoryName) {
+                             @NotNull final String organizationName, @NotNull final String repositoryName) {
     TaskUtilities.async(() -> {
       try {
         final var version = GitHub.connect()
@@ -85,7 +85,7 @@ public class GitHubUpdateChecker {
    */
   @NotNull
   private TextComponent createUpdateMessage1(@NotNull final String organizationName,
-                                                    @NotNull final String repositoryName) {
+                                             @NotNull final String repositoryName) {
     return Component.text()
       .append(Component.text("https://github.com/")
         .color(NamedTextColor.GOLD))
