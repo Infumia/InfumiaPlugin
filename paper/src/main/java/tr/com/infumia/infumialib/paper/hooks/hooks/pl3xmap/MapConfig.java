@@ -32,9 +32,7 @@ public interface MapConfig {
    * obtains layer unique id pattern.
    * <p>
    * regex:
-   * <l>
-   * <li>%world_unique_id%</li>
-   * </l>
+   * %world_unique_id%
    *
    * @return layer unique id pattern.
    */
@@ -48,10 +46,8 @@ public interface MapConfig {
    * obtains region id pattern.
    * <p>
    * regex:
-   * <l>
-   * <li>%world_name%</li>
-   * <li>%id%</li>
-   * </l>
+   * %world_name%
+   * %id%
    *
    * @return region id pattern.
    */
