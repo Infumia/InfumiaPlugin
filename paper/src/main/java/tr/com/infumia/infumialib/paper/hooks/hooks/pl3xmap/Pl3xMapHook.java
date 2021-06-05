@@ -1,5 +1,6 @@
-package tr.com.infumia.infumialib.paper.hooks.hooks;
+package tr.com.infumia.infumialib.paper.hooks.hooks.pl3xmap;
 
+import net.pl3x.map.api.Pl3xMapProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +20,7 @@ public final class Pl3xMapHook implements Hook<Pl3xMapWrapper> {
     if (this.plugin == null) {
       throw new IllegalStateException("Pl3xMap not initiated! Use Pl3xMapHook#initiate() method.");
     }
-    return new Pl3xMapWrapper();
+    return new Pl3xMapWrapper(Pl3xMapProvider.get());
   }
 
   @NotNull
