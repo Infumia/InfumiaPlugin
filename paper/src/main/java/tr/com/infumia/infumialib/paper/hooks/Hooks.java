@@ -24,12 +24,12 @@ import tr.com.infumia.infumialib.paper.hooks.hooks.LuckPermsHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.LuckPermsWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.PermissionsExHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.PermissionsExWrapper;
-import tr.com.infumia.infumialib.paper.hooks.hooks.pl3xmap.Pl3xMapHook;
-import tr.com.infumia.infumialib.paper.hooks.hooks.pl3xmap.Pl3xMapWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.PlaceholderAPIWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.PlaceholderApiHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.VaultHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.VaultWrapper;
+import tr.com.infumia.infumialib.paper.hooks.hooks.pl3xmap.Pl3xMapHook;
+import tr.com.infumia.infumialib.paper.hooks.hooks.pl3xmap.Pl3xMapWrapper;
 
 /**
  * a class that contains utility methods for hooks.

@@ -41,13 +41,6 @@ public final class MapTask extends BukkitRunnable {
     super.cancel();
   }
 
-  @Override
-  public void run() {
-    if (!this.stop.get()) {
-      this.updateClaims();
-    }
-  }
-
   public void handleClaim(@NotNull final Claim claim) {
     final var rect = Marker.rectangle(
       Point.of(claim.getMinX(), claim.getMinZ()),
@@ -93,6 +86,13 @@ public final class MapTask extends BukkitRunnable {
       .replace("%world_name%", this.world.name())
       .replace("%id%", Long.toHexString(id));
     this.provider.removeMarker(Key.key(markerId));
+  }
+
+  @Override
+  public void run() {
+    if (!this.stop.get()) {
+      this.updateClaims();
+    }
   }
 
   private void updateClaims() {
