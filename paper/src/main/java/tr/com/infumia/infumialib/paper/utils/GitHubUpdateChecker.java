@@ -24,7 +24,7 @@ public class GitHubUpdateChecker {
    * @param organizationName the organization name to check.
    * @param repositoryName the repository name to check.
    */
-  public static void checkForUpdate(@NotNull final Plugin plugin, @NotNull final String organizationName,
+  public void checkForUpdate(@NotNull final Plugin plugin, @NotNull final String organizationName,
                                     @NotNull final String repositoryName) {
     GitHubUpdateChecker.checkForUpdate(Bukkit.getConsoleSender(), plugin, organizationName, repositoryName);
   }
@@ -37,7 +37,7 @@ public class GitHubUpdateChecker {
    * @param organizationName the organization name to check.
    * @param repositoryName the repository name to check.
    */
-  public static void checkForUpdate(@NotNull final CommandSender sender, @NotNull final Plugin plugin,
+  public void checkForUpdate(@NotNull final CommandSender sender, @NotNull final Plugin plugin,
                                     @NotNull final String organizationName, @NotNull final String repositoryName) {
     TaskUtilities.async(() -> {
       try {
@@ -65,7 +65,7 @@ public class GitHubUpdateChecker {
    * @return a newly created update message.
    */
   @NotNull
-  private static TextComponent createUpdateMessage0(@NotNull final Plugin plugin) {
+  private TextComponent createUpdateMessage0(@NotNull final Plugin plugin) {
     return Component.text()
       .append(Component.text("[InfumiaPlugin] Update available for ")
         .color(NamedTextColor.YELLOW))
@@ -84,7 +84,7 @@ public class GitHubUpdateChecker {
    * @return a newly created update message.
    */
   @NotNull
-  private static TextComponent createUpdateMessage1(@NotNull final String organizationName,
+  private TextComponent createUpdateMessage1(@NotNull final String organizationName,
                                                     @NotNull final String repositoryName) {
     return Component.text()
       .append(Component.text("https://github.com/")
