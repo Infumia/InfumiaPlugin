@@ -41,7 +41,7 @@ public class GitHubUpdateChecker {
                              @NotNull final String organizationName, @NotNull final String repositoryName) {
     TaskUtilities.async(() -> {
       try {
-        final var version = GitHub.connect()
+        final var version = GitHub.connectAnonymously()
           .getOrganization(organizationName)
           .getRepository(repositoryName)
           .getLatestRelease()
