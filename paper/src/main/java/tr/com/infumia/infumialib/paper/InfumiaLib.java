@@ -5,8 +5,6 @@ import dev.jorel.commandapi.CommandAPIConfig;
 import io.github.portlek.bukkitversion.BukkitVersion;
 import io.github.portlek.smartinventory.SmartInventory;
 import io.github.portlek.smartinventory.manager.BasicSmartInventory;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Objects;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,18 +34,10 @@ public final class InfumiaLib extends JavaPlugin {
 
   @Override
   public void onLoad() {
-    final var path = this.getDataFolder().toPath();
-    if (Files.notExists(path)) {
-      try {
-        Files.createDirectories(path);
-      } catch (final IOException e) {
-        e.printStackTrace();
-      }
-    }
     InfumiaLib.instance = this;
     TaskUtilities.init(this);
-    InfumiaLibConfig.load(this.getDataFolder());
-    BukkitConfig.load(this);
+    InfumiaLibConfig.loadConfig(this.getDataFolder());
+    BukkitConfig.loadConfig(this.getDataFolder());
     CommandAPI.onLoad(new CommandAPIConfig());
   }
 

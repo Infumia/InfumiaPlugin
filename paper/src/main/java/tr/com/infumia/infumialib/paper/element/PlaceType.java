@@ -5,10 +5,8 @@ import io.github.portlek.reflection.clazz.ClassOf;
 import io.github.portlek.smartinventory.Icon;
 import io.github.portlek.smartinventory.InventoryContents;
 import io.github.portlek.smartinventory.util.Pattern;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,7 +19,7 @@ public enum PlaceType {
 
   SLOTS((icon, contents, objects) ->
     objects.values().stream()
-      .map(o -> (List<Integer>) o)
+      .map(o -> (Collection<Integer>) o)
       .forEach(slots ->
         slots.forEach(slot ->
           contents.set(slot, icon))),
@@ -86,14 +84,6 @@ public enum PlaceType {
   PlaceType(@NotNull final TriConsumer<Icon, InventoryContents, Map<String, Object>> consumer,
             @NotNull final Object... objects) {
     this(consumer, PlaceType.parse(objects));
-  }
-
-  @NotNull
-  public static PlaceType fromString(@NotNull final String type) {
-    return Arrays.stream(PlaceType.values())
-      .filter(placeType -> placeType.name().trim().toLowerCase(Locale.ENGLISH).equalsIgnoreCase(type.trim().toLowerCase(Locale.ENGLISH)))
-      .findFirst()
-      .orElse(PlaceType.NONE);
   }
 
   @NotNull

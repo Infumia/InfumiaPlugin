@@ -39,7 +39,7 @@ public class GitHubUpdateChecker {
    */
   public void checkForUpdate(@NotNull final CommandSender sender, @NotNull final Plugin plugin,
                              @NotNull final String organizationName, @NotNull final String repositoryName) {
-    TaskUtilities.async(() -> {
+    TaskUtilities.async(runnable -> {
       try {
         final var version = GitHub.connectAnonymously()
           .getOrganization(organizationName)

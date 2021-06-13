@@ -31,12 +31,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 class Metrics {
 
   private final MetricsBase metricsBase;
 
+  @NotNull
   private final Plugin plugin;
 
   /**
@@ -46,7 +47,7 @@ class Metrics {
    * @param serviceId The id of the service. It can be found at <a
    *   href="https://bstats.org/what-is-my-plugin-id">What is my plugin id?</a>
    */
-  Metrics(final JavaPlugin plugin, final int serviceId) {
+  Metrics(@NotNull final Plugin plugin, final int serviceId) {
     this.plugin = plugin;
     // Get the config file
     final File bStatsFolder = new File(plugin.getDataFolder().getParentFile(), "bStats");
