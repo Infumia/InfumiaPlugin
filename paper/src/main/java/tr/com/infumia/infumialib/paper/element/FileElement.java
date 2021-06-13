@@ -3,11 +3,13 @@ package tr.com.infumia.infumialib.paper.element;
 import com.cryptomorin.xseries.XMaterial;
 import io.github.portlek.bukkititembuilder.ItemStackBuilder;
 import io.github.portlek.bukkititembuilder.util.ItemStackUtil;
-import io.github.portlek.configs.configuration.ConfigurationSection;
-import io.github.portlek.configs.loaders.DataSerializer;
+import io.github.portlek.bukkititembuilder.util.KeyUtil;
 import io.github.portlek.smartinventory.Icon;
 import io.github.portlek.smartinventory.InventoryContents;
 import io.github.portlek.smartinventory.event.abs.ClickEvent;
+import io.github.portlek.transformer.ObjectSerializer;
+import io.github.portlek.transformer.TransformedData;
+import io.github.portlek.transformer.declarations.GenericDeclaration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,14 +19,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.element.Placeholder;
 
 @RequiredArgsConstructor
-public final class FileElement implements DataSerializer {
+public final class FileElement {
 
   @NotNull
   private final List<Consumer<ClickEvent>> events;
@@ -33,6 +37,7 @@ public final class FileElement implements DataSerializer {
   private final ItemStack itemStack;
 
   @NotNull
+  @Getter
   private final PlaceType placeType;
 
   @NotNull
@@ -657,42 +662,15 @@ public final class FileElement implements DataSerializer {
     return FileElement.slots(ItemStackBuilder.from(material), slots, events);
   }
 
-  @NotNull
-  static Optional<FileElement> deserialize(@NotNull final ConfigurationSection section) {
-    final var itemSection = section.getConfigurationSection("item");
-    if (itemSection == null) {
-      return Optional.empty();
-    }
-    final var itemStackOptional = ItemStackUtil.deserialize(itemSection.getMapValues(false));
-    final var typeOptional = section.getString("type");
-    if (itemStackOptional.isEmpty() || typeOptional == null) {
-      return Optional.empty();
-    }
-    final var type = PlaceType.fromString(typeOptional);
-    final var values = Optional.ofNullable(section.getConfigurationSection("values"))
-      .map(configurationSection -> configurationSection.getMapValues(false))
-      .orElse(new HashMap<>());
-    if (type.control(values)) {
-      return Optional.of(FileElement.from(itemStackOptional.get(), type, values));
-    }
-    final var defaults = type.defaultValues();
-    if (defaults.isEmpty()) {
-      section.set("values", null);
-    } else {
-      defaults.forEach((s, o) -> section.set("values." + s, o));
-    }
-    return Optional.empty();
-  }
-
   public FileElement addEvent(@NotNull final Consumer<ClickEvent> event) {
-    final List<Consumer<ClickEvent>> events = new ArrayList<>(this.events());
+    final var events = new ArrayList<>(this.getEvents());
     events.add(event);
     return this.changeEvent(events);
   }
 
   @NotNull
   public FileElement addValue(@NotNull final String key, @NotNull final Object object) {
-    final Map<String, Object> copy = new HashMap<>(this.values);
+    final var copy = new HashMap<>(this.values);
     copy.put(key, object);
     return this.duplicate(copy);
   }
@@ -731,14 +709,14 @@ public final class FileElement implements DataSerializer {
 
   @NotNull
   public FileElement changeMaterial(@NotNull final Material material) {
-    final ItemStack clone = this.getItemStack();
+    final var clone = this.getItemStack();
     clone.setType(material);
     return this.changeItemStack(clone);
   }
 
   @NotNull
   public FileElement changeMaterial(@NotNull final XMaterial xmaterial) {
-    final ItemStack clone = this.getItemStack();
+    final var clone = this.getItemStack();
     Optional.ofNullable(xmaterial.parseMaterial()).ifPresent(clone::setType);
     return this.changeItemStack(clone);
   }
@@ -767,13 +745,13 @@ public final class FileElement implements DataSerializer {
 
   @NotNull
   public Icon clickableItem() {
-    final Icon icon = Icon.from(this.getItemStack());
-    this.events().forEach(icon::whenClick);
+    final var icon = Icon.from(this.getItemStack());
+    this.getEvents().forEach(icon::whenClick);
     return icon;
   }
 
   @NotNull
-  public List<Consumer<ClickEvent>> events() {
+  public List<Consumer<ClickEvent>> getEvents() {
     return Collections.unmodifiableList(this.events);
   }
 
@@ -783,12 +761,12 @@ public final class FileElement implements DataSerializer {
   }
 
   public void place(@NotNull final InventoryContents contents) {
-    this.type().place(this.clickableItem(), contents, this.values());
+    this.getPlaceType().place(this.clickableItem(), contents, this.values());
   }
 
   @NotNull
   public FileElement removeValue(@NotNull final String key) {
-    final Map<String, Object> copy = new HashMap<>(this.values);
+    final var copy = new HashMap<>(this.values);
     copy.remove(key);
     return this.duplicate(copy);
   }
@@ -822,7 +800,7 @@ public final class FileElement implements DataSerializer {
   @NotNull
   public FileElement replace(final boolean name, final boolean lore,
                              @NotNull final Iterable<Placeholder> placeholders) {
-    final ItemStack clone = this.getItemStack();
+    final var clone = this.getItemStack();
     Optional.ofNullable(clone.getItemMeta()).ifPresent(itemMeta -> {
       if (name && itemMeta.hasDisplayName()) {
         placeholders.forEach(placeholder ->
@@ -843,22 +821,8 @@ public final class FileElement implements DataSerializer {
     return this.changeItemStack(clone);
   }
 
-  @Override
-  public void serialize(@NotNull final ConfigurationSection section) {
-    section.set("item", ItemStackUtil.serialize(this.getItemStack()));
-    section.set("type", this.type().name());
-    section.set("values", null);
-    this.values().forEach((s, o) ->
-      section.set("values." + s, o));
-  }
-
   public void set(@NotNull final InventoryContents contents, final int row, final int column) {
     contents.set(row, column, this.clickableItem());
-  }
-
-  @NotNull
-  public PlaceType type() {
-    return this.placeType;
   }
 
   @NotNull
@@ -873,21 +837,70 @@ public final class FileElement implements DataSerializer {
 
   @NotNull
   private FileElement duplicate(@NotNull final ItemStack itemStack) {
-    return FileElement.from(itemStack, this.type(), this.values(), this.events());
+    return FileElement.from(itemStack, this.getPlaceType(), this.values(), this.getEvents());
   }
 
   @NotNull
   private FileElement duplicate(@NotNull final PlaceType type) {
-    return FileElement.from(this.getItemStack(), type, this.values(), this.events());
+    return FileElement.from(this.getItemStack(), type, this.values(), this.getEvents());
   }
 
   @NotNull
   private FileElement duplicate(@NotNull final Map<String, Object> values) {
-    return FileElement.from(this.getItemStack(), this.type(), values, this.events());
+    return FileElement.from(this.getItemStack(), this.getPlaceType(), values, this.getEvents());
   }
 
   @NotNull
   private FileElement duplicate(@NotNull final List<Consumer<ClickEvent>> events) {
-    return FileElement.from(this.getItemStack(), this.type(), this.values(), events);
+    return FileElement.from(this.getItemStack(), this.getPlaceType(), this.values(), events);
+  }
+
+  public static final class Serializer implements ObjectSerializer<FileElement> {
+
+    @NotNull
+    @Override
+    public Optional<FileElement> deserialize(@NotNull final TransformedData transformedData,
+                                             @Nullable final GenericDeclaration genericDeclaration) {
+      return Optional.empty();
+    }
+
+    @NotNull
+    @Override
+    public Optional<FileElement> deserialize(@NotNull final FileElement fileElement,
+                                             @NotNull final TransformedData transformedData,
+                                             @Nullable final GenericDeclaration genericDeclaration) {
+      final var itemMapOptional = transformedData.getAsMap("item", String.class, Object.class);
+      if (itemMapOptional.isEmpty()) {
+        return Optional.empty();
+      }
+      final var itemStackOptional = ItemStackUtil.deserialize(KeyUtil.Holder.map(itemMapOptional.get()));
+      final var typeOptional = transformedData.get("type", PlaceType.class);
+      if (itemStackOptional.isEmpty() || typeOptional.isEmpty()) {
+        return Optional.empty();
+      }
+      final var type = typeOptional.get();
+      final var values = transformedData.getAsMap("values", String.class, Object.class)
+        .orElse(new HashMap<>());
+      if (type.control(values)) {
+        return Optional.of(FileElement.from(itemStackOptional.get(), type, values)
+          .changeEvent(fileElement.getEvents()));
+      }
+      return Optional.empty();
+    }
+
+    @Override
+    public void serialize(@NotNull final FileElement fileElement, @NotNull final TransformedData transformedData) {
+      final var map = new HashMap<String, Object>();
+      ItemStackUtil.serialize(fileElement.getItemStack(), KeyUtil.Holder.map(map));
+      transformedData.add("item", map);
+      transformedData.add("type", fileElement.getPlaceType().name(), String.class);
+      transformedData.add("values", null, Object.class);
+      transformedData.addAsMap("values", new HashMap<>(fileElement.values()), String.class, Object.class);
+    }
+
+    @Override
+    public boolean supports(@NotNull final Class<?> aClass) {
+      return aClass == FileElement.class;
+    }
   }
 }

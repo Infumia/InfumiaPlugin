@@ -15,18 +15,6 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-json</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-yaml</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
     </dependency>
@@ -122,6 +110,30 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.portlek.configs</groupId>
+      <artifactId>configs-gson-json</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.portlek.configs</groupId>
+      <artifactId>configs-hjson-json</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.portlek.configs</groupId>
+      <artifactId>configs-jackson-json</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.portlek.configs</groupId>
+      <artifactId>configs-jackson-yaml</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.portlek.configs</groupId>
+      <artifactId>configs-hocon</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.portlek.configs</groupId>
+      <artifactId>configs-simple-json</artifactId>
     </dependency>
   </dependencies>
 </project>

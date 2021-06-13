@@ -24,23 +24,26 @@ public class InventoryUtilities {
     if (item.getType() == Material.AIR) {
       return false;
     }
-    if (item.getAmount() > 5000) {
+    final var itemAmount = item.getAmount();
+    if (itemAmount > 5000) {
       return true;
     }
-    if (player.getInventory().firstEmpty() >= 0 && item.getAmount() <= item.getMaxStackSize()) {
+    final var inventory = player.getInventory();
+    final var maxStackSize = item.getMaxStackSize();
+    if (inventory.firstEmpty() >= 0 && itemAmount <= maxStackSize) {
       return false;
     }
-    if (item.getAmount() > item.getMaxStackSize()) {
+    if (itemAmount > maxStackSize) {
       final var clone = item.clone();
-      clone.setAmount(item.getMaxStackSize());
+      clone.setAmount(maxStackSize);
       if (InventoryUtilities.isInventoryFull(player, clone)) {
         return true;
       }
-      clone.setAmount(item.getAmount() - item.getMaxStackSize());
+      clone.setAmount(itemAmount - maxStackSize);
       return InventoryUtilities.isInventoryFull(player, clone);
     }
-    final var all = player.getInventory().all(item);
-    var amount = item.getAmount();
+    final var all = inventory.all(item);
+    var amount = itemAmount;
     for (final var element : all.values()) {
       amount -= element.getMaxStackSize() - element.getAmount();
     }

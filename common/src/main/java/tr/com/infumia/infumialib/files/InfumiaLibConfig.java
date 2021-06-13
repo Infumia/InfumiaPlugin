@@ -1,49 +1,45 @@
 package tr.com.infumia.infumialib.files;
 
-import io.github.portlek.configs.ConfigHolder;
-import io.github.portlek.configs.ConfigLoader;
-import io.github.portlek.configs.annotation.Route;
-import io.github.portlek.configs.yaml.YamlType;
+import io.github.portlek.configs.hjsonjson.HJsonJson;
+import io.github.portlek.transformer.TransformedObject;
+import io.github.portlek.transformer.TransformerPool;
+import io.github.portlek.transformer.annotations.Comment;
+import io.github.portlek.transformer.annotations.Names;
 import java.io.File;
-import java.nio.file.Files;
 import java.util.concurrent.CompletableFuture;
-import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * a config class that covers Infumia's config.
  */
-public final class InfumiaLibConfig implements ConfigHolder {
+@Names(strategy = Names.Strategy.HYPHEN_CASE, modifier = Names.Modifier.TO_LOWER_CASE)
+public final class InfumiaLibConfig extends TransformedObject {
 
   /**
    * the check for update.
    */
-  @Route("check-for-update")
+  @Comment("Checks update for the Infumia library plugin.")
   public static boolean checkForUpdate = true;
 
   /**
-   * loads the config.
-   *
-   * @param folder the folder to load.
+   * ctor.
    */
-  public static void load(@NotNull final File folder) {
-    InfumiaLibConfig.load(folder, false);
+  private InfumiaLibConfig() {
   }
 
   /**
    * loads the config.
    *
    * @param folder the folder to load.
-   * @param async the async to load.
    *
    * @return completed future.
    */
   @NotNull
-  @SneakyThrows
-  public static CompletableFuture<ConfigLoader> load(@NotNull final File folder, final boolean async) {
-    return ConfigLoader.builder("config", folder, YamlType.get())
-      .setConfigHolder(new InfumiaLibConfig())
-      .build()
-      .load(true, async);
+  public static CompletableFuture<Void> loadConfig(@NotNull final File folder) {
+    return CompletableFuture.runAsync(() ->
+      TransformerPool.create(new InfumiaLibConfig())
+        .withFile(new File(folder, "config.hjson"))
+        .withResolver(new HJsonJson())
+        .initiate());
   }
 }
