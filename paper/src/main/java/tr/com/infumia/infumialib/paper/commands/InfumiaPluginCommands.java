@@ -5,11 +5,14 @@ import dev.jorel.commandapi.CommandPermission;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
+import tr.com.infumia.infumialib.paper.files.BukkitConfig;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 
 /**
@@ -85,6 +88,7 @@ public final class InfumiaPluginCommands {
       .withPermission(InfumiaPluginCommands.MAIN)
       .executes((sender, objects) -> {
         sender.sendMessage(this.getVersionMessage());
+        BukkitConfig.openInventory((Player) sender);
       });
   }
 
@@ -98,8 +102,10 @@ public final class InfumiaPluginCommands {
     return new CommandAPICommand("reload")
       .withPermission(InfumiaPluginCommands.RELOAD)
       .executes((sender, objects) -> {
-        InfumiaLibConfig.loadConfig(this.plugin.getDataFolder()).whenComplete((configLoader, throwable) ->
-          sender.sendMessage(InfumiaPluginCommands.getReloadCompleteMessage()));
+        InfumiaLibConfig.loadConfig(this.plugin.getDataFolder())
+          .thenRunAsync(() -> BukkitConfig.loadConfig(this.plugin.getDataFolder()))
+          .whenComplete((x, y) ->
+            sender.sendMessage(InfumiaPluginCommands.getReloadCompleteMessage()));
       });
   }
 
@@ -131,17 +137,23 @@ public final class InfumiaPluginCommands {
       .append(Component.text("Infumia")
         .color(NamedTextColor.GOLD)
         .decorate(TextDecoration.UNDERLINED)
-        .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/")))
+        .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/"))
+        .hoverEvent(HoverEvent.showText(Component.text("Go to Infumia organization page.")
+          .color(NamedTextColor.GRAY))))
       .append(Component.newline())
       .append(Component.text("Current version")
         .color(NamedTextColor.GOLD)
         .decorate(TextDecoration.UNDERLINED)
         .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/InfumiaPlugin/releases/tag/" + this.plugin.getDescription().getVersion())))
+      .hoverEvent(HoverEvent.showText(Component.text("Go to current version of Infumia Library.")
+        .color(NamedTextColor.GRAY)))
       .append(Component.space())
       .append(Component.text("Latest version")
         .color(NamedTextColor.GOLD)
         .decorate(TextDecoration.UNDERLINED)
-        .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/InfumiaPlugin/releases/latest/")))
+        .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/InfumiaPlugin/releases/latest/"))
+        .hoverEvent(HoverEvent.showText(Component.text("Go to latest version of Infumia Library.")
+          .color(NamedTextColor.GRAY))))
       .build();
   }
 }

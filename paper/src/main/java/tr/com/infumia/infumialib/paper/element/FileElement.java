@@ -892,9 +892,10 @@ public final class FileElement {
     public void serialize(@NotNull final FileElement fileElement, @NotNull final TransformedData transformedData) {
       final var map = new HashMap<String, Object>();
       ItemStackUtil.serialize(fileElement.getItemStack(), KeyUtil.Holder.map(map));
+      System.out.println("map -> " + map);
       transformedData.add("item", map);
       transformedData.add("type", fileElement.getPlaceType().name(), String.class);
-      transformedData.add("values", null, Object.class);
+      transformedData.remove("values");
       transformedData.addAsMap("values", new HashMap<>(fileElement.values()), String.class, Object.class);
     }
 
