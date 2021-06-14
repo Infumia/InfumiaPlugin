@@ -39,7 +39,7 @@ public final class PaperConfig extends TransformedObject {
   public static void loadConfig(@NotNull final File folder) {
     CompletableFuture.runAsync(() ->
       TransformerPool.create(new PaperConfig())
-        .withFile(new File(folder, "bukkit.yml"))
+        .withFile(new File(folder, "paper.yml"))
         .withResolver(new BukkitSnakeyaml())
         .initiate());
   }
