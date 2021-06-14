@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
-import tr.com.infumia.infumialib.paper.files.BukkitConfig;
+import tr.com.infumia.infumialib.paper.files.PaperConfig;
 import tr.com.infumia.infumialib.paper.hooks.Hooks;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
@@ -37,7 +37,7 @@ public final class InfumiaLib extends JavaPlugin {
     InfumiaLib.instance = this;
     TaskUtilities.init(this);
     InfumiaLibConfig.loadConfig(this.getDataFolder());
-    BukkitConfig.loadConfig(this.getDataFolder());
+    PaperConfig.loadConfig(this.getDataFolder());
     CommandAPI.onLoad(new CommandAPIConfig());
   }
 

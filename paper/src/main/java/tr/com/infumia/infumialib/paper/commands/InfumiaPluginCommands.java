@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
-import tr.com.infumia.infumialib.paper.files.BukkitConfig;
+import tr.com.infumia.infumialib.paper.files.PaperConfig;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 
 /**
@@ -88,7 +88,6 @@ public final class InfumiaPluginCommands {
       .withPermission(InfumiaPluginCommands.MAIN)
       .executes((sender, objects) -> {
         sender.sendMessage(this.getVersionMessage());
-        BukkitConfig.openInventory((Player) sender);
       });
   }
 
@@ -103,7 +102,7 @@ public final class InfumiaPluginCommands {
       .withPermission(InfumiaPluginCommands.RELOAD)
       .executes((sender, objects) -> {
         InfumiaLibConfig.loadConfig(this.plugin.getDataFolder())
-          .thenRunAsync(() -> BukkitConfig.loadConfig(this.plugin.getDataFolder()))
+          .thenRunAsync(() -> PaperConfig.loadConfig(this.plugin.getDataFolder()))
           .whenComplete((x, y) ->
             sender.sendMessage(InfumiaPluginCommands.getReloadCompleteMessage()));
       });

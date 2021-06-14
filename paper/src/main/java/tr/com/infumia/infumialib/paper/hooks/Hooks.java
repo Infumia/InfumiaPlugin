@@ -9,7 +9,7 @@ import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.hooks.Hook;
 import tr.com.infumia.infumialib.hooks.Wrapped;
-import tr.com.infumia.infumialib.paper.files.BukkitConfig;
+import tr.com.infumia.infumialib.paper.files.PaperConfig;
 import tr.com.infumia.infumialib.paper.hooks.hooks.BentoBoxHook;
 import tr.com.infumia.infumialib.paper.hooks.hooks.BentoBoxWrapper;
 import tr.com.infumia.infumialib.paper.hooks.hooks.CitizensHook;
@@ -68,7 +68,7 @@ public class Hooks {
     }
     final var id = hook.id();
     Hooks.WRAPPERS.put(id, hook.create());
-    Bukkit.getConsoleSender().sendMessage(BukkitConfig.hookMessage
+    Bukkit.getConsoleSender().sendMessage(PaperConfig.hookMessage
       .build("%hook%", () -> id));
   }
 
