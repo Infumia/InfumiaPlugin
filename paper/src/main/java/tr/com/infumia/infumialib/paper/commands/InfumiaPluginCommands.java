@@ -2,13 +2,12 @@ package tr.com.infumia.infumialib.paper.commands;
 
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.CommandPermission;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
@@ -18,8 +17,7 @@ import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 /**
  * a class that contains Infumia plugin's commands.
  */
-@RequiredArgsConstructor
-public final class InfumiaPluginCommands {
+public final class InfumiaPluginCommands extends CommandHandler {
 
   /**
    * the main.
@@ -37,32 +35,12 @@ public final class InfumiaPluginCommands {
   private static final CommandPermission UPDATE = CommandPermission.fromString("infumiaplugin.command.update");
 
   /**
-   * the plugin.
-   */
-  @NotNull
-  private final Plugin plugin;
-
-  /**
-   * obtains the reload complete message.
+   * ctor.
    *
-   * @return reload complete message.
+   * @param plugin the plugin.
    */
-  @NotNull
-  private static Component getReloadCompleteMessage() {
-    return Component.text()
-      .append(Component.text("[InfumiaPlugin]")
-        .color(NamedTextColor.YELLOW))
-      .append(Component.space())
-      .append(Component.text("Reload complete!")
-        .color(NamedTextColor.GREEN))
-      .build();
-  }
-
-  /**
-   * registers the InfumiaPlugin's command.
-   */
-  public void register() {
-    this.getCommandTree().register();
+  public InfumiaPluginCommands(@NotNull final Plugin plugin) {
+    super(plugin);
   }
 
   /**
@@ -71,24 +49,21 @@ public final class InfumiaPluginCommands {
    * @return main command.
    */
   @NotNull
-  private CommandAPICommand getCommandTree() {
-    return this.getMainCommand()
-      .withSubcommand(this.getReloadCommand())
-      .withSubcommand(this.getUpdateCommand());
-  }
-
-  /**
-   * obtains the main command.
-   *
-   * @return main command.
-   */
-  @NotNull
-  private CommandAPICommand getMainCommand() {
+  @Override
+  protected CommandAPICommand getMainCommand() {
     return new CommandAPICommand("infumia")
       .withPermission(InfumiaPluginCommands.MAIN)
       .executes((sender, objects) -> {
         sender.sendMessage(this.getVersionMessage());
       });
+  }
+
+  @NotNull
+  @Override
+  protected List<CommandAPICommand> getSubCommands() {
+    return List.of(
+      this.getReloadCommand(),
+      this.getUpdateCommand());
   }
 
   /**
@@ -104,8 +79,24 @@ public final class InfumiaPluginCommands {
         InfumiaLibConfig.loadConfig(this.plugin.getDataFolder())
           .thenRunAsync(() -> PaperConfig.loadConfig(this.plugin.getDataFolder()))
           .whenComplete((x, y) ->
-            sender.sendMessage(InfumiaPluginCommands.getReloadCompleteMessage()));
+            sender.sendMessage(this.getReloadCompleteMessage()));
       });
+  }
+
+  /**
+   * obtains the reload complete message.
+   *
+   * @return reload complete message.
+   */
+  @NotNull
+  private Component getReloadCompleteMessage() {
+    return Component.text()
+      .append(Component.text("[InfumiaPlugin]")
+        .color(NamedTextColor.YELLOW))
+      .append(Component.space())
+      .append(Component.text("Reload complete!")
+        .color(NamedTextColor.GREEN))
+      .build();
   }
 
   /**
