@@ -1,9 +1,9 @@
 package tr.com.infumia.infumialib.paper.commands;
 
-import dev.jorel.commandapi.CommandAPICommand;
-import java.util.List;
+import cloud.commandframework.paper.PaperCommandManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,33 +14,23 @@ import org.jetbrains.annotations.NotNull;
 public abstract class CommandHandler {
 
   /**
-   * the plugin.
+   * the manager.
    */
   @NotNull
-  protected final Plugin plugin;
+  protected final PaperCommandManager<CommandSender> manager;
+
+  /**
+   * obtains the plugin.
+   *
+   * @return plugin.
+   */
+  @NotNull
+  public final Plugin getPlugin() {
+    return this.manager.getOwningPlugin();
+  }
 
   /**
    * registers the command.
    */
-  public final void register() {
-    final var mainCommand = this.getMainCommand();
-    mainCommand.setSubcommands(this.getSubCommands());
-    mainCommand.register();
-  }
-
-  /**
-   * obtains the main command.
-   *
-   * @return main command.
-   */
-  @NotNull
-  protected abstract CommandAPICommand getMainCommand();
-
-  /**
-   * obtains the sub commands.
-   *
-   * @return sub commands.
-   */
-  @NotNull
-  protected abstract List<CommandAPICommand> getSubCommands();
+  public abstract void register();
 }

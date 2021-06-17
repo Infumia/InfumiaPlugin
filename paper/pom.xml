@@ -69,8 +69,12 @@
       <artifactId>XSeries</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.JorelAli.CommandAPI</groupId>
-      <artifactId>commandapi-shade</artifactId>
+      <groupId>cloud.commandframework</groupId>
+      <artifactId>cloud-paper</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>me.lucko</groupId>
+      <artifactId>commodore</artifactId>
     </dependency>
     <dependency>
       <groupId>com.github.portlek.configs</groupId>

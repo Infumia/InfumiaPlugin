@@ -1,6 +1,7 @@
 package tr.com.infumia.infumialib.paper.utils;
 
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -39,7 +40,7 @@ public class GitHubUpdateChecker {
    */
   public void checkForUpdate(@NotNull final CommandSender sender, @NotNull final Plugin plugin,
                              @NotNull final String organizationName, @NotNull final String repositoryName) {
-    TaskUtilities.async(runnable -> {
+    CompletableFuture.runAsync(() -> {
       try {
         final var version = GitHub.connectAnonymously()
           .getOrganization(organizationName)
