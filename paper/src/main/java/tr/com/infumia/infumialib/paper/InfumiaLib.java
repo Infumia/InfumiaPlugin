@@ -1,12 +1,13 @@
 package tr.com.infumia.infumialib.paper;
 
-import dev.jorel.commandapi.CommandAPI;
-import dev.jorel.commandapi.CommandAPIConfig;
-import io.github.portlek.bukkitversion.BukkitVersion;
+import cloud.commandframework.execution.CommandExecutionCoordinator;
+import cloud.commandframework.paper.PaperCommandManager;
 import io.github.portlek.smartinventory.SmartInventory;
 import io.github.portlek.smartinventory.manager.BasicSmartInventory;
 import java.util.Objects;
-import lombok.Getter;
+import java.util.function.Function;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,19 +18,69 @@ import tr.com.infumia.infumialib.paper.hooks.Hooks;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
 
+/**
+ * a class that represents main class of Infumia Library plugin.
+ */
 public final class InfumiaLib extends JavaPlugin {
 
-  public static final BukkitVersion SERVER_VERSION = new BukkitVersion();
-
+  /**
+   * the instance.
+   */
   @Nullable
   private static InfumiaLib instance;
 
-  @Getter
+  /**
+   * the inventory.
+   */
   private final SmartInventory inventory = new BasicSmartInventory(this);
 
+  /**
+   * creates a new command manager.
+   *
+   * @param plugin the plugin to create.
+   *
+   * @return a newly created command manager.
+   */
+  @NotNull
+  public static PaperCommandManager<CommandSender> createCommandManager(@NotNull final Plugin plugin) {
+    final PaperCommandManager<CommandSender> manager;
+    try {
+      manager = new PaperCommandManager<>(
+        plugin, CommandExecutionCoordinator.simpleCoordinator(), Function.identity(), Function.identity());
+    } catch (final Exception e) {
+      throw new RuntimeException(e);
+    }
+    try {
+      manager.registerBrigadier();
+    } catch (final Exception e) {
+      plugin.getLogger().warning("Couldn't add brigadier support.");
+    }
+    try {
+      manager.registerAsynchronousCompletions();
+    } catch (final Exception e) {
+      plugin.getLogger().warning("Couldn't add async tab completion support.");
+    }
+    return manager;
+  }
+
+  /**
+   * obtains the instance.
+   *
+   * @return instance.
+   */
   @NotNull
   public static InfumiaLib getInstance() {
     return Objects.requireNonNull(InfumiaLib.instance, "not initiated");
+  }
+
+  /**
+   * obtains the inventory.
+   *
+   * @return inventory.
+   */
+  @NotNull
+  public static SmartInventory getInventory() {
+    return InfumiaLib.getInstance().inventory;
   }
 
   @Override
@@ -38,13 +89,12 @@ public final class InfumiaLib extends JavaPlugin {
     TaskUtilities.init(this);
     InfumiaLibConfig.loadConfig(this.getDataFolder());
     PaperConfig.loadConfig(this.getDataFolder());
-    CommandAPI.onLoad(new CommandAPIConfig());
   }
 
   @Override
   public void onEnable() {
-    CommandAPI.onEnable(this);
-    new InfumiaPluginCommands(this).register();
+    final var commandManager = InfumiaLib.createCommandManager(this);
+    new InfumiaPluginCommands(commandManager).register();
     this.inventory.init();
     Hooks.loadHooks();
     if (InfumiaLibConfig.checkForUpdate) {
