@@ -29,25 +29,23 @@ public final class InfumiaPluginCommands extends CommandHandler {
 
   @Override
   public void register() {
-    final var mainCommand = this.manager
-      // Main command.
-      .commandBuilder("infumia", ArgumentDescription.of("Main command of Infumia Library plugin."))
-      .permission("infumiaplugin.command.main")
-      .handler(context -> context.getSender().sendMessage(this.getVersionMessage()))
-      // Reeload command.
-      .literal("reload", ArgumentDescription.of("Reloads Infumia Library plugin's configuration files."))
+    final var builder = this.manager.commandBuilder("infumia", ArgumentDescription.of("Main command of Infumia Library plugin."));
+    final var mainCommand = builder.permission("infumiaplugin.command.main")
+      .handler(context -> context.getSender().sendMessage(this.getVersionMessage()));
+    final var reloadCommand = builder.literal("reload", ArgumentDescription.of("Reloads Infumia Library plugin's configuration files."))
       .permission("infumiaplugin.command.reload")
       .handler(context ->
         InfumiaLibConfig.loadConfig(this.getPlugin().getDataFolder())
           .thenRunAsync(() -> PaperConfig.loadConfig(this.getPlugin().getDataFolder()))
           .whenComplete((x, y) ->
-            context.getSender().sendMessage(this.getReloadCompleteMessage())))
-      // Update command.
-      .literal("update", ArgumentDescription.of("Checks for update ıf Infumia Library plugin."))
+            context.getSender().sendMessage(this.getReloadCompleteMessage())));
+    final var updateCommand = builder.literal("update", ArgumentDescription.of("Checks for update ıf Infumia Library plugin."))
       .permission("infumiaplugin.command.update")
       .handler(context ->
         GitHubUpdateChecker.checkForUpdate(context.getSender(), this.getPlugin(), "Infumia", "InfumiaLib"));
-    this.manager.command(mainCommand);
+    this.manager.command(mainCommand)
+      .command(reloadCommand)
+      .command(updateCommand);
   }
 
   /**
