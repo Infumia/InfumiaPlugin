@@ -10,22 +10,22 @@ public final class Versions {
   /**
    * the server version.
    */
-  public static final BukkitVersion SERVER = new BukkitVersion();
+  public static final BukkitVersion FULL = new BukkitVersion();
 
   /**
    * the server version as major.
    */
-  public static final int SERVER_MAJOR = Versions.SERVER.getMajor();
+  public static final int MAJOR = Versions.FULL.getMajor();
 
   /**
    * the server version as micro.
    */
-  public static final int SERVER_MICRO = Versions.SERVER.getMicro();
+  public static final int MICRO = Versions.FULL.getMicro();
 
   /**
    * the server version as minor.
    */
-  public static final int SERVER_MINOR = Versions.SERVER.getMinor();
+  public static final int MINOR = Versions.FULL.getMinor();
 
   /**
    * ctor.
