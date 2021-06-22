@@ -2,6 +2,7 @@ package tr.com.infumia.infumialib.paper;
 
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
+import io.github.portlek.bukkititembuilder.color.CustomColors;
 import io.github.portlek.smartinventory.SmartInventory;
 import io.github.portlek.smartinventory.manager.BasicSmartInventory;
 import java.util.Objects;
@@ -86,6 +87,7 @@ public final class InfumiaLib extends JavaPlugin {
   @Override
   public void onLoad() {
     InfumiaLib.instance = this;
+    CustomColors.registerAll();
     TaskUtilities.init(this);
     InfumiaLibConfig.loadConfig(this.getDataFolder());
     PaperConfig.loadConfig(this.getDataFolder());
