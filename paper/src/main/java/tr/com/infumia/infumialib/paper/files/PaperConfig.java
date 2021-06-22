@@ -1,6 +1,6 @@
 package tr.com.infumia.infumialib.paper.files;
 
-import io.github.portlek.bukkititembuilder.util.ColorUtil;
+import io.github.portlek.bukkititembuilder.color.XColor;
 import io.github.portlek.configs.snakeyaml.bukkit.BukkitSnakeyaml;
 import io.github.portlek.replaceable.RpString;
 import io.github.portlek.transformer.TransformedObject;
@@ -23,7 +23,7 @@ public final class PaperConfig extends TransformedObject {
   @Comment("Hooking message for each plugin/library.")
   public static RpString hookMessage = RpString.from("%hook% is hooking.")
     .regex("%hook%")
-    .map(ColorUtil::colored);
+    .map(XColor::colorize);
 
   /**
    * ctor.

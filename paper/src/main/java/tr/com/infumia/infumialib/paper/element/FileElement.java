@@ -891,8 +891,7 @@ public final class FileElement {
     @Override
     public void serialize(@NotNull final FileElement fileElement, @NotNull final TransformedData transformedData) {
       final var map = new HashMap<String, Object>();
-      ItemStackUtil.serialize(fileElement.getItemStack(), KeyUtil.Holder.map(map));
-      System.out.println("map -> " + map);
+      ItemStackUtil.serialize(ItemStackBuilder.from(fileElement.getItemStack()), KeyUtil.Holder.map(map));
       transformedData.add("item", map);
       transformedData.add("type", fileElement.getPlaceType().name(), String.class);
       transformedData.remove("values");
