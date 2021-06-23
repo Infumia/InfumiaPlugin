@@ -104,5 +104,9 @@
       <groupId>com.gmail.filoghost.holographicdisplays</groupId>
       <artifactId>holographicdisplays-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>de.tr7zw</groupId>
+      <artifactId>item-nbt-api-plugin</artifactId>
+    </dependency>
   </dependencies>
 </project>
