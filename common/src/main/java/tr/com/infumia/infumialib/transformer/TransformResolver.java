@@ -380,7 +380,7 @@ public abstract class TransformResolver {
   @Nullable
   @Contract("null, _, _ -> null; !null, _, _ -> !null")
   public Object serialize(@Nullable final Object value, @Nullable final GenericDeclaration genericType,
-                          final boolean conservative) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
+                          final boolean conservative) throws TransformException {
     if (value == null) {
       return null;
     }
@@ -469,8 +469,7 @@ public abstract class TransformResolver {
    *
    * @return simplified map.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when
-   *   simplifying the value.
+   * @throws TransformException if something goes wrong when simplifying the value.
    */
   @NotNull
   public Map<Object, Object> serializeMap(@NotNull final Map<Object, Object> value,
