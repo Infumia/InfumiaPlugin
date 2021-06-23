@@ -25,8 +25,6 @@
 
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
-import tr.com.infumia.infumialib.paper.bukkititembuilder.color.XColor;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +40,8 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.SpawnEggMeta;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.color.XColor;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * an interface to determine buildable objects.

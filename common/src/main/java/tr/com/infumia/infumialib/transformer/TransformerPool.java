@@ -75,7 +75,8 @@ public final class TransformerPool {
    *
    * @return a new instance of the class.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when creating the instance.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when creating
+   *   the instance.
    */
   @NotNull
   static Object createInstance(@NotNull final Class<?> cls) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {

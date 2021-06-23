@@ -1,11 +1,11 @@
 package tr.com.infumia.infumialib.paper.files;
 
-import tr.com.infumia.infumialib.paper.bukkititembuilder.color.XColor;
-import tr.com.infumia.infumialib.paper.transformer.resolvers.BukkitSnakeyaml;
-import tr.com.infumia.infumialib.replaceable.RpString;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.color.XColor;
+import tr.com.infumia.infumialib.paper.transformer.resolvers.BukkitSnakeyaml;
+import tr.com.infumia.infumialib.replaceable.RpString;
 import tr.com.infumia.infumialib.transformer.TransformedObject;
 import tr.com.infumia.infumialib.transformer.TransformerPool;
 import tr.com.infumia.infumialib.transformer.annotations.Comment;

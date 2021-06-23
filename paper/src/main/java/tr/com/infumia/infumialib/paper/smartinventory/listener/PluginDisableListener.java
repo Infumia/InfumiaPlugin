@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.paper.smartinventory.listener;
 
-import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
-import tr.com.infumia.infumialib.paper.smartinventory.event.PlgnDisableEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
+import tr.com.infumia.infumialib.paper.smartinventory.event.PlgnDisableEvent;
 
 /**
  * a class that represents plugin disable events.

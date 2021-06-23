@@ -1,7 +1,5 @@
 package tr.com.infumia.infumialib.paper.smartinventory.manager;
 
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryOpener;
-import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -12,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryOpener;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
 
 /**
  * an implementation for {@link SmartInventory}.

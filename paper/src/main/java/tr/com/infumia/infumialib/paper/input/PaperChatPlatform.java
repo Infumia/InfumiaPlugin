@@ -1,10 +1,6 @@
 package tr.com.infumia.infumialib.paper.input;
 
 import com.google.common.base.Preconditions;
-import tr.com.infumia.infumialib.input.ChatInput;
-import tr.com.infumia.infumialib.input.ChatPlatform;
-import tr.com.infumia.infumialib.input.ChatSender;
-import tr.com.infumia.infumialib.input.ChatTask;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +13,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.input.ChatInput;
+import tr.com.infumia.infumialib.input.ChatPlatform;
+import tr.com.infumia.infumialib.input.ChatSender;
+import tr.com.infumia.infumialib.input.ChatTask;
 
 /**
  * an implementation of {@link ChatPlatform}.

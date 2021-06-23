@@ -1,8 +1,5 @@
 package tr.com.infumia.infumialib.paper.smartinventory.event;
 
-import tr.com.infumia.infumialib.paper.smartinventory.Icon;
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.DragEvent;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -13,6 +10,9 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.Icon;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.DragEvent;
 
 /**
  * a class that represents icon drag events.

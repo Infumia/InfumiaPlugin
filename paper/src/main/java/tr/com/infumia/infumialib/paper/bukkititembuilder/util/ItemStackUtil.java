@@ -26,6 +26,10 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder.util;
 
 import com.cryptomorin.xseries.XMaterial;
+import java.util.Optional;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.BannerItemBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.BookItemBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.Buildable;
@@ -38,10 +42,6 @@ import tr.com.infumia.infumialib.paper.bukkititembuilder.MapItemBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.PotionItemBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.SkullItemBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.SpawnEggItemBuilder;
-import java.util.Optional;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * a class that contains utility methods for {@link ItemStack}.

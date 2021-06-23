@@ -1,7 +1,5 @@
 package tr.com.infumia.infumialib.paper.smartinventory.listener;
 
-import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
-import tr.com.infumia.infumialib.paper.smartinventory.event.PlyrQuitEvent;
 import java.util.UUID;
 import java.util.function.Consumer;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
+import tr.com.infumia.infumialib.paper.smartinventory.event.PlyrQuitEvent;
 
 /**
  * a class that represents player quit listeners.

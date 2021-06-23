@@ -1,6 +1,5 @@
 package tr.com.infumia.infumialib.scoreboard;
 
-import tr.com.infumia.infumialib.scoreboard.line.Line;
 import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +26,7 @@ import lombok.Synchronized;
 import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.scoreboard.line.Line;
 
 /**
  * a class that represents boards.

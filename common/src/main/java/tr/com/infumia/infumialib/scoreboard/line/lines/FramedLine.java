@@ -1,6 +1,5 @@
 package tr.com.infumia.infumialib.scoreboard.line.lines;
 
-import tr.com.infumia.infumialib.scoreboard.line.AnimatedLine;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.scoreboard.line.AnimatedLine;
 
 /**
  * a class that represents framed lines.

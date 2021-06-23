@@ -29,11 +29,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import tr.com.infumia.infumialib.transformer.TransformResolver;
-import tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration;
-import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
-import tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration;
-import tr.com.infumia.infumialib.transformer.postprocessor.PostProcessor;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -43,6 +38,11 @@ import java.util.Map;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.transformer.TransformResolver;
+import tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration;
+import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
+import tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration;
+import tr.com.infumia.infumialib.transformer.postprocessor.PostProcessor;
 
 /**
  * a class that represents yaml file configuration.

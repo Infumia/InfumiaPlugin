@@ -1,7 +1,5 @@
 package tr.com.infumia.infumialib.reflection.method;
 
-import tr.com.infumia.infumialib.reflection.RefMethod;
-import tr.com.infumia.infumialib.reflection.RefMethodExecuted;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.reflection.RefMethod;
+import tr.com.infumia.infumialib.reflection.RefMethodExecuted;
 
 /**
  * an implementation for {@link RefMethod}.

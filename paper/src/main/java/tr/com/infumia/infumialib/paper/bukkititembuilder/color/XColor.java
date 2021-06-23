@@ -25,7 +25,6 @@
 
 package tr.com.infumia.infumialib.paper.bukkititembuilder.color;
 
-import tr.com.infumia.infumialib.paper.bukkititembuilder.Builder;
 import java.awt.Color;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -46,6 +45,7 @@ import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.Builder;
 
 /**
  * a class that contains utility methods for colors.

@@ -26,7 +26,6 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import com.cryptomorin.xseries.XItemStack;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,6 +40,7 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents crossbow item builders.
@@ -239,7 +239,7 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
     @NotNull
     @Override
     public Optional<FireworkItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = getItemStackDeserializer().apply(holder);
+      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
@@ -297,7 +297,7 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
             builder.addEffect(fireworkBuilder.build());
           });
         });
-      return Optional.of(getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
     }
   }
 }

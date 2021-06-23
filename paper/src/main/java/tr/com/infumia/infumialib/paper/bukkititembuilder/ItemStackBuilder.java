@@ -27,7 +27,6 @@ package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import com.cryptomorin.xseries.XMaterial;
 import io.github.bananapuncher714.nbteditor.NBTEditor;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -35,6 +34,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents regular item stack builders.
@@ -169,7 +169,7 @@ public final class ItemStackBuilder extends Builder<ItemStackBuilder, ItemMeta> 
     @NotNull
     @Override
     public Optional<ItemStackBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      return getItemStackDeserializer().apply(holder)
+      return Builder.getItemStackDeserializer().apply(holder)
         .map(ItemStackBuilder::from)
         .map(Builder::getItemMetaDeserializer)
         .map(deserializer -> deserializer.apply(holder));

@@ -31,9 +31,9 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.transformer.resolvers.JacksonYaml;
 import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 import tr.com.infumia.infumialib.transformer.exceptions.TransformException;
+import tr.com.infumia.infumialib.transformer.resolvers.JacksonYaml;
 
 /**
  * a class that represents yaml file configuration.

@@ -26,7 +26,6 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import com.cryptomorin.xseries.XItemStack;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.Optional;
 import java.util.function.Function;
 import org.bukkit.Color;
@@ -34,6 +33,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents leather armor item builders.
@@ -145,14 +145,14 @@ public final class LeatherArmorItemBuilder extends Builder<LeatherArmorItemBuild
     @NotNull
     @Override
     public Optional<LeatherArmorItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = getItemStackDeserializer().apply(holder);
+      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asLeatherArmor();
       holder.get(KeyUtil.SKULL_TEXTURE_KEY, String.class)
         .ifPresent(builder::setColor);
-      return Optional.of(getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
     }
   }
 }

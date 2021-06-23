@@ -1,9 +1,9 @@
 package tr.com.infumia.infumialib.paper.smartinventory.content;
 
-import tr.com.infumia.infumialib.paper.smartinventory.Icon;
-import tr.com.infumia.infumialib.paper.smartinventory.Pagination;
 import java.util.Arrays;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.Icon;
+import tr.com.infumia.infumialib.paper.smartinventory.Pagination;
 
 /**
  * an implementation for {@link Pagination}.

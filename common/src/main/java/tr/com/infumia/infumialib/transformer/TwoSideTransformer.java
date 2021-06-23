@@ -1,6 +1,5 @@
 package tr.com.infumia.infumialib.transformer;
 
-import transformer.Transformer;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -50,8 +49,8 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
    * @return a newly created transformer.
    */
   @NotNull
-  static <R, F> TwoSideTransformer<R, F> create(@NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration rawType,
-                                                @NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration finalType,
+  static <R, F> TwoSideTransformer<R, F> create(@NotNull final GenericDeclaration rawType,
+                                                @NotNull final GenericDeclaration finalType,
                                                 @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                                                 @NotNull final Function<@NotNull R, @Nullable F> toFinal) {
     return new Impl<>(rawType, finalType, toRaw, toFinal);
@@ -181,7 +180,7 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
      */
     @NotNull
     @Delegate
-    private final tr.com.infumia.infumialib.transformer.declarations.GenericHolder<R, F> holder;
+    private final GenericHolder<R, F> holder;
 
     /**
      * the to final.
@@ -209,7 +208,7 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
      * @param toFinal the to final.
      * @param toFinalWithField the to final with field.
      */
-    protected Base(@NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericHolder<R, F> holder, @NotNull final Function<@NotNull F, @Nullable R> toRaw,
+    protected Base(@NotNull final GenericHolder<R, F> holder, @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                    @NotNull final Function<@NotNull R, @Nullable F> toFinal,
                    @NotNull final BiFunction<@NotNull R, @NotNull F, @Nullable F> toFinalWithField) {
       this.holder = holder;
@@ -227,11 +226,11 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
      * @param toFinal the to final.
      * @param toFinalWithField the to final with field.
      */
-    protected Base(@NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration rawType, @NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration finalType,
+    protected Base(@NotNull final GenericDeclaration rawType, @NotNull final GenericDeclaration finalType,
                    @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                    @NotNull final Function<@NotNull R, @Nullable F> toFinal,
                    @NotNull final BiFunction<@NotNull R, @NotNull F, @Nullable F> toFinalWithField) {
-      this(tr.com.infumia.infumialib.transformer.declarations.GenericHolder.create(rawType, finalType), toRaw, toFinal, toFinalWithField);
+      this(GenericHolder.create(rawType, finalType), toRaw, toFinal, toFinalWithField);
     }
 
     /**
@@ -242,10 +241,10 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
      * @param toRaw the to raw.
      * @param toFinal the to final.
      */
-    protected Base(@NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration rawType, @NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration finalType,
+    protected Base(@NotNull final GenericDeclaration rawType, @NotNull final GenericDeclaration finalType,
                    @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                    @NotNull final Function<@NotNull R, @Nullable F> toFinal) {
-      this(tr.com.infumia.infumialib.transformer.declarations.GenericHolder.create(rawType, finalType), toRaw, toFinal,
+      this(GenericHolder.create(rawType, finalType), toRaw, toFinal,
         (r, field) -> toFinal.apply(r));
     }
 
@@ -260,7 +259,7 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
     protected Base(@NotNull final Class<R> rawType, @NotNull final Class<F> finalType,
                    @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                    @NotNull final Function<@NotNull R, @Nullable F> toFinal) {
-      this(tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(rawType), tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(finalType), toRaw, toFinal);
+      this(GenericDeclaration.ofReady(rawType), GenericDeclaration.ofReady(finalType), toRaw, toFinal);
     }
 
     /**
@@ -315,7 +314,7 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
      * @param toFinal the to final.
      * @param toFinalWithField the to final with field.
      */
-    private Impl(@NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration rawType, @NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration finalType,
+    private Impl(@NotNull final GenericDeclaration rawType, @NotNull final GenericDeclaration finalType,
                  @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                  @NotNull final Function<@NotNull R, @Nullable F> toFinal,
                  @NotNull final BiFunction<@NotNull R, @NotNull F, @Nullable F> toFinalWithField) {
@@ -335,7 +334,7 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
                  @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                  @NotNull final Function<@NotNull R, @Nullable F> toFinal,
                  @NotNull final BiFunction<@NotNull R, @NotNull F, @Nullable F> toFinalWithField) {
-      this(tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(rawType), tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(finalType), toRaw, toFinal, toFinalWithField);
+      this(GenericDeclaration.ofReady(rawType), GenericDeclaration.ofReady(finalType), toRaw, toFinal, toFinalWithField);
     }
 
     /**
@@ -346,7 +345,7 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
      * @param toRaw the to raw.
      * @param toFinal the to final.
      */
-    private Impl(@NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration rawType, @NotNull final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration finalType,
+    private Impl(@NotNull final GenericDeclaration rawType, @NotNull final GenericDeclaration finalType,
                  @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                  @NotNull final Function<@NotNull R, @Nullable F> toFinal) {
       this(rawType, finalType, toRaw, toFinal,
@@ -364,7 +363,7 @@ public interface TwoSideTransformer<R, F> extends Transformer<R, F> {
     private Impl(@NotNull final Class<R> rawType, @NotNull final Class<F> finalType,
                  @NotNull final Function<@NotNull F, @Nullable R> toRaw,
                  @NotNull final Function<@NotNull R, @Nullable F> toFinal) {
-      this(tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(rawType), GenericDeclaration.ofReady(finalType), toRaw, toFinal);
+      this(GenericDeclaration.ofReady(rawType), GenericDeclaration.ofReady(finalType), toRaw, toFinal);
     }
   }
 }

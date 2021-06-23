@@ -1,9 +1,9 @@
 package tr.com.infumia.infumialib.reflection.parameterized;
 
-import tr.com.infumia.infumialib.reflection.RefClass;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.reflection.RefClass;
 
 /**
  * a class that converts the given objects into the {@link Class}.

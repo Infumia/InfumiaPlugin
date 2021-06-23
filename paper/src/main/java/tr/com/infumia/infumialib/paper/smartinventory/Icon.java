@@ -1,10 +1,5 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.ClickEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.DragEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.IconEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.SmartEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.icon.BasicIcon;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +9,11 @@ import java.util.function.Predicate;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.ClickEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.DragEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.IconEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.SmartEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.icon.BasicIcon;
 
 /**
  * a class that holds the {@link ItemStack} to put the given inventory.

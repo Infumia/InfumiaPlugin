@@ -30,10 +30,10 @@ import java.util.stream.Collectors;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.transformer.resolvers.HJsonJson;
 import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 import tr.com.infumia.infumialib.transformer.exceptions.TransformException;
 import tr.com.infumia.infumialib.transformer.postprocessor.SectionSeparator;
+import tr.com.infumia.infumialib.transformer.resolvers.HJsonJson;
 
 /**
  * a class that represents json file configuration.

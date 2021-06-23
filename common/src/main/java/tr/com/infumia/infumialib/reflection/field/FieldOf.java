@@ -1,7 +1,5 @@
 package tr.com.infumia.infumialib.reflection.field;
 
-import tr.com.infumia.infumialib.reflection.RefField;
-import tr.com.infumia.infumialib.reflection.RefFieldExecuted;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -11,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.reflection.RefField;
+import tr.com.infumia.infumialib.reflection.RefFieldExecuted;
 
 /**
  * an implementation for {@link RefField}.

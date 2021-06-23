@@ -38,10 +38,10 @@ public abstract class WrappedTransformResolver extends TransformResolver {
 
   @Nullable
   @Override
-  public <T> T deserialize(@Nullable final Object object, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericSource,
-                           @NotNull final Class<T> targetClass, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericTarget,
+  public <T> T deserialize(@Nullable final Object object, @Nullable final GenericDeclaration genericSource,
+                           @NotNull final Class<T> targetClass, @Nullable final GenericDeclaration genericTarget,
                            @Nullable final Object defaultValue)
-    throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
+    throws TransformException {
     return this.delegate.deserialize(object, genericSource, targetClass, genericTarget, defaultValue);
   }
 
@@ -60,27 +60,27 @@ public abstract class WrappedTransformResolver extends TransformResolver {
   @NotNull
   @Override
   public <T> Optional<T> getValue(@NotNull final String path, @NotNull final Class<T> cls,
-                                  @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType, @Nullable final Object defaultValue) {
+                                  @Nullable final GenericDeclaration genericType, @Nullable final Object defaultValue) {
     return this.delegate.getValue(path, cls, genericType, defaultValue);
   }
 
   @Override
-  public boolean isToListObject(@NotNull final Object object, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration declaration) {
+  public boolean isToListObject(@NotNull final Object object, @Nullable final GenericDeclaration declaration) {
     return this.delegate.isToListObject(object, declaration);
   }
 
   @Override
-  public boolean isToStringObject(@NotNull final Object object, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration declaration) {
+  public boolean isToStringObject(@NotNull final Object object, @Nullable final GenericDeclaration declaration) {
     return this.delegate.isToStringObject(object, declaration);
   }
 
   @Override
-  public boolean isValid(@NotNull final tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration declaration, @Nullable final Object value) {
+  public boolean isValid(@NotNull final FieldDeclaration declaration, @Nullable final Object value) {
     return this.delegate.isValid(declaration, value);
   }
 
   @Override
-  public void load(@NotNull final InputStream inputStream, @NotNull final tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration declaration)
+  public void load(@NotNull final InputStream inputStream, @NotNull final TransformedObjectDeclaration declaration)
     throws Exception {
     this.delegate.load(inputStream, declaration);
   }
@@ -91,28 +91,28 @@ public abstract class WrappedTransformResolver extends TransformResolver {
   }
 
   @Override
-  public void removeValue(@NotNull final String path, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType,
-                          @Nullable final tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration field) {
+  public void removeValue(@NotNull final String path, @Nullable final GenericDeclaration genericType,
+                          @Nullable final FieldDeclaration field) {
     this.delegate.removeValue(path, genericType, field);
   }
 
   @Nullable
   @Override
-  public Object serialize(@Nullable final Object value, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType,
-                          final boolean conservative) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
+  public Object serialize(@Nullable final Object value, @Nullable final GenericDeclaration genericType,
+                          final boolean conservative) throws TransformException {
     return this.delegate.serialize(value, genericType, conservative);
   }
 
   @Override
-  public List<?> serializeCollection(@NotNull final Collection<?> value, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType,
-                                     final boolean conservative) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
+  public List<?> serializeCollection(@NotNull final Collection<?> value, @Nullable final GenericDeclaration genericType,
+                                     final boolean conservative) throws TransformException {
     return this.delegate.serializeCollection(value, genericType, conservative);
   }
 
   @NotNull
   @Override
   public Map<Object, Object> serializeMap(@NotNull final Map<Object, Object> value,
-                                          @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType, final boolean conservative)
+                                          @Nullable final GenericDeclaration genericType, final boolean conservative)
     throws TransformException {
     return this.delegate.serializeMap(value, genericType, conservative);
   }

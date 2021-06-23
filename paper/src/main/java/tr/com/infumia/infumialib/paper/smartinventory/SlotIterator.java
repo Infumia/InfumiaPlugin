@@ -1,9 +1,9 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
-import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
+import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
  * a class that allows you to iterate through the slots of

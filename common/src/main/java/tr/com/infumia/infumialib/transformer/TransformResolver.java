@@ -1,12 +1,5 @@
 package tr.com.infumia.infumialib.transformer;
 
-import reflection.clazz.ClassOf;
-import transformer.ObjectSerializer;
-import transformer.TransformPack;
-import transformer.TransformedData;
-import transformer.TransformedObject;
-import transformer.Transformer;
-import transformer.TransformerPool;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
@@ -21,6 +14,7 @@ import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.reflection.clazz.ClassOf;
 import tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration;
 import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 import tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration;
@@ -36,13 +30,13 @@ public abstract class TransformResolver {
    * the current object.
    */
   @Nullable
-  private transformer.TransformedObject currentObject;
+  private TransformedObject currentObject;
 
   /**
    * the parent object.
    */
   @Nullable
-  private transformer.TransformedObject parentObject;
+  private TransformedObject parentObject;
 
   /**
    * the registry.
@@ -58,7 +52,7 @@ public abstract class TransformResolver {
    * @return current object.
    */
   @Nullable
-  public final transformer.TransformedObject getCurrentObject() {
+  public final TransformedObject getCurrentObject() {
     return this.currentObject;
   }
 
@@ -68,7 +62,7 @@ public abstract class TransformResolver {
    * @return parent object.
    */
   @Nullable
-  public final transformer.TransformedObject getParentObject() {
+  public final TransformedObject getParentObject() {
     return this.parentObject;
   }
 
@@ -80,7 +74,7 @@ public abstract class TransformResolver {
    * @return {@code this} for builder chain.
    */
   @NotNull
-  public final TransformResolver withCurrentObject(@Nullable final transformer.TransformedObject currentObject) {
+  public final TransformResolver withCurrentObject(@Nullable final TransformedObject currentObject) {
     this.currentObject = currentObject;
     return this;
   }
@@ -93,7 +87,7 @@ public abstract class TransformResolver {
    * @return {@code this} for builder chain.
    */
   @NotNull
-  public final TransformResolver withParentObject(@Nullable final transformer.TransformedObject parentObject) {
+  public final TransformResolver withParentObject(@Nullable final TransformedObject parentObject) {
     this.parentObject = parentObject;
     return this;
   }
@@ -113,21 +107,21 @@ public abstract class TransformResolver {
   @SuppressWarnings("unchecked")
   @Nullable
   @Contract("null, _, _, _, _ -> null; !null, _, _, _, _ -> !null")
-  public <T> T deserialize(@Nullable final Object object, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericSource,
-                           @NotNull final Class<T> targetClass, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericTarget,
+  public <T> T deserialize(@Nullable final Object object, @Nullable final GenericDeclaration genericSource,
+                           @NotNull final Class<T> targetClass, @Nullable final GenericDeclaration genericTarget,
                            @Nullable final Object defaultValue)
     throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
     if (object == null) {
       return null;
     }
     final var source = genericSource == null
-      ? tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(object)
+      ? GenericDeclaration.of(object)
       : genericSource;
     var target = genericTarget == null
-      ? tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(targetClass)
+      ? GenericDeclaration.ofReady(targetClass)
       : genericTarget;
     if (target.isPrimitive()) {
-      target = tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(target.toWrapper().orElse(null));
+      target = GenericDeclaration.ofReady(target.toWrapper().orElse(null));
     }
     final var objectClass = object.getClass();
     try {
@@ -169,20 +163,20 @@ public abstract class TransformResolver {
       throw new RuntimeException(String.format("Failed to resolve enum %s <> %s",
         object.getClass(), targetClass), exception);
     }
-    if (transformer.TransformedObject.class.isAssignableFrom(targetClass)) {
-      final var transformedObject = transformer.TransformerPool.create((Class<? extends transformer.TransformedObject>) targetClass);
+    if (TransformedObject.class.isAssignableFrom(targetClass)) {
+      final var transformedObject = TransformerPool.create((Class<? extends TransformedObject>) targetClass);
       return (T) transformedObject
         .withResolver(new InMemoryWrappedResolver(
           this,
-          this.deserialize(object, source, Map.class, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(Map.class, String.class, Object.class), defaultValue))
+          this.deserialize(object, source, Map.class, GenericDeclaration.of(Map.class, String.class, Object.class), defaultValue))
           .withParentObject(this.currentObject))
         .update();
     }
     final var serializerOptional = this.registry.getSerializer(targetClass);
     if (object instanceof Map<?, ?> && serializerOptional.isPresent()) {
-      final var deserialization = transformer.TransformedData.deserialization(this, (Map<String, Object>) object);
+      final var deserialization = TransformedData.deserialization(this, (Map<String, Object>) object);
       //noinspection rawtypes
-      final transformer.ObjectSerializer serializer = serializerOptional.get();
+      final ObjectSerializer serializer = serializerOptional.get();
       final Optional<?> value;
       if (defaultValue == null) {
         value = serializer.deserialize(deserialization, genericTarget);
@@ -198,9 +192,9 @@ public abstract class TransformResolver {
         if (declaration.getType() == null) {
           throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting type of %s", genericTarget));
         }
-        final var targetList = (Collection<Object>) transformer.TransformerPool.createInstance(targetClass);
+        final var targetList = (Collection<Object>) TransformerPool.createInstance(targetClass);
         ((Collection<?>) object).stream()
-          .map(item -> this.deserialize(item, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(item), declaration.getType(), declaration, defaultValue))
+          .map(item -> this.deserialize(item, GenericDeclaration.of(item), declaration.getType(), declaration, defaultValue))
           .forEach(targetList::add);
         return targetClass.cast(targetList);
       }
@@ -217,19 +211,19 @@ public abstract class TransformResolver {
         }
         final var map = (Map<Object, Object>) TransformerPool.createInstance(targetClass);
         ((Map<Object, Object>) object).forEach((key, value) -> map.put(
-          this.deserialize(key, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(key), keyDeclaration.getType(), keyDeclaration, defaultValue),
-          this.deserialize(value, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(value), valueDeclaration.getType(), valueDeclaration, defaultValue)));
+          this.deserialize(key, GenericDeclaration.of(key), keyDeclaration.getType(), keyDeclaration, defaultValue),
+          this.deserialize(value, GenericDeclaration.of(value), valueDeclaration.getType(), valueDeclaration, defaultValue)));
         return targetClass.cast(map);
       }
     }
     final var transformerOptional = this.registry.getTransformer(source, target);
     if (transformerOptional.isEmpty()) {
-      if (targetClass.isPrimitive() && tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.isWrapperBoth(targetClass, objectClass)) {
-        return (T) tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.toPrimitive(object);
+      if (targetClass.isPrimitive() && GenericDeclaration.isWrapperBoth(targetClass, objectClass)) {
+        return (T) GenericDeclaration.toPrimitive(object);
       }
-      if (targetClass.isPrimitive() || tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(targetClass).hasWrapper()) {
-        final var simplified = this.serialize(object, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(objectClass), false);
-        return this.deserialize(simplified, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(simplified), targetClass, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(targetClass), defaultValue);
+      if (targetClass.isPrimitive() || GenericDeclaration.ofReady(targetClass).hasWrapper()) {
+        final var simplified = this.serialize(object, GenericDeclaration.ofReady(objectClass), false);
+        return this.deserialize(simplified, GenericDeclaration.of(simplified), targetClass, GenericDeclaration.ofReady(targetClass), defaultValue);
       }
       try {
         return targetClass.cast(object);
@@ -249,7 +243,7 @@ public abstract class TransformResolver {
           .orElse(null));
     }
     return targetClass.isPrimitive()
-      ? (T) tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.toPrimitive(transformed)
+      ? (T) GenericDeclaration.toPrimitive(transformed)
       : targetClass.cast(transformed);
   }
 
@@ -288,9 +282,9 @@ public abstract class TransformResolver {
    */
   @NotNull
   public <T> Optional<T> getValue(@NotNull final String path, @NotNull final Class<T> cls,
-                                  @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType, @Nullable final Object defaultValue) {
+                                  @Nullable final GenericDeclaration genericType, @Nullable final Object defaultValue) {
     return this.getValue(path)
-      .map(value -> this.deserialize(value, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(value), cls, genericType, defaultValue));
+      .map(value -> this.deserialize(value, GenericDeclaration.of(value), cls, genericType, defaultValue));
   }
 
   /**
@@ -301,9 +295,9 @@ public abstract class TransformResolver {
    *
    * @return {@code true} if the object can be converted to string list.
    */
-  public boolean isToListObject(@NotNull final Object object, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration declaration) {
+  public boolean isToListObject(@NotNull final Object object, @Nullable final GenericDeclaration declaration) {
     if (object instanceof Class<?>) {
-      return this.registry.getTransformer(declaration, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(List.class)).isPresent();
+      return this.registry.getTransformer(declaration, GenericDeclaration.ofReady(List.class)).isPresent();
     }
     return this.isToListObject(object.getClass(), declaration);
   }
@@ -316,11 +310,11 @@ public abstract class TransformResolver {
    *
    * @return {@code true} if the object can be converted to string.
    */
-  public boolean isToStringObject(@NotNull final Object object, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration declaration) {
+  public boolean isToStringObject(@NotNull final Object object, @Nullable final GenericDeclaration declaration) {
     if (object instanceof Class<?>) {
       final var cls = (Class<?>) object;
       return cls.isEnum() ||
-        this.registry.getTransformer(declaration, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(String.class)).isPresent();
+        this.registry.getTransformer(declaration, GenericDeclaration.ofReady(String.class)).isPresent();
     }
     return object.getClass().isEnum() ||
       this.isToStringObject(object.getClass(), declaration);
@@ -334,7 +328,7 @@ public abstract class TransformResolver {
    *
    * @return {@code true} if the value is valid.
    */
-  public boolean isValid(@NotNull final tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration declaration, @Nullable final Object value) {
+  public boolean isValid(@NotNull final FieldDeclaration declaration, @Nullable final Object value) {
     return true;
   }
 
@@ -346,7 +340,7 @@ public abstract class TransformResolver {
    *
    * @throws Exception if something goes wrong when loading the values.
    */
-  public abstract void load(@NotNull InputStream inputStream, @NotNull tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration declaration)
+  public abstract void load(@NotNull InputStream inputStream, @NotNull TransformedObjectDeclaration declaration)
     throws Exception;
 
   /**
@@ -367,8 +361,8 @@ public abstract class TransformResolver {
    * @param genericType the generic type to remove.
    * @param field the field to remove.
    */
-  public abstract void removeValue(@NotNull String path, @Nullable tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType,
-                                   @Nullable tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration field);
+  public abstract void removeValue(@NotNull String path, @Nullable GenericDeclaration genericType,
+                                   @Nullable FieldDeclaration field);
 
   /**
    * serializes the object.
@@ -379,17 +373,18 @@ public abstract class TransformResolver {
    *
    * @return serialized object.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when serializing the object.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when
+   *   serializing the object.
    */
   @SuppressWarnings("unchecked")
   @Nullable
   @Contract("null, _, _ -> null; !null, _, _ -> !null")
-  public Object serialize(@Nullable final Object value, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType,
+  public Object serialize(@Nullable final Object value, @Nullable final GenericDeclaration genericType,
                           final boolean conservative) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
     if (value == null) {
       return null;
     }
-    if (transformer.TransformedObject.class.isAssignableFrom(value.getClass())) {
+    if (TransformedObject.class.isAssignableFrom(value.getClass())) {
       return ((TransformedObject) value).asMap(this, conservative);
     }
     final var serializerType = genericType != null ? genericType.getType() : value.getClass();
@@ -399,15 +394,15 @@ public abstract class TransformResolver {
     }
     final var serializerOptional = this.registry.getSerializer(serializerType);
     if (serializerOptional.isEmpty()) {
-      if (conservative && (serializerType.isPrimitive() || tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(serializerType).hasWrapper())) {
+      if (conservative && (serializerType.isPrimitive() || GenericDeclaration.ofReady(serializerType).hasWrapper())) {
         return value;
       }
       if (serializerType.isPrimitive()) {
-        final var wrappedPrimitive = tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(serializerType).toWrapper().orElseThrow();
-        return this.serialize(wrappedPrimitive.cast(value), tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(wrappedPrimitive), false);
+        final var wrappedPrimitive = GenericDeclaration.ofReady(serializerType).toWrapper().orElseThrow();
+        return this.serialize(wrappedPrimitive.cast(value), GenericDeclaration.ofReady(wrappedPrimitive), false);
       }
       if (genericType == null) {
-        final var valueDeclaration = tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(value);
+        final var valueDeclaration = GenericDeclaration.of(value);
         if (this.isToStringObject(serializerType, valueDeclaration)) {
           return this.deserialize(value, null, String.class, null, value);
         }
@@ -416,7 +411,7 @@ public abstract class TransformResolver {
         return this.deserialize(value, genericType, String.class, null, value);
       }
       if (this.isToListObject(serializerType, genericType)) {
-        return this.deserialize(value, genericType, List.class, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(List.class), value);
+        return this.deserialize(value, genericType, List.class, GenericDeclaration.ofReady(List.class), value);
       }
       if (value instanceof Collection<?>) {
         return this.serializeCollection((Collection<?>) value, genericType, conservative);
@@ -435,7 +430,7 @@ public abstract class TransformResolver {
     if (!conservative) {
       final var newSerializationMap = new LinkedHashMap<String, Object>();
       serializationMap.forEach((mKey, mValue) ->
-        newSerializationMap.put(mKey, this.serialize(mValue, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(mValue), false)));
+        newSerializationMap.put(mKey, this.serialize(mValue, GenericDeclaration.of(mValue), false)));
       return newSerializationMap;
     }
     return serializationMap;
@@ -450,10 +445,11 @@ public abstract class TransformResolver {
    *
    * @return simplified collection.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when simplifying the value.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when
+   *   simplifying the value.
    */
   @NotNull
-  public List<?> serializeCollection(@NotNull final Collection<?> value, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType,
+  public List<?> serializeCollection(@NotNull final Collection<?> value, @Nullable final GenericDeclaration genericType,
                                      final boolean conservative)
     throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
     final var collectionSubtype = genericType == null
@@ -473,11 +469,12 @@ public abstract class TransformResolver {
    *
    * @return simplified map.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when simplifying the value.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when
+   *   simplifying the value.
    */
   @NotNull
   public Map<Object, Object> serializeMap(@NotNull final Map<Object, Object> value,
-                                          @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType,
+                                          @Nullable final GenericDeclaration genericType,
                                           final boolean conservative)
     throws TransformException {
     final var keyDeclaration = genericType == null

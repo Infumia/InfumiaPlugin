@@ -1,13 +1,5 @@
 package tr.com.infumia.infumialib.paper.smartinventory.content;
 
-import tr.com.infumia.infumialib.paper.smartinventory.Icon;
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.Page;
-import tr.com.infumia.infumialib.paper.smartinventory.Pagination;
-import tr.com.infumia.infumialib.paper.smartinventory.SlotIterator;
-import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
-import tr.com.infumia.infumialib.paper.smartinventory.util.TitleUpdater;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.smartinventory.Icon;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.Page;
+import tr.com.infumia.infumialib.paper.smartinventory.Pagination;
+import tr.com.infumia.infumialib.paper.smartinventory.SlotIterator;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
+import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
+import tr.com.infumia.infumialib.paper.smartinventory.util.TitleUpdater;
 
 /**
  * an implementation for {@link InventoryContents}.

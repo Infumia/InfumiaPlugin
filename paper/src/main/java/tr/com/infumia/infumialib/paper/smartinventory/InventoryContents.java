@@ -1,9 +1,6 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
 import com.google.common.base.Preconditions;
-import tr.com.infumia.infumialib.paper.smartinventory.content.BasicSlotIterator;
-import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +14,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.smartinventory.content.BasicSlotIterator;
+import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
+import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
  * represents the content of an inventory.

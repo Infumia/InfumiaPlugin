@@ -54,7 +54,7 @@ public final class TransformRegistry {
    */
   @NotNull
   public Optional<Transformer<?, ?>> getTransformer(@Nullable final GenericDeclaration from,
-                                                                                  @Nullable final GenericDeclaration to) {
+                                                    @Nullable final GenericDeclaration to) {
     return Optional.ofNullable(this.transformers.get(GenericPair.of(from, to)));
   }
 
@@ -107,7 +107,7 @@ public final class TransformRegistry {
    */
   @NotNull
   public TransformRegistry withTransformer(@NotNull final GenericPair pair,
-                                           @NotNull final transformer.Transformer<?, ?> transformer) {
+                                           @NotNull final Transformer<?, ?> transformer) {
     this.transformers.put(pair, transformer);
     return this;
   }
@@ -151,7 +151,7 @@ public final class TransformRegistry {
    * @return {@code this} for builder chain.
    */
   @NotNull
-  public TransformRegistry withTransformersReversedToString(@NotNull final transformer.Transformer<?, ?>... transformers) {
+  public TransformRegistry withTransformersReversedToString(@NotNull final Transformer<?, ?>... transformers) {
     return this.withTransformersReversedToString(Set.of(transformers));
   }
 

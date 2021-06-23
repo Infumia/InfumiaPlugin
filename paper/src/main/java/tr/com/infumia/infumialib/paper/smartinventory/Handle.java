@@ -1,12 +1,12 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.SmartEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.handle.BasicHandle;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.SmartEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.handle.BasicHandle;
 
 /**
  * a class that handles and runs the given consumer after checking the requirements.

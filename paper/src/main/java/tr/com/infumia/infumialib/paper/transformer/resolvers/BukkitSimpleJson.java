@@ -31,9 +31,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.simple.parser.JSONParser;
-import tr.com.infumia.infumialib.transformer.resolvers.SimpleJson;
 import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 import tr.com.infumia.infumialib.transformer.exceptions.TransformException;
+import tr.com.infumia.infumialib.transformer.resolvers.SimpleJson;
 
 /**
  * a class that represents json file configuration.

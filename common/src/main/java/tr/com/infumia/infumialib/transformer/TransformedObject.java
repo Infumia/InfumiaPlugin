@@ -37,7 +37,7 @@ public abstract class TransformedObject {
    */
   @Nullable
   @Getter
-  private tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration declaration;
+  private TransformedObjectDeclaration declaration;
 
   /**
    * the path.
@@ -56,7 +56,7 @@ public abstract class TransformedObject {
    * ctor.
    */
   protected TransformedObject() {
-    this.withDeclaration(tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration.of(this));
+    this.withDeclaration(TransformedObjectDeclaration.of(this));
   }
 
   /**
@@ -67,7 +67,8 @@ public abstract class TransformedObject {
    *
    * @return values as map.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when getting the value as map.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when getting
+   *   the value as map.
    * @throws NullPointerException if {@link #declaration} is null.
    */
   @NotNull
@@ -85,7 +86,7 @@ public abstract class TransformedObject {
       .filter(keyName -> !map.containsKey(keyName))
       .forEach(keyName ->
         this.resolver.getValue(keyName).ifPresent(value ->
-          map.put(keyName, this.resolver.serialize(value, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(value), conservative))));
+          map.put(keyName, this.resolver.serialize(value, GenericDeclaration.of(value), conservative))));
     return map;
   }
 
@@ -277,7 +278,7 @@ public abstract class TransformedObject {
       field.getValue(),
       field.getGenericDeclaration(),
       cls,
-      tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.ofReady(cls),
+      GenericDeclaration.ofReady(cls),
       field.getStartingValue()));
   }
 
@@ -341,7 +342,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    * @throws NullPointerException if {@link #path} is null.
    */
   @NotNull
@@ -356,7 +358,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    * @throws NullPointerException if {@link #path} is null.
    */
   @NotNull
@@ -371,7 +374,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject initiate(@NotNull final File file) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -386,7 +390,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject initiate(@NotNull final File file, final boolean update) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -400,7 +405,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject initiate(@NotNull final Path path) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -415,7 +421,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject initiate(@NotNull final Path path, final boolean update) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -430,7 +437,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    * @throws NullPointerException if {@link #path} is null.
    */
   @NotNull
@@ -445,7 +453,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    * @throws NullPointerException if {@link #path} is null.
    */
   @NotNull
@@ -460,7 +469,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject load(@NotNull final File file) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -475,7 +485,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject load(@NotNull final File file, final boolean update) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -489,7 +500,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject load(@NotNull final Path path) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -504,7 +516,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject load(@NotNull final Path path, final boolean update) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -526,7 +539,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    */
   @NotNull
   public final TransformedObject load(@NotNull final String data) {
@@ -540,7 +554,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when loading
+   *   the objects.
    * @throws NullPointerException if {@link #resolver} is null.
    * @throws NullPointerException if {@link #declaration} is null.
    */
@@ -580,7 +595,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving objects into the file.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving
+   *   objects into the file.
    * @throws NullPointerException if {@link #path} is null.
    */
   @NotNull
@@ -595,7 +611,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving objects into the file.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving
+   *   objects into the file.
    */
   @NotNull
   public final TransformedObject save(@NotNull final File file) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -609,7 +626,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving objects into the file.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving
+   *   objects into the file.
    */
   @NotNull
   public final TransformedObject save(@NotNull final Path path) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -631,7 +649,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving the objects into the stream.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving
+   *   the objects into the stream.
    */
   @NotNull
   public final TransformedObject save(@NotNull final OutputStream outputStream) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -664,7 +683,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when sawing the defaults.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when sawing
+   *   the defaults.
    * @throws NullPointerException if {@link #path} is null.
    */
   @NotNull
@@ -679,7 +699,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when sawing the defaults.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when sawing
+   *   the defaults.
    */
   @NotNull
   public final TransformedObject saveDefaults(@NotNull final File file) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -696,7 +717,8 @@ public abstract class TransformedObject {
    *
    * @return {@code this} for builder chain.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when sawing the defaults.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when sawing
+   *   the defaults.
    */
   @NotNull
   public final TransformedObject saveDefaults(@NotNull final Path path) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -708,7 +730,8 @@ public abstract class TransformedObject {
    *
    * @return saved string.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving the objects.
+   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when saving
+   *   the objects.
    */
   @NotNull
   public final String saveToString() throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
@@ -734,7 +757,7 @@ public abstract class TransformedObject {
     if (field != null) {
       final var declaration = field.getGenericDeclaration();
       if (declaration.getType() != null) {
-        tempValue = this.resolver.deserialize(tempValue, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(tempValue), declaration.getType(), declaration, null);
+        tempValue = this.resolver.deserialize(tempValue, GenericDeclaration.of(tempValue), declaration.getType(), declaration, null);
       }
       field.setValue(tempValue);
     }
@@ -757,7 +780,7 @@ public abstract class TransformedObject {
     Objects.requireNonNull(this.resolver, "resolver");
     Optional.ofNullable(this.resolver.getParentObject())
       .map(TransformedObject::getDeclaration)
-      .map(tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration::getVersion)
+      .map(TransformedObjectDeclaration::getVersion)
       .ifPresent(this.declaration::setVersion);
     final int fileVersion;
     if (this.resolver.getAllKeys().contains("file-version")) {

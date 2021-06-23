@@ -1,6 +1,5 @@
 package tr.com.infumia.infumialib.transformer.declarations;
 
-import reflection.RefField;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import lombok.ToString;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.reflection.RefField;
 
 /**
  * a class that represents generic declarations.

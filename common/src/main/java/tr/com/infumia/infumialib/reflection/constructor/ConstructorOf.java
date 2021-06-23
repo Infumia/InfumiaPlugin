@@ -1,6 +1,5 @@
 package tr.com.infumia.infumialib.reflection.constructor;
 
-import tr.com.infumia.infumialib.reflection.RefConstructed;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -11,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.reflection.RefConstructed;
 
 /**
  * an implementation for {@link RefConstructed}.

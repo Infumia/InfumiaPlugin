@@ -1,7 +1,5 @@
 package tr.com.infumia.infumialib.transformer.postprocessor;
 
-import transformer.postprocessor.Manipulator;
-import transformer.postprocessor.SectionWalker;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -224,7 +222,7 @@ public final class PostProcessor {
    * @return {@code this} for builder chain.
    */
   @NotNull
-  public PostProcessor updateContext(@NotNull final transformer.postprocessor.Manipulator manipulator) {
+  public PostProcessor updateContext(@NotNull final Manipulator manipulator) {
     this.context = manipulator.apply(this.context);
     return this;
   }

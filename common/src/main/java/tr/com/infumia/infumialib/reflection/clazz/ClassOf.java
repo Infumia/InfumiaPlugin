@@ -1,13 +1,5 @@
 package tr.com.infumia.infumialib.reflection.clazz;
 
-import tr.com.infumia.infumialib.reflection.RefClass;
-import tr.com.infumia.infumialib.reflection.RefConstructed;
-import tr.com.infumia.infumialib.reflection.RefField;
-import tr.com.infumia.infumialib.reflection.RefMethod;
-import tr.com.infumia.infumialib.reflection.constructor.ConstructorOf;
-import tr.com.infumia.infumialib.reflection.field.FieldOf;
-import tr.com.infumia.infumialib.reflection.method.MethodOf;
-import tr.com.infumia.infumialib.reflection.parameterized.ParameterizedOf;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -21,6 +13,14 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.reflection.RefClass;
+import tr.com.infumia.infumialib.reflection.RefConstructed;
+import tr.com.infumia.infumialib.reflection.RefField;
+import tr.com.infumia.infumialib.reflection.RefMethod;
+import tr.com.infumia.infumialib.reflection.constructor.ConstructorOf;
+import tr.com.infumia.infumialib.reflection.field.FieldOf;
+import tr.com.infumia.infumialib.reflection.method.MethodOf;
+import tr.com.infumia.infumialib.reflection.parameterized.ParameterizedOf;
 
 /**
  * an implementation for {@link RefClass}.

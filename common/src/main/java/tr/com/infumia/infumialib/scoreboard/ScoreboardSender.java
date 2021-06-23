@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.scoreboard;
 
-import tr.com.infumia.infumialib.scoreboard.line.Line;
 import java.io.Closeable;
 import java.util.Collection;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.scoreboard.line.Line;
 
 /**
  * an interface to determine scoreboard senders.

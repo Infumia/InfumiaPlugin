@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.paper.hooks.hooks.pl3xmap;
 
-import tr.com.infumia.infumialib.replaceable.RpList;
 import java.util.Collection;
 import java.util.function.Supplier;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.replaceable.RpList;
 
 public interface MapConfig {
 

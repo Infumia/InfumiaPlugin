@@ -37,7 +37,7 @@ public final class InMemoryResolver extends TransformResolver {
   }
 
   @Override
-  public void load(@NotNull final InputStream inputStream, @NotNull final tr.com.infumia.infumialib.transformer.declarations.TransformedObjectDeclaration declaration) {
+  public void load(@NotNull final InputStream inputStream, @NotNull final TransformedObjectDeclaration declaration) {
   }
 
   @Override
@@ -46,8 +46,8 @@ public final class InMemoryResolver extends TransformResolver {
   }
 
   @Override
-  public void removeValue(@NotNull final String path, @Nullable final tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration genericType,
-                          @Nullable final tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration field) {
+  public void removeValue(@NotNull final String path, @Nullable final GenericDeclaration genericType,
+                          @Nullable final FieldDeclaration field) {
     this.map.remove(path);
   }
 

@@ -24,8 +24,6 @@
 
 package tr.com.infumia.infumialib.input;
 
-import tr.com.infumia.infumialib.input.event.ChatEvent;
-import tr.com.infumia.infumialib.input.event.QuitEvent;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumMap;
@@ -42,6 +40,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.input.event.ChatEvent;
+import tr.com.infumia.infumialib.input.event.QuitEvent;
 
 /**
  * a class created to get inputs from players.

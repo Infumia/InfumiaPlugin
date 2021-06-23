@@ -1,14 +1,14 @@
 package tr.com.infumia.infumialib.scoreboard.line;
 
-import tr.com.infumia.infumialib.scoreboard.line.lines.FramedLine;
-import tr.com.infumia.infumialib.scoreboard.line.lines.HighlightedLine;
-import tr.com.infumia.infumialib.scoreboard.line.lines.ScrolledLine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.scoreboard.line.lines.FramedLine;
+import tr.com.infumia.infumialib.scoreboard.line.lines.HighlightedLine;
+import tr.com.infumia.infumialib.scoreboard.line.lines.ScrolledLine;
 
 /**
  * an interface to determine animated lines.

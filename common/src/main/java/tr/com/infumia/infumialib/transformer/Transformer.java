@@ -16,7 +16,7 @@ import tr.com.infumia.infumialib.transformer.declarations.GenericHolder;
  * @param <R> type of the raw value.
  * @param <F> type of the final value.
  */
-public interface Transformer<R, F> extends tr.com.infumia.infumialib.transformer.declarations.GenericHolder<R, F> {
+public interface Transformer<R, F> extends GenericHolder<R, F> {
 
   /**
    * creates a simple transformer.
@@ -89,7 +89,7 @@ public interface Transformer<R, F> extends tr.com.infumia.infumialib.transformer
      */
     @NotNull
     @Delegate
-    private final tr.com.infumia.infumialib.transformer.declarations.GenericHolder<R, F> holder;
+    private final GenericHolder<R, F> holder;
 
     /**
      * the transformation.
@@ -112,7 +112,7 @@ public interface Transformer<R, F> extends tr.com.infumia.infumialib.transformer
      */
     protected Base(@NotNull final Class<R> rawType, @NotNull final Class<F> finalType,
                    @NotNull final Function<@NotNull R, @Nullable F> transformation) {
-      this(tr.com.infumia.infumialib.transformer.declarations.GenericHolder.create(rawType, finalType), transformation,
+      this(GenericHolder.create(rawType, finalType), transformation,
         (r, field) -> transformation.apply(r));
     }
 

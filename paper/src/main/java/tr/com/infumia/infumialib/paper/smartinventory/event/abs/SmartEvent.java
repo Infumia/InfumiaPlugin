@@ -1,7 +1,7 @@
 package tr.com.infumia.infumialib.paper.smartinventory.event.abs;
 
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
 
 /**
  * an interface to determine smart events.

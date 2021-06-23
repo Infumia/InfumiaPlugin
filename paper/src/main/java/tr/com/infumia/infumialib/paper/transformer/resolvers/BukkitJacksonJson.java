@@ -31,9 +31,9 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.transformer.resolvers.JacksonJson;
 import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 import tr.com.infumia.infumialib.transformer.exceptions.TransformException;
+import tr.com.infumia.infumialib.transformer.resolvers.JacksonJson;
 
 /**
  * a class that represents json file configuration.

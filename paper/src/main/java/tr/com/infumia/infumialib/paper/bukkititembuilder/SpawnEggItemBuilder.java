@@ -25,7 +25,6 @@
 
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
@@ -33,6 +32,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SpawnEggMeta;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents spawn egg item builders.
@@ -152,14 +152,14 @@ public final class SpawnEggItemBuilder extends Builder<SpawnEggItemBuilder, Spaw
     @NotNull
     @Override
     public Optional<SpawnEggItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = getItemStackDeserializer().apply(holder);
+      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asSpawnEgg();
       holder.get(KeyUtil.CREATURE_KEY, String.class)
         .ifPresent(builder::setSpawnedType);
-      return Optional.of(getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
     }
   }
 }

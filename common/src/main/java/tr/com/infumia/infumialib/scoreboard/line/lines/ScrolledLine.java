@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.scoreboard.line.lines;
 
-import tr.com.infumia.infumialib.scoreboard.line.LineColor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.scoreboard.line.LineColor;
 
 /**
  * a class that represents scrolled lines.

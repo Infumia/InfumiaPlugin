@@ -98,7 +98,7 @@ public final class TransformedData {
     if (value == null) {
       this.remove(path);
     } else {
-      this.serializedMap.put(path, this.resolver.serialize(value, tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(cls), true));
+      this.serializedMap.put(path, this.resolver.serialize(value, GenericDeclaration.of(cls), true));
     }
   }
 
@@ -123,7 +123,7 @@ public final class TransformedData {
     } else {
       this.serializedMap.put(path, this.resolver.serializeMap(
         (Map<Object, Object>) value,
-        tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(value.getClass(), keyClass, valueClass),
+        GenericDeclaration.of(value.getClass(), keyClass, valueClass),
         true));
     }
   }
@@ -146,7 +146,7 @@ public final class TransformedData {
     } else {
       this.serializedMap.put(path, this.resolver.serializeCollection(
         value,
-        tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(value.getClass(), elementClass),
+        GenericDeclaration.of(value.getClass(), elementClass),
         true));
     }
   }
@@ -213,7 +213,7 @@ public final class TransformedData {
     }
     return Optional.of(this.resolver.deserialize(
       object,
-      tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(object),
+      GenericDeclaration.of(object),
       objectClass,
       null,
       defaultValue));
@@ -240,9 +240,9 @@ public final class TransformedData {
     }
     return Optional.of(this.resolver.deserialize(
       object,
-      tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(object),
+      GenericDeclaration.of(object),
       List.class,
-      tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(List.class, elementClass),
+      GenericDeclaration.of(List.class, elementClass),
       null));
   }
 
@@ -270,7 +270,7 @@ public final class TransformedData {
     //noinspection unchecked
     return Optional.of(this.resolver.deserialize(
       object,
-      tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration.of(object),
+      GenericDeclaration.of(object),
       Map.class,
       GenericDeclaration.of(Map.class, keyClass, valueClass),
       null));

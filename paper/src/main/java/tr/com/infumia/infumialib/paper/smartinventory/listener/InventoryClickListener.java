@@ -1,17 +1,17 @@
 package tr.com.infumia.infumialib.paper.smartinventory.listener;
 
-import tr.com.infumia.infumialib.paper.smartinventory.SmartHolder;
-import tr.com.infumia.infumialib.paper.smartinventory.event.IcClickEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.event.PgBottomClickEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.event.PgClickEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.event.PgOutsideClickEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartHolder;
+import tr.com.infumia.infumialib.paper.smartinventory.event.IcClickEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.event.PgBottomClickEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.event.PgClickEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.event.PgOutsideClickEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
  * a class that represents inventory click listeners.

@@ -1,7 +1,5 @@
 package tr.com.infumia.infumialib.transformer.declarations;
 
-import transformer.declarations.GenericDeclaration;
-import transformer.declarations.GenericPair;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +25,7 @@ public interface GenericHolder<L, R> {
    */
   @NotNull
   static <L, R> GenericHolder<L, R> create(@NotNull final Class<L> left, @NotNull final Class<R> right) {
-    return GenericHolder.create(transformer.declarations.GenericDeclaration.ofReady(left), transformer.declarations.GenericDeclaration.ofReady(right));
+    return GenericHolder.create(GenericDeclaration.ofReady(left), GenericDeclaration.ofReady(right));
   }
 
   /**
@@ -41,8 +39,8 @@ public interface GenericHolder<L, R> {
    * @return a newly created {@code this} instance.
    */
   @NotNull
-  static <L, R> GenericHolder<L, R> create(@NotNull final transformer.declarations.GenericDeclaration left,
-                                           @NotNull final transformer.declarations.GenericDeclaration right) {
+  static <L, R> GenericHolder<L, R> create(@NotNull final GenericDeclaration left,
+                                           @NotNull final GenericDeclaration right) {
     return new Impl<>(left, right);
   }
 
@@ -52,7 +50,7 @@ public interface GenericHolder<L, R> {
    * @return left type.
    */
   @NotNull
-  transformer.declarations.GenericDeclaration getLeftType();
+  GenericDeclaration getLeftType();
 
   /**
    * creates a new generic pair.
@@ -60,7 +58,7 @@ public interface GenericHolder<L, R> {
    * @return a newly created generic pair.
    */
   @NotNull
-  default transformer.declarations.GenericPair getPair() {
+  default GenericPair getPair() {
     return GenericPair.of(this.getLeftType(), this.getRightType());
   }
 
@@ -70,7 +68,7 @@ public interface GenericHolder<L, R> {
    * @return right type.
    */
   @NotNull
-  transformer.declarations.GenericDeclaration getRightType();
+  GenericDeclaration getRightType();
 
   /**
    * a simple implementation of {@link GenericHolder}.
@@ -86,7 +84,7 @@ public interface GenericHolder<L, R> {
      * the left.
      */
     @NotNull
-    private final transformer.declarations.GenericDeclaration leftType;
+    private final GenericDeclaration leftType;
 
     /**
      * the right.

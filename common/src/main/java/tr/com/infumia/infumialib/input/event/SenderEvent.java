@@ -24,8 +24,8 @@
 
 package tr.com.infumia.infumialib.input.event;
 
-import tr.com.infumia.infumialib.input.ChatSender;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.input.ChatSender;
 
 /**
  * an interface to determine events that have the sender in it.

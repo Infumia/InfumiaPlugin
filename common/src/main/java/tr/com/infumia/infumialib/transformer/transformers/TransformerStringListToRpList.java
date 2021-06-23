@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.transformer.transformers;
 
-import replaceable.RpBase;
-import replaceable.RpList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import tr.com.infumia.infumialib.replaceable.RpBase;
+import tr.com.infumia.infumialib.replaceable.RpList;
 import tr.com.infumia.infumialib.transformer.TwoSideTransformer;
 
 /**

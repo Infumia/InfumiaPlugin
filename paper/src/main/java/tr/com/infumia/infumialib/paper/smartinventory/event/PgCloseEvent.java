@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.paper.smartinventory.event;
 
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.CloseEvent;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.CloseEvent;
 
 /**
  * a class that represents page close events.

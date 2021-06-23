@@ -1,12 +1,12 @@
 package tr.com.infumia.infumialib.paper.smartinventory.event;
 
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.BottomClickEvent;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.BottomClickEvent;
 
 /**
  * a class that represents page bottom click events.
