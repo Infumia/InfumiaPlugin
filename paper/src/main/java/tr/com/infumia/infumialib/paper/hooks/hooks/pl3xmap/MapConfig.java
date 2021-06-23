@@ -1,6 +1,6 @@
 package tr.com.infumia.infumialib.paper.hooks.hooks.pl3xmap;
 
-import io.github.portlek.replaceable.RpList;
+import tr.com.infumia.infumialib.replaceable.RpList;
 import java.util.Collection;
 import java.util.function.Supplier;
 import org.bukkit.plugin.Plugin;

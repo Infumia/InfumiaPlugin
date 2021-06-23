@@ -2,9 +2,9 @@ package tr.com.infumia.infumialib.paper;
 
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
-import io.github.portlek.bukkititembuilder.color.CustomColors;
-import io.github.portlek.smartinventory.SmartInventory;
-import io.github.portlek.smartinventory.manager.BasicSmartInventory;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.color.CustomColors;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
+import tr.com.infumia.infumialib.paper.smartinventory.manager.BasicSmartInventory;
 import java.util.Objects;
 import java.util.function.Function;
 import org.bukkit.command.CommandSender;

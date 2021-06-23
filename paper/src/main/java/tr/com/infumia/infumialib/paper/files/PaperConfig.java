@@ -1,15 +1,15 @@
 package tr.com.infumia.infumialib.paper.files;
 
-import io.github.portlek.bukkititembuilder.color.XColor;
-import io.github.portlek.configs.snakeyaml.bukkit.BukkitSnakeyaml;
-import io.github.portlek.replaceable.RpString;
-import io.github.portlek.transformer.TransformedObject;
-import io.github.portlek.transformer.TransformerPool;
-import io.github.portlek.transformer.annotations.Comment;
-import io.github.portlek.transformer.annotations.Names;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.color.XColor;
+import tr.com.infumia.infumialib.paper.transformer.resolvers.BukkitSnakeyaml;
+import tr.com.infumia.infumialib.replaceable.RpString;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.transformer.TransformedObject;
+import tr.com.infumia.infumialib.transformer.TransformerPool;
+import tr.com.infumia.infumialib.transformer.annotations.Comment;
+import tr.com.infumia.infumialib.transformer.annotations.Names;
 
 /**
  * a class that represents Infumia Lib's config.

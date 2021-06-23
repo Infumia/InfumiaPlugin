@@ -29,40 +29,12 @@
       <artifactId>paper-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.portlek</groupId>
-      <artifactId>SmartInventory</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.input</groupId>
-      <artifactId>input-paper</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.scoreboard</groupId>
-      <artifactId>scoreboard-bukkit</artifactId>
-    </dependency>
-    <dependency>
       <groupId>io.github.bananapuncher714</groupId>
       <artifactId>NBTEditor</artifactId>
     </dependency>
     <dependency>
       <groupId>net.wesjd</groupId>
       <artifactId>anvilgui</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek</groupId>
-      <artifactId>version-matched</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek</groupId>
-      <artifactId>bukkit-version</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek</groupId>
-      <artifactId>bukkit-location</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek</groupId>
-      <artifactId>BukkitItemBuilder</artifactId>
     </dependency>
     <dependency>
       <groupId>com.github.cryptomorin</groupId>
@@ -75,38 +47,6 @@
     <dependency>
       <groupId>me.lucko</groupId>
       <artifactId>commodore</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-bukkit-gson-json</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-bukkit-hjson-json</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-bukkit-hocon</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-bukkit-jackson-json</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-bukkit-jackson-yaml</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-bukkit-snakeyaml</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-bukkit-simple-json</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-bukkit-transformers</artifactId>
     </dependency>
     <dependency>
       <groupId>net.kyori</groupId>

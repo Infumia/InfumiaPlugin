@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.github.parentpom</groupId>
-    <artifactId>ppom-portlek</artifactId>
-    <version>1.8.2</version>
+    <artifactId>ppom</artifactId>
+    <version>3.4.4</version>
   </parent>
   <groupId>tr.com.infumia</groupId>
   <artifactId>InfumiaLib</artifactId>
@@ -54,6 +54,21 @@
         <groupId>tr.com.infumia</groupId>
         <artifactId>InfumiaCommon</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.okaeri</groupId>
+        <artifactId>okaeri-hjson</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.googlecode.json-simple</groupId>
+        <artifactId>json-simple</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.typesafe</groupId>
+        <artifactId>config</artifactId>
+        <version>1.4.1</version>
       </dependency>
       <dependency>
         <groupId>com.destroystokyo.paper</groupId>

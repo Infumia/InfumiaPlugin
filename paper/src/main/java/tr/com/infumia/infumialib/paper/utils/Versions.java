@@ -1,6 +1,6 @@
 package tr.com.infumia.infumialib.paper.utils;
 
-import io.github.portlek.bukkitversion.BukkitVersion;
+import tr.com.infumia.infumialib.paper.version.BukkitVersion;
 
 /**
  * a class that represents versions.

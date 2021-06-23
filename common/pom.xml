@@ -31,18 +31,6 @@
       <artifactId>HikariCP</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.portlek</groupId>
-      <artifactId>reflection</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek</groupId>
-      <artifactId>replaceable</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek</groupId>
-      <artifactId>equilibrium</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.kohsuke</groupId>
       <artifactId>github-api</artifactId>
     </dependency>
@@ -120,28 +108,24 @@
       <artifactId>slf4j-log4j12</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-gson-json</artifactId>
+      <groupId>eu.okaeri</groupId>
+      <artifactId>okaeri-hjson</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-hjson-json</artifactId>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-jackson-json</artifactId>
+      <groupId>com.typesafe</groupId>
+      <artifactId>config</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-jackson-yaml</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-hocon</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.github.portlek.configs</groupId>
-      <artifactId>configs-simple-json</artifactId>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
     </dependency>
   </dependencies>
 </project>
