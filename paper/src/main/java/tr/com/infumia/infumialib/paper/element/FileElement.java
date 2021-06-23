@@ -7,6 +7,7 @@ import io.github.portlek.bukkititembuilder.util.KeyUtil;
 import io.github.portlek.smartinventory.Icon;
 import io.github.portlek.smartinventory.InventoryContents;
 import io.github.portlek.smartinventory.event.abs.ClickEvent;
+import io.github.portlek.smartinventory.event.abs.SmartEvent;
 import io.github.portlek.transformer.ObjectSerializer;
 import io.github.portlek.transformer.TransformedData;
 import io.github.portlek.transformer.declarations.GenericDeclaration;
@@ -762,6 +763,10 @@ public final class FileElement {
 
   public void place(@NotNull final InventoryContents contents) {
     this.getPlaceType().place(this.clickableItem(), contents, this.values());
+  }
+
+  public void place(@NotNull final SmartEvent event) {
+    this.place(event.contents());
   }
 
   @NotNull
