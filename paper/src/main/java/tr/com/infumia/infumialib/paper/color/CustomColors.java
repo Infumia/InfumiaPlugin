@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.paper.bukkititembuilder.color;
+package tr.com.infumia.infumialib.paper.color;
 
 import java.util.Locale;
 import lombok.Getter;

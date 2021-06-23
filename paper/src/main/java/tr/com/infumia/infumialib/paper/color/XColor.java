@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.paper.bukkititembuilder.color;
+package tr.com.infumia.infumialib.paper.color;
 
 import java.awt.Color;
 import java.security.SecureRandom;
