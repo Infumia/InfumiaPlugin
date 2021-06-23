@@ -1,9 +1,9 @@
 package tr.com.infumia.infumialib.paper.element;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
@@ -23,85 +23,98 @@ public enum PlaceType {
       .forEach(slots ->
         slots.forEach(slot ->
           contents.set(slot, icon))),
-    "slots", int[].class),
+    Map.of("slots", int[].class)),
   INSERT_INDEX((icon, contents, objects) ->
     contents.set((int) objects.get("index"), icon),
-    "index", int.class),
+    Map.of("index", int.class)),
   INSERT((icon, contents, objects) ->
     contents.set((int) objects.get("row"), (int) objects.get("column"), icon),
-    "row", int.class, "column", int.class),
+    Map.of(
+      "row", int.class,
+      "column", int.class)),
   FILL((icon, contents, objects) ->
-    contents.fill(icon)),
+    contents.fill(icon), Collections.emptyMap()),
   FILL_EMPTIES((icon, contents, objects) ->
-    contents.fillEmpties(icon)),
+    contents.fillEmpties(icon), Collections.emptyMap()),
   FILL_ROW((icon, contents, objects) ->
     contents.fillRow((int) objects.get("row"), icon),
-    "row", int.class),
+    Map.of("row", int.class)),
   FILL_COLUMN((icon, contents, objects) ->
     contents.fillColumn((int) objects.get("column"), icon),
-    "column", int.class),
+    Map.of("column", int.class)),
   FILL_BORDERS((icon, contents, objects) ->
-    contents.fillBorders(icon)),
+    contents.fillBorders(icon), Collections.emptyMap()),
   FILL_RECT_INDEX((icon, contents, objects) ->
     contents.fillRect((int) objects.get("from-index"), (int) objects.get("to-index"), icon),
-    "from-index", int.class, "to-index", int.class),
+    Map.of(
+      "from-index", int.class,
+      "to-index", int.class)),
   FILL_RECT_FROM_TO((icon, contents, objects) ->
     contents.fillRect((int) objects.get("from-row"), (int) objects.get("from-column"), (int) objects.get("to-row"), (int) objects.get("to-column"), icon),
-    "from-row", int.class, "from-column", int.class, "to-row", int.class, "to-column", int.class),
+    Map.of(
+      "from-row", int.class,
+      "from-column", int.class,
+      "to-row", int.class,
+      "to-column", int.class)),
   FILL_SQUARE_INDEX((icon, contents, objects) ->
     contents.fillSquare((int) objects.get("from-index"), (int) objects.get("to-index"), icon),
-    "from-index", int.class, "to-index", int.class),
+    Map.of(
+      "from-index", int.class,
+      "to-index", int.class)),
   FILL_SQUARE_FROM_TO((icon, contents, objects) ->
     contents.fillSquare((int) objects.get("from-row"), (int) objects.get("from-column"), (int) objects.get("to-row"), (int) objects.get("to-column"), icon),
-    "from-row", int.class, "from-column", int.class, "to-row", int.class, "to-column", int.class),
+    Map.of(
+      "from-row", int.class,
+      "from-column", int.class,
+      "to-row", int.class,
+      "to-column", int.class)),
   FILL_PATTERN((icon, contents, objects) ->
     contents.fillPattern(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern"))),
-    "wrap-around", boolean.class, "pattern", String[].class),
+    Map.of(
+      "wrap-around", boolean.class,
+      "pattern", String[].class)),
   FILL_PATTERN_START_INDEX((icon, contents, objects) ->
     contents.fillPattern(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern")), (int) objects.get("start-index")),
-    "wrap-around", boolean.class, "pattern", String[].class, "start-index", int.class),
+    Map.of(
+      "wrap-around", boolean.class,
+      "pattern", String[].class,
+      "start-index", int.class)),
   FILL_PATTERN_START((icon, contents, objects) ->
     contents.fillPattern(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern")), (int) objects.get("start-row"), (int) objects.get("start-column")),
-    "wrap-around", boolean.class, "pattern", String[].class, "start-row", int.class, "start-column", int.class),
+    Map.of(
+      "wrap-around", boolean.class,
+      "pattern", String[].class,
+      "start-row", int.class,
+      "start-column", int.class)),
   FILL_REPEATING_PATTERN((icon, contents, objects) ->
     contents.fillPatternRepeating(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern"))),
-    "wrap-around", boolean.class, "pattern", String[].class),
+    Map.of(
+      "wrap-around", boolean.class,
+      "pattern", String[].class)),
   FILL_REPEATING_PATTERN_START_INDEX((icon, contents, objects) ->
     contents.fillPatternRepeating(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern")), (int) objects.get("start-index"), (int) objects.get("end-index")),
-    "wrap-around", boolean.class, "pattern", String[].class, "start-index", int.class, "end-index", int.class),
+    Map.of(
+      "wrap-around", boolean.class,
+      "pattern", String[].class,
+      "start-index", int.class,
+      "end-index", int.class)),
   FILL_REPEATING_PATTERN_START((icon, contents, objects) ->
     contents.fillPatternRepeating(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern")), (int) objects.get("start-row"), (int) objects.get("start-column"), (int) objects.get("end-row"), (int) objects.get("end-column")),
-    "wrap-around", boolean.class, "pattern", String[].class, "start-row", int.class, "start-column", int.class, "end-row", int.class, "end-column", int.class),
+    Map.of(
+      "wrap-around", boolean.class,
+      "pattern", String[].class,
+      "start-row", int.class,
+      "start-column", int.class,
+      "end-row", int.class,
+      "end-column", int.class)),
   NONE((left, middle, right) -> {
-  });
+  }, Collections.emptyMap());
 
   @NotNull
   private final TriConsumer<Icon, InventoryContents, Map<String, Object>> consumer;
 
   @NotNull
   private final Map<String, Class<?>> keyAndTypes;
-
-  PlaceType(@NotNull final TriConsumer<Icon, InventoryContents, Map<String, Object>> consumer,
-            @NotNull final Object... objects) {
-    this(consumer, PlaceType.parse(objects));
-  }
-
-  @NotNull
-  public static <T> Map<String, T> parse(@NotNull final Object... objects) {
-    final var map = new HashMap<String, T>();
-    var isKey = true;
-    var previousKey = "";
-    for (final var object : objects) {
-      if (isKey) {
-        isKey = false;
-        previousKey = (String) object;
-      } else {
-        isKey = true;
-        map.put(previousKey, (T) object);
-      }
-    }
-    return map;
-  }
 
   @NotNull
   private static Object def(@NotNull final Class<?> type) {
@@ -140,13 +153,13 @@ public enum PlaceType {
         if (o == null) {
           return false;
         }
-        final var aClass = o.getClass();
-        return new ClassOf<>(aClass)
+        final var cls = o.getClass();
+        return new ClassOf<>(cls)
           .getField("TYPE")
           .map(refField -> refField.of(o))
           .flatMap(RefFieldExecuted::getValue)
           .map(o1 -> o1.equals(entry.getValue()))
-          .orElse(aClass.equals(entry.getValue()));
+          .orElse(cls.equals(entry.getValue()));
       });
   }
 
