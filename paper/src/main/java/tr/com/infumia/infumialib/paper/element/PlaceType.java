@@ -144,9 +144,7 @@ public enum PlaceType {
         return new ClassOf<>(aClass)
           .getField("TYPE")
           .map(refField -> refField.of(o))
-          .map(RefFieldExecuted::getValue)
-          .filter(Optional::isPresent)
-          .map(Optional::get)
+          .flatMap(RefFieldExecuted::getValue)
           .map(o1 -> o1.equals(entry.getValue()))
           .orElse(aClass.equals(entry.getValue()));
       });
