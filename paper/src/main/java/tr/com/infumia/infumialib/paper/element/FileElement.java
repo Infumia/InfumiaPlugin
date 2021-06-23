@@ -156,7 +156,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPattern(@NotNull final ItemStack itemStack, final boolean wrapAround,
-                                        @NotNull final String[] pattern,
+                                        @NotNull final List<String> pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.from(itemStack, PlaceType.FILL_PATTERN,
       Map.of("wrapAround", wrapAround, "pattern", pattern), events);
@@ -165,7 +165,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPattern(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
-                                        @NotNull final String[] pattern,
+                                        @NotNull final List<String> pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPattern(builder.getItemStack(), wrapAround, pattern, events);
   }
@@ -173,7 +173,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPattern(@NotNull final Material material, final boolean wrapAround,
-                                        @NotNull final String[] pattern,
+                                        @NotNull final List<String> pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
   }
@@ -181,7 +181,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPattern(@NotNull final XMaterial material, final boolean wrapAround,
-                                        @NotNull final String[] pattern,
+                                        @NotNull final List<String> pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
   }
@@ -189,7 +189,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPatternStart(@NotNull final ItemStack itemStack, final boolean wrapAround,
-                                             @NotNull final String[] pattern, final int startRow,
+                                             @NotNull final List<String> pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.from(itemStack, PlaceType.FILL_PATTERN_START,
       Map.of("wrapAround", wrapAround, "pattern", pattern, "startRow", startRow, "startColumn", startColumn), events);
@@ -198,7 +198,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPatternStart(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
-                                             @NotNull final String[] pattern, final int startRow,
+                                             @NotNull final List<String> pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn, events);
   }
@@ -206,7 +206,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPatternStart(@NotNull final Material material, final boolean wrapAround,
-                                             @NotNull final String[] pattern, final int startRow,
+                                             @NotNull final List<String> pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPatternStart(ItemStackBuilder.from(material), wrapAround, pattern, startRow, startColumn,
       events);
@@ -215,7 +215,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPatternStart(@NotNull final XMaterial material, final boolean wrapAround,
-                                             @NotNull final String[] pattern, final int startRow,
+                                             @NotNull final List<String> pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPatternStart(ItemStackBuilder.from(material), wrapAround, pattern, startRow, startColumn,
       events);
@@ -224,7 +224,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPatternStartIndex(@NotNull final ItemStack itemStack, final boolean wrapAround,
-                                                  @NotNull final String[] pattern, final int startIndex,
+                                                  @NotNull final List<String> pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.from(itemStack, PlaceType.FILL_PATTERN_START_INDEX,
       Map.of("wrapAround", wrapAround, "pattern", pattern, "startIndex", startIndex), events);
@@ -233,7 +233,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPatternStartIndex(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
-                                                  @NotNull final String[] pattern, final int startIndex,
+                                                  @NotNull final List<String> pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex, events);
   }
@@ -241,7 +241,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPatternStartIndex(@NotNull final Material material, final boolean wrapAround,
-                                                  @NotNull final String[] pattern, final int startIndex,
+                                                  @NotNull final List<String> pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern, startIndex,
       events);
@@ -250,7 +250,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillPatternStartIndex(@NotNull final XMaterial material, final boolean wrapAround,
-                                                  @NotNull final String[] pattern, final int startIndex,
+                                                  @NotNull final List<String> pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern, startIndex,
       events);
@@ -323,7 +323,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPattern(@NotNull final ItemStack itemStack, final boolean wrapAround,
-                                                 @NotNull final String[] pattern,
+                                                 @NotNull final List<String> pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.from(itemStack, PlaceType.FILL_REPEATING_PATTERN,
       Map.of("wrapAround", wrapAround, "pattern", pattern), events);
@@ -332,7 +332,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPattern(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
-                                                 @NotNull final String[] pattern,
+                                                 @NotNull final List<String> pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPattern(builder.getItemStack(), wrapAround, pattern, events);
   }
@@ -340,7 +340,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPattern(@NotNull final Material material, final boolean wrapAround,
-                                                 @NotNull final String[] pattern,
+                                                 @NotNull final List<String> pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
   }
@@ -348,7 +348,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPattern(@NotNull final XMaterial material, final boolean wrapAround,
-                                                 @NotNull final String[] pattern,
+                                                 @NotNull final List<String> pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPattern(ItemStackBuilder.from(material), wrapAround, pattern, events);
   }
@@ -356,7 +356,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPatternStart(@NotNull final ItemStack itemStack, final boolean wrapAround,
-                                                      @NotNull final String[] pattern, final int startRow,
+                                                      @NotNull final List<String> pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.from(itemStack, PlaceType.FILL_REPEATING_PATTERN_START,
@@ -367,7 +367,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPatternStart(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
-                                                      @NotNull final String[] pattern, final int startRow,
+                                                      @NotNull final List<String> pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn,
@@ -377,7 +377,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPatternStart(@NotNull final Material material, final boolean wrapAround,
-                                                      @NotNull final String[] pattern, final int startRow,
+                                                      @NotNull final List<String> pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPatternStart(ItemStackBuilder.from(material), wrapAround, pattern,
@@ -387,7 +387,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPatternStart(@NotNull final XMaterial material, final boolean wrapAround,
-                                                      @NotNull final String[] pattern, final int startRow,
+                                                      @NotNull final List<String> pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPatternStart(ItemStackBuilder.from(material), wrapAround, pattern,
@@ -397,7 +397,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPatternStartIndex(@NotNull final ItemStack itemStack,
-                                                           final boolean wrapAround, @NotNull final String[] pattern,
+                                                           final boolean wrapAround, @NotNull final List<String> pattern,
                                                            final int startIndex, final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.from(itemStack, PlaceType.FILL_REPEATING_PATTERN_START_INDEX,
@@ -407,7 +407,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPatternStartIndex(@NotNull final ItemStackBuilder builder,
-                                                           final boolean wrapAround, @NotNull final String[] pattern,
+                                                           final boolean wrapAround, @NotNull final List<String> pattern,
                                                            final int startIndex, final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex,
@@ -417,7 +417,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPatternStartIndex(@NotNull final Material material, final boolean wrapAround,
-                                                           @NotNull final String[] pattern, final int startIndex,
+                                                           @NotNull final List<String> pattern, final int startIndex,
                                                            final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern,
@@ -427,7 +427,7 @@ public final class FileElement {
   @SafeVarargs
   @NotNull
   public static FileElement fillRepeatingPatternStartIndex(@NotNull final XMaterial material, final boolean wrapAround,
-                                                           @NotNull final String[] pattern, final int startIndex,
+                                                           @NotNull final List<String> pattern, final int startIndex,
                                                            final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPatternStartIndex(ItemStackBuilder.from(material), wrapAround, pattern,
@@ -900,7 +900,7 @@ public final class FileElement {
       transformedData.add("item", map);
       transformedData.add("type", fileElement.getPlaceType().name(), String.class);
       transformedData.remove("values");
-      transformedData.addAsMap("values", new HashMap<>(fileElement.values()), String.class, Object.class);
+      fileElement.getPlaceType().serialize(fileElement, transformedData);
     }
 
     @Override
