@@ -37,6 +37,10 @@
       <url>https://papermc.io/repo/repository/maven-public/</url>
       <id>papermc</id>
     </repository>
+    <repository>
+      <id>okaeri-repo</id>
+      <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
