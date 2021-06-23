@@ -2,12 +2,14 @@ package tr.com.infumia.infumialib.paper.commands;
 
 import cloud.commandframework.ArgumentDescription;
 import cloud.commandframework.paper.PaperCommandManager;
+import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.files.PaperConfig;
@@ -16,16 +18,20 @@ import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 /**
  * a class that contains Infumia plugin's commands.
  */
-public final class InfumiaPluginCommands extends CommandHandler {
+@RequiredArgsConstructor
+public final class InfumiaPluginCommands implements Command {
 
   /**
-   * ctor.
-   *
-   * @param manager the manager.
+   * the manager.
    */
-  public InfumiaPluginCommands(@NotNull final PaperCommandManager<CommandSender> manager) {
-    super(manager);
-  }
+  @NotNull
+  protected final PaperCommandManager<CommandSender> manager;
+
+  /**
+   * the plugin.
+   */
+  @NotNull
+  private final Plugin plugin;
 
   @Override
   public void register() {
@@ -35,14 +41,14 @@ public final class InfumiaPluginCommands extends CommandHandler {
     final var reloadCommand = builder.literal("reload", ArgumentDescription.of("Reloads Infumia Library plugin's configuration files."))
       .permission("infumiaplugin.command.reload")
       .handler(context ->
-        InfumiaLibConfig.loadConfig(this.getPlugin().getDataFolder())
-          .thenRunAsync(() -> PaperConfig.loadConfig(this.getPlugin().getDataFolder()))
+        InfumiaLibConfig.loadConfig(this.plugin.getDataFolder())
+          .thenRunAsync(() -> PaperConfig.loadConfig(this.plugin.getDataFolder()))
           .whenComplete((x, y) ->
             context.getSender().sendMessage(this.getReloadCompleteMessage())));
     final var updateCommand = builder.literal("update", ArgumentDescription.of("Checks for update ıf Infumia Library plugin."))
       .permission("infumiaplugin.command.update")
       .handler(context ->
-        GitHubUpdateChecker.checkForUpdate(context.getSender(), this.getPlugin(), "Infumia", "InfumiaLib"));
+        GitHubUpdateChecker.checkForUpdate(context.getSender(), this.plugin, "Infumia", "InfumiaLib"));
     this.manager.command(mainCommand)
       .command(reloadCommand)
       .command(updateCommand);
@@ -85,7 +91,7 @@ public final class InfumiaPluginCommands extends CommandHandler {
       .append(Component.text("Current version")
         .color(NamedTextColor.GOLD)
         .decorate(TextDecoration.UNDERLINED)
-        .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/InfumiaPlugin/releases/tag/" + this.getPlugin().getDescription().getVersion())))
+        .clickEvent(ClickEvent.openUrl("https://github.com/Infumia/InfumiaPlugin/releases/tag/" + this.plugin.getDescription().getVersion())))
       .hoverEvent(HoverEvent.showText(Component.text("Go to current version of Infumia Library.")
         .color(NamedTextColor.GRAY)))
       .append(Component.space())
