@@ -1,13 +1,13 @@
 package tr.com.infumia.infumialib.files;
 
-import io.github.portlek.configs.hjsonjson.HJsonJson;
-import io.github.portlek.transformer.TransformedObject;
-import io.github.portlek.transformer.TransformerPool;
-import io.github.portlek.transformer.annotations.Comment;
-import io.github.portlek.transformer.annotations.Names;
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.transformer.TransformedObject;
+import tr.com.infumia.infumialib.transformer.TransformerPool;
+import tr.com.infumia.infumialib.transformer.annotations.Comment;
+import tr.com.infumia.infumialib.transformer.annotations.Names;
+import tr.com.infumia.infumialib.transformer.resolvers.HJsonJson;
 
 /**
  * a config class that covers Infumia's config.

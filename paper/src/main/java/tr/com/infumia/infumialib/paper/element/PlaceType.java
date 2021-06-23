@@ -1,10 +1,5 @@
 package tr.com.infumia.infumialib.paper.element;
 
-import io.github.portlek.reflection.RefFieldExecuted;
-import io.github.portlek.reflection.clazz.ClassOf;
-import io.github.portlek.smartinventory.Icon;
-import io.github.portlek.smartinventory.InventoryContents;
-import io.github.portlek.smartinventory.util.Pattern;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +8,11 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.functions.TriConsumer;
+import tr.com.infumia.infumialib.paper.smartinventory.Icon;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
+import tr.com.infumia.infumialib.reflection.RefFieldExecuted;
+import tr.com.infumia.infumialib.reflection.clazz.ClassOf;
 
 @RequiredArgsConstructor
 public enum PlaceType {

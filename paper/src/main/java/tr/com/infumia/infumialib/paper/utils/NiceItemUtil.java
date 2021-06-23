@@ -1,11 +1,11 @@
 package tr.com.infumia.infumialib.paper.utils;
 
 import com.cryptomorin.xseries.XMaterial;
-import io.github.portlek.bukkititembuilder.ItemStackBuilder;
 import java.util.Objects;
 import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.ItemStackBuilder;
 
 @UtilityClass
 public class NiceItemUtil {

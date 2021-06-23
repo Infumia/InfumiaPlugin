@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.github.parentpom</groupId>
-    <artifactId>ppom-portlek</artifactId>
-    <version>1.8.2</version>
+    <artifactId>ppom</artifactId>
+    <version>3.4.5</version>
   </parent>
   <groupId>tr.com.infumia</groupId>
   <artifactId>InfumiaLib</artifactId>
@@ -36,6 +36,10 @@
     <repository>
       <url>https://papermc.io/repo/repository/maven-public/</url>
       <id>papermc</id>
+    </repository>
+    <repository>
+      <id>okaeri-repo</id>
+      <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
     </repository>
   </repositories>
   <dependencies>

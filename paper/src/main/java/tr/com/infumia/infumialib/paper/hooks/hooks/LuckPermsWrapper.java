@@ -23,7 +23,7 @@ public final class LuckPermsWrapper implements Wrapped {
   private final LuckPerms luckPerms;
 
   /**
-   * gets player's limit in the given permission.
+   * gets player's li in the given permission.
    * <p>
    * permission pattern should be like 'xxx.yyy.zzz.'
    *
