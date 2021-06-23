@@ -78,7 +78,7 @@ public final class InfumiaPluginCommands implements Command {
   @NotNull
   private Component getVersionMessage() {
     return Component.text()
-      .append(Component.text("Infumia Library made by")
+      .append(Component.text("Infumia Library Plugin made by")
         .color(NamedTextColor.YELLOW))
       .append(Component.space())
       .append(Component.text("Infumia")
