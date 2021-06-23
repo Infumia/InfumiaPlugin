@@ -26,7 +26,6 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import com.cryptomorin.xseries.XItemStack;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -38,6 +37,7 @@ import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents leather armor item builders.
@@ -134,7 +134,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
     final var map = new HashMap<String, Object>();
     final var itemMeta = this.getItemMeta();
     map.put(KeyUtil.SCALING_KEY, itemMeta.isScaling());
-    if (VERSION >= 11) {
+    if (Builder.VERSION >= 11) {
       if (itemMeta.hasLocationName()) {
         map.put("location", itemMeta.getLocationName());
       }
@@ -144,10 +144,10 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
           color.getRed(), color.getGreen(), color.getBlue()));
       }
     }
-    if (VERSION >= 13) {
+    if (Builder.VERSION >= 13) {
       map.put(KeyUtil.MAP_ID_KEY, itemMeta.getMapId());
     }
-    if (VERSION >= 14) {
+    if (Builder.VERSION >= 14) {
       final var mapView = itemMeta.getMapView();
       if (itemMeta.hasMapView() && mapView != null) {
         final var view = new HashMap<>();
@@ -178,7 +178,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
    */
   @NotNull
   public MapItemBuilder setColor(@Nullable final Color color) {
-    if (VERSION >= 11) {
+    if (Builder.VERSION >= 11) {
       this.getItemMeta().setColor(color);
     }
     return this.getSelf();
@@ -193,7 +193,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
    */
   @NotNull
   public MapItemBuilder setLocationName(@Nullable final String name) {
-    if (VERSION >= 11) {
+    if (Builder.VERSION >= 11) {
       this.getItemMeta().setLocationName(name);
     }
     return this.getSelf();
@@ -209,7 +209,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
   @NotNull
   @Deprecated
   public MapItemBuilder setMapId(final int id) {
-    if (VERSION >= 13) {
+    if (Builder.VERSION >= 13) {
       this.getItemMeta().setMapId(id);
     }
     return this.getSelf();
@@ -224,7 +224,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
    */
   @NotNull
   public MapItemBuilder setMapView(@NotNull final MapView mapView) {
-    if (VERSION >= 14) {
+    if (Builder.VERSION >= 14) {
       this.getItemMeta().setMapView(mapView);
     }
     return this.getSelf();
@@ -252,7 +252,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
     @NotNull
     @Override
     public Optional<MapItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = getItemStackDeserializer().apply(holder);
+      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
@@ -264,7 +264,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
             .map(Boolean.class::cast)
             .orElse(false);
           builder.setScaling(scaling);
-          if (VERSION >= 11) {
+          if (Builder.VERSION >= 11) {
             Optional.ofNullable(mapSection.get(KeyUtil.LOCATION_KEY))
               .filter(String.class::isInstance)
               .map(String.class::cast)
@@ -274,13 +274,13 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
               .map(String.class::cast)
               .ifPresent(s -> builder.setColor(XItemStack.parseColor(s)));
           }
-          if (VERSION >= 13) {
+          if (Builder.VERSION >= 13) {
             Optional.ofNullable(mapSection.get(KeyUtil.MAP_ID_KEY))
               .filter(Integer.class::isInstance)
               .map(Integer.class::cast)
               .ifPresent(builder::setMapId);
           }
-          if (VERSION >= 14) {
+          if (Builder.VERSION >= 14) {
             Optional.ofNullable(mapSection.get(KeyUtil.VIEW_KEY))
               .filter(Map.class::isInstance)
               .map(Map.class::cast)
@@ -334,7 +334,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
                 }));
           }
         });
-      return Optional.of(getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
     }
   }
 }

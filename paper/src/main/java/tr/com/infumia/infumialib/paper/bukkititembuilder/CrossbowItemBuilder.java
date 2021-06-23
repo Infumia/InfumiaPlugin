@@ -25,8 +25,6 @@
 
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.ItemStackUtil;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +35,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CrossbowMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.ItemStackUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents crossbow item builders.
@@ -171,7 +171,7 @@ public final class CrossbowItemBuilder extends Builder<CrossbowItemBuilder, Cros
     @NotNull
     @Override
     public Optional<CrossbowItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = getItemStackDeserializer().apply(holder);
+      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
@@ -183,7 +183,7 @@ public final class CrossbowItemBuilder extends Builder<CrossbowItemBuilder, Cros
         .flatMap(Optional::stream)
         .collect(Collectors.toList());
       builder.setChargedProjectiles(collect);
-      return Optional.of(getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
     }
   }
 }

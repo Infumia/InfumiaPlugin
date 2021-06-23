@@ -1,5 +1,14 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.smartinventory.event.abs.BottomClickEvent;
 import tr.com.infumia.infumialib.paper.smartinventory.event.abs.CloseEvent;
 import tr.com.infumia.infumialib.paper.smartinventory.event.abs.InitEvent;
@@ -10,15 +19,6 @@ import tr.com.infumia.infumialib.paper.smartinventory.event.abs.PageEvent;
 import tr.com.infumia.infumialib.paper.smartinventory.event.abs.TickEvent;
 import tr.com.infumia.infumialib.paper.smartinventory.event.abs.UpdateEvent;
 import tr.com.infumia.infumialib.paper.smartinventory.page.BasicPage;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * an interface to determine {@link Inventory}.

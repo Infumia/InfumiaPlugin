@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.paper.observer.source;
 
-import tr.com.infumia.infumialib.paper.observer.Source;
-import tr.com.infumia.infumialib.paper.observer.Target;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.observer.Source;
+import tr.com.infumia.infumialib.paper.observer.Target;
 
 /**
  * an implementation for {@link Source}.

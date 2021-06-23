@@ -1,12 +1,12 @@
 package tr.com.infumia.infumialib.paper.smartinventory.opener;
 
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryOpener;
-import tr.com.infumia.infumialib.paper.smartinventory.holder.SmartInventoryHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryOpener;
+import tr.com.infumia.infumialib.paper.smartinventory.holder.SmartInventoryHolder;
 
 /**
  * an {@link InventoryType#CHEST} implementation for {@link InventoryOpener}.

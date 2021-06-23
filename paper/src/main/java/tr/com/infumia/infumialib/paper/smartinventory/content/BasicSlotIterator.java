@@ -1,17 +1,17 @@
 package tr.com.infumia.infumialib.paper.smartinventory.content;
 
 import com.google.common.base.Preconditions;
-import tr.com.infumia.infumialib.paper.smartinventory.Icon;
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.SlotIterator;
-import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.smartinventory.Icon;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.SlotIterator;
+import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
+import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
  * an implementation for {@link SlotIterator}.

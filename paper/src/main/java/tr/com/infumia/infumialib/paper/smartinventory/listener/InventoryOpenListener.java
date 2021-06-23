@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.paper.smartinventory.listener;
 
-import tr.com.infumia.infumialib.paper.smartinventory.SmartHolder;
-import tr.com.infumia.infumialib.paper.smartinventory.event.PgOpenEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartHolder;
+import tr.com.infumia.infumialib.paper.smartinventory.event.PgOpenEvent;
 
 /**
  * a class that represents inventory open listeners.

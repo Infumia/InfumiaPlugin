@@ -26,7 +26,6 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import com.cryptomorin.xseries.XPotion;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -45,6 +44,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents potion item builders.
@@ -126,7 +126,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
    */
   @NotNull
   public PotionItemBuilder addCustomEffect(@NotNull final PotionEffect effect, final boolean overwrite) {
-    if (VERSION >= 9) {
+    if (Builder.VERSION >= 9) {
       this.getItemMeta().addCustomEffect(effect, overwrite);
     }
     return this.getSelf();
@@ -142,7 +142,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
    */
   @NotNull
   public PotionItemBuilder addCustomEffects(@NotNull final Collection<String> effects, final boolean overwrite) {
-    if (VERSION >= 9) {
+    if (Builder.VERSION >= 9) {
       effects.stream()
         .map(XPotion::parsePotionEffectFromString)
         .filter(Objects::nonNull)
@@ -173,7 +173,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
     super.serialize(holder);
     final var itemStack = this.getItemStack(false);
     final var itemMeta = this.getItemMeta();
-    if (VERSION >= 9) {
+    if (Builder.VERSION >= 9) {
       final var customEffects = itemMeta.getCustomEffects();
       final var effects = customEffects.stream()
         .map(effect ->
@@ -183,7 +183,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
       final var potionData = itemMeta.getBasePotionData();
       holder.add(KeyUtil.BASE_EFFECT_KEY, String.format("%s, %s, %s",
         potionData.getType().name(), potionData.isExtended(), potionData.isUpgraded()), String.class);
-      if (VERSION >= 11) {
+      if (Builder.VERSION >= 11) {
         final var color = itemMeta.getColor();
         if (itemMeta.hasColor() && color != null) {
           holder.add(KeyUtil.COLOR_KEY, color.asRGB(), int.class);
@@ -219,7 +219,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
    */
   @NotNull
   public PotionItemBuilder setBasePotionData(@NotNull final PotionData data) {
-    if (VERSION >= 9) {
+    if (Builder.VERSION >= 9) {
       this.getItemMeta().setBasePotionData(data);
     }
     return this.getSelf();
@@ -234,7 +234,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
    */
   @NotNull
   public PotionItemBuilder setBasePotionData(@NotNull final String data) {
-    if (VERSION < 9) {
+    if (Builder.VERSION < 9) {
       return this.getSelf();
     }
     if (data.isEmpty()) {
@@ -263,7 +263,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
    */
   @NotNull
   public PotionItemBuilder setBasePotionData(@NotNull final String data, final int level) {
-    if (VERSION >= 9) {
+    if (Builder.VERSION >= 9) {
       return this.setBasePotionData(data);
     }
     if (data.isEmpty()) {
@@ -290,7 +290,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
    */
   @NotNull
   public PotionItemBuilder setColor(@Nullable final Color color) {
-    if (VERSION >= 11) {
+    if (Builder.VERSION >= 11) {
       this.getItemMeta().setColor(color);
     }
     return this.getSelf();
@@ -335,7 +335,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
     @NotNull
     @Override
     public Optional<PotionItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = getItemStackDeserializer().apply(holder);
+      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
@@ -349,7 +349,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
       color.ifPresent(builder::setColor);
       builder.addCustomEffects(customEffects, true);
       baseEffect.ifPresent(s -> builder.setBasePotionData(s, level));
-      return Optional.of(getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
     }
   }
 }

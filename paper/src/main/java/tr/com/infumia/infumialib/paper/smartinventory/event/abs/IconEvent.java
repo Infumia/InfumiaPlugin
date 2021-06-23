@@ -1,7 +1,7 @@
 package tr.com.infumia.infumialib.paper.smartinventory.event.abs;
 
-import tr.com.infumia.infumialib.paper.smartinventory.Icon;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.Icon;
 
 /**
  * an interface to determine icon events.

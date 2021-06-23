@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.paper.smartinventory.event;
 
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.QuitEvent;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.QuitEvent;
 
 /**
  * a class that represents player quit events.

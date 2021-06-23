@@ -1,12 +1,12 @@
 package tr.com.infumia.infumialib.paper.smartinventory.handle;
 
-import tr.com.infumia.infumialib.paper.smartinventory.Handle;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.SmartEvent;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.Handle;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.SmartEvent;
 
 /**
  * an implementation for {@link Handle}.

@@ -2,9 +2,6 @@ package tr.com.infumia.infumialib.paper;
 
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.color.CustomColors;
-import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
-import tr.com.infumia.infumialib.paper.smartinventory.manager.BasicSmartInventory;
 import java.util.Objects;
 import java.util.function.Function;
 import org.bukkit.command.CommandSender;
@@ -13,9 +10,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.color.CustomColors;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
 import tr.com.infumia.infumialib.paper.files.PaperConfig;
 import tr.com.infumia.infumialib.paper.hooks.Hooks;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
+import tr.com.infumia.infumialib.paper.smartinventory.manager.BasicSmartInventory;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
 

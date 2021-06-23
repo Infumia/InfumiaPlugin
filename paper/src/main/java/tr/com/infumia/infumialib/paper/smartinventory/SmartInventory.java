@@ -1,13 +1,5 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
-import tr.com.infumia.infumialib.paper.smartinventory.event.PgTickEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.listener.InventoryClickListener;
-import tr.com.infumia.infumialib.paper.smartinventory.listener.InventoryCloseListener;
-import tr.com.infumia.infumialib.paper.smartinventory.listener.InventoryDragListener;
-import tr.com.infumia.infumialib.paper.smartinventory.listener.InventoryOpenListener;
-import tr.com.infumia.infumialib.paper.smartinventory.listener.PlayerQuitListener;
-import tr.com.infumia.infumialib.paper.smartinventory.listener.PluginDisableListener;
-import tr.com.infumia.infumialib.paper.smartinventory.opener.ChestInventoryOpener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -27,6 +19,14 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.event.PgTickEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.listener.InventoryClickListener;
+import tr.com.infumia.infumialib.paper.smartinventory.listener.InventoryCloseListener;
+import tr.com.infumia.infumialib.paper.smartinventory.listener.InventoryDragListener;
+import tr.com.infumia.infumialib.paper.smartinventory.listener.InventoryOpenListener;
+import tr.com.infumia.infumialib.paper.smartinventory.listener.PlayerQuitListener;
+import tr.com.infumia.infumialib.paper.smartinventory.listener.PluginDisableListener;
+import tr.com.infumia.infumialib.paper.smartinventory.opener.ChestInventoryOpener;
 
 /**
  * a class that manages all smart inventories.

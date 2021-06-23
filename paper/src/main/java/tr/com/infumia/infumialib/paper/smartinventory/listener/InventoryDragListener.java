@@ -1,12 +1,12 @@
 package tr.com.infumia.infumialib.paper.smartinventory.listener;
 
-import tr.com.infumia.infumialib.paper.smartinventory.SmartHolder;
-import tr.com.infumia.infumialib.paper.smartinventory.event.IcDragEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartHolder;
+import tr.com.infumia.infumialib.paper.smartinventory.event.IcDragEvent;
+import tr.com.infumia.infumialib.paper.smartinventory.util.SlotPos;
 
 /**
  * a class that represents inventory drag listeners.

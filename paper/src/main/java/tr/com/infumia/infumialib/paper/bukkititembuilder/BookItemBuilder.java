@@ -25,7 +25,6 @@
 
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,6 +35,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents book item builders.
@@ -136,7 +136,7 @@ public final class BookItemBuilder extends Builder<BookItemBuilder, BookMeta> {
     if (itemMeta.hasAuthor()) {
       book.put(KeyUtil.AUTHOR_KEY, itemMeta.getAuthor());
     }
-    if (VERSION >= 10) {
+    if (Builder.VERSION >= 10) {
       final var generation = itemMeta.getGeneration();
       if (generation != null) {
         book.put(KeyUtil.GENERATION_KEY, generation.toString());
@@ -168,7 +168,7 @@ public final class BookItemBuilder extends Builder<BookItemBuilder, BookMeta> {
    */
   @NotNull
   public BookItemBuilder setGeneration(@Nullable final BookMeta.Generation generation) {
-    if (VERSION >= 10) {
+    if (Builder.VERSION >= 10) {
       this.getItemMeta().setGeneration(generation);
     }
     return this.getSelf();
@@ -235,7 +235,7 @@ public final class BookItemBuilder extends Builder<BookItemBuilder, BookMeta> {
     @NotNull
     @Override
     public Optional<BookItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = getItemStackDeserializer().apply(holder);
+      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
@@ -257,7 +257,7 @@ public final class BookItemBuilder extends Builder<BookItemBuilder, BookMeta> {
           builder.setTitle(title);
           builder.setAuthor(author);
           builder.setPages(pages);
-          if (VERSION >= 10) {
+          if (Builder.VERSION >= 10) {
             Optional.ofNullable(book.get(KeyUtil.GENERATION_KEY))
               .filter(String.class::isInstance)
               .map(String.class::cast)
@@ -272,7 +272,7 @@ public final class BookItemBuilder extends Builder<BookItemBuilder, BookMeta> {
               });
           }
         });
-      return Optional.of(getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
     }
   }
 }

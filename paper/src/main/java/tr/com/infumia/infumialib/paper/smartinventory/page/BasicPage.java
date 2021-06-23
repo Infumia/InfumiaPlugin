@@ -1,5 +1,17 @@
 package tr.com.infumia.infumialib.paper.smartinventory.page;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.observer.Source;
 import tr.com.infumia.infumialib.paper.observer.source.BasicSource;
 import tr.com.infumia.infumialib.paper.smartinventory.Handle;
@@ -13,18 +25,6 @@ import tr.com.infumia.infumialib.paper.smartinventory.event.PgInitEvent;
 import tr.com.infumia.infumialib.paper.smartinventory.event.PgUpdateEvent;
 import tr.com.infumia.infumialib.paper.smartinventory.event.abs.CloseEvent;
 import tr.com.infumia.infumialib.paper.smartinventory.event.abs.PageEvent;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Predicate;
-import lombok.RequiredArgsConstructor;
-import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * an implementation for {@link Page}.

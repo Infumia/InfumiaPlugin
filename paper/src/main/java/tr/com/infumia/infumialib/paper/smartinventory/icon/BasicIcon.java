@@ -1,9 +1,5 @@
 package tr.com.infumia.infumialib.paper.smartinventory.icon;
 
-import tr.com.infumia.infumialib.paper.smartinventory.Handle;
-import tr.com.infumia.infumialib.paper.smartinventory.Icon;
-import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.event.abs.IconEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -11,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.smartinventory.Handle;
+import tr.com.infumia.infumialib.paper.smartinventory.Icon;
+import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.event.abs.IconEvent;
 
 /**
  * an implementation for {@link Icon}.

@@ -1,7 +1,7 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
-import tr.com.infumia.infumialib.paper.observer.Target;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.observer.Target;
 
 /**
  * a class that allows to manage player's inventory contents.

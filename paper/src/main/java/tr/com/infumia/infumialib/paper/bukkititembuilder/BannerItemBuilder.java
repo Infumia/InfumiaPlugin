@@ -25,7 +25,6 @@
 
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +37,7 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 
 /**
  * a class that represents banner item builders.
@@ -198,7 +198,7 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
     @NotNull
     @Override
     public Optional<BannerItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = getItemStackDeserializer().apply(holder);
+      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
@@ -221,7 +221,7 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
           }
           builder.addPatterns(new Pattern(color, type));
         }));
-      return Optional.of(getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
     }
   }
 }

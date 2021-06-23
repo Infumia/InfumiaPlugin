@@ -1,12 +1,12 @@
 package tr.com.infumia.infumialib.paper.input;
 
-import tr.com.infumia.infumialib.input.ChatSender;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.input.ChatSender;
 
 /**
  * an implementation for {@link ChatSender}.

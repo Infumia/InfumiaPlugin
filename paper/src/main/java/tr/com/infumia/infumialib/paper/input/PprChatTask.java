@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.paper.input;
 
-import tr.com.infumia.infumialib.input.ChatTask;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.input.ChatTask;
 
 /**
  * an implementation for {@link ChatTask}.
