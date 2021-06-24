@@ -30,9 +30,10 @@ import org.bukkit.material.MaterialData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.util.ItemStackUtil;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
 import tr.com.infumia.infumialib.paper.color.XColor;
 import tr.com.infumia.infumialib.paper.version.BukkitVersion;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * an abstract builder class to simplify creation of different item meta builders.
@@ -693,7 +694,7 @@ public abstract class Builder<X extends Builder<X, T>, T extends ItemMeta> imple
    */
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static final class ItemMetaDeserializer<B extends Builder<?, ?>> implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull B> {
+    Function<@NotNull TransformedData, @NotNull B> {
 
     /**
      * the builder.
@@ -703,25 +704,25 @@ public abstract class Builder<X extends Builder<X, T>, T extends ItemMeta> imple
 
     @NotNull
     @Override
-    public B apply(@NotNull final KeyUtil.Holder<?> holder) {
+    public B apply(@NotNull final TransformedData data) {
       final var itemStack = this.builder.getItemStack(false);
       final var itemMeta = itemStack.getItemMeta();
       if (itemMeta == null) {
         return this.builder;
       }
       if (itemMeta instanceof SkullMeta) {
-        holder.get(KeyUtil.SKULL_TEXTURE_KEY, String.class).ifPresent(s ->
+        data.get(Keys.SKULL_TEXTURE_KEY, String.class).ifPresent(s ->
           SkullUtils.applySkin(itemMeta, s));
       }
-      holder.get(KeyUtil.DISPLAY_NAME_KEY, String.class)
+      data.get(Keys.DISPLAY_NAME_KEY, String.class)
         .map(XColor::colorize)
         .ifPresent(this.builder::setName);
-      holder.getAsList(KeyUtil.LORE_KEY, String.class)
+      data.getAsList(Keys.LORE_KEY, String.class)
         .map(XColor::colorize)
         .ifPresent(this.builder::setLore);
-      holder.getAsMap(KeyUtil.ENCHANTMENT_KEY, String.class, Integer.class)
+      data.getAsMap(Keys.ENCHANTMENT_KEY, String.class, Integer.class)
         .ifPresent(this.builder::addSerializedEnchantments);
-      holder.getAsList(KeyUtil.FLAG_KEY, String.class)
+      data.getAsList(Keys.FLAG_KEY, String.class)
         .ifPresent(this.builder::addFlags);
       itemStack.setItemMeta(itemMeta);
       return this.builder;
@@ -732,30 +733,30 @@ public abstract class Builder<X extends Builder<X, T>, T extends ItemMeta> imple
    * a class that represents deserializers of {@link ItemStack}.
    */
   public static final class ItemStackDeserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<ItemStack>> {
+    Function<@NotNull TransformedData, @NotNull Optional<ItemStack>> {
 
     @NotNull
     @Override
-    public Optional<ItemStack> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var materialOptional = holder.get(KeyUtil.MATERIAL_KEY, String.class)
+    public Optional<ItemStack> apply(@NotNull final TransformedData data) {
+      final var materialOptional = data.get(Keys.MATERIAL_KEY, String.class)
         .flatMap(ItemStackUtil::parseMaterial);
       if (materialOptional.isEmpty()) {
         return Optional.empty();
       }
       final var material = materialOptional.get();
-      final int amount = holder.get(KeyUtil.AMOUNT_KEY, int.class)
+      final int amount = data.get(Keys.AMOUNT_KEY, int.class)
         .orElse(1);
       final ItemStack itemStack;
       if (Builder.VERSION < 13) {
         itemStack = new ItemStack(material, amount);
-        holder.get(KeyUtil.DAMAGE_KEY, short.class)
+        data.get(Keys.DAMAGE_KEY, short.class)
           .ifPresent(itemStack::setDurability);
-        holder.get(KeyUtil.DATA_KEY, byte.class)
+        data.get(Keys.DATA_KEY, byte.class)
           .map(material::getNewData)
           .ifPresent(itemStack::setData);
       } else {
         itemStack = new ItemStack(material, amount);
-        holder.get(KeyUtil.DAMAGE_KEY, short.class)
+        data.get(Keys.DAMAGE_KEY, short.class)
           .ifPresent(itemStack::setDurability);
       }
       return Optional.of(itemStack);
@@ -766,12 +767,12 @@ public abstract class Builder<X extends Builder<X, T>, T extends ItemMeta> imple
    * a class that represents simple deserializers of {@link ItemStack}.
    */
   public static final class SimpleItemStackDeserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<ItemStackBuilder>> {
+    Function<@NotNull TransformedData, @NotNull Optional<ItemStackBuilder>> {
 
     @NotNull
     @Override
-    public Optional<ItemStackBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var materialOptional = holder.get(KeyUtil.MATERIAL_KEY, String.class)
+    public Optional<ItemStackBuilder> apply(@NotNull final TransformedData data) {
+      final var materialOptional = data.get(Keys.MATERIAL_KEY, String.class)
         .flatMap(ItemStackUtil::parseMaterial);
       if (materialOptional.isEmpty()) {
         return Optional.empty();

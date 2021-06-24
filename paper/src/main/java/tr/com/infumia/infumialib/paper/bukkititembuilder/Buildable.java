@@ -15,8 +15,9 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.SpawnEggMeta;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
 import tr.com.infumia.infumialib.paper.color.XColor;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * an interface to determine buildable objects.
@@ -271,32 +272,32 @@ public interface Buildable<X extends Buildable<X, T>, T extends ItemMeta> {
   /**
    * serializes the {@link #getItemStack()} into a map.
    *
-   * @param holder the holder to serialize.
+   * @param data the data to serialize.
    */
-  default void serialize(@NotNull final KeyUtil.Holder<?> holder) {
+  default void serialize(@NotNull final TransformedData data) {
     final var itemStack = this.getItemStack();
-    holder.add(KeyUtil.MATERIAL_KEY, itemStack.getType().toString(), String.class);
+    data.add(Keys.MATERIAL_KEY, itemStack.getType().toString(), String.class);
     if (itemStack.getAmount() != 1) {
-      holder.add(KeyUtil.AMOUNT_KEY, itemStack.getAmount(), int.class);
+      data.add(Keys.AMOUNT_KEY, itemStack.getAmount(), int.class);
     }
     if ((int) itemStack.getDurability() != 0) {
-      holder.add(KeyUtil.DAMAGE_KEY, itemStack.getDurability(), short.class);
+      data.add(Keys.DAMAGE_KEY, itemStack.getDurability(), short.class);
     }
     if (Builder.VERSION < 13) {
       Optional.ofNullable(itemStack.getData())
         .filter(materialData -> (int) materialData.getData() != 0)
         .ifPresent(materialData ->
-          holder.add(KeyUtil.DATA_KEY, materialData.getData(), byte.class));
+          data.add(Keys.DATA_KEY, materialData.getData(), byte.class));
     }
     Optional.ofNullable(itemStack.getItemMeta()).ifPresent(itemMeta -> {
       if (itemMeta.hasDisplayName()) {
-        holder.add(KeyUtil.DISPLAY_NAME_KEY, XColor.deColorize(itemMeta.getDisplayName()), String.class);
+        data.add(Keys.DISPLAY_NAME_KEY, XColor.deColorize(itemMeta.getDisplayName()), String.class);
       }
       Optional.ofNullable(itemMeta.getLore()).ifPresent(lore ->
-        holder.addAsCollection(KeyUtil.LORE_KEY, XColor.deColorize(lore), String.class));
+        data.addCollection(Keys.LORE_KEY, XColor.deColorize(lore), String.class));
       final var flags = itemMeta.getItemFlags();
       if (!flags.isEmpty()) {
-        holder.addAsCollection(KeyUtil.FLAG_KEY, flags.stream()
+        data.addCollection(Keys.FLAG_KEY, flags.stream()
           .map(Enum::name)
           .collect(Collectors.toList()), String.class);
       }
@@ -306,7 +307,7 @@ public interface Buildable<X extends Buildable<X, T>, T extends ItemMeta> {
       final var enchantments = new HashMap<String, Integer>();
       enchants.forEach((enchantment, integer) ->
         enchantments.put(enchantment.getName(), integer));
-      holder.addAsMap(KeyUtil.ENCHANTMENT_KEY, enchantments, String.class, Integer.class);
+      data.addAsMap(Keys.ENCHANTMENT_KEY, enchantments, String.class, Integer.class);
     }
   }
 

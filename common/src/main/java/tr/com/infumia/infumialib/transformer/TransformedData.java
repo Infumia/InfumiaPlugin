@@ -178,6 +178,28 @@ public final class TransformedData {
   }
 
   /**
+   * creates a copy of {@code this} instance.
+   *
+   * @return a copy of transformed data.
+   */
+  @NotNull
+  public TransformedData copy() {
+    return this.copy(new ConcurrentHashMap<>());
+  }
+
+  /**
+   * creates a copy of {@code this} instance.
+   *
+   * @param deserializedMap the deserialized map to copy.
+   *
+   * @return a copy of transformed data.
+   */
+  @NotNull
+  public TransformedData copy(@NotNull final Map<String, Object> deserializedMap) {
+    return new TransformedData(deserializedMap, this.resolver, this.serialization, new ConcurrentHashMap<>());
+  }
+
+  /**
    * gets a value from deserialized map.
    *
    * @param key the key to get.

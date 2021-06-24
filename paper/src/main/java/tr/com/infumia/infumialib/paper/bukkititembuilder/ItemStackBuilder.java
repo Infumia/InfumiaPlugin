@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * a class that represents regular item stack builders.
@@ -107,16 +107,16 @@ public final class ItemStackBuilder extends Builder<ItemStackBuilder, ItemMeta> 
   }
 
   /**
-   * creates item stack builder from serialized holder.
+   * creates item stack builder from serialized data.
    *
-   * @param holder the holder to create.
+   * @param data the data to create.
    *
    * @return a newly created item stack builder instance.
    */
   @NotNull
-  public static ItemStackBuilder from(@NotNull final KeyUtil.Holder<?> holder) {
-    return ItemStackBuilder.getDeserializer().apply(holder).orElseThrow(() ->
-      new IllegalArgumentException(String.format("The given holder is incorrect!\n%s", holder)));
+  public static ItemStackBuilder from(@NotNull final TransformedData data) {
+    return ItemStackBuilder.getDeserializer().apply(data).orElseThrow(() ->
+      new IllegalArgumentException(String.format("The given data is incorrect!\n%s", data)));
   }
 
   /**
@@ -139,15 +139,15 @@ public final class ItemStackBuilder extends Builder<ItemStackBuilder, ItemMeta> 
    * a class that represents deserializer of {@link ItemMeta}.
    */
   public static final class Deserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<ItemStackBuilder>> {
+    Function<@NotNull TransformedData, @NotNull Optional<ItemStackBuilder>> {
 
     @NotNull
     @Override
-    public Optional<ItemStackBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      return Builder.getItemStackDeserializer().apply(holder)
+    public Optional<ItemStackBuilder> apply(@NotNull final TransformedData data) {
+      return Builder.getItemStackDeserializer().apply(data)
         .map(ItemStackBuilder::from)
         .map(Builder::getItemMetaDeserializer)
-        .map(deserializer -> deserializer.apply(holder));
+        .map(deserializer -> deserializer.apply(data));
     }
   }
 }

@@ -4,7 +4,6 @@ import com.cryptomorin.xseries.XMaterial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -18,7 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.element.Placeholder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.ItemStackBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.util.ItemStackUtil;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
 import tr.com.infumia.infumialib.paper.element.types.PtFill;
 import tr.com.infumia.infumialib.paper.element.types.PtFillBorders;
 import tr.com.infumia.infumialib.paper.element.types.PtFillColumn;
@@ -835,7 +833,7 @@ public final class FileElement {
       if (itemMap.isEmpty()) {
         return Optional.empty();
       }
-      final var itemStack = ItemStackUtil.deserialize(KeyUtil.Holder.map(itemMap.get()));
+      final var itemStack = ItemStackUtil.deserialize(transformedData.copy(itemMap.get()));
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
@@ -857,9 +855,9 @@ public final class FileElement {
 
     @Override
     public void serialize(@NotNull final FileElement fileElement, @NotNull final TransformedData transformedData) {
-      final var map = new HashMap<String, Object>();
-      ItemStackUtil.serialize(fileElement.getItemStack(), KeyUtil.Holder.map(map));
-      transformedData.addAsMap("item", map, String.class, Object.class);
+      final var copy = transformedData.copy();
+      ItemStackUtil.serialize(fileElement.getItemStack(), copy);
+      transformedData.addAsMap("item", copy.getSerializedMap(), String.class, Object.class);
       fileElement.getPlaceType().serialize(transformedData);
     }
 

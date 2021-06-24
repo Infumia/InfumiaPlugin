@@ -19,7 +19,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * a class that represents potion item builders.
@@ -69,16 +70,16 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
   }
 
   /**
-   * creates potion item builder from serialized holder.
+   * creates potion item builder from serialized data.
    *
-   * @param holder the holder to create.
+   * @param data the data to create.
    *
    * @return a newly created potion item builder instance.
    */
   @NotNull
-  public static PotionItemBuilder from(@NotNull final KeyUtil.Holder<?> holder) {
-    return PotionItemBuilder.getDeserializer().apply(holder).orElseThrow(() ->
-      new IllegalArgumentException(String.format("The given holder is incorrect!\n%s", holder)));
+  public static PotionItemBuilder from(@NotNull final TransformedData data) {
+    return PotionItemBuilder.getDeserializer().apply(data).orElseThrow(() ->
+      new IllegalArgumentException(String.format("The given data is incorrect!\n%s", data)));
   }
 
   /**
@@ -144,8 +145,8 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
   }
 
   @Override
-  public void serialize(@NotNull final KeyUtil.Holder<?> holder) {
-    super.serialize(holder);
+  public void serialize(@NotNull final TransformedData data) {
+    super.serialize(data);
     final var itemStack = this.getItemStack(false);
     final var itemMeta = this.getItemMeta();
     if (Builder.VERSION >= 9) {
@@ -154,20 +155,20 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
         .map(effect ->
           String.format("%s, %d, %d", effect.getType().getName(), effect.getDuration(), effect.getAmplifier()))
         .collect(Collectors.toCollection(() -> new ArrayList<>(customEffects.size())));
-      holder.addAsCollection(KeyUtil.CUSTOM_EFFECTS_KEY, effects, String.class);
+      data.addCollection(Keys.CUSTOM_EFFECTS_KEY, effects, String.class);
       final var potionData = itemMeta.getBasePotionData();
-      holder.add(KeyUtil.BASE_EFFECT_KEY, String.format("%s, %s, %s",
+      data.add(Keys.BASE_EFFECT_KEY, String.format("%s, %s, %s",
         potionData.getType().name(), potionData.isExtended(), potionData.isUpgraded()), String.class);
       if (Builder.VERSION >= 11) {
         final var color = itemMeta.getColor();
         if (itemMeta.hasColor() && color != null) {
-          holder.add(KeyUtil.COLOR_KEY, color.asRGB(), int.class);
+          data.add(Keys.COLOR_KEY, color.asRGB(), int.class);
         }
       }
     } else if (itemStack.getDurability() != 0) {
       final var potion = Potion.fromItemStack(itemStack);
-      holder.add(KeyUtil.LEVEL_KEY, potion.getLevel(), int.class);
-      holder.add(KeyUtil.BASE_EFFECT_KEY, String.format("%s, %s, %s",
+      data.add(Keys.LEVEL_KEY, potion.getLevel(), int.class);
+      data.add(Keys.BASE_EFFECT_KEY, String.format("%s, %s, %s",
         potion.getType().name(), potion.hasExtendedDuration(), potion.isSplash()), String.class);
     }
   }
@@ -305,26 +306,26 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
    * a class that represents deserializer of {@link PotionMeta}.
    */
   public static final class Deserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<PotionItemBuilder>> {
+    Function<@NotNull TransformedData, @NotNull Optional<PotionItemBuilder>> {
 
     @NotNull
     @Override
-    public Optional<PotionItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
+    public Optional<PotionItemBuilder> apply(@NotNull final TransformedData data) {
+      final var itemStack = Builder.getItemStackDeserializer().apply(data);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asPotion();
-      final var level = holder.get(KeyUtil.LEVEL_KEY, int.class)
+      final var level = data.get(Keys.LEVEL_KEY, int.class)
         .orElse(1);
-      final var baseEffect = holder.get(KeyUtil.BASE_EFFECT_KEY, String.class);
-      final var color = holder.get(KeyUtil.COLOR_KEY, int.class);
-      final var customEffects = holder.getAsList(KeyUtil.CUSTOM_EFFECTS_KEY, String.class)
+      final var baseEffect = data.get(Keys.BASE_EFFECT_KEY, String.class);
+      final var color = data.get(Keys.COLOR_KEY, int.class);
+      final var customEffects = data.getAsList(Keys.CUSTOM_EFFECTS_KEY, String.class)
         .orElse(Collections.emptyList());
       color.ifPresent(builder::setColor);
       builder.addCustomEffects(customEffects, true);
       baseEffect.ifPresent(s -> builder.setBasePotionData(s, level));
-      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(data));
     }
   }
 }

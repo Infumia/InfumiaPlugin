@@ -12,7 +12,8 @@ import org.bukkit.block.banner.PatternType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * a class that represents banner item builders.
@@ -48,16 +49,16 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
   }
 
   /**
-   * creates banner item builder from serialized holder.
+   * creates banner item builder from serialized data.
    *
-   * @param holder the holder to create.
+   * @param data the data to create.
    *
    * @return a newly created banner item builder instance.
    */
   @NotNull
-  public static BannerItemBuilder from(@NotNull final KeyUtil.Holder<?> holder) {
-    return BannerItemBuilder.getDeserializer().apply(holder).orElseThrow(() ->
-      new IllegalArgumentException(String.format("The given holder is incorrect!\n%s", holder)));
+  public static BannerItemBuilder from(@NotNull final TransformedData data) {
+    return BannerItemBuilder.getDeserializer().apply(data).orElseThrow(() ->
+      new IllegalArgumentException(String.format("The given data is incorrect!\n%s", data)));
   }
 
   /**
@@ -90,12 +91,12 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
   }
 
   @Override
-  public void serialize(@NotNull final KeyUtil.Holder<?> holder) {
-    super.serialize(holder);
+  public void serialize(@NotNull final TransformedData data) {
+    super.serialize(data);
     final var patterns = new HashMap<String, Object>();
     this.getItemMeta().getPatterns()
       .forEach(pattern -> patterns.put(pattern.getPattern().name(), pattern.getColor().name()));
-    holder.addAsMap(KeyUtil.PATTERNS_KEY, patterns, String.class, Object.class);
+    data.addAsMap(Keys.PATTERNS_KEY, patterns, String.class, Object.class);
   }
 
   /**
@@ -168,17 +169,17 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
    * a class that represents deserializer of {@link BannerMeta}.
    */
   public static final class Deserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<BannerItemBuilder>> {
+    Function<@NotNull TransformedData, @NotNull Optional<BannerItemBuilder>> {
 
     @NotNull
     @Override
-    public Optional<BannerItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
+    public Optional<BannerItemBuilder> apply(@NotNull final TransformedData data) {
+      final var itemStack = Builder.getItemStackDeserializer().apply(data);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asBanner();
-      holder.getAsMap(KeyUtil.PATTERNS_KEY, String.class, Object.class)
+      data.getAsMap(Keys.PATTERNS_KEY, String.class, Object.class)
         .ifPresent(patterns -> patterns.forEach((key, value) -> {
           var type = PatternType.getByIdentifier(key);
           if (type == null) {
@@ -196,7 +197,7 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
           }
           builder.addPatterns(new Pattern(color, type));
         }));
-      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(data));
     }
   }
 }
