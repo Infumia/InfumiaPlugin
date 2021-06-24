@@ -103,6 +103,7 @@ public abstract class WrappedTransformResolver extends TransformResolver {
     return this.delegate.serialize(value, genericType, conservative);
   }
 
+  @NotNull
   @Override
   public List<?> serializeCollection(@NotNull final Collection<?> value, @Nullable final GenericDeclaration genericType,
                                      final boolean conservative) throws TransformException {

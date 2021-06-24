@@ -2,6 +2,7 @@ package tr.com.infumia.infumialib.transformer.resolvers;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ContainerFactory;
 import org.json.simple.parser.JSONParser;
 import tr.com.infumia.infumialib.transformer.TransformResolver;
 import tr.com.infumia.infumialib.transformer.declarations.FieldDeclaration;
@@ -23,6 +25,22 @@ import tr.com.infumia.infumialib.transformer.postprocessor.PostProcessor;
  */
 @RequiredArgsConstructor
 public class SimpleJson extends TransformResolver {
+
+  /**
+   * the container factory.
+   */
+  private static final ContainerFactory CONTAINER_FACTORY = new ContainerFactory() {
+
+    @Override
+    public Map<?, ?> createObjectContainer() {
+      return new LinkedHashMap<>();
+    }
+
+    @Override
+    public List<?> creatArrayContainer() {
+      return new ArrayList<>();
+    }
+  };
 
   /**
    * the parser.
@@ -58,7 +76,7 @@ public class SimpleJson extends TransformResolver {
   public void load(@NotNull final InputStream inputStream, @NotNull final TransformedObjectDeclaration declaration)
     throws Exception {
     //noinspection unchecked
-    this.map = (Map<String, Object>) this.parser.parse(PostProcessor.of(inputStream).getContext());
+    this.map = (Map<String, Object>) this.parser.parse(PostProcessor.of(inputStream).getContext(), SimpleJson.CONTAINER_FACTORY);
     if (this.map != null) {
       return;
     }

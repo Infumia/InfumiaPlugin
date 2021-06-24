@@ -558,6 +558,39 @@ public abstract class TransformedObject {
   }
 
   /**
+   * loads objects from another map.
+   *
+   * @param map the map to load.
+   *
+   * @return {@code this} for builder chain.
+   *
+   * @throws TransformException if something goes wrong when loading the objects.
+   */
+  @NotNull
+  public final TransformedObject load(@NotNull final Map<String, Object> map) throws TransformException {
+    Objects.requireNonNull(this.resolver, "resolver");
+    Objects.requireNonNull(this.declaration, "declaration");
+    map.forEach(this::set);
+    return this;
+  }
+
+  /**
+   * loads objects from another transformed object.
+   *
+   * @param object the object to load.
+   *
+   * @return {@code this} for builder chain.
+   *
+   * @throws TransformException if something goes wrong when loading the objects.
+   */
+  @NotNull
+  public final TransformedObject load(@NotNull final TransformedObject object) throws TransformException {
+    Objects.requireNonNull(this.resolver, "resolver");
+    Objects.requireNonNull(this.declaration, "declaration");
+    return this.load(object.asMap(this.resolver, true));
+  }
+
+  /**
    * removes the value at path.
    *
    * @param path the path to remove.
