@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.element.Placeholder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.ItemStackBuilder;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.ItemStackUtil;
 import tr.com.infumia.infumialib.paper.element.types.PtFill;
 import tr.com.infumia.infumialib.paper.element.types.PtFillBorders;
 import tr.com.infumia.infumialib.paper.element.types.PtFillColumn;
@@ -829,11 +828,7 @@ public final class FileElement {
     public Optional<FileElement> deserialize(@NotNull final FileElement fileElement,
                                              @NotNull final TransformedData transformedData,
                                              @Nullable final GenericDeclaration declaration) {
-      final var itemMap = transformedData.getAsMap("item", String.class, Object.class);
-      if (itemMap.isEmpty()) {
-        return Optional.empty();
-      }
-      final var itemStack = ItemStackUtil.deserialize(transformedData.copy(itemMap.get()));
+      final var itemStack = transformedData.get("item", ItemStack.class);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
