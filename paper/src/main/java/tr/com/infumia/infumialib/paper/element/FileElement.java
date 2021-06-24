@@ -855,9 +855,7 @@ public final class FileElement {
 
     @Override
     public void serialize(@NotNull final FileElement fileElement, @NotNull final TransformedData transformedData) {
-      final var copy = transformedData.copy();
-      ItemStackUtil.serialize(fileElement.getItemStack(), copy);
-      transformedData.addAsMap("item", copy.getSerializedMap(), String.class, Object.class);
+      transformedData.add("item", fileElement.getItemStack(), ItemStack.class);
       fileElement.getPlaceType().serialize(transformedData);
     }
 

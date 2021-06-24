@@ -155,7 +155,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
         .map(effect ->
           String.format("%s, %d, %d", effect.getType().getName(), effect.getDuration(), effect.getAmplifier()))
         .collect(Collectors.toCollection(() -> new ArrayList<>(customEffects.size())));
-      data.addCollection(Keys.CUSTOM_EFFECTS_KEY, effects, String.class);
+      data.addAsCollection(Keys.CUSTOM_EFFECTS_KEY, effects, String.class);
       final var potionData = itemMeta.getBasePotionData();
       data.add(Keys.BASE_EFFECT_KEY, String.format("%s, %s, %s",
         potionData.getType().name(), potionData.isExtended(), potionData.isUpgraded()), String.class);
@@ -320,7 +320,7 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
         .orElse(1);
       final var baseEffect = data.get(Keys.BASE_EFFECT_KEY, String.class);
       final var color = data.get(Keys.COLOR_KEY, int.class);
-      final var customEffects = data.getAsList(Keys.CUSTOM_EFFECTS_KEY, String.class)
+      final var customEffects = data.getAsCollection(Keys.CUSTOM_EFFECTS_KEY, String.class)
         .orElse(Collections.emptyList());
       color.ifPresent(builder::setColor);
       builder.addCustomEffects(customEffects, true);

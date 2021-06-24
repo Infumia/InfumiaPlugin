@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -101,7 +100,7 @@ public final class BukkitSnakeyaml extends TransformResolver {
                            @NotNull final Class<T> targetClass, @Nullable final GenericDeclaration genericTarget,
                            @Nullable final Object defaultValue)
     throws TransformException {
-    if (object instanceof MemorySection) {
+    if (object instanceof ConfigurationSection) {
       final var values = this.getMapValues((ConfigurationSection) object, false);
       return super.deserialize(values, GenericDeclaration.of(values), targetClass, genericTarget, defaultValue);
     }

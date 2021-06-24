@@ -3,7 +3,6 @@ package tr.com.infumia.infumialib.transformer;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -107,6 +106,29 @@ public final class TransformedData {
    *
    * @param path the path to add.
    * @param value the value to add.
+   * @param elementClass the element class to add.
+   * @param <T> type of the element class.
+   */
+  public <T> void addAsCollection(@NotNull final String path, @Nullable final Collection<T> value,
+                                  @NotNull final Class<T> elementClass) {
+    if (this.canDeserialize()) {
+      return;
+    }
+    if (value == null) {
+      this.remove(path);
+    } else {
+      this.serializedMap.put(path, this.resolver.serializeCollection(
+        value,
+        GenericDeclaration.of(value.getClass(), elementClass),
+        true));
+    }
+  }
+
+  /**
+   * adds the value to the path.
+   *
+   * @param path the path to add.
+   * @param value the value to add.
    * @param keyClass the key class to add.
    * @param valueClass the value class to add.
    * @param <K> type of the key class.
@@ -124,29 +146,6 @@ public final class TransformedData {
       this.serializedMap.put(path, this.resolver.serializeMap(
         (Map<Object, Object>) value,
         GenericDeclaration.of(value.getClass(), keyClass, valueClass),
-        true));
-    }
-  }
-
-  /**
-   * adds the value to the path.
-   *
-   * @param path the path to add.
-   * @param value the value to add.
-   * @param elementClass the element class to add.
-   * @param <T> type of the element class.
-   */
-  public <T> void addCollection(@NotNull final String path, @Nullable final Collection<T> value,
-                                @NotNull final Class<T> elementClass) {
-    if (this.canDeserialize()) {
-      return;
-    }
-    if (value == null) {
-      this.remove(path);
-    } else {
-      this.serializedMap.put(path, this.resolver.serializeCollection(
-        value,
-        GenericDeclaration.of(value.getClass(), elementClass),
         true));
     }
   }
@@ -242,7 +241,7 @@ public final class TransformedData {
   }
 
   /**
-   * gets a value from deserialized map as list.
+   * gets a value from deserialized map as collection.
    *
    * @param key the key to get.
    * @param elementClass the element class to get.
@@ -252,7 +251,7 @@ public final class TransformedData {
    */
   @SuppressWarnings("unchecked")
   @NotNull
-  public <T> Optional<List<T>> getAsList(@NotNull final String key, @NotNull final Class<T> elementClass) {
+  public <T> Optional<Collection<T>> getAsCollection(@NotNull final String key, @NotNull final Class<T> elementClass) {
     if (this.canSerialize()) {
       return Optional.empty();
     }
@@ -263,8 +262,8 @@ public final class TransformedData {
     return Optional.of(this.resolver.deserialize(
       object,
       GenericDeclaration.of(object),
-      List.class,
-      GenericDeclaration.of(List.class, elementClass),
+      Collection.class,
+      GenericDeclaration.of(Collection.class, elementClass),
       null));
   }
 

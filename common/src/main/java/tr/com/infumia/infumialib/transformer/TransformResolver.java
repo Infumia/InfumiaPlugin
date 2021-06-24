@@ -438,18 +438,17 @@ public abstract class TransformResolver {
   /**
    * serializes collection.
    *
-   * @param value the value to simplify.
-   * @param genericType the generic type to simplify.
-   * @param conservative the conservative to simplify.
+   * @param value the value to serialize.
+   * @param genericType the generic type to serialize.
+   * @param conservative the conservative to serialize.
    *
    * @return simplified collection.
    *
-   * @throws TransformException if something goes wrong when
-   *   simplifying the value.
+   * @throws TransformException if something goes wrong when simplifying the value.
    */
   @NotNull
-  public List<?> serializeCollection(@NotNull final Collection<?> value, @Nullable final GenericDeclaration genericType,
-                                     final boolean conservative)
+  public Collection<?> serializeCollection(@NotNull final Collection<?> value,
+                                           @Nullable final GenericDeclaration genericType, final boolean conservative)
     throws TransformException {
     final var collectionSubtype = genericType == null
       ? null
@@ -462,9 +461,9 @@ public abstract class TransformResolver {
   /**
    * serializes map.
    *
-   * @param value the value to simplify.
-   * @param genericType the generic type to simplify.
-   * @param conservative the conservative to simplify.
+   * @param value the value to serialize.
+   * @param genericType the generic type to serialize.
+   * @param conservative the conservative to serialize.
    *
    * @return simplified map.
    *

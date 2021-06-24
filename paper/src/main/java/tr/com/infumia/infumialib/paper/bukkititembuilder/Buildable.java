@@ -293,11 +293,12 @@ public interface Buildable<X extends Buildable<X, T>, T extends ItemMeta> {
       if (itemMeta.hasDisplayName()) {
         data.add(Keys.DISPLAY_NAME_KEY, XColor.deColorize(itemMeta.getDisplayName()), String.class);
       }
-      Optional.ofNullable(itemMeta.getLore()).ifPresent(lore ->
-        data.addCollection(Keys.LORE_KEY, XColor.deColorize(lore), String.class));
+      if (itemMeta.hasLore() && itemMeta.getLore() != null) {
+        data.addAsCollection(Keys.LORE_KEY, XColor.deColorize(itemMeta.getLore()), String.class);
+      }
       final var flags = itemMeta.getItemFlags();
       if (!flags.isEmpty()) {
-        data.addCollection(Keys.FLAG_KEY, flags.stream()
+        data.addAsCollection(Keys.FLAG_KEY, flags.stream()
           .map(Enum::name)
           .collect(Collectors.toList()), String.class);
       }

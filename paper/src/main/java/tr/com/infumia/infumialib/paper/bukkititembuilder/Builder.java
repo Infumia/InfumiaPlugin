@@ -717,12 +717,12 @@ public abstract class Builder<X extends Builder<X, T>, T extends ItemMeta> imple
       data.get(Keys.DISPLAY_NAME_KEY, String.class)
         .map(XColor::colorize)
         .ifPresent(this.builder::setName);
-      data.getAsList(Keys.LORE_KEY, String.class)
+      data.getAsCollection(Keys.LORE_KEY, String.class)
         .map(XColor::colorize)
         .ifPresent(this.builder::setLore);
       data.getAsMap(Keys.ENCHANTMENT_KEY, String.class, Integer.class)
         .ifPresent(this.builder::addSerializedEnchantments);
-      data.getAsList(Keys.FLAG_KEY, String.class)
+      data.getAsCollection(Keys.FLAG_KEY, String.class)
         .ifPresent(this.builder::addFlags);
       itemStack.setItemMeta(itemMeta);
       return this.builder;

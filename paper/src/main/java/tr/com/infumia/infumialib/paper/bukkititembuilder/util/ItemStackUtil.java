@@ -39,47 +39,31 @@ public final class ItemStackUtil {
    */
   @NotNull
   public static Optional<ItemStack> deserialize(@NotNull final TransformedData data) {
-    return Builder.getSimpleItemStackDeserializer().apply(data)
-      .flatMap(builder -> {
-        if (builder.isFirework()) {
-          return FireworkItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isLeatherArmor()) {
-          return LeatherArmorItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isMap()) {
-          return MapItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isPotion()) {
-          return PotionItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isBanner()) {
-          return BannerItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isBook()) {
-          return BookItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isCrossbow()) {
-          return CrossbowItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isSkull()) {
-          return SkullItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isSpawnEgg()) {
-          return SpawnEggItemBuilder.getDeserializer().apply(data)
-            .map(Buildable::getItemStack);
-        }
-        return ItemStackBuilder.getDeserializer().apply(data)
-          .map(Buildable::getItemStack);
-      });
+    final var builderOptional = Builder.getSimpleItemStackDeserializer().apply(data);
+    if (builderOptional.isEmpty()) {
+      return Optional.empty();
+    }
+    final var builder = builderOptional.get();
+    if (builder.isFirework()) {
+      return FireworkItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isLeatherArmor()) {
+      return LeatherArmorItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isMap()) {
+      return MapItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isPotion()) {
+      return PotionItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isBanner()) {
+      return BannerItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isBook()) {
+      return BookItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isCrossbow()) {
+      return CrossbowItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isSkull()) {
+      return SkullItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isSpawnEgg()) {
+      return SpawnEggItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    }
+    return ItemStackBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
   }
 
   /**
