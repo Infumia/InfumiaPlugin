@@ -13,27 +13,23 @@ import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
 import tr.com.infumia.infumialib.transformer.TransformedData;
 import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 
-public final class PtFillPatternStartIndex implements PlaceType {
+public final class PtFillPattern implements PlaceType {
 
   @NotNull
   private final List<String> pattern;
 
-  private final int startIndex;
-
   private final boolean wrapAround;
 
-  public PtFillPatternStartIndex(final boolean wrapAround, @NotNull final List<String> pattern, final int startIndex) {
+  public PtFillPattern(final boolean wrapAround, @NotNull final List<String> pattern) {
     this.wrapAround = wrapAround;
     this.pattern = Collections.unmodifiableList(pattern);
-    this.startIndex = startIndex;
   }
 
   @NotNull
-  private static PtFillPatternStartIndex create(@NotNull final Map<String, Object> objects) {
-    return new PtFillPatternStartIndex(
+  private static PtFillPattern create(@NotNull final Map<String, Object> objects) {
+    return new PtFillPattern(
       PlaceType.getBoolean(objects, "wrap-around", false),
-      PlaceType.getStringList(objects, "pattern", List.of("xxx", "yyy", "zzz")),
-      PlaceType.getInteger(objects, "start-index", 0));
+      PlaceType.getStringList(objects, "pattern", List.of("xxx", "yyy", "zzz")));
   }
 
   @NotNull
@@ -45,12 +41,12 @@ public final class PtFillPatternStartIndex implements PlaceType {
   @NotNull
   @Override
   public String getType() {
-    return "fill-pattern-start-index";
+    return "fill-pattern";
   }
 
   @Override
   public void place(@NotNull final Icon icon, @NotNull final InventoryContents contents) {
-    contents.fillPattern(new Pattern<>(this.wrapAround, this.pattern.toArray(String[]::new)), this.startIndex);
+    contents.fillPattern(new Pattern<>(this.wrapAround, this.pattern.toArray(String[]::new)));
   }
 
   @Override
@@ -58,24 +54,23 @@ public final class PtFillPatternStartIndex implements PlaceType {
     this.getSerializer().serialize(this, transformedData);
   }
 
-  public static final class Serializer extends PlaceType.Serializer<PtFillPatternStartIndex> {
+  public static final class Serializer extends PlaceType.Serializer<PtFillPattern> {
 
     public static final Serializer INSTANCE = new Serializer();
 
     @NotNull
     @Override
-    public Optional<PtFillPatternStartIndex> deserialize(@NotNull final TransformedData transformedData,
-                                                         @Nullable final GenericDeclaration declaration) {
+    public Optional<PtFillPattern> deserialize(@NotNull final TransformedData transformedData,
+                                               @Nullable final GenericDeclaration declaration) {
       return transformedData.getAsMap("values", String.class, Object.class)
-        .map(PtFillPatternStartIndex::create);
+        .map(PtFillPattern::create);
     }
 
     @Override
-    public void serialize(@NotNull final PtFillPatternStartIndex placeType, @NotNull final TransformedData transformedData) {
+    public void serialize(@NotNull final PtFillPattern placeType, @NotNull final TransformedData transformedData) {
       super.serialize(placeType, transformedData);
       transformedData.add("wrap-around", placeType.wrapAround, boolean.class);
       transformedData.addCollection("pattern", placeType.pattern, String.class);
-      transformedData.add("start-index", placeType.startIndex, int.class);
     }
   }
 }

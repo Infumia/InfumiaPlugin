@@ -8,6 +8,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.paper.element.types.PtFill;
+import tr.com.infumia.infumialib.paper.element.types.PtFillBorders;
+import tr.com.infumia.infumialib.paper.element.types.PtFillColumn;
+import tr.com.infumia.infumialib.paper.element.types.PtFillEmpties;
+import tr.com.infumia.infumialib.paper.element.types.PtFillPattern;
+import tr.com.infumia.infumialib.paper.element.types.PtFillPatternStart;
+import tr.com.infumia.infumialib.paper.element.types.PtFillPatternStartIndex;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRectFromTo;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRectIndex;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRepeatingPattern;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRepeatingPatternStart;
 import tr.com.infumia.infumialib.paper.element.types.PtFillRepeatingPatternStartIndex;
 import tr.com.infumia.infumialib.paper.element.types.PtFillRow;
 import tr.com.infumia.infumialib.paper.element.types.PtFillSquareFromTo;
@@ -40,7 +51,29 @@ public interface PlaceType {
   @NotNull
   static Optional<Serializer<?>> getByType(@NotNull final String type) {
     final var replaced = type.replace("_", "-").toLowerCase(Locale.ROOT).trim();
-    if ("fill-repeating-pattern-start-index".equalsIgnoreCase(replaced)) {
+    if ("fill".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFill.Serializer.INSTANCE);
+    } else if ("fill-borders".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillBorders.Serializer.INSTANCE);
+    } else if ("fill-column".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillColumn.Serializer.INSTANCE);
+    } else if ("fill-empties".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillEmpties.Serializer.INSTANCE);
+    } else if ("fill-pattern".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillPattern.Serializer.INSTANCE);
+    } else if ("fill-pattern-start".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillPatternStart.Serializer.INSTANCE);
+    } else if ("fill-pattern-start-index".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillPatternStartIndex.Serializer.INSTANCE);
+    } else if ("fill-rect-from-to".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRectFromTo.Serializer.INSTANCE);
+    } else if ("fill-rect-index".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRectIndex.Serializer.INSTANCE);
+    } else if ("fill-repeating-pattern".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRepeatingPattern.Serializer.INSTANCE);
+    } else if ("fill-repeating-pattern-start".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRepeatingPatternStart.Serializer.INSTANCE);
+    } else if ("fill-repeating-pattern-start-index".equalsIgnoreCase(replaced)) {
       return Optional.of(PtFillRepeatingPatternStartIndex.Serializer.INSTANCE);
     } else if ("fill-row".equalsIgnoreCase(replaced)) {
       return Optional.of(PtFillRow.Serializer.INSTANCE);
