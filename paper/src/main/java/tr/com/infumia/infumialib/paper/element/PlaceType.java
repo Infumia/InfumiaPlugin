@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.element.types.PtFill;
 import tr.com.infumia.infumialib.paper.element.types.PtFillBorders;
 import tr.com.infumia.infumialib.paper.element.types.PtFillColumn;
@@ -29,9 +28,7 @@ import tr.com.infumia.infumialib.paper.element.types.PtNone;
 import tr.com.infumia.infumialib.paper.element.types.PtSlots;
 import tr.com.infumia.infumialib.paper.smartinventory.Icon;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.transformer.ObjectSerializer;
 import tr.com.infumia.infumialib.transformer.TransformedData;
-import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 
 public interface PlaceType {
 
@@ -49,46 +46,46 @@ public interface PlaceType {
   }
 
   @NotNull
-  static Optional<Serializer<?>> getByType(@NotNull final String type) {
+  static Optional<Deserializer> getByType(@NotNull final String type) {
     final var replaced = type.replace("_", "-").toLowerCase(Locale.ROOT).trim();
     if ("fill".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFill.Serializer.INSTANCE);
+      return Optional.of(PtFill.Deserializer.INSTANCE);
     } else if ("fill-borders".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillBorders.Serializer.INSTANCE);
+      return Optional.of(PtFillBorders.Deserializer.INSTANCE);
     } else if ("fill-column".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillColumn.Serializer.INSTANCE);
+      return Optional.of(PtFillColumn.Deserializer.INSTANCE);
     } else if ("fill-empties".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillEmpties.Serializer.INSTANCE);
+      return Optional.of(PtFillEmpties.Deserializer.INSTANCE);
     } else if ("fill-pattern".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillPattern.Serializer.INSTANCE);
+      return Optional.of(PtFillPattern.Deserializer.INSTANCE);
     } else if ("fill-pattern-start".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillPatternStart.Serializer.INSTANCE);
+      return Optional.of(PtFillPatternStart.Deserializer.INSTANCE);
     } else if ("fill-pattern-start-index".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillPatternStartIndex.Serializer.INSTANCE);
+      return Optional.of(PtFillPatternStartIndex.Deserializer.INSTANCE);
     } else if ("fill-rect-from-to".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillRectFromTo.Serializer.INSTANCE);
+      return Optional.of(PtFillRectFromTo.Deserializer.INSTANCE);
     } else if ("fill-rect-index".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillRectIndex.Serializer.INSTANCE);
+      return Optional.of(PtFillRectIndex.Deserializer.INSTANCE);
     } else if ("fill-repeating-pattern".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillRepeatingPattern.Serializer.INSTANCE);
+      return Optional.of(PtFillRepeatingPattern.Deserializer.INSTANCE);
     } else if ("fill-repeating-pattern-start".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillRepeatingPatternStart.Serializer.INSTANCE);
+      return Optional.of(PtFillRepeatingPatternStart.Deserializer.INSTANCE);
     } else if ("fill-repeating-pattern-start-index".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillRepeatingPatternStartIndex.Serializer.INSTANCE);
+      return Optional.of(PtFillRepeatingPatternStartIndex.Deserializer.INSTANCE);
     } else if ("fill-row".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillRow.Serializer.INSTANCE);
+      return Optional.of(PtFillRow.Deserializer.INSTANCE);
     } else if ("fill-square-from-to".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillSquareFromTo.Serializer.INSTANCE);
+      return Optional.of(PtFillSquareFromTo.Deserializer.INSTANCE);
     } else if ("fill-square-index".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtFillSquareIndex.Serializer.INSTANCE);
+      return Optional.of(PtFillSquareIndex.Deserializer.INSTANCE);
     } else if ("insert".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtInsert.Serializer.INSTANCE);
+      return Optional.of(PtInsert.Deserializer.INSTANCE);
     } else if ("insert-index".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtInsertIndex.Serializer.INSTANCE);
+      return Optional.of(PtInsertIndex.Deserializer.INSTANCE);
     } else if ("none".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtNone.Serializer.INSTANCE);
+      return Optional.of(PtNone.Deserializer.INSTANCE);
     } else if ("slots".equalsIgnoreCase(replaced)) {
-      return Optional.of(PtSlots.Serializer.INSTANCE);
+      return Optional.of(PtSlots.Deserializer.INSTANCE);
     }
     return Optional.empty();
   }
@@ -149,26 +146,12 @@ public interface PlaceType {
   void place(@NotNull Icon icon, @NotNull InventoryContents contents);
 
   default void serialize(@NotNull final TransformedData transformedData) {
+    transformedData.add("type", this.getType(), String.class);
   }
 
-  abstract class Serializer<P extends PlaceType> implements ObjectSerializer<P> {
+  interface Deserializer {
 
     @NotNull
-    @Override
-    public final Optional<P> deserialize(@NotNull final P field, @NotNull final TransformedData transformedData,
-                                         @Nullable final GenericDeclaration declaration) {
-      return this.deserialize(transformedData, declaration);
-    }
-
-    @Override
-    public final void serialize(@NotNull final P placeType, @NotNull final TransformedData transformedData) {
-      transformedData.add("type", placeType.getType(), String.class);
-      placeType.serialize(transformedData);
-    }
-
-    @Override
-    public final boolean supports(@NotNull final Class<?> cls) {
-      return PlaceType.class.isAssignableFrom(cls);
-    }
+    Optional<PlaceType> deserialize(@NotNull TransformedData transformedData);
   }
 }

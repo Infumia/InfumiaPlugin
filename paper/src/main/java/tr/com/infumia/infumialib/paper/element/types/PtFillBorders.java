@@ -2,12 +2,10 @@ package tr.com.infumia.infumialib.paper.element.types;
 
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.element.PlaceType;
 import tr.com.infumia.infumialib.paper.smartinventory.Icon;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
 import tr.com.infumia.infumialib.transformer.TransformedData;
-import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 
 public final class PtFillBorders implements PlaceType {
 
@@ -24,14 +22,13 @@ public final class PtFillBorders implements PlaceType {
     contents.fillEmpties(icon);
   }
 
-  public static final class Serializer extends PlaceType.Serializer<PtFillBorders> {
+  public static final class Deserializer implements PlaceType.Deserializer {
 
-    public static final Serializer INSTANCE = new Serializer();
+    public static final Deserializer INSTANCE = new Deserializer();
 
     @NotNull
     @Override
-    public Optional<PtFillBorders> deserialize(@NotNull final TransformedData transformedData,
-                                               @Nullable final GenericDeclaration declaration) {
+    public Optional<PlaceType> deserialize(@NotNull final TransformedData transformedData) {
       return Optional.of(PtFillBorders.INSTANCE);
     }
   }

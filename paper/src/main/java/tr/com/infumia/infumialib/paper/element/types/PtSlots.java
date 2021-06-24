@@ -6,12 +6,10 @@ import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.element.PlaceType;
 import tr.com.infumia.infumialib.paper.smartinventory.Icon;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
 import tr.com.infumia.infumialib.transformer.TransformedData;
-import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 
 @RequiredArgsConstructor
 public final class PtSlots implements PlaceType {
@@ -36,19 +34,19 @@ public final class PtSlots implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
+    PlaceType.super.serialize(transformedData);
     final var copy = transformedData.copy();
     copy.addAsCollection("slots", this.slots, int.class);
     transformedData.add("values", copy);
   }
 
-  public static final class Serializer extends PlaceType.Serializer<PtSlots> {
+  public static final class Deserializer implements PlaceType.Deserializer {
 
-    public static final Serializer INSTANCE = new Serializer();
+    public static final Deserializer INSTANCE = new Deserializer();
 
     @NotNull
     @Override
-    public Optional<PtSlots> deserialize(@NotNull final TransformedData transformedData,
-                                         @Nullable final GenericDeclaration declaration) {
+    public Optional<PlaceType> deserialize(@NotNull final TransformedData transformedData) {
       return transformedData.getAsMap("values", String.class, Object.class)
         .map(PtSlots::create);
     }

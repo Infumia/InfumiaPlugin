@@ -3,12 +3,10 @@ package tr.com.infumia.infumialib.paper.element.types;
 import java.util.Map;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.element.PlaceType;
 import tr.com.infumia.infumialib.paper.smartinventory.Icon;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
 import tr.com.infumia.infumialib.transformer.TransformedData;
-import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 
 public final class PtFillRectFromTo implements PlaceType {
 
@@ -49,6 +47,7 @@ public final class PtFillRectFromTo implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
+    PlaceType.super.serialize(transformedData);
     final var copy = transformedData.copy();
     copy.add("from-row", this.fromRow, int.class);
     copy.add("from-column", this.fromColumn, int.class);
@@ -57,14 +56,13 @@ public final class PtFillRectFromTo implements PlaceType {
     transformedData.add("values", copy);
   }
 
-  public static final class Serializer extends PlaceType.Serializer<PtFillRectFromTo> {
+  public static final class Deserializer implements PlaceType.Deserializer {
 
-    public static final Serializer INSTANCE = new Serializer();
+    public static final Deserializer INSTANCE = new Deserializer();
 
     @NotNull
     @Override
-    public Optional<PtFillRectFromTo> deserialize(@NotNull final TransformedData transformedData,
-                                                  @Nullable final GenericDeclaration declaration) {
+    public Optional<PlaceType> deserialize(@NotNull final TransformedData transformedData) {
       return transformedData.getAsMap("values", String.class, Object.class)
         .map(PtFillRectFromTo::create);
     }

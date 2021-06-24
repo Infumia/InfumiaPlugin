@@ -1,6 +1,5 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -102,15 +101,15 @@ public final class CrossbowItemBuilder extends Builder<CrossbowItemBuilder, Cros
   @Override
   public void serialize(@NotNull final TransformedData data) {
     super.serialize(data);
-    final var projectiles = new HashMap<String, Object>();
+    final var projectiles = data.copy();
     final var chargedProjectiles = this.getItemMeta().getChargedProjectiles();
     IntStream.range(0, chargedProjectiles.size()).forEach(index -> {
       final var projectile = chargedProjectiles.get(index);
       final var section = data.copy();
       ItemStackUtil.serialize(projectile, section);
-      projectiles.put(String.valueOf(index), section.getSerializedMap());
+      projectiles.add(String.valueOf(index), section);
     });
-    data.addAsMap(Keys.PROJECTILES_KEY, projectiles, String.class, Object.class);
+    data.add(Keys.PROJECTILES_KEY, projectiles);
   }
 
   /**

@@ -179,7 +179,7 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asBanner();
-      data.getAsMap(Keys.PATTERNS_KEY, String.class, Object.class)
+      data.getAsMap(Keys.PATTERNS_KEY, String.class, String.class)
         .ifPresent(patterns -> patterns.forEach((key, value) -> {
           var type = PatternType.getByIdentifier(key);
           if (type == null) {
@@ -191,7 +191,7 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
           }
           DyeColor color;
           try {
-            color = DyeColor.valueOf(String.valueOf(value).toUpperCase(Locale.ENGLISH));
+            color = DyeColor.valueOf(value.toUpperCase(Locale.ENGLISH));
           } catch (final Exception e) {
             color = DyeColor.WHITE;
           }

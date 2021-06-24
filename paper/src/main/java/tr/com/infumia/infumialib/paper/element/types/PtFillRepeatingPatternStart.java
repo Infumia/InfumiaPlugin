@@ -5,13 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.element.PlaceType;
 import tr.com.infumia.infumialib.paper.smartinventory.Icon;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
 import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
 import tr.com.infumia.infumialib.transformer.TransformedData;
-import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 
 public final class PtFillRepeatingPatternStart implements PlaceType {
 
@@ -63,6 +61,7 @@ public final class PtFillRepeatingPatternStart implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
+    PlaceType.super.serialize(transformedData);
     final var copy = transformedData.copy();
     copy.add("wrap-around", this.wrapAround, boolean.class);
     copy.addAsCollection("pattern", this.pattern, String.class);
@@ -73,14 +72,13 @@ public final class PtFillRepeatingPatternStart implements PlaceType {
     transformedData.add("values", copy);
   }
 
-  public static final class Serializer extends PlaceType.Serializer<PtFillRepeatingPatternStart> {
+  public static final class Deserializer implements PlaceType.Deserializer {
 
-    public static final Serializer INSTANCE = new Serializer();
+    public static final Deserializer INSTANCE = new Deserializer();
 
     @NotNull
     @Override
-    public Optional<PtFillRepeatingPatternStart> deserialize(@NotNull final TransformedData transformedData,
-                                                             @Nullable final GenericDeclaration declaration) {
+    public Optional<PlaceType> deserialize(@NotNull final TransformedData transformedData) {
       return transformedData.getAsMap("values", String.class, Object.class)
         .map(PtFillRepeatingPatternStart::create);
     }

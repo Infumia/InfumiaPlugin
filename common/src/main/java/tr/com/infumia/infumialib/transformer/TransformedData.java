@@ -177,7 +177,7 @@ public final class TransformedData {
     if (value == null) {
       this.remove(path);
     } else {
-      this.add(path, MessageFormat.format(value, args));
+      this.add(path, MessageFormat.format(value, args), String.class);
     }
   }
 

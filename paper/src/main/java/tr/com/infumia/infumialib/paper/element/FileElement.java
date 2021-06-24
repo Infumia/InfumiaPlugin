@@ -836,11 +836,11 @@ public final class FileElement {
       if (type.isEmpty()) {
         return Optional.empty();
       }
-      final var serializer = PlaceType.getByType(type.get());
-      if (serializer.isEmpty()) {
+      final var deserializer = PlaceType.getByType(type.get());
+      if (deserializer.isEmpty()) {
         return Optional.empty();
       }
-      final var placeType = serializer.get().deserialize(transformedData, declaration);
+      final var placeType = deserializer.get().deserialize(transformedData);
       if (placeType.isEmpty()) {
         return Optional.empty();
       }

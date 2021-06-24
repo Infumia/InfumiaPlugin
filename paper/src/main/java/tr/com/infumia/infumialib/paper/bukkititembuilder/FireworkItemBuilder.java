@@ -4,7 +4,6 @@ import com.cryptomorin.xseries.XItemStack;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -154,30 +153,30 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
   public void serialize(@NotNull final TransformedData data) {
     super.serialize(data);
     final var itemMeta = this.getItemMeta();
-    final var firework = new HashMap<Integer, Object>();
+    final var firework = data.copy();
     data.add(Keys.POWER_KEY, itemMeta.getPower(), int.class);
     final var effects = itemMeta.getEffects();
     IntStream.range(0, effects.size()).forEach(index -> {
       final var effect = effects.get(index);
-      final var section = new HashMap<>();
-      section.put(Keys.TYPE_KEY, effect.getType().name());
-      section.put(Keys.FLICKER_KEY, effect.hasFlicker());
-      section.put(Keys.TRAIL_KEY, effect.hasTrail());
+      final var section = firework.copy();
+      section.add(Keys.TYPE_KEY, effect.getType().name(), String.class);
+      section.add(Keys.FLICKER_KEY, effect.hasFlicker(), boolean.class);
+      section.add(Keys.TRAIL_KEY, effect.hasTrail(), boolean.class);
       final var fwBaseColors = effect.getColors();
       final var fwFadeColors = effect.getFadeColors();
-      final var colors = new HashMap<>();
+      final var colors = section.copy();
       final var baseColors = fwBaseColors.stream()
         .map(color -> String.format("%d, %d, %d", color.getRed(), color.getGreen(), color.getBlue()))
         .collect(Collectors.toCollection(() -> new ArrayList<>(fwBaseColors.size())));
       final var fadeColors = fwFadeColors.stream()
         .map(color -> String.format("%d, %d, %d", color.getRed(), color.getGreen(), color.getBlue()))
         .collect(Collectors.toCollection(() -> new ArrayList<>(fwFadeColors.size())));
-      colors.put(Keys.BASE_KEY, baseColors);
-      colors.put(Keys.FADE_KEY, fadeColors);
-      section.put(Keys.COLORS_KEY, colors);
-      firework.put(index, section);
+      colors.addAsCollection(Keys.BASE_KEY, baseColors, String.class);
+      colors.addAsCollection(Keys.FADE_KEY, fadeColors, String.class);
+      section.add(Keys.COLORS_KEY, colors);
+      firework.add(String.valueOf(index), section);
     });
-    data.addAsMap(Keys.FIREWORK_KEY, firework, Integer.class, Object.class);
+    data.add(Keys.FIREWORK_KEY, firework);
   }
 
   /**
@@ -227,17 +226,12 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
         .ifPresent(firework -> {
           final var fireworkBuilder = FireworkEffect.builder();
           firework.forEach((key, value) -> {
-            final var flicker = Optional.ofNullable(value.get(Keys.FLICKER_KEY))
-              .filter(Boolean.class::isInstance)
-              .map(Boolean.class::cast)
+            final var copy = data.copy(value);
+            final var flicker = copy.get(Keys.FLICKER_KEY, boolean.class)
               .orElse(false);
-            final var trail = Optional.ofNullable(value.get(Keys.TRAIL_KEY))
-              .filter(Boolean.class::isInstance)
-              .map(Boolean.class::cast)
+            final var trail = copy.get(Keys.TRAIL_KEY, boolean.class)
               .orElse(false);
-            final var type = Optional.ofNullable(value.get(Keys.TYPE_KEY))
-              .filter(String.class::isInstance)
-              .map(String.class::cast)
+            final var type = copy.get(Keys.TYPE_KEY, String.class)
               .map(s -> s.toUpperCase(Locale.ROOT));
             FireworkEffect.Type effectType;
             try {
