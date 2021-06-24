@@ -134,7 +134,6 @@ public final class TransformedData {
    * @param <K> type of the key class.
    * @param <V> type of the value class.
    */
-  @SuppressWarnings("unchecked")
   public <K, V> void addAsMap(@NotNull final String path, @Nullable final Map<K, V> value,
                               @NotNull final Class<K> keyClass, @NotNull final Class<V> valueClass) {
     if (this.canDeserialize()) {
@@ -144,7 +143,7 @@ public final class TransformedData {
       this.remove(path);
     } else {
       this.serializedMap.put(path, this.resolver.serializeMap(
-        (Map<Object, Object>) value,
+        value,
         GenericDeclaration.of(value.getClass(), keyClass, valueClass),
         true));
     }

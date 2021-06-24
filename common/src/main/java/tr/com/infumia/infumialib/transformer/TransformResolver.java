@@ -416,7 +416,7 @@ public abstract class TransformResolver {
         return this.serializeCollection((Collection<?>) value, genericType, conservative);
       }
       if (value instanceof Map<?, ?>) {
-        return this.serializeMap((Map<Object, Object>) value, genericType, conservative);
+        return this.serializeMap((Map<?, ?>) value, genericType, conservative);
       }
       throw new TransformException(String.format("Cannot serialize type %s (%s): '%s' [%s]",
         serializerType, genericType, value, value.getClass()));
@@ -470,9 +470,8 @@ public abstract class TransformResolver {
    * @throws TransformException if something goes wrong when simplifying the value.
    */
   @NotNull
-  public Map<Object, Object> serializeMap(@NotNull final Map<Object, Object> value,
-                                          @Nullable final GenericDeclaration genericType,
-                                          final boolean conservative)
+  public Map<?, ?> serializeMap(@NotNull final Map<?, ?> value, @Nullable final GenericDeclaration genericType,
+                                final boolean conservative)
     throws TransformException {
     final var keyDeclaration = genericType == null
       ? null

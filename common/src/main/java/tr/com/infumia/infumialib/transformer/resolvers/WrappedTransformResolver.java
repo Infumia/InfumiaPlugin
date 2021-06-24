@@ -113,8 +113,8 @@ public abstract class WrappedTransformResolver extends TransformResolver {
 
   @NotNull
   @Override
-  public Map<Object, Object> serializeMap(@NotNull final Map<Object, Object> value,
-                                          @Nullable final GenericDeclaration genericType, final boolean conservative)
+  public Map<?, ?> serializeMap(@NotNull final Map<?, ?> value, @Nullable final GenericDeclaration genericType,
+                                final boolean conservative)
     throws TransformException {
     return this.delegate.serializeMap(value, genericType, conservative);
   }

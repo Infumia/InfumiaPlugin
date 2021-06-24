@@ -157,21 +157,6 @@ public class Hocon extends TransformResolver {
     return super.serialize(value, genericType, conservative);
   }
 
-  @NotNull
-  @Override
-  public Map<Object, Object> serializeMap(@NotNull final Map<Object, Object> value,
-                                          @Nullable final GenericDeclaration genericType, final boolean conservative)
-    throws TransformException {
-    final var map = new LinkedHashMap<>();
-    final var keyDeclaration = genericType == null ? null : genericType.getSubTypeAt(0).orElse(null);
-    final var valueDeclaration = genericType == null ? null : genericType.getSubTypeAt(1).orElse(null);
-    value.forEach((key1, value1) ->
-      map.put(
-        this.serialize(key1, keyDeclaration, false),
-        this.serialize(value1, valueDeclaration, conservative)));
-    return map;
-  }
-
   @Override
   public void setValue(@NotNull final String path, @Nullable final Object value,
                        @Nullable final GenericDeclaration genericType, @Nullable final FieldDeclaration field) {
@@ -204,5 +189,20 @@ public class Hocon extends TransformResolver {
       processor.prependContextComment(this.commentPrefix, header.value());
     }
     processor.write(outputStream);
+  }
+
+  @NotNull
+  @Override
+  public Map<?, ?> serializeMap(@NotNull final Map<?, ?> value, @Nullable final GenericDeclaration genericType,
+                                final boolean conservative)
+    throws TransformException {
+    final var map = new LinkedHashMap<>();
+    final var keyDeclaration = genericType == null ? null : genericType.getSubTypeAt(0).orElse(null);
+    final var valueDeclaration = genericType == null ? null : genericType.getSubTypeAt(1).orElse(null);
+    value.forEach((key1, value1) ->
+      map.put(
+        this.serialize(key1, keyDeclaration, false),
+        this.serialize(value1, valueDeclaration, conservative)));
+    return map;
   }
 }
