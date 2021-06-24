@@ -161,7 +161,7 @@ public interface PlaceType {
     }
 
     @Override
-    public void serialize(@NotNull final P placeType, @NotNull final TransformedData transformedData) {
+    public final void serialize(@NotNull final P placeType, @NotNull final TransformedData transformedData) {
       transformedData.add("type", placeType.getType(), String.class);
       placeType.serialize(transformedData);
     }
