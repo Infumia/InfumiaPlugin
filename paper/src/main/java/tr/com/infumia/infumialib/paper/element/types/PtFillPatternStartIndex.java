@@ -58,6 +58,14 @@ public final class PtFillPatternStartIndex implements PlaceType {
     this.getSerializer().serialize(this, transformedData);
   }
 
+  @NotNull
+  public Map<String, Object> toMap() {
+    return Map.of(
+      "pattern", this.pattern,
+      "wrap-around", this.wrapAround,
+      "start-index", this.startIndex);
+  }
+
   public static final class Serializer extends PlaceType.Serializer<PtFillPatternStartIndex> {
 
     public static final Serializer INSTANCE = new Serializer();
@@ -73,9 +81,7 @@ public final class PtFillPatternStartIndex implements PlaceType {
     @Override
     public void serialize(@NotNull final PtFillPatternStartIndex placeType, @NotNull final TransformedData transformedData) {
       super.serialize(placeType, transformedData);
-      transformedData.add("wrap-around", placeType.wrapAround, boolean.class);
-      transformedData.addCollection("pattern", placeType.pattern, String.class);
-      transformedData.add("start-index", placeType.startIndex, int.class);
+      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }

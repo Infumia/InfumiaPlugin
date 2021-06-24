@@ -47,6 +47,13 @@ public final class PtFillRectIndex implements PlaceType {
     this.getSerializer().serialize(this, transformedData);
   }
 
+  @NotNull
+  public Map<String, Object> toMap() {
+    return Map.of(
+      "from-index", this.fromIndex,
+      "to-index", this.toIndex);
+  }
+
   public static final class Serializer extends PlaceType.Serializer<PtFillRectIndex> {
 
     public static final Serializer INSTANCE = new Serializer();
@@ -62,8 +69,7 @@ public final class PtFillRectIndex implements PlaceType {
     @Override
     public void serialize(@NotNull final PtFillRectIndex placeType, @NotNull final TransformedData transformedData) {
       super.serialize(placeType, transformedData);
-      transformedData.add("from-index", placeType.fromIndex, int.class);
-      transformedData.add("to-index", placeType.toIndex, int.class);
+      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }

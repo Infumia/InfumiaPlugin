@@ -45,6 +45,11 @@ public final class PtSlots implements PlaceType {
     this.getSerializer().serialize(this, transformedData);
   }
 
+  @NotNull
+  public Map<String, Object> toMap() {
+    return Map.of("slots", this.slots);
+  }
+
   public static final class Serializer extends PlaceType.Serializer<PtSlots> {
 
     public static final Serializer INSTANCE = new Serializer();
@@ -60,7 +65,7 @@ public final class PtSlots implements PlaceType {
     @Override
     public void serialize(@NotNull final PtSlots placeType, @NotNull final TransformedData transformedData) {
       super.serialize(placeType, transformedData);
-      transformedData.addCollection("slots", placeType.slots, int.class);
+      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }

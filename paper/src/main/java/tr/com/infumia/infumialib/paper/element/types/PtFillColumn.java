@@ -43,6 +43,11 @@ public final class PtFillColumn implements PlaceType {
     this.getSerializer().serialize(this, transformedData);
   }
 
+  @NotNull
+  public Map<String, Object> toMap() {
+    return Map.of("column", this.column);
+  }
+
   public static final class Serializer extends PlaceType.Serializer<PtFillColumn> {
 
     public static final Serializer INSTANCE = new Serializer();
@@ -58,7 +63,7 @@ public final class PtFillColumn implements PlaceType {
     @Override
     public void serialize(@NotNull final PtFillColumn placeType, @NotNull final TransformedData transformedData) {
       super.serialize(placeType, transformedData);
-      transformedData.add("column", placeType.column, int.class);
+      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }

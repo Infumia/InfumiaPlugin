@@ -43,6 +43,11 @@ public final class PtInsertIndex implements PlaceType {
     this.getSerializer().serialize(this, transformedData);
   }
 
+  @NotNull
+  public Map<String, Object> toMap() {
+    return Map.of("index", this.index);
+  }
+
   public static final class Serializer extends PlaceType.Serializer<PtInsertIndex> {
 
     public static final Serializer INSTANCE = new Serializer();
@@ -58,7 +63,7 @@ public final class PtInsertIndex implements PlaceType {
     @Override
     public void serialize(@NotNull final PtInsertIndex placeType, @NotNull final TransformedData transformedData) {
       super.serialize(placeType, transformedData);
-      transformedData.add("index", placeType.index, int.class);
+      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }

@@ -58,6 +58,15 @@ public final class PtFillRectFromTo implements PlaceType {
     this.getSerializer().serialize(this, transformedData);
   }
 
+  @NotNull
+  public Map<String, Object> toMap() {
+    return Map.of(
+      "from-row", this.fromRow,
+      "from-column", this.fromColumn,
+      "to-row", this.toRow,
+      "to-column", this.toColumn);
+  }
+
   public static final class Serializer extends PlaceType.Serializer<PtFillRectFromTo> {
 
     public static final Serializer INSTANCE = new Serializer();
@@ -73,10 +82,7 @@ public final class PtFillRectFromTo implements PlaceType {
     @Override
     public void serialize(@NotNull final PtFillRectFromTo placeType, @NotNull final TransformedData transformedData) {
       super.serialize(placeType, transformedData);
-      transformedData.add("from-row", placeType.fromRow, int.class);
-      transformedData.add("from-column", placeType.fromColumn, int.class);
-      transformedData.add("to-row", placeType.toRow, int.class);
-      transformedData.add("to-column", placeType.toColumn, int.class);
+      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }

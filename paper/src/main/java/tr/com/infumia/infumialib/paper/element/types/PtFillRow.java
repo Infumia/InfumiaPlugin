@@ -43,6 +43,11 @@ public final class PtFillRow implements PlaceType {
     this.getSerializer().serialize(this, transformedData);
   }
 
+  @NotNull
+  public Map<String, Object> toMap() {
+    return Map.of("row", this.row);
+  }
+
   public static final class Serializer extends PlaceType.Serializer<PtFillRow> {
 
     public static final Serializer INSTANCE = new Serializer();
@@ -58,7 +63,7 @@ public final class PtFillRow implements PlaceType {
     @Override
     public void serialize(@NotNull final PtFillRow placeType, @NotNull final TransformedData transformedData) {
       super.serialize(placeType, transformedData);
-      transformedData.add("row", placeType.row, int.class);
+      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }
