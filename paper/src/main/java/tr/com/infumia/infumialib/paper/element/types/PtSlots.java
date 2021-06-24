@@ -36,12 +36,9 @@ public final class PtSlots implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
-  }
-
-  @NotNull
-  public Map<String, Object> toMap() {
-    return Map.of("slots", this.slots);
+    final var copy = transformedData.copy();
+    copy.addAsCollection("slots", this.slots, int.class);
+    transformedData.add("values", copy);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtSlots> {

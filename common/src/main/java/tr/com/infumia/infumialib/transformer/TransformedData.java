@@ -106,6 +106,23 @@ public final class TransformedData {
    *
    * @param path the path to add.
    * @param value the value to add.
+   */
+  public void add(@NotNull final String path, @Nullable final TransformedData value) {
+    if (this.canDeserialize()) {
+      return;
+    }
+    if (value == null) {
+      this.remove(path);
+    } else {
+      this.serializedMap.put(path, value.getSerializedMap());
+    }
+  }
+
+  /**
+   * adds the value to the path.
+   *
+   * @param path the path to add.
+   * @param value the value to add.
    * @param elementClass the element class to add.
    * @param <T> type of the element class.
    */
