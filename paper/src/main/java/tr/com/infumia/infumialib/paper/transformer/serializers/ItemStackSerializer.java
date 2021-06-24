@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.ItemStackBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.util.ItemStackUtil;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
 import tr.com.infumia.infumialib.transformer.ObjectSerializer;
 import tr.com.infumia.infumialib.transformer.TransformedData;
 import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
@@ -20,7 +19,7 @@ public final class ItemStackSerializer implements ObjectSerializer<ItemStack> {
   @Override
   public Optional<ItemStack> deserialize(@NotNull final TransformedData transformedData,
                                          @Nullable final GenericDeclaration declaration) {
-    return ItemStackUtil.deserialize(Keys.Holder.transformedData(transformedData));
+    return ItemStackUtil.deserialize(transformedData);
   }
 
   @NotNull
@@ -33,7 +32,7 @@ public final class ItemStackSerializer implements ObjectSerializer<ItemStack> {
 
   @Override
   public void serialize(@NotNull final ItemStack itemStack, @NotNull final TransformedData transformedData) {
-    ItemStackUtil.serialize(itemStack, Keys.Holder.transformedData(transformedData));
+    ItemStackUtil.serialize(itemStack, transformedData);
   }
 
   @Override
