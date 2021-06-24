@@ -1,7 +1,6 @@
 package tr.com.infumia.infumialib.paper.files;
 
 import java.io.File;
-import java.util.concurrent.CompletableFuture;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.color.XColor;
 import tr.com.infumia.infumialib.paper.transformer.resolvers.BukkitSnakeyaml;
@@ -37,10 +36,9 @@ public final class PaperConfig extends TransformedObject {
    * @param folder the folder to load.
    */
   public static void loadConfig(@NotNull final File folder) {
-    CompletableFuture.runAsync(() ->
-      TransformerPool.create(new PaperConfig())
-        .withFile(new File(folder, "paper.yml"))
-        .withResolver(new BukkitSnakeyaml())
-        .initiate());
+    TransformerPool.create(new PaperConfig())
+      .withFile(new File(folder, "paper.yml"))
+      .withResolver(new BukkitSnakeyaml())
+      .initiate();
   }
 }

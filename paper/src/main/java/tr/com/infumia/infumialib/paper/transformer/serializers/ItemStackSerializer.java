@@ -33,7 +33,7 @@ public final class ItemStackSerializer implements ObjectSerializer<ItemStack> {
 
   @Override
   public void serialize(@NotNull final ItemStack itemStack, @NotNull final TransformedData transformedData) {
-    ItemStackUtil.serialize(ItemStackBuilder.from(itemStack), KeyUtil.Holder.transformedData(transformedData));
+    ItemStackUtil.serialize(itemStack, KeyUtil.Holder.transformedData(transformedData));
   }
 
   @Override

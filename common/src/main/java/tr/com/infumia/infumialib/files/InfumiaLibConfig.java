@@ -1,7 +1,6 @@
 package tr.com.infumia.infumialib.files;
 
 import java.io.File;
-import java.util.concurrent.CompletableFuture;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.transformer.TransformedObject;
 import tr.com.infumia.infumialib.transformer.TransformerPool;
@@ -31,15 +30,11 @@ public final class InfumiaLibConfig extends TransformedObject {
    * loads the config.
    *
    * @param folder the folder to load.
-   *
-   * @return completed future.
    */
-  @NotNull
-  public static CompletableFuture<Void> loadConfig(@NotNull final File folder) {
-    return CompletableFuture.runAsync(() ->
-      TransformerPool.create(new InfumiaLibConfig())
-        .withFile(new File(folder, "config.hjson"))
-        .withResolver(new HJsonJson())
-        .initiate());
+  public static void loadConfig(@NotNull final File folder) {
+    TransformerPool.create(new InfumiaLibConfig())
+      .withFile(new File(folder, "config.hjson"))
+      .withResolver(new HJsonJson())
+      .initiate();
   }
 }

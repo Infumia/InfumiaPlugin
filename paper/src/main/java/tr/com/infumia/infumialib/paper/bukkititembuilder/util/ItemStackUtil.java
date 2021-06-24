@@ -107,6 +107,16 @@ public final class ItemStackUtil {
   /**
    * serializes the given item stack into map.
    *
+   * @param itemStack the item stack to serialize.
+   * @param holder the holder to serialize.
+   */
+  public static void serialize(@NotNull final ItemStack itemStack, @NotNull final KeyUtil.Holder<?> holder) {
+    ItemStackUtil.serialize(ItemStackBuilder.from(itemStack), holder);
+  }
+
+  /**
+   * serializes the given item stack into map.
+   *
    * @param builder the item stack to builder.
    * @param holder the holder to serialize.
    */
