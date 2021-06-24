@@ -93,10 +93,10 @@ public final class BannerItemBuilder extends Builder<BannerItemBuilder, BannerMe
   @Override
   public void serialize(@NotNull final TransformedData data) {
     super.serialize(data);
-    final var patterns = new HashMap<String, Object>();
+    final var patterns = new HashMap<String, String>();
     this.getItemMeta().getPatterns()
       .forEach(pattern -> patterns.put(pattern.getPattern().name(), pattern.getColor().name()));
-    data.addAsMap(Keys.PATTERNS_KEY, patterns, String.class, Object.class);
+    data.addAsMap(Keys.PATTERNS_KEY, patterns, String.class, String.class);
   }
 
   /**

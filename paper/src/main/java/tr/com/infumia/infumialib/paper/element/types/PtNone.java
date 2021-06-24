@@ -15,23 +15,12 @@ public final class PtNone implements PlaceType {
 
   @NotNull
   @Override
-  public Serializer getSerializer() {
-    return Serializer.INSTANCE;
-  }
-
-  @NotNull
-  @Override
   public String getType() {
     return "none";
   }
 
   @Override
   public void place(@NotNull final Icon icon, @NotNull final InventoryContents contents) {
-  }
-
-  @Override
-  public void serialize(@NotNull final TransformedData transformedData) {
-    this.getSerializer().serialize(this, transformedData);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtNone> {
@@ -43,11 +32,6 @@ public final class PtNone implements PlaceType {
     public Optional<PtNone> deserialize(@NotNull final TransformedData transformedData,
                                         @Nullable final GenericDeclaration declaration) {
       return Optional.of(PtNone.INSTANCE);
-    }
-
-    @Override
-    public void serialize(@NotNull final PtNone placeType, @NotNull final TransformedData transformedData) {
-      super.serialize(placeType, transformedData);
     }
   }
 }

@@ -38,12 +38,6 @@ public final class PtFillRectFromTo implements PlaceType {
 
   @NotNull
   @Override
-  public Serializer getSerializer() {
-    return Serializer.INSTANCE;
-  }
-
-  @NotNull
-  @Override
   public String getType() {
     return "fill-rect-from-to";
   }
@@ -55,7 +49,7 @@ public final class PtFillRectFromTo implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    this.getSerializer().serialize(this, transformedData);
+    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
   }
 
   @NotNull
@@ -77,12 +71,6 @@ public final class PtFillRectFromTo implements PlaceType {
                                                   @Nullable final GenericDeclaration declaration) {
       return transformedData.getAsMap("values", String.class, Object.class)
         .map(PtFillRectFromTo::create);
-    }
-
-    @Override
-    public void serialize(@NotNull final PtFillRectFromTo placeType, @NotNull final TransformedData transformedData) {
-      super.serialize(placeType, transformedData);
-      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }

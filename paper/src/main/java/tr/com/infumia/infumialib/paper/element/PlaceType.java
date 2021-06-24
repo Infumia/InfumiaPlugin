@@ -144,14 +144,12 @@ public interface PlaceType {
   }
 
   @NotNull
-  Serializer<?> getSerializer();
-
-  @NotNull
   String getType();
 
   void place(@NotNull Icon icon, @NotNull InventoryContents contents);
 
-  void serialize(@NotNull final TransformedData transformedData);
+  default void serialize(@NotNull final TransformedData transformedData) {
+  }
 
   abstract class Serializer<P extends PlaceType> implements ObjectSerializer<P> {
 
@@ -165,6 +163,7 @@ public interface PlaceType {
     @Override
     public void serialize(@NotNull final P placeType, @NotNull final TransformedData transformedData) {
       transformedData.add("type", placeType.getType(), String.class);
+      placeType.serialize(transformedData);
     }
 
     @Override

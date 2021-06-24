@@ -17,8 +17,8 @@ public final class Test extends TransformedObject {
   public static TestData testData = new TestData(
     "test",
     Map.of(
-      "key-1", "value-1",
-      "key-2", List.of("values-1", "values-2", "values-3")));
+      "key-1", 1,
+      "key-2", 2));
 
   public static void main(final String[] args) {
     new Test()
@@ -38,7 +38,7 @@ public final class Test extends TransformedObject {
       return Optional.of(
         new TestData(
           transformedData.get("test", String.class).orElseThrow(),
-          transformedData.getAsMap("values", String.class, Object.class).orElseThrow()
+          transformedData.getAsMap("values", String.class, Integer.class).orElseThrow()
         )
       );
     }
@@ -65,11 +65,11 @@ public final class Test extends TransformedObject {
 
     private final String test;
 
-    private final Map<String, Object> values;
+    private final Map<String, Integer> values;
 
     public void serialize(@NotNull final TransformedData data) {
       data.add("test", this.test, String.class);
-      data.addAsMap("values", this.values, String.class, Object.class);
+      data.addAsMap("values", this.values, String.class, Integer.class);
     }
   }
 }

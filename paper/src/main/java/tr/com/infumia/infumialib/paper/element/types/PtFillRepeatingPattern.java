@@ -34,12 +34,6 @@ public final class PtFillRepeatingPattern implements PlaceType {
 
   @NotNull
   @Override
-  public Serializer getSerializer() {
-    return Serializer.INSTANCE;
-  }
-
-  @NotNull
-  @Override
   public String getType() {
     return "fill-repeating-pattern";
   }
@@ -51,7 +45,7 @@ public final class PtFillRepeatingPattern implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    this.getSerializer().serialize(this, transformedData);
+    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
   }
 
   @NotNull
@@ -71,12 +65,6 @@ public final class PtFillRepeatingPattern implements PlaceType {
                                                         @Nullable final GenericDeclaration declaration) {
       return transformedData.getAsMap("values", String.class, Object.class)
         .map(PtFillRepeatingPattern::create);
-    }
-
-    @Override
-    public void serialize(@NotNull final PtFillRepeatingPattern placeType, @NotNull final TransformedData transformedData) {
-      super.serialize(placeType, transformedData);
-      transformedData.addAsMap("values", placeType.toMap(), String.class, Object.class);
     }
   }
 }
