@@ -101,11 +101,6 @@ public final class InfumiaLib extends JavaPlugin {
   }
 
   @Override
-  public void onDisable() {
-    this.loadFiles();
-  }
-
-  @Override
   public void onEnable() {
     final var commandManager = InfumiaLib.createCommandManager(this);
     new InfumiaPluginCommands(commandManager, this).register();
