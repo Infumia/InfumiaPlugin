@@ -373,8 +373,7 @@ public abstract class TransformResolver {
    *
    * @return serialized object.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when
-   *   serializing the object.
+   * @throws TransformException if something goes wrong when serializing the object.
    */
   @SuppressWarnings("unchecked")
   @Nullable
