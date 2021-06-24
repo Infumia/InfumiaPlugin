@@ -42,14 +42,10 @@ public final class PtInsert implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
-  }
-
-  @NotNull
-  public Map<String, Object> toMap() {
-    return Map.of(
-      "row", this.row,
-      "column", this.column);
+    final var copy = transformedData.copy();
+    copy.add("row", this.row, int.class);
+    copy.add("column", this.column, int.class);
+    transformedData.add("values", copy);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtInsert> {

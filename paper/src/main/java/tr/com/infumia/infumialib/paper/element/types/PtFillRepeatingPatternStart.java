@@ -63,18 +63,14 @@ public final class PtFillRepeatingPatternStart implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
-  }
-
-  @NotNull
-  public Map<String, Object> toMap() {
-    return Map.of(
-      "wrap-around", this.wrapAround,
-      "pattern", this.pattern,
-      "start-row", this.startRow,
-      "start-column", this.startColumn,
-      "end-row", this.endRow,
-      "end-column", this.endColumn);
+    final var copy = transformedData.copy();
+    copy.add("wrap-around", this.wrapAround, boolean.class);
+    copy.addAsCollection("pattern", this.pattern, String.class);
+    copy.add("start-row", this.startRow, int.class);
+    copy.add("start-column", this.startColumn, int.class);
+    copy.add("end-row", this.endRow, int.class);
+    copy.add("end-column", this.endColumn, int.class);
+    transformedData.add("values", copy);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtFillRepeatingPatternStart> {

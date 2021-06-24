@@ -34,12 +34,9 @@ public final class PtInsertIndex implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
-  }
-
-  @NotNull
-  public Map<String, Object> toMap() {
-    return Map.of("index", this.index);
+    final var copy = transformedData.copy();
+    copy.add("index", this.index, int.class);
+    transformedData.add("values", copy);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtInsertIndex> {

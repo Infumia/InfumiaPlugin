@@ -38,14 +38,10 @@ public final class PtFillSquareIndex implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
-  }
-
-  @NotNull
-  public Map<String, Object> toMap() {
-    return Map.of(
-      "from-index", this.fromIndex,
-      "to-index", this.toIndex);
+    final var copy = transformedData.copy();
+    copy.add("from-index", this.fromIndex, int.class);
+    copy.add("to-index", this.toIndex, int.class);
+    transformedData.add("values", copy);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtFillSquareIndex> {

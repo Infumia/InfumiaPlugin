@@ -49,16 +49,12 @@ public final class PtFillRectFromTo implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
-  }
-
-  @NotNull
-  public Map<String, Object> toMap() {
-    return Map.of(
-      "from-row", this.fromRow,
-      "from-column", this.fromColumn,
-      "to-row", this.toRow,
-      "to-column", this.toColumn);
+    final var copy = transformedData.copy();
+    copy.add("from-row", this.fromRow, int.class);
+    copy.add("from-column", this.fromColumn, int.class);
+    copy.add("to-row", this.toRow, int.class);
+    copy.add("to-column", this.toColumn, int.class);
+    transformedData.add("values", copy);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtFillRectFromTo> {

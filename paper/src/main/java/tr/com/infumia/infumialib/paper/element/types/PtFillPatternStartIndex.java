@@ -49,15 +49,11 @@ public final class PtFillPatternStartIndex implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
-  }
-
-  @NotNull
-  public Map<String, Object> toMap() {
-    return Map.of(
-      "pattern", this.pattern,
-      "wrap-around", this.wrapAround,
-      "start-index", this.startIndex);
+    final var copy = transformedData.copy();
+    copy.add("wrap-around", this.wrapAround, boolean.class);
+    copy.addAsCollection("pattern", this.pattern, String.class);
+    copy.add("start-index", this.startIndex, int.class);
+    transformedData.add("values", copy);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtFillPatternStartIndex> {

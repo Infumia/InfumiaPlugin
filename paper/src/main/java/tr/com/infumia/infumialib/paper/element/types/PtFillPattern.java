@@ -45,14 +45,10 @@ public final class PtFillPattern implements PlaceType {
 
   @Override
   public void serialize(@NotNull final TransformedData transformedData) {
-    transformedData.addAsMap("values", this.toMap(), String.class, Object.class);
-  }
-
-  @NotNull
-  public Map<String, Object> toMap() {
-    return Map.of(
-      "pattern", this.pattern,
-      "wrap-around", this.wrapAround);
+    final var copy = transformedData.copy();
+    copy.add("wrap-around", this.wrapAround, boolean.class);
+    copy.addAsCollection("pattern", this.pattern, String.class);
+    transformedData.add("values", copy);
   }
 
   public static final class Serializer extends PlaceType.Serializer<PtFillPattern> {
