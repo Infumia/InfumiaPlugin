@@ -2,7 +2,6 @@ package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.IntStream;
@@ -153,9 +152,8 @@ public final class CrossbowItemBuilder extends Builder<CrossbowItemBuilder, Cros
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asCrossbow();
       final var projectiles = new ArrayList<ItemStack>();
-      data.getAsMap(Keys.PROJECTILES_KEY, String.class, Map.class).ifPresent(map ->
-        map.forEach((key, value) ->
-          ItemStackUtil.deserialize(data.copy(value)).ifPresent(projectiles::add)));
+      final var indexes = data.getAsMap(Keys.PROJECTILES_KEY, String.class, ItemStack.class);
+      indexes.ifPresent(index -> index.forEach((key, value) -> projectiles.add(value)));
       builder.setChargedProjectiles(projectiles);
       return Optional.of(Builder.getItemMetaDeserializer(builder).apply(data));
     }
