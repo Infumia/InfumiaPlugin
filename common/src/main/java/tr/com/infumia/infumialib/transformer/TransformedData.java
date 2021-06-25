@@ -297,6 +297,23 @@ public final class TransformedData {
   @NotNull
   public <K, V> Optional<Map<K, V>> getAsMap(@NotNull final String key, @NotNull final Class<K> keyClass,
                                              @NotNull final Class<V> valueClass) {
+    return this.getAsMap(key, GenericDeclaration.of(keyClass), GenericDeclaration.of(valueClass));
+  }
+
+  /**
+   * gets a value from deserialized map as map.
+   *
+   * @param key the key to get.
+   * @param keyClass the key class to get.
+   * @param valueClass the value class to get.
+   * @param <K> type of the keys of map.
+   * @param <V> type of the values of map.
+   *
+   * @return obtained map value.
+   */
+  @NotNull
+  public <K, V> Optional<Map<K, V>> getAsMap(@NotNull final String key, @NotNull final GenericDeclaration keyClass,
+                                             @NotNull final GenericDeclaration valueClass) {
     if (this.canSerialize()) {
       return Optional.empty();
     }

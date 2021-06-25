@@ -429,7 +429,7 @@ public abstract class TransformResolver {
     if (!conservative) {
       final var newSerializationMap = new LinkedHashMap<String, Object>();
       serializationMap.forEach((mKey, mValue) ->
-        newSerializationMap.put(mKey, this.serialize(mValue, GenericDeclaration.of(mValue), false)));
+        newSerializationMap.put(String.valueOf(mKey), this.serialize(mValue, GenericDeclaration.of(mValue), false)));
       return newSerializationMap;
     }
     return serializationMap;
