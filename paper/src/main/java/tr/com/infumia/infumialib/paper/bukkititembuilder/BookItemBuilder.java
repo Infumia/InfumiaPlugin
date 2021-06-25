@@ -218,17 +218,12 @@ public final class BookItemBuilder extends Builder<BookItemBuilder, BookMeta> {
       final var builder = ItemStackBuilder.from(itemStack.get()).asBook();
       data.getAsMap(Keys.BOOKS_KEY, String.class, Object.class)
         .ifPresent(book -> {
-          final var title = Optional.ofNullable(book.get(Keys.TITLE_KEY))
-            .filter(String.class::isInstance)
-            .map(String.class::cast)
+          final var copy = data.copy(book);
+          final var title = copy.get(Keys.TITLE_KEY, String.class)
             .orElse(null);
-          final var author = Optional.ofNullable(book.get(Keys.AUTHOR_KEY))
-            .filter(String.class::isInstance)
-            .map(String.class::cast)
+          final var author = copy.get(Keys.AUTHOR_KEY, String.class)
             .orElse(null);
-          final var pages = Optional.ofNullable(book.get(Keys.PAGES_KEY))
-            .filter(List.class::isInstance)
-            .map(object -> (List<String>) object)
+          final var pages = copy.getAsCollection(Keys.PAGES_KEY, String.class)
             .orElse(Collections.emptyList());
           builder.setTitle(title);
           builder.setAuthor(author);

@@ -3,6 +3,7 @@ package tr.com.infumia.infumialib.transformer;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -267,7 +268,7 @@ public final class TransformedData {
    */
   @SuppressWarnings("unchecked")
   @NotNull
-  public <T> Optional<Collection<T>> getAsCollection(@NotNull final String key, @NotNull final Class<T> elementClass) {
+  public <T> Optional<List<T>> getAsCollection(@NotNull final String key, @NotNull final Class<T> elementClass) {
     if (this.canSerialize()) {
       return Optional.empty();
     }
@@ -278,8 +279,8 @@ public final class TransformedData {
     return Optional.of(this.resolver.deserialize(
       object,
       GenericDeclaration.of(object),
-      Collection.class,
-      GenericDeclaration.of(Collection.class, elementClass),
+      List.class,
+      GenericDeclaration.of(List.class, elementClass),
       null));
   }
 

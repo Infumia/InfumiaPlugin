@@ -2,7 +2,6 @@ package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import com.cryptomorin.xseries.XItemStack;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import org.bukkit.Bukkit;
@@ -233,9 +232,7 @@ public final class MapItemBuilder extends Builder<MapItemBuilder, MapMeta> {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asMap();
-      data.get(Keys.MAP_KEY, Object.class)
-        .filter(Map.class::isInstance)
-        .map(Map.class::cast)
+      data.getAsMap(Keys.MAP_KEY, String.class, Object.class)
         .ifPresent(mapSection -> {
           final var copy = data.copy(mapSection);
           final var scaling = copy.get(Keys.SCALING_KEY, boolean.class)
