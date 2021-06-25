@@ -1,166 +1,157 @@
 package tr.com.infumia.infumialib.paper.element;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.functions.TriConsumer;
+import tr.com.infumia.infumialib.paper.element.types.PtFill;
+import tr.com.infumia.infumialib.paper.element.types.PtFillBorders;
+import tr.com.infumia.infumialib.paper.element.types.PtFillColumn;
+import tr.com.infumia.infumialib.paper.element.types.PtFillEmpties;
+import tr.com.infumia.infumialib.paper.element.types.PtFillPattern;
+import tr.com.infumia.infumialib.paper.element.types.PtFillPatternStart;
+import tr.com.infumia.infumialib.paper.element.types.PtFillPatternStartIndex;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRectFromTo;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRectIndex;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRepeatingPattern;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRepeatingPatternStart;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRepeatingPatternStartIndex;
+import tr.com.infumia.infumialib.paper.element.types.PtFillRow;
+import tr.com.infumia.infumialib.paper.element.types.PtFillSquareFromTo;
+import tr.com.infumia.infumialib.paper.element.types.PtFillSquareIndex;
+import tr.com.infumia.infumialib.paper.element.types.PtInsert;
+import tr.com.infumia.infumialib.paper.element.types.PtInsertIndex;
+import tr.com.infumia.infumialib.paper.element.types.PtNone;
+import tr.com.infumia.infumialib.paper.element.types.PtSlots;
 import tr.com.infumia.infumialib.paper.smartinventory.Icon;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
-import tr.com.infumia.infumialib.paper.smartinventory.util.Pattern;
-import tr.com.infumia.infumialib.reflection.RefFieldExecuted;
-import tr.com.infumia.infumialib.reflection.clazz.ClassOf;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
-@RequiredArgsConstructor
-public enum PlaceType {
+public interface PlaceType {
 
-  SLOTS((icon, contents, objects) ->
-    objects.values().stream()
-      .map(o -> (Collection<Integer>) o)
-      .forEach(slots ->
-        slots.forEach(slot ->
-          contents.set(slot, icon))),
-    "slots", int[].class),
-  INSERT_INDEX((icon, contents, objects) ->
-    contents.set((int) objects.get("index"), icon),
-    "index", int.class),
-  INSERT((icon, contents, objects) ->
-    contents.set((int) objects.get("row"), (int) objects.get("column"), icon),
-    "row", int.class, "column", int.class),
-  FILL((icon, contents, objects) ->
-    contents.fill(icon)),
-  FILL_EMPTIES((icon, contents, objects) ->
-    contents.fillEmpties(icon)),
-  FILL_ROW((icon, contents, objects) ->
-    contents.fillRow((int) objects.get("row"), icon),
-    "row", int.class),
-  FILL_COLUMN((icon, contents, objects) ->
-    contents.fillColumn((int) objects.get("column"), icon),
-    "column", int.class),
-  FILL_BORDERS((icon, contents, objects) ->
-    contents.fillBorders(icon)),
-  FILL_RECT_INDEX((icon, contents, objects) ->
-    contents.fillRect((int) objects.get("from-index"), (int) objects.get("to-index"), icon),
-    "from-index", int.class, "to-index", int.class),
-  FILL_RECT_FROM_TO((icon, contents, objects) ->
-    contents.fillRect((int) objects.get("from-row"), (int) objects.get("from-column"), (int) objects.get("to-row"), (int) objects.get("to-column"), icon),
-    "from-row", int.class, "from-column", int.class, "to-row", int.class, "to-column", int.class),
-  FILL_SQUARE_INDEX((icon, contents, objects) ->
-    contents.fillSquare((int) objects.get("from-index"), (int) objects.get("to-index"), icon),
-    "from-index", int.class, "to-index", int.class),
-  FILL_SQUARE_FROM_TO((icon, contents, objects) ->
-    contents.fillSquare((int) objects.get("from-row"), (int) objects.get("from-column"), (int) objects.get("to-row"), (int) objects.get("to-column"), icon),
-    "from-row", int.class, "from-column", int.class, "to-row", int.class, "to-column", int.class),
-  FILL_PATTERN((icon, contents, objects) ->
-    contents.fillPattern(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern"))),
-    "wrap-around", boolean.class, "pattern", String[].class),
-  FILL_PATTERN_START_INDEX((icon, contents, objects) ->
-    contents.fillPattern(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern")), (int) objects.get("start-index")),
-    "wrap-around", boolean.class, "pattern", String[].class, "start-index", int.class),
-  FILL_PATTERN_START((icon, contents, objects) ->
-    contents.fillPattern(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern")), (int) objects.get("start-row"), (int) objects.get("start-column")),
-    "wrap-around", boolean.class, "pattern", String[].class, "start-row", int.class, "start-column", int.class),
-  FILL_REPEATING_PATTERN((icon, contents, objects) ->
-    contents.fillPatternRepeating(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern"))),
-    "wrap-around", boolean.class, "pattern", String[].class),
-  FILL_REPEATING_PATTERN_START_INDEX((icon, contents, objects) ->
-    contents.fillPatternRepeating(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern")), (int) objects.get("start-index"), (int) objects.get("end-index")),
-    "wrap-around", boolean.class, "pattern", String[].class, "start-index", int.class, "end-index", int.class),
-  FILL_REPEATING_PATTERN_START((icon, contents, objects) ->
-    contents.fillPatternRepeating(new Pattern<>((boolean) objects.get("wrap-around"), (String[]) objects.get("pattern")), (int) objects.get("start-row"), (int) objects.get("start-column"), (int) objects.get("end-row"), (int) objects.get("end-column")),
-    "wrap-around", boolean.class, "pattern", String[].class, "start-row", int.class, "start-column", int.class, "end-row", int.class, "end-column", int.class),
-  NONE((left, middle, right) -> {
-  });
-
-  @NotNull
-  private final TriConsumer<Icon, InventoryContents, Map<String, Object>> consumer;
-
-  @NotNull
-  private final Map<String, Class<?>> keyAndTypes;
-
-  PlaceType(@NotNull final TriConsumer<Icon, InventoryContents, Map<String, Object>> consumer,
-            @NotNull final Object... objects) {
-    this(consumer, PlaceType.parse(objects));
+  static boolean getBoolean(@NotNull final Map<String, Object> map, @NotNull final String key,
+                            final boolean defaultValue) {
+    var value = defaultValue;
+    if (!map.containsKey(key)) {
+      return value;
+    }
+    try {
+      value = Boolean.parseBoolean(String.valueOf(map.get(key)));
+    } catch (final Exception ignored) {
+    }
+    return value;
   }
 
   @NotNull
-  public static <T> Map<String, T> parse(@NotNull final Object... objects) {
-    final var map = new HashMap<String, T>();
-    var isKey = true;
-    var previousKey = "";
-    for (final var object : objects) {
-      if (isKey) {
-        isKey = false;
-        previousKey = (String) object;
-      } else {
-        isKey = true;
-        map.put(previousKey, (T) object);
-      }
+  static Optional<Deserializer> getByType(@NotNull final String type) {
+    final var replaced = type.replace("_", "-").toLowerCase(Locale.ROOT).trim();
+    if ("fill".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFill.Deserializer.INSTANCE);
+    } else if ("fill-borders".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillBorders.Deserializer.INSTANCE);
+    } else if ("fill-column".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillColumn.Deserializer.INSTANCE);
+    } else if ("fill-empties".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillEmpties.Deserializer.INSTANCE);
+    } else if ("fill-pattern".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillPattern.Deserializer.INSTANCE);
+    } else if ("fill-pattern-start".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillPatternStart.Deserializer.INSTANCE);
+    } else if ("fill-pattern-start-index".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillPatternStartIndex.Deserializer.INSTANCE);
+    } else if ("fill-rect-from-to".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRectFromTo.Deserializer.INSTANCE);
+    } else if ("fill-rect-index".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRectIndex.Deserializer.INSTANCE);
+    } else if ("fill-repeating-pattern".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRepeatingPattern.Deserializer.INSTANCE);
+    } else if ("fill-repeating-pattern-start".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRepeatingPatternStart.Deserializer.INSTANCE);
+    } else if ("fill-repeating-pattern-start-index".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRepeatingPatternStartIndex.Deserializer.INSTANCE);
+    } else if ("fill-row".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillRow.Deserializer.INSTANCE);
+    } else if ("fill-square-from-to".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillSquareFromTo.Deserializer.INSTANCE);
+    } else if ("fill-square-index".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtFillSquareIndex.Deserializer.INSTANCE);
+    } else if ("insert".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtInsert.Deserializer.INSTANCE);
+    } else if ("insert-index".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtInsertIndex.Deserializer.INSTANCE);
+    } else if ("none".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtNone.Deserializer.INSTANCE);
+    } else if ("slots".equalsIgnoreCase(replaced)) {
+      return Optional.of(PtSlots.Deserializer.INSTANCE);
     }
-    return map;
+    return Optional.empty();
+  }
+
+  static int getInteger(@NotNull final Map<String, Object> map, @NotNull final String key,
+                        final int defaultValue) {
+    var value = defaultValue;
+    if (!map.containsKey(key)) {
+      return value;
+    }
+    try {
+      value = Integer.parseInt(String.valueOf(map.get(key)));
+    } catch (final Exception ignored) {
+    }
+    return value;
+  }
+
+  static List<Integer> getIntegerList(@NotNull final Map<String, Object> map, @NotNull final String key,
+                                      @NotNull final List<Integer> defaultValue) {
+    var value = defaultValue;
+    if (!map.containsKey(key)) {
+      return value;
+    }
+    try {
+      value = ((Collection<?>) map.get(key)).stream()
+        .map(String::valueOf)
+        .map(s -> {
+          try {
+            return Integer.parseInt(s);
+          } catch (final Exception ignored) {
+          }
+          return 0;
+        })
+        .collect(Collectors.toList());
+    } catch (final Exception ignored) {
+    }
+    return value;
+  }
+
+  static List<String> getStringList(@NotNull final Map<String, Object> map, @NotNull final String key,
+                                    @NotNull final List<String> defaultValue) {
+    var value = defaultValue;
+    if (!map.containsKey(key)) {
+      return value;
+    }
+    try {
+      value = ((Collection<?>) map.get(key)).stream()
+        .map(String::valueOf)
+        .collect(Collectors.toList());
+    } catch (final Exception ignored) {
+    }
+    return value;
   }
 
   @NotNull
-  private static Object def(@NotNull final Class<?> type) {
-    if (type.equals(Integer.class)) {
-      return 1;
-    }
-    if (type.equals(String.class)) {
-      return "test";
-    }
-    if (type.equals(String[].class)) {
-      return new String[]{"element-1", "element-2"};
-    }
-    if (type.equals(int[].class)) {
-      return new int[]{0, 1, 2};
-    }
-    if (type.equals(boolean.class)) {
-      return true;
-    }
-    return "empty";
+  String getType();
+
+  void place(@NotNull Icon icon, @NotNull InventoryContents contents);
+
+  default void serialize(@NotNull final TransformedData transformedData) {
+    transformedData.add("type", this.getType(), String.class);
   }
 
-  public boolean control(@NotNull final Map<String, Object> objects) {
-    if (this == PlaceType.SLOTS) {
-      return objects.isEmpty() || objects.values().stream()
-        .allMatch(o -> Number.class.isAssignableFrom(o.getClass()));
-    }
-    if (objects.size() != this.keyAndTypes.size()) {
-      return false;
-    }
-    if (objects.isEmpty()) {
-      return true;
-    }
-    return this.keyAndTypes.entrySet().stream()
-      .allMatch(entry -> {
-        final var o = objects.get(entry.getKey());
-        if (o == null) {
-          return false;
-        }
-        final var aClass = o.getClass();
-        return new ClassOf<>(aClass)
-          .getField("TYPE")
-          .map(refField -> refField.of(o))
-          .map(RefFieldExecuted::getValue)
-          .filter(Optional::isPresent)
-          .map(Optional::get)
-          .map(o1 -> o1.equals(entry.getValue()))
-          .orElse(aClass.equals(entry.getValue()));
-      });
-  }
+  interface Deserializer {
 
-  @NotNull
-  public Map<String, Object> defaultValues() {
-    return this.keyAndTypes.entrySet().stream()
-      .map(entry -> Map.entry(entry.getKey(), PlaceType.def(entry.getValue())))
-      .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-  }
-
-  public void place(@NotNull final Icon icon, @NotNull final InventoryContents contents,
-                    @NotNull final Map<String, Object> objects) {
-    this.consumer.accept(icon, contents, objects);
+    @NotNull
+    Optional<PlaceType> deserialize(@NotNull TransformedData transformedData);
   }
 }

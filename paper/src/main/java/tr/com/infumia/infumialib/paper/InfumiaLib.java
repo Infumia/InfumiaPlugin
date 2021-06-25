@@ -84,19 +84,26 @@ public final class InfumiaLib extends JavaPlugin {
     return InfumiaLib.getInstance().inventory;
   }
 
-  @Override
-  public void onLoad() {
-    InfumiaLib.instance = this;
-    CustomColors.registerAll();
-    TaskUtilities.init(this);
+  /**
+   * loads Infumia Library plugin'ss files.
+   */
+  public void loadFiles() {
     InfumiaLibConfig.loadConfig(this.getDataFolder());
     PaperConfig.loadConfig(this.getDataFolder());
   }
 
   @Override
+  public void onLoad() {
+    InfumiaLib.instance = this;
+    CustomColors.registerAll();
+    TaskUtilities.init(this);
+    this.loadFiles();
+  }
+
+  @Override
   public void onEnable() {
     final var commandManager = InfumiaLib.createCommandManager(this);
-    new InfumiaPluginCommands(commandManager).register();
+    new InfumiaPluginCommands(commandManager, this).register();
     this.inventory.init();
     Hooks.loadHooks();
     if (InfumiaLibConfig.checkForUpdate) {

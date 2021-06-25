@@ -115,8 +115,8 @@ public class HJsonJson extends TransformResolver {
 
   @NotNull
   @Override
-  public Map<Object, Object> serializeMap(@NotNull final Map<Object, Object> value,
-                                          @Nullable final GenericDeclaration genericType, final boolean conservative)
+  public Map<?, ?> serializeMap(@NotNull final Map<?, ?> value, @Nullable final GenericDeclaration genericType,
+                                final boolean conservative)
     throws TransformException {
     final var map = new LinkedHashMap<>();
     final var keyDeclaration = genericType == null

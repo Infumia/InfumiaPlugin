@@ -107,24 +107,15 @@ public final class TransformedData {
    *
    * @param path the path to add.
    * @param value the value to add.
-   * @param keyClass the key class to add.
-   * @param valueClass the value class to add.
-   * @param <K> type of the key class.
-   * @param <V> type of the value class.
    */
-  @SuppressWarnings("unchecked")
-  public <K, V> void addAsMap(@NotNull final String path, @Nullable final Map<K, V> value,
-                              @NotNull final Class<K> keyClass, @NotNull final Class<V> valueClass) {
+  public void add(@NotNull final String path, @Nullable final TransformedData value) {
     if (this.canDeserialize()) {
       return;
     }
     if (value == null) {
       this.remove(path);
     } else {
-      this.serializedMap.put(path, this.resolver.serializeMap(
-        (Map<Object, Object>) value,
-        GenericDeclaration.of(value.getClass(), keyClass, valueClass),
-        true));
+      this.serializedMap.put(path, value.getSerializedMap());
     }
   }
 
@@ -136,8 +127,8 @@ public final class TransformedData {
    * @param elementClass the element class to add.
    * @param <T> type of the element class.
    */
-  public <T> void addCollection(@NotNull final String path, @Nullable final Collection<T> value,
-                                @NotNull final Class<T> elementClass) {
+  public <T> void addAsCollection(@NotNull final String path, @Nullable final Collection<T> value,
+                                  @NotNull final Class<T> elementClass) {
     if (this.canDeserialize()) {
       return;
     }
@@ -147,6 +138,31 @@ public final class TransformedData {
       this.serializedMap.put(path, this.resolver.serializeCollection(
         value,
         GenericDeclaration.of(value.getClass(), elementClass),
+        true));
+    }
+  }
+
+  /**
+   * adds the value to the path.
+   *
+   * @param path the path to add.
+   * @param value the value to add.
+   * @param keyClass the key class to add.
+   * @param valueClass the value class to add.
+   * @param <K> type of the key class.
+   * @param <V> type of the value class.
+   */
+  public <K, V> void addAsMap(@NotNull final String path, @Nullable final Map<K, V> value,
+                              @NotNull final Class<K> keyClass, @NotNull final Class<V> valueClass) {
+    if (this.canDeserialize()) {
+      return;
+    }
+    if (value == null) {
+      this.remove(path);
+    } else {
+      this.serializedMap.put(path, this.resolver.serializeMap(
+        value,
+        GenericDeclaration.of(value.getClass(), keyClass, valueClass),
         true));
     }
   }
@@ -162,7 +178,7 @@ public final class TransformedData {
     if (value == null) {
       this.remove(path);
     } else {
-      this.add(path, MessageFormat.format(value, args));
+      this.add(path, MessageFormat.format(value, args), String.class);
     }
   }
 
@@ -175,6 +191,28 @@ public final class TransformedData {
    */
   public boolean containsKey(@NotNull final String key) {
     return this.canDeserialize() && this.deserializedMap.containsKey(key);
+  }
+
+  /**
+   * creates a copy of {@code this} instance.
+   *
+   * @return a copy of transformed data.
+   */
+  @NotNull
+  public TransformedData copy() {
+    return this.copy(new ConcurrentHashMap<>());
+  }
+
+  /**
+   * creates a copy of {@code this} instance.
+   *
+   * @param deserializedMap the deserialized map to copy.
+   *
+   * @return a copy of transformed data.
+   */
+  @NotNull
+  public TransformedData copy(@NotNull final Map<String, Object> deserializedMap) {
+    return new TransformedData(deserializedMap, this.resolver, this.serialization, new ConcurrentHashMap<>());
   }
 
   /**
@@ -220,7 +258,7 @@ public final class TransformedData {
   }
 
   /**
-   * gets a value from deserialized map as list.
+   * gets a value from deserialized map as collection.
    *
    * @param key the key to get.
    * @param elementClass the element class to get.
@@ -230,7 +268,7 @@ public final class TransformedData {
    */
   @SuppressWarnings("unchecked")
   @NotNull
-  public <T> Optional<List<T>> getAsList(@NotNull final String key, @NotNull final Class<T> elementClass) {
+  public <T> Optional<List<T>> getAsCollection(@NotNull final String key, @NotNull final Class<T> elementClass) {
     if (this.canSerialize()) {
       return Optional.empty();
     }
@@ -260,6 +298,23 @@ public final class TransformedData {
   @NotNull
   public <K, V> Optional<Map<K, V>> getAsMap(@NotNull final String key, @NotNull final Class<K> keyClass,
                                              @NotNull final Class<V> valueClass) {
+    return this.getAsMap(key, GenericDeclaration.of(keyClass), GenericDeclaration.of(valueClass));
+  }
+
+  /**
+   * gets a value from deserialized map as map.
+   *
+   * @param key the key to get.
+   * @param keyClass the key class to get.
+   * @param valueClass the value class to get.
+   * @param <K> type of the keys of map.
+   * @param <V> type of the values of map.
+   *
+   * @return obtained map value.
+   */
+  @NotNull
+  public <K, V> Optional<Map<K, V>> getAsMap(@NotNull final String key, @NotNull final GenericDeclaration keyClass,
+                                             @NotNull final GenericDeclaration valueClass) {
     if (this.canSerialize()) {
       return Optional.empty();
     }

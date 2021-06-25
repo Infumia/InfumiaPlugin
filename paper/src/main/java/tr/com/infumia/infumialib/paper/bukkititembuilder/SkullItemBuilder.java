@@ -6,7 +6,8 @@ import java.util.function.Function;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * a class that represents skull item builders.
@@ -47,16 +48,16 @@ public final class SkullItemBuilder extends Builder<SkullItemBuilder, SkullMeta>
   }
 
   /**
-   * creates skull item builder from serialized holder.
+   * creates skull item builder from serialized data.
    *
-   * @param holder the holder to create.
+   * @param data the data to create.
    *
    * @return a newly created skull item builder instance.
    */
   @NotNull
-  public static SkullItemBuilder from(@NotNull final KeyUtil.Holder<?> holder) {
-    return SkullItemBuilder.getDeserializer().apply(holder).orElseThrow(() ->
-      new IllegalArgumentException(String.format("The given holder is incorrect!\n%s", holder)));
+  public static SkullItemBuilder from(@NotNull final TransformedData data) {
+    return SkullItemBuilder.getDeserializer().apply(data).orElseThrow(() ->
+      new IllegalArgumentException(String.format("The given data is incorrect!\n%s", data)));
   }
 
   /**
@@ -76,9 +77,9 @@ public final class SkullItemBuilder extends Builder<SkullItemBuilder, SkullMeta>
   }
 
   @Override
-  public void serialize(@NotNull final KeyUtil.Holder<?> holder) {
-    super.serialize(holder);
-    holder.add(KeyUtil.SKULL_TEXTURE_KEY, SkullUtils.getSkinValue(this.getItemMeta()), String.class);
+  public void serialize(@NotNull final TransformedData data) {
+    super.serialize(data);
+    data.add(Keys.SKULL_TEXTURE_KEY, SkullUtils.getSkinValue(this.getItemMeta()), String.class);
   }
 
   /**
@@ -113,19 +114,19 @@ public final class SkullItemBuilder extends Builder<SkullItemBuilder, SkullMeta>
    * a class that represents deserializer of {@link SkullMeta}.
    */
   public static final class Deserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<SkullItemBuilder>> {
+    Function<@NotNull TransformedData, @NotNull Optional<SkullItemBuilder>> {
 
     @NotNull
     @Override
-    public Optional<SkullItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
+    public Optional<SkullItemBuilder> apply(@NotNull final TransformedData data) {
+      final var itemStack = Builder.getItemStackDeserializer().apply(data);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asSkull();
-      holder.get(KeyUtil.SKULL_TEXTURE_KEY, String.class)
+      data.get(Keys.SKULL_TEXTURE_KEY, String.class)
         .ifPresent(builder::setOwner);
-      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(data));
     }
   }
 }

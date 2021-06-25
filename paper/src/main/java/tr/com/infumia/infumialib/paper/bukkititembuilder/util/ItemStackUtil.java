@@ -17,6 +17,7 @@ import tr.com.infumia.infumialib.paper.bukkititembuilder.MapItemBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.PotionItemBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.SkullItemBuilder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.SpawnEggItemBuilder;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * a class that contains utility methods for {@link ItemStack}.
@@ -30,55 +31,39 @@ public final class ItemStackUtil {
   }
 
   /**
-   * deserializes the given holder into item stack.
+   * deserializes the given data into item stack.
    *
-   * @param holder the holder to serialize.
+   * @param data the data to serialize.
    *
    * @return serialized object.
    */
   @NotNull
-  public static Optional<ItemStack> deserialize(@NotNull final KeyUtil.Holder<?> holder) {
-    return Builder.getSimpleItemStackDeserializer().apply(holder)
-      .flatMap(builder -> {
-        if (builder.isFirework()) {
-          return FireworkItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isLeatherArmor()) {
-          return LeatherArmorItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isMap()) {
-          return MapItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isPotion()) {
-          return PotionItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isBanner()) {
-          return BannerItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isBook()) {
-          return BookItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isCrossbow()) {
-          return CrossbowItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isSkull()) {
-          return SkullItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        if (builder.isSpawnEgg()) {
-          return SpawnEggItemBuilder.getDeserializer().apply(holder)
-            .map(Buildable::getItemStack);
-        }
-        return ItemStackBuilder.getDeserializer().apply(holder)
-          .map(Buildable::getItemStack);
-      });
+  public static Optional<ItemStack> deserialize(@NotNull final TransformedData data) {
+    final var builderOptional = Builder.getSimpleItemStackDeserializer().apply(data);
+    if (builderOptional.isEmpty()) {
+      return Optional.empty();
+    }
+    final var builder = builderOptional.get();
+    if (builder.isFirework()) {
+      return FireworkItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isLeatherArmor()) {
+      return LeatherArmorItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isMap()) {
+      return MapItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isPotion()) {
+      return PotionItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isBanner()) {
+      return BannerItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isBook()) {
+      return BookItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isCrossbow()) {
+      return CrossbowItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isSkull()) {
+      return SkullItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    } else if (builder.isSpawnEgg()) {
+      return SpawnEggItemBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
+    }
+    return ItemStackBuilder.getDeserializer().apply(data).map(Buildable::getItemStack);
   }
 
   /**
@@ -107,30 +92,40 @@ public final class ItemStackUtil {
   /**
    * serializes the given item stack into map.
    *
-   * @param builder the item stack to builder.
-   * @param holder the holder to serialize.
+   * @param itemStack the item stack to serialize.
+   * @param data the data to serialize.
    */
-  public static void serialize(@NotNull final Builder<?, ?> builder, @NotNull final KeyUtil.Holder<?> holder) {
+  public static void serialize(@NotNull final ItemStack itemStack, @NotNull final TransformedData data) {
+    ItemStackUtil.serialize(ItemStackBuilder.from(itemStack), data);
+  }
+
+  /**
+   * serializes the given item stack into map.
+   *
+   * @param builder the item stack to builder.
+   * @param data the data to serialize.
+   */
+  public static void serialize(@NotNull final Builder<?, ?> builder, @NotNull final TransformedData data) {
     if (builder.isFirework()) {
-      builder.asFirework().serialize(holder);
+      builder.asFirework().serialize(data);
     } else if (builder.isLeatherArmor()) {
-      builder.asLeatherArmor().serialize(holder);
+      builder.asLeatherArmor().serialize(data);
     } else if (builder.isMap()) {
-      builder.asMap().serialize(holder);
+      builder.asMap().serialize(data);
     } else if (builder.isPotion()) {
-      builder.asPotion().serialize(holder);
+      builder.asPotion().serialize(data);
     } else if (builder.isBanner()) {
-      builder.asBanner().serialize(holder);
+      builder.asBanner().serialize(data);
     } else if (builder.isBook()) {
-      builder.asBook().serialize(holder);
+      builder.asBook().serialize(data);
     } else if (builder.isCrossbow()) {
-      builder.asCrossbow().serialize(holder);
+      builder.asCrossbow().serialize(data);
     } else if (builder.isSkull()) {
-      builder.asSkull().serialize(holder);
+      builder.asSkull().serialize(data);
     } else if (builder.isSpawnEgg()) {
-      builder.asSpawnEgg().serialize(holder);
+      builder.asSpawnEgg().serialize(data);
     } else {
-      builder.serialize(holder);
+      builder.serialize(data);
     }
   }
 }

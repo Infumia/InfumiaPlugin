@@ -1,17 +1,17 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.CrossbowMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.util.ItemStackUtil;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * a class that represents crossbow item builders.
@@ -54,16 +54,16 @@ public final class CrossbowItemBuilder extends Builder<CrossbowItemBuilder, Cros
   }
 
   /**
-   * creates crossbow item builder from serialized holder.
+   * creates crossbow item builder from serialized data.
    *
-   * @param holder the holder to create.
+   * @param data the data to create.
    *
    * @return a newly created crossbow item builder instance.
    */
   @NotNull
-  public static CrossbowItemBuilder from(@NotNull final KeyUtil.Holder<?> holder) {
-    return CrossbowItemBuilder.getDeserializer().apply(holder).orElseThrow(() ->
-      new IllegalArgumentException(String.format("The given holder is incorrect!\n%s", holder)));
+  public static CrossbowItemBuilder from(@NotNull final TransformedData data) {
+    return CrossbowItemBuilder.getDeserializer().apply(data).orElseThrow(() ->
+      new IllegalArgumentException(String.format("The given data is incorrect!\n%s", data)));
   }
 
   /**
@@ -99,17 +99,17 @@ public final class CrossbowItemBuilder extends Builder<CrossbowItemBuilder, Cros
   }
 
   @Override
-  public void serialize(@NotNull final KeyUtil.Holder<?> holder) {
-    super.serialize(holder);
-    final var projectiles = new HashMap<String, Object>();
+  public void serialize(@NotNull final TransformedData data) {
+    super.serialize(data);
+    final var projectiles = data.copy();
     final var chargedProjectiles = this.getItemMeta().getChargedProjectiles();
     IntStream.range(0, chargedProjectiles.size()).forEach(index -> {
       final var projectile = chargedProjectiles.get(index);
-      final var section = KeyUtil.Holder.map(new HashMap<>());
-      ItemStackUtil.serialize(ItemStackBuilder.from(projectile), section);
-      projectiles.put(String.valueOf(index), section.getHolder());
+      final var section = data.copy();
+      ItemStackUtil.serialize(projectile, section);
+      projectiles.add(String.valueOf(index), section);
     });
-    holder.addAsMap(KeyUtil.PROJECTILES_KEY, projectiles, String.class, Object.class);
+    data.add(Keys.PROJECTILES_KEY, projectiles);
   }
 
   /**
@@ -141,24 +141,21 @@ public final class CrossbowItemBuilder extends Builder<CrossbowItemBuilder, Cros
    * a class that represents deserializer of {@link CrossbowMeta}.
    */
   public static final class Deserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<CrossbowItemBuilder>> {
+    Function<@NotNull TransformedData, @NotNull Optional<CrossbowItemBuilder>> {
 
     @NotNull
     @Override
-    public Optional<CrossbowItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
+    public Optional<CrossbowItemBuilder> apply(@NotNull final TransformedData data) {
+      final var itemStack = Builder.getItemStackDeserializer().apply(data);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asCrossbow();
-      final var collect = holder.getAsMap(KeyUtil.PROJECTILES_KEY, String.class, Object.class)
-        .stream()
-        .map(KeyUtil.Holder::map)
-        .map(ItemStackUtil::deserialize)
-        .flatMap(Optional::stream)
-        .collect(Collectors.toList());
-      builder.setChargedProjectiles(collect);
-      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
+      final var projectiles = new ArrayList<ItemStack>();
+      final var indexes = data.getAsMap(Keys.PROJECTILES_KEY, String.class, ItemStack.class);
+      indexes.ifPresent(index -> index.forEach((key, value) -> projectiles.add(value)));
+      builder.setChargedProjectiles(projectiles);
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(data));
     }
   }
 }

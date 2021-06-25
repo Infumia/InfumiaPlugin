@@ -56,13 +56,13 @@ public final class TransformerPool {
       transformedObject = new ClassOf<>(cls).getConstructor()
         .flatMap(RefConstructed::create)
         .orElseThrow(() ->
-          new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when creating instance of %s", cls)));
+          new TransformException(String.format("Something went wrong when creating instance of %s", cls)));
     } catch (final Exception exception) {
       try {
         //noinspection unchecked
         transformedObject = (T) TransformerPool.allocateInstance(cls);
       } catch (final Exception exception1) {
-        throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Failed to create %s instance, neither default constructor available, nor unsafe succeeded", cls));
+        throw new TransformException(String.format("Failed to create %s instance, neither default constructor available, nor unsafe succeeded", cls));
       }
     }
     return TransformerPool.create(transformedObject);
@@ -75,11 +75,11 @@ public final class TransformerPool {
    *
    * @return a new instance of the class.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when creating
+   * @throws TransformException if something goes wrong when creating
    *   the instance.
    */
   @NotNull
-  static Object createInstance(@NotNull final Class<?> cls) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
+  static Object createInstance(@NotNull final Class<?> cls) throws TransformException {
     try {
       if (Collection.class.isAssignableFrom(cls)) {
         if (cls == Set.class) {
@@ -100,9 +100,9 @@ public final class TransformerPool {
           .flatMap(RefConstructed::create)
           .orElseThrow();
       }
-      throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Cannot create instance of %s", cls));
+      throw new TransformException(String.format("Cannot create instance of %s", cls));
     } catch (final Exception exception) {
-      throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Failed to create instance of %s", cls), exception);
+      throw new TransformException(String.format("Failed to create instance of %s", cls), exception);
     }
   }
 

@@ -1,4 +1,4 @@
-name: InfumiaLib
+name: InfumiaLibraryPlugin
 version: ${project.version}
 main: tr.com.infumia.infumialib.paper.InfumiaLib
 api-version: 1.13

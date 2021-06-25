@@ -7,7 +7,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SpawnEggMeta;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
+import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
  * a class that represents spawn egg item builders.
@@ -48,16 +49,16 @@ public final class SpawnEggItemBuilder extends Builder<SpawnEggItemBuilder, Spaw
   }
 
   /**
-   * creates spawn egg item builder from serialized holder.
+   * creates spawn egg item builder from serialized data.
    *
-   * @param holder the holder to create.
+   * @param data the data to create.
    *
    * @return a newly created spawn egg item builder instance.
    */
   @NotNull
-  public static SpawnEggItemBuilder from(@NotNull final KeyUtil.Holder<?> holder) {
-    return SpawnEggItemBuilder.getDeserializer().apply(holder).orElseThrow(() ->
-      new IllegalArgumentException(String.format("The given holder is incorrect!\n%s", holder)));
+  public static SpawnEggItemBuilder from(@NotNull final TransformedData data) {
+    return SpawnEggItemBuilder.getDeserializer().apply(data).orElseThrow(() ->
+      new IllegalArgumentException(String.format("The given data is incorrect!\n%s", data)));
   }
 
   /**
@@ -77,11 +78,11 @@ public final class SpawnEggItemBuilder extends Builder<SpawnEggItemBuilder, Spaw
   }
 
   @Override
-  public void serialize(@NotNull final KeyUtil.Holder<?> holder) {
-    super.serialize(holder);
+  public void serialize(@NotNull final TransformedData data) {
+    super.serialize(data);
     final var name = this.getItemMeta().getSpawnedType().getName();
     if (name != null) {
-      holder.add(KeyUtil.CREATURE_KEY, name, String.class);
+      data.add(Keys.CREATURE_KEY, name, String.class);
     }
   }
 
@@ -122,19 +123,19 @@ public final class SpawnEggItemBuilder extends Builder<SpawnEggItemBuilder, Spaw
    * a class that represents deserializer of {@link SpawnEggMeta}.
    */
   public static final class Deserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<SpawnEggItemBuilder>> {
+    Function<@NotNull TransformedData, @NotNull Optional<SpawnEggItemBuilder>> {
 
     @NotNull
     @Override
-    public Optional<SpawnEggItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
+    public Optional<SpawnEggItemBuilder> apply(@NotNull final TransformedData data) {
+      final var itemStack = Builder.getItemStackDeserializer().apply(data);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asSpawnEgg();
-      holder.get(KeyUtil.CREATURE_KEY, String.class)
+      data.get(Keys.CREATURE_KEY, String.class)
         .ifPresent(builder::setSpawnedType);
-      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(data));
     }
   }
 }

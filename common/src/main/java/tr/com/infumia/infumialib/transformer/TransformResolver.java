@@ -110,7 +110,7 @@ public abstract class TransformResolver {
   public <T> T deserialize(@Nullable final Object object, @Nullable final GenericDeclaration genericSource,
                            @NotNull final Class<T> targetClass, @Nullable final GenericDeclaration genericTarget,
                            @Nullable final Object defaultValue)
-    throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
+    throws TransformException {
     if (object == null) {
       return null;
     }
@@ -146,7 +146,7 @@ public abstract class TransformResolver {
           stringObject, Arrays.stream(targetClass.getEnumConstants())
             .map(item -> ((Enum<?>) item).name())
             .collect(Collectors.joining(", ")));
-        throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(error);
+        throw new TransformException(error);
       }
       if (source.isEnum() && targetClass == String.class) {
         final var name = new ClassOf<>(objectClass)
@@ -155,7 +155,7 @@ public abstract class TransformResolver {
           .of(object)
           .call()
           .orElseThrow(() ->
-            new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting method called name in %s",
+            new TransformException(String.format("Something went wrong when getting method called name in %s",
               objectClass)));
         return targetClass.cast(name);
       }
@@ -188,9 +188,9 @@ public abstract class TransformResolver {
     if (genericTarget != null) {
       if (object instanceof Collection<?> && Collection.class.isAssignableFrom(targetClass)) {
         final var declaration = genericTarget.getSubTypeAt(0).orElseThrow(() ->
-          new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting sub types(0) of %s", genericTarget)));
+          new TransformException(String.format("Something went wrong when getting sub types(0) of %s", genericTarget)));
         if (declaration.getType() == null) {
-          throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting type of %s", genericTarget));
+          throw new TransformException(String.format("Something went wrong when getting type of %s", genericTarget));
         }
         final var targetList = (Collection<Object>) TransformerPool.createInstance(targetClass);
         ((Collection<?>) object).stream()
@@ -200,14 +200,14 @@ public abstract class TransformResolver {
       }
       if (object instanceof Map<?, ?> && Map.class.isAssignableFrom(targetClass)) {
         final var keyDeclaration = genericTarget.getSubTypeAt(0).orElseThrow(() ->
-          new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting sub types(0) of %s", genericTarget)));
+          new TransformException(String.format("Something went wrong when getting sub types(0) of %s", genericTarget)));
         if (keyDeclaration.getType() == null) {
-          throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting type of %s", keyDeclaration));
+          throw new TransformException(String.format("Something went wrong when getting type of %s", keyDeclaration));
         }
         final var valueDeclaration = genericTarget.getSubTypeAt(1).orElseThrow(() ->
-          new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting sub types(1) of %s", genericTarget)));
+          new TransformException(String.format("Something went wrong when getting sub types(1) of %s", genericTarget)));
         if (valueDeclaration.getType() == null) {
-          throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting type of %s", valueDeclaration));
+          throw new TransformException(String.format("Something went wrong when getting type of %s", valueDeclaration));
         }
         final var map = (Map<Object, Object>) TransformerPool.createInstance(targetClass);
         ((Map<Object, Object>) object).forEach((key, value) -> map.put(
@@ -228,7 +228,7 @@ public abstract class TransformResolver {
       try {
         return targetClass.cast(object);
       } catch (final ClassCastException exception) {
-        throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Cannot resolve %s to %s (%s => %s): %s",
+        throw new TransformException(String.format("Cannot resolve %s to %s (%s => %s): %s",
           object.getClass(), targetClass, source, target, object), exception);
       }
     }
@@ -373,14 +373,13 @@ public abstract class TransformResolver {
    *
    * @return serialized object.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when
-   *   serializing the object.
+   * @throws TransformException if something goes wrong when serializing the object.
    */
   @SuppressWarnings("unchecked")
   @Nullable
   @Contract("null, _, _ -> null; !null, _, _ -> !null")
   public Object serialize(@Nullable final Object value, @Nullable final GenericDeclaration genericType,
-                          final boolean conservative) throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
+                          final boolean conservative) throws TransformException {
     if (value == null) {
       return null;
     }
@@ -389,7 +388,7 @@ public abstract class TransformResolver {
     }
     final var serializerType = genericType != null ? genericType.getType() : value.getClass();
     if (serializerType == null) {
-      throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Something went wrong when getting type of %s or %s",
+      throw new TransformException(String.format("Something went wrong when getting type of %s or %s",
         genericType, value));
     }
     final var serializerOptional = this.registry.getSerializer(serializerType);
@@ -417,9 +416,9 @@ public abstract class TransformResolver {
         return this.serializeCollection((Collection<?>) value, genericType, conservative);
       }
       if (value instanceof Map<?, ?>) {
-        return this.serializeMap((Map<Object, Object>) value, genericType, conservative);
+        return this.serializeMap((Map<?, ?>) value, genericType, conservative);
       }
-      throw new tr.com.infumia.infumialib.transformer.exceptions.TransformException(String.format("Cannot serialize type %s (%s): '%s' [%s]",
+      throw new TransformException(String.format("Cannot serialize type %s (%s): '%s' [%s]",
         serializerType, genericType, value, value.getClass()));
     }
     //noinspection rawtypes
@@ -430,7 +429,7 @@ public abstract class TransformResolver {
     if (!conservative) {
       final var newSerializationMap = new LinkedHashMap<String, Object>();
       serializationMap.forEach((mKey, mValue) ->
-        newSerializationMap.put(mKey, this.serialize(mValue, GenericDeclaration.of(mValue), false)));
+        newSerializationMap.put(String.valueOf(mKey), this.serialize(mValue, GenericDeclaration.of(mValue), false)));
       return newSerializationMap;
     }
     return serializationMap;
@@ -439,19 +438,18 @@ public abstract class TransformResolver {
   /**
    * serializes collection.
    *
-   * @param value the value to simplify.
-   * @param genericType the generic type to simplify.
-   * @param conservative the conservative to simplify.
+   * @param value the value to serialize.
+   * @param genericType the generic type to serialize.
+   * @param conservative the conservative to serialize.
    *
    * @return simplified collection.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when
-   *   simplifying the value.
+   * @throws TransformException if something goes wrong when simplifying the value.
    */
   @NotNull
-  public List<?> serializeCollection(@NotNull final Collection<?> value, @Nullable final GenericDeclaration genericType,
-                                     final boolean conservative)
-    throws tr.com.infumia.infumialib.transformer.exceptions.TransformException {
+  public Collection<?> serializeCollection(@NotNull final Collection<?> value,
+                                           @Nullable final GenericDeclaration genericType, final boolean conservative)
+    throws TransformException {
     final var collectionSubtype = genericType == null
       ? null
       : genericType.getSubTypeAt(0).orElse(null);
@@ -463,19 +461,17 @@ public abstract class TransformResolver {
   /**
    * serializes map.
    *
-   * @param value the value to simplify.
-   * @param genericType the generic type to simplify.
-   * @param conservative the conservative to simplify.
+   * @param value the value to serialize.
+   * @param genericType the generic type to serialize.
+   * @param conservative the conservative to serialize.
    *
    * @return simplified map.
    *
-   * @throws tr.com.infumia.infumialib.transformer.exceptions.TransformException if something goes wrong when
-   *   simplifying the value.
+   * @throws TransformException if something goes wrong when simplifying the value.
    */
   @NotNull
-  public Map<Object, Object> serializeMap(@NotNull final Map<Object, Object> value,
-                                          @Nullable final GenericDeclaration genericType,
-                                          final boolean conservative)
+  public Map<?, ?> serializeMap(@NotNull final Map<?, ?> value, @Nullable final GenericDeclaration genericType,
+                                final boolean conservative)
     throws TransformException {
     final var keyDeclaration = genericType == null
       ? null

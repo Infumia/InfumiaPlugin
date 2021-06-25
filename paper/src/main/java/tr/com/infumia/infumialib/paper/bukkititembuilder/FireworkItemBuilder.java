@@ -2,9 +2,7 @@ package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import com.cryptomorin.xseries.XItemStack;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -15,7 +13,9 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.util.KeyUtil;
+import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
+import tr.com.infumia.infumialib.transformer.TransformedData;
+import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
 
 /**
  * a class that represents crossbow item builders.
@@ -71,16 +71,16 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
   }
 
   /**
-   * creates firework item builder from serialized holder.
+   * creates firework item builder from serialized data.
    *
-   * @param holder the holder to create.
+   * @param data the data to create.
    *
    * @return a newly created firework item builder instance.
    */
   @NotNull
-  public static FireworkItemBuilder from(@NotNull final KeyUtil.Holder<?> holder) {
-    return FireworkItemBuilder.getDeserializer().apply(holder).orElseThrow(() ->
-      new IllegalArgumentException(String.format("The given holder is incorrect!\n%s", holder)));
+  public static FireworkItemBuilder from(@NotNull final TransformedData data) {
+    return FireworkItemBuilder.getDeserializer().apply(data).orElseThrow(() ->
+      new IllegalArgumentException(String.format("The given data is incorrect!\n%s", data)));
   }
 
   /**
@@ -150,33 +150,33 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
   }
 
   @Override
-  public void serialize(@NotNull final KeyUtil.Holder<?> holder) {
-    super.serialize(holder);
+  public void serialize(@NotNull final TransformedData data) {
+    super.serialize(data);
     final var itemMeta = this.getItemMeta();
-    final var firework = new HashMap<Integer, Object>();
-    holder.add(KeyUtil.POWER_KEY, itemMeta.getPower(), int.class);
+    final var copy = data.copy();
+    data.add(Keys.POWER_KEY, itemMeta.getPower(), int.class);
     final var effects = itemMeta.getEffects();
     IntStream.range(0, effects.size()).forEach(index -> {
       final var effect = effects.get(index);
-      final var section = new HashMap<>();
-      section.put(KeyUtil.TYPE_KEY, effect.getType().name());
-      section.put(KeyUtil.FLICKER_KEY, effect.hasFlicker());
-      section.put(KeyUtil.TRAIL_KEY, effect.hasTrail());
+      final var copyCopy = copy.copy();
+      copyCopy.add(Keys.TYPE_KEY, effect.getType().name(), String.class);
+      copyCopy.add(Keys.FLICKER_KEY, effect.hasFlicker(), boolean.class);
+      copyCopy.add(Keys.TRAIL_KEY, effect.hasTrail(), boolean.class);
       final var fwBaseColors = effect.getColors();
       final var fwFadeColors = effect.getFadeColors();
-      final var colors = new HashMap<>();
+      final var copyCopyCopy = copyCopy.copy();
       final var baseColors = fwBaseColors.stream()
         .map(color -> String.format("%d, %d, %d", color.getRed(), color.getGreen(), color.getBlue()))
         .collect(Collectors.toCollection(() -> new ArrayList<>(fwBaseColors.size())));
       final var fadeColors = fwFadeColors.stream()
         .map(color -> String.format("%d, %d, %d", color.getRed(), color.getGreen(), color.getBlue()))
         .collect(Collectors.toCollection(() -> new ArrayList<>(fwFadeColors.size())));
-      colors.put(KeyUtil.BASE_KEY, baseColors);
-      colors.put(KeyUtil.FADE_KEY, fadeColors);
-      section.put(KeyUtil.COLORS_KEY, colors);
-      firework.put(index, section);
+      copyCopyCopy.addAsCollection(Keys.BASE_KEY, baseColors, String.class);
+      copyCopyCopy.addAsCollection(Keys.FADE_KEY, fadeColors, String.class);
+      copyCopy.add(Keys.COLORS_KEY, copyCopyCopy);
+      copy.add(String.valueOf(index), copyCopy);
     });
-    holder.addAsMap(KeyUtil.FIREWORK_KEY, firework, Integer.class, Object.class);
+    data.add(Keys.FIREWORK_KEY, copy);
   }
 
   /**
@@ -209,70 +209,61 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
    * a class that represents deserializer of {@link FireworkMeta}.
    */
   public static final class Deserializer implements
-    Function<KeyUtil.@NotNull Holder<?>, @NotNull Optional<FireworkItemBuilder>> {
+    Function<@NotNull TransformedData, @NotNull Optional<FireworkItemBuilder>> {
 
     @NotNull
     @Override
-    public Optional<FireworkItemBuilder> apply(@NotNull final KeyUtil.Holder<?> holder) {
-      final var itemStack = Builder.getItemStackDeserializer().apply(holder);
+    public Optional<FireworkItemBuilder> apply(@NotNull final TransformedData data) {
+      final var itemStack = Builder.getItemStackDeserializer().apply(data);
       if (itemStack.isEmpty()) {
         return Optional.empty();
       }
       final var builder = ItemStackBuilder.from(itemStack.get()).asFirework();
-      final var power = holder.get(KeyUtil.POWER_KEY, int.class)
+      final var power = data.get(Keys.POWER_KEY, int.class)
         .orElse(1);
       builder.setPower(power);
-      holder.getAsMap(KeyUtil.FIREWORK_KEY, String.class, Map.class)
-        .ifPresent(firework -> {
-          final var fireworkBuilder = FireworkEffect.builder();
-          firework.forEach((key, value) -> {
-            final var flicker = Optional.ofNullable(value.get(KeyUtil.FLICKER_KEY))
-              .filter(Boolean.class::isInstance)
-              .map(Boolean.class::cast)
-              .orElse(false);
-            final var trail = Optional.ofNullable(value.get(KeyUtil.TRAIL_KEY))
-              .filter(Boolean.class::isInstance)
-              .map(Boolean.class::cast)
-              .orElse(false);
-            final var type = Optional.ofNullable(value.get(KeyUtil.TYPE_KEY))
-              .filter(String.class::isInstance)
-              .map(String.class::cast)
-              .map(s -> s.toUpperCase(Locale.ROOT));
-            FireworkEffect.Type effectType;
-            try {
-              effectType = type.map(FireworkEffect.Type::valueOf)
-                .orElse(FireworkEffect.Type.STAR);
-            } catch (final Exception e) {
-              effectType = FireworkEffect.Type.STAR;
-            }
-            fireworkBuilder.flicker(flicker)
-              .trail(trail)
-              .with(effectType);
-            Optional.ofNullable(value.get(KeyUtil.COLORS_KEY))
-              .filter(Map.class::isInstance)
-              .map(object -> (Map<String, Object>) object)
-              .ifPresent(colorSection -> {
-                final var baseColors = Optional.ofNullable(colorSection.get(KeyUtil.BASE_KEY))
-                  .filter(Collection.class::isInstance)
-                  .map(object -> (Collection<String>) object)
-                  .map(strings -> strings.stream()
-                    .map(XItemStack::parseColor)
-                    .collect(Collectors.toSet()))
-                  .orElse(Collections.emptySet());
-                final var fadeColors = Optional.ofNullable(colorSection.get(KeyUtil.BASE_KEY))
-                  .filter(Collection.class::isInstance)
-                  .map(object -> (Collection<String>) object)
-                  .map(strings -> strings.stream()
-                    .map(XItemStack::parseColor)
-                    .collect(Collectors.toSet()))
-                  .orElse(Collections.emptySet());
-                fireworkBuilder.withColor(baseColors);
-                fireworkBuilder.withFade(fadeColors);
-              });
-            builder.addEffect(fireworkBuilder.build());
-          });
+      final var fireworkSection = data.<String, Map>getAsMap(Keys.FIREWORK_KEY,
+        GenericDeclaration.of(String.class),
+        GenericDeclaration.of(Map.class, String.class, Object.class));
+      fireworkSection.ifPresent(firework -> {
+        final var fireworkBuilder = FireworkEffect.builder();
+        firework.forEach((key, value) -> {
+          final var copy = data.copy(value);
+          final var flicker = copy.get(Keys.FLICKER_KEY, boolean.class)
+            .orElse(false);
+          final var trail = copy.get(Keys.TRAIL_KEY, boolean.class)
+            .orElse(false);
+          final var type = copy.get(Keys.TYPE_KEY, String.class)
+            .map(s -> s.toUpperCase(Locale.ROOT));
+          FireworkEffect.Type effectType;
+          try {
+            effectType = type.map(FireworkEffect.Type::valueOf)
+              .orElse(FireworkEffect.Type.STAR);
+          } catch (final Exception e) {
+            effectType = FireworkEffect.Type.STAR;
+          }
+          fireworkBuilder.flicker(flicker)
+            .trail(trail)
+            .with(effectType);
+          copy.getAsMap(Keys.COLORS_KEY, String.class, Object.class)
+            .ifPresent(colorSection -> {
+              final var copyCopy = copy.copy(colorSection);
+              final var baseColors = copyCopy.getAsCollection(Keys.BASE_KEY, String.class)
+                .map(strings -> strings.stream()
+                  .map(XItemStack::parseColor)
+                  .collect(Collectors.toSet()))
+                .orElse(Collections.emptySet());
+              final var fadeColors = copyCopy.getAsCollection(Keys.FADE_KEY, String.class)
+                .map(strings -> strings.stream()
+                  .map(XItemStack::parseColor)
+                  .collect(Collectors.toSet()))
+                .orElse(Collections.emptySet());
+              fireworkBuilder.withColor(baseColors).withFade(fadeColors);
+            });
+          builder.addEffect(fireworkBuilder.build());
         });
-      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(holder));
+      });
+      return Optional.of(Builder.getItemMetaDeserializer(builder).apply(data));
     }
   }
 }
