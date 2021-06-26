@@ -1,13 +1,16 @@
 package tr.com.infumia.infumialib.paper.mongodb;
 
 import java.util.Objects;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.bson.types.ObjectId;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -16,8 +19,10 @@ import tr.com.infumia.infumialib.paper.location.Cuboid;
 
 @ToString
 @EqualsAndHashCode
-@Entity("min-max")
-public final class MinMaxBlockLocation {
+@Entity("cuboid")
+@NoArgsConstructor
+@AllArgsConstructor
+public final class CuboidObject {
 
   @Id
   private ObjectId id;
@@ -60,5 +65,10 @@ public final class MinMaxBlockLocation {
   @NotNull
   public Location getMinimumLocation() {
     return new Location(this.getBukkitWorld(), this.minX, this.minY, this.minZ);
+  }
+
+  @NotNull
+  public static CuboidObject from(@NotNull Cuboid cuboid) {
+    return new CuboidObject(ObjectId.get());
   }
 }
