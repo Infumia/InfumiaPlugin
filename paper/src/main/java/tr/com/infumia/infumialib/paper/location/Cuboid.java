@@ -3,7 +3,10 @@ package tr.com.infumia.infumialib.paper.location;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -12,7 +15,12 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * a class that contains minimum and maximum location to make a cuboid.
+ *
+ * @todo #1:15m Make methods, which have many calculation in it, completable future.
  */
+@Getter
+@ToString(of = {"maximumLocation", "minimumLocation"})
+@EqualsAndHashCode(of = {"maximumLocation", "minimumLocation"})
 public final class Cuboid {
 
   /**
@@ -34,7 +42,6 @@ public final class Cuboid {
    * the maximum location.
    */
   @NotNull
-  @Getter
   private final Location maximumLocation;
 
   /**
@@ -56,7 +63,6 @@ public final class Cuboid {
    * the minimum location.
    */
   @NotNull
-  @Getter
   private final Location minimumLocation;
 
   /**
@@ -74,13 +80,26 @@ public final class Cuboid {
    * @throws IllegalStateException if worlds of the given locations are not same.
    */
   public Cuboid(@NotNull final Location minimumLocation, @NotNull final Location maximumLocation) {
-    final var minimumWorld = LocationUtil.validWorld(minimumLocation);
-    final var maximumWorld = LocationUtil.validWorld(maximumLocation);
-    Preconditions.checkState(minimumWorld.equals(maximumWorld), "%s and %s are not equals!",
-      minimumWorld, maximumWorld);
+    this(LocationUtil.validWorld(minimumLocation), minimumLocation, maximumLocation);
+  }
+
+  /**
+   * ctor.
+   *
+   * @param world the world.
+   * @param minimumLocation the minimum location.
+   * @param maximumLocation the maximum location.
+   *
+   * @throws IllegalStateException if worlds of the given locations are not same.
+   */
+  public Cuboid(@NotNull final World world, @NotNull final Location minimumLocation,
+                @NotNull final Location maximumLocation) {
+    final var minWorld = Objects.requireNonNull(minimumLocation.getWorld(), "minimum world");
+    final var maxWorld = Objects.requireNonNull(maximumLocation.getWorld(), "maximum world");
+    Preconditions.checkState(Objects.equals(minWorld, maxWorld), "%s and %s are not equals!", minWorld, maxWorld);
     this.minimumLocation = minimumLocation;
     this.maximumLocation = maximumLocation;
-    this.world = minimumWorld;
+    this.world = world;
     this.minX = Math.min(minimumLocation.getX(), maximumLocation.getX());
     this.minY = Math.min(minimumLocation.getX(), maximumLocation.getX());
     this.minZ = Math.min(minimumLocation.getX(), maximumLocation.getX());

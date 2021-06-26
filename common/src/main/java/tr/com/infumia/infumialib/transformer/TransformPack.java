@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Delegate;
 import org.jetbrains.annotations.NotNull;
+import tr.com.infumia.infumialib.transformer.serializers.MongoCredentialsSerializer;
 import tr.com.infumia.infumialib.transformer.transformers.TransformerObjectToString;
 import tr.com.infumia.infumialib.transformer.transformers.TransformerStringListToRpList;
 import tr.com.infumia.infumialib.transformer.transformers.TransformerStringToAddress;
@@ -29,6 +30,12 @@ import tr.com.infumia.infumialib.transformer.transformers.TransformerStringToUni
  * an interface to determine transform packs.
  */
 public interface TransformPack extends Consumer<@NotNull TransformRegistry> {
+
+  /**
+   * the default serializers.
+   */
+  Collection<ObjectSerializer<?>> DEFAULT_SERIALIZERS = Set.of(
+    new MongoCredentialsSerializer());
 
   /**
    * the default transformers.
@@ -62,7 +69,8 @@ public interface TransformPack extends Consumer<@NotNull TransformRegistry> {
    */
   TransformPack DEFAULT = TransformPack.create(registry -> registry
     .withTransformers(TransformPack.DEFAULT_TRANSFORMERS)
-    .withTransformersReversedToString(TransformPack.DEFAULT_TRANSFORMERS_REVERSED_TO_STRING));
+    .withTransformersReversedToString(TransformPack.DEFAULT_TRANSFORMERS_REVERSED_TO_STRING)
+    .withSerializers(TransformPack.DEFAULT_SERIALIZERS));
 
   /**
    * creates a simple transform pack instance.

@@ -501,14 +501,14 @@
           <section>
             <rule>
               <match>
-                <NAME>version</NAME>
+                <NAME>name</NAME>
               </match>
             </rule>
           </section>
           <section>
             <rule>
               <match>
-                <NAME>name</NAME>
+                <NAME>version</NAME>
               </match>
             </rule>
           </section>
