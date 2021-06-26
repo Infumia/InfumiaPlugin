@@ -2,7 +2,6 @@ package tr.com.infumia.infumialib.paper.mongodb;
 
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
-import dev.morphia.annotations.Property;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -48,7 +47,7 @@ public final class CuboidObject {
       cuboid.getMinX(),
       cuboid.getMinY(),
       cuboid.getMinZ(),
-      cuboid.getWorld().getName());
+      cuboid.getWorldName());
   }
 
   @NotNull
