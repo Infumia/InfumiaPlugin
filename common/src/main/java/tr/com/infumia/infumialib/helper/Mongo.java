@@ -36,6 +36,11 @@ import org.mongodb.morphia.Morphia;
  */
 public interface Mongo extends AutoCloseable {
 
+  @Override
+  default void close() throws Exception {
+    this.getClient().close();
+  }
+
   /**
    * Gets the client instance backing the datasource
    *
@@ -45,14 +50,6 @@ public interface Mongo extends AutoCloseable {
   MongoClient getClient();
 
   /**
-   * Gets the main database in use by the instance.
-   *
-   * @return the main database
-   */
-  @NotNull
-  MongoDatabase getDatabase();
-
-  /**
    * Gets a specific database instance
    *
    * @param name the name of the database
@@ -60,7 +57,17 @@ public interface Mongo extends AutoCloseable {
    * @return the database
    */
   @NotNull
-  MongoDatabase getDatabase(@NotNull String name);
+  default MongoDatabase getDatabase(@NotNull final String name) {
+    return this.getClient().getDatabase(name);
+  }
+
+  /**
+   * Gets the main database in use by the instance.
+   *
+   * @return the main database
+   */
+  @NotNull
+  MongoDatabase getDatabase();
 
   /**
    * Gets the Morphia instance for this datasource
@@ -86,5 +93,7 @@ public interface Mongo extends AutoCloseable {
    * @return the datastore
    */
   @NotNull
-  Datastore getMorphiaDatastore(@NotNull String name);
+  default Datastore getMorphiaDatastore(@NotNull final String name) {
+    return this.getMorphia().createDatastore(this.getClient(), name);
+  }
 }

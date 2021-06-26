@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.util.NumberConversions;
 import org.jetbrains.annotations.NotNull;
@@ -76,6 +77,23 @@ public final class LocationUtil {
       return Optional.of(new Location(world, x, y, z, yaw, pitch));
     }
     return Optional.empty();
+  }
+
+  @NotNull
+  public static Location getSafeLocation(@NotNull final Location location, final int range) {
+    for (var i = -range; i < range; i++) {
+      for (int j = -range; j < range; j++) {
+        for (var m = -range; m < range; m++) {
+          final var clone = location.clone();
+          final var equals = clone.add(i, j, m).getBlock().getType().equals(Material.AIR);
+          final var equals2 = clone.add(i, j + 1, m).getBlock().getType().equals(Material.AIR);
+          if (equals && equals2) {
+            return clone;
+          }
+        }
+      }
+    }
+    return location.getWorld().getHighestBlockAt(location).getLocation();
   }
 
   /**

@@ -50,7 +50,7 @@ public final class HelperMongo implements Mongo {
   @NotNull
   private final Datastore morphiaDatastore;
 
-  public HelperMongo(@NotNull final MongoDatabaseCredentials credentials) {
+  public HelperMongo(@NotNull final MongoDatabaseCredentials credentials, @NotNull final String... mapPackages) {
     final var mongoCredential = MongoCredential.createCredential(
       credentials.getUsername(),
       credentials.getDatabase(),
@@ -59,24 +59,10 @@ public final class HelperMongo implements Mongo {
       new ServerAddress(credentials.getAddress(), credentials.getPort()),
       mongoCredential,
       MongoClientOptions.builder().build());
+    for (final var mapPackage : mapPackages) {
+      this.morphia.mapPackage(mapPackage, true);
+    }
     this.database = this.getDatabase(credentials.getDatabase());
     this.morphiaDatastore = this.getMorphiaDatastore(credentials.getDatabase());
-  }
-
-  @Override
-  public void close() {
-    this.client.close();
-  }
-
-  @NotNull
-  @Override
-  public MongoDatabase getDatabase(@NotNull final String name) {
-    return this.client.getDatabase(name);
-  }
-
-  @NotNull
-  @Override
-  public Datastore getMorphiaDatastore(@NotNull final String name) {
-    return this.morphia.createDatastore(this.client, name);
   }
 }
