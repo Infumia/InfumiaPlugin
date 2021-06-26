@@ -57,4 +57,9 @@ public final class MongoDatabaseCredentials {
                                             @NotNull final String password) {
     return new MongoDatabaseCredentials(address, database, password, port, username);
   }
+
+  @NotNull
+  public static MongoDatabaseCredentials of(@NotNull final String database) {
+    return MongoDatabaseCredentials.of("", 27017, database, "", "");
+  }
 }
