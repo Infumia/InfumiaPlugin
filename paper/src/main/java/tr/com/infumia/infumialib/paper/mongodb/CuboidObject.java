@@ -24,22 +24,16 @@ public final class CuboidObject {
   @Id
   private int id;
 
-  @Property("max-x")
   private double maxX;
 
-  @Property("max-y")
   private double maxY;
 
-  @Property("max-z")
   private double maxZ;
 
-  @Property("min-x")
   private double minX;
 
-  @Property("min-y")
   private double minY;
 
-  @Property("min-z")
   private double minZ;
 
   private String world;
@@ -54,7 +48,7 @@ public final class CuboidObject {
       cuboid.getMinX(),
       cuboid.getMinY(),
       cuboid.getMinZ(),
-      cuboid.getWorld().toString());
+      cuboid.getWorld().getName());
   }
 
   @NotNull
