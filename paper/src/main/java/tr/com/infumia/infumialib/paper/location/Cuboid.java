@@ -3,7 +3,9 @@ package tr.com.infumia.infumialib.paper.location;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -12,7 +14,11 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * a class that contains minimum and maximum location to make a cuboid.
+ *
+ * @todo #1:15m Make methods, which have many calculation in it, completable future.
  */
+@ToString(of = {"maximumLocation", "minimumLocation"})
+@EqualsAndHashCode(of = {"maximumLocation", "minimumLocation"})
 public final class Cuboid {
 
   /**
