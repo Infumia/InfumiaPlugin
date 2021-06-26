@@ -41,25 +41,34 @@ import org.jetbrains.annotations.NotNull;
 @EqualsAndHashCode(cacheStrategy = EqualsAndHashCode.CacheStrategy.LAZY)
 public final class MongoDatabaseCredentials {
 
-  private final String address;
+  @NotNull
+  private final String authSource;
 
+  @NotNull
   private final String database;
 
+  @NotNull
+  private final String host;
+
+  @NotNull
   private final String password;
 
   private final int port;
 
-  private final String username;
+  @NotNull
+  private final String uri;
 
   @NotNull
-  public static MongoDatabaseCredentials of(@NotNull final String address, final int port,
-                                            @NotNull final String database, @NotNull final String username,
-                                            @NotNull final String password) {
-    return new MongoDatabaseCredentials(address, database, password, port, username);
+  private final String username;
+
+  public static MongoDatabaseCredentials of(@NotNull final String authSource, @NotNull final String database,
+                                            @NotNull final String host, @NotNull final String password,
+                                            final int port, @NotNull final String uri, @NotNull final String username) {
+    return new MongoDatabaseCredentials(authSource, database, host, password, port, uri, username);
   }
 
   @NotNull
-  public static MongoDatabaseCredentials of(@NotNull final String database) {
-    return MongoDatabaseCredentials.of("", 27017, database, "", "");
+  public static MongoDatabaseCredentials of(@NotNull final String host, @NotNull final String database) {
+    return MongoDatabaseCredentials.of("admin", database, host, "", 27017, "", "");
   }
 }

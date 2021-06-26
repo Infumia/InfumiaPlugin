@@ -25,15 +25,14 @@
 
 package tr.com.infumia.infumialib.helper;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import dev.morphia.Datastore;
+import dev.morphia.Morphia;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 
 @Getter
 public final class HelperMongo implements Mongo {
@@ -45,24 +44,36 @@ public final class HelperMongo implements Mongo {
   private final MongoDatabase database;
 
   @NotNull
-  private final Morphia morphia = new Morphia();
-
-  @NotNull
   private final Datastore morphiaDatastore;
 
   public HelperMongo(@NotNull final MongoDatabaseCredentials credentials, @NotNull final String... mapPackages) {
-    final var mongoCredential = MongoCredential.createCredential(
-      credentials.getUsername(),
-      credentials.getDatabase(),
-      credentials.getPassword().toCharArray());
-    this.client = new MongoClient(
-      new ServerAddress(credentials.getAddress(), credentials.getPort()),
-      mongoCredential,
-      MongoClientOptions.builder().build());
-    for (final var mapPackage : mapPackages) {
-      this.morphia.mapPackage(mapPackage, true);
-    }
+    final var authParams = !credentials.getUsername().isEmpty() && !credentials.getPassword().isEmpty()
+      ? credentials.getUsername() + ":" + credentials.getPassword() + "@"
+      : "";
+    final var authSource = !credentials.getAuthSource().isEmpty()
+      ? "/?authSource=" + credentials.getAuthSource()
+      : "";
+    final var uri = !credentials.getUri().isEmpty()
+      ? credentials.getUri()
+      : "mongodb://" + authParams + credentials.getHost() + ":" + credentials.getPort() + authSource;
+    this.client = MongoClients.create(uri);
     this.database = this.getDatabase(credentials.getDatabase());
-    this.morphiaDatastore = this.getMorphiaDatastore(credentials.getDatabase());
+    this.morphiaDatastore = this.getMorphiaDatastore(credentials.getDatabase(), mapPackages);
+  }
+
+  /**
+   * Gets a specific Morphia datastore instance
+   *
+   * @param name the name of the database
+   *
+   * @return the datastore
+   */
+  @NotNull
+  private Datastore getMorphiaDatastore(@NotNull final String name, @NotNull final String... mapPackages) {
+    final var datastore = Morphia.createDatastore(this.getClient(), name);
+    for (final var mapPackage : mapPackages) {
+      datastore.getMapper().mapPackage(mapPackage);
+    }
+    return datastore;
   }
 }
