@@ -31,6 +31,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import dev.morphia.Datastore;
 import dev.morphia.Morphia;
+import dev.morphia.mapping.MapperOptions;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,7 +47,8 @@ public final class HelperMongo implements Mongo {
   @NotNull
   private final Datastore morphiaDatastore;
 
-  public HelperMongo(@NotNull final MongoDatabaseCredentials credentials, @NotNull final String... mapPackages) {
+  public HelperMongo(@NotNull final ClassLoader classLoader, @NotNull final MongoDatabaseCredentials credentials,
+                     @NotNull final String... mapPackages) {
     final var authParams = !credentials.getUsername().isEmpty() && !credentials.getPassword().isEmpty()
       ? credentials.getUsername() + ":" + credentials.getPassword() + "@"
       : "";
@@ -58,7 +60,7 @@ public final class HelperMongo implements Mongo {
       : "mongodb://" + authParams + credentials.getHost() + ":" + credentials.getPort() + authSource;
     this.client = MongoClients.create(uri);
     this.database = this.getDatabase(credentials.getDatabase());
-    this.morphiaDatastore = this.getMorphiaDatastore(credentials.getDatabase(), mapPackages);
+    this.morphiaDatastore = this.getMorphiaDatastore(classLoader, credentials.getDatabase(), mapPackages);
   }
 
   /**
@@ -69,8 +71,11 @@ public final class HelperMongo implements Mongo {
    * @return the datastore
    */
   @NotNull
-  private Datastore getMorphiaDatastore(@NotNull final String name, @NotNull final String... mapPackages) {
-    final var datastore = Morphia.createDatastore(this.getClient(), name);
+  private Datastore getMorphiaDatastore(@NotNull final ClassLoader classLoader, @NotNull final String name,
+                                        @NotNull final String... mapPackages) {
+    final var datastore = Morphia.createDatastore(this.getClient(), name, MapperOptions.builder()
+      .classLoader(classLoader)
+      .build());
     for (final var mapPackage : mapPackages) {
       datastore.getMapper().mapPackage(mapPackage);
     }
