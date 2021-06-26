@@ -35,7 +35,7 @@ public final class MongoCredentialsSerializer implements ObjectSerializer<MongoD
   @Override
   public void serialize(@NotNull final MongoDatabaseCredentials helperMongo,
                         @NotNull final TransformedData transformedData) {
-    transformedData.add("auth-source", helperMongo.getHost(), String.class);
+    transformedData.add("auth-source", helperMongo.getAuthSource(), String.class);
     transformedData.add("database", helperMongo.getDatabase(), String.class);
     transformedData.add("host", helperMongo.getHost(), String.class);
     transformedData.add("password", helperMongo.getPassword(), String.class);
