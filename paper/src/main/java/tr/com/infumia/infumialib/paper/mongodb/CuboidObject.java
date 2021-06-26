@@ -4,13 +4,10 @@ import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
-import org.bson.types.ObjectId;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -25,7 +22,7 @@ import tr.com.infumia.infumialib.paper.location.Cuboid;
 public final class CuboidObject {
 
   @Id
-  private ObjectId id;
+  private int id;
 
   @Property("max-x")
   private double maxX;
@@ -48,6 +45,19 @@ public final class CuboidObject {
   private String world;
 
   @NotNull
+  public static CuboidObject from(@NotNull final Cuboid cuboid) {
+    return new CuboidObject(
+      0,
+      cuboid.getMaxX(),
+      cuboid.getMaxY(),
+      cuboid.getMaxZ(),
+      cuboid.getMinX(),
+      cuboid.getMinY(),
+      cuboid.getMinZ(),
+      cuboid.getWorld().toString());
+  }
+
+  @NotNull
   public World getBukkitWorld() {
     return Objects.requireNonNull(Bukkit.getWorld(this.world), "World not found!");
   }
@@ -65,10 +75,5 @@ public final class CuboidObject {
   @NotNull
   public Location getMinimumLocation() {
     return new Location(this.getBukkitWorld(), this.minX, this.minY, this.minZ);
-  }
-
-  @NotNull
-  public static CuboidObject from(@NotNull Cuboid cuboid) {
-    return new CuboidObject(ObjectId.get());
   }
 }

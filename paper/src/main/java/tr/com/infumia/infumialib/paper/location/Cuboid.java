@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @todo #1:15m Make methods, which have many calculation in it, completable future.
  */
+@Getter
 @ToString(of = {"maximumLocation", "minimumLocation"})
 @EqualsAndHashCode(of = {"maximumLocation", "minimumLocation"})
 public final class Cuboid {
@@ -41,7 +42,6 @@ public final class Cuboid {
    * the maximum location.
    */
   @NotNull
-  @Getter
   private final Location maximumLocation;
 
   /**
@@ -63,7 +63,6 @@ public final class Cuboid {
    * the minimum location.
    */
   @NotNull
-  @Getter
   private final Location minimumLocation;
 
   /**
