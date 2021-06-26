@@ -1,7 +1,6 @@
 package tr.com.infumia.infumialib.transformer;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -78,7 +77,19 @@ public final class TransformRegistry {
    */
   @NotNull
   public TransformRegistry withSerializers(@NotNull final ObjectSerializer<?>... serializers) {
-    Collections.addAll(this.serializers, serializers);
+    return this.withSerializers(Set.of(serializers));
+  }
+
+  /**
+   * registers the serializers.
+   *
+   * @param serializers the serializers to register.
+   *
+   * @return {@code this} for builder chain.
+   */
+  @NotNull
+  public TransformRegistry withSerializers(@NotNull final Collection<ObjectSerializer<?>> serializers) {
+    this.serializers.addAll(serializers);
     return this;
   }
 
