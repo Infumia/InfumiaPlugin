@@ -48,7 +48,7 @@ public final class HelperMongo implements Mongo {
   private final Datastore morphiaDatastore;
 
   public HelperMongo(@NotNull final ClassLoader classLoader, @NotNull final MongoDatabaseCredentials credentials,
-                     @NotNull final String... mapPackages) {
+                     @NotNull final Class<?>... mapPackages) {
     final var authParams = !credentials.getUsername().isEmpty() && !credentials.getPassword().isEmpty()
       ? credentials.getUsername() + ":" + credentials.getPassword() + "@"
       : "";
@@ -66,18 +66,20 @@ public final class HelperMongo implements Mongo {
   /**
    * Gets a specific Morphia datastore instance
    *
+   * @param classLoader the class loader to get.
    * @param name the name of the database
+   * @param classes the classes to map.
    *
    * @return the datastore
    */
   @NotNull
   private Datastore getMorphiaDatastore(@NotNull final ClassLoader classLoader, @NotNull final String name,
-                                        @NotNull final String... mapPackages) {
+                                        @NotNull final Class<?>... classes) {
     final var datastore = Morphia.createDatastore(this.getClient(), name, MapperOptions.builder()
       .classLoader(classLoader)
       .build());
-    for (final var mapPackage : mapPackages) {
-      datastore.getMapper().mapPackage(mapPackage);
+    for (final var mapPackage : classes) {
+      datastore.getMapper().map(mapPackage);
     }
     return datastore;
   }
