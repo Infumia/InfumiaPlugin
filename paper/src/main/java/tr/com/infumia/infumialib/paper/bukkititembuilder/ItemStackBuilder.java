@@ -34,6 +34,8 @@ import tr.com.infumia.infumialib.transformer.TransformedData;
  *
  * flags: (string list) (for 8 and newer versions)
  *   - 'HIDE_ENCHANTS'
+ *
+ * custom-model-data: (integer) (for 14 and newer versions)
  * </pre>
  */
 public final class ItemStackBuilder extends Builder<ItemStackBuilder, ItemMeta> {

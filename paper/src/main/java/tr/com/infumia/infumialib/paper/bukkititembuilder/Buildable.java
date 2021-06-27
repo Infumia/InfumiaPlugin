@@ -302,6 +302,9 @@ public interface Buildable<X extends Buildable<X, T>, T extends ItemMeta> {
           .map(Enum::name)
           .collect(Collectors.toList()), String.class);
       }
+      if (Builder.VERSION >= 14 && itemMeta.hasCustomModelData()) {
+        data.add(Keys.CUSTOM_MODEL_DATA, itemMeta.getCustomModelData());
+      }
     });
     final var enchants = itemStack.getEnchantments();
     if (!enchants.isEmpty()) {

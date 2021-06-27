@@ -56,6 +56,11 @@ public final class Keys {
   public static final String CUSTOM_EFFECTS_KEY = "custom-effects";
 
   /**
+   * the custom model data key.
+   */
+  public static final String CUSTOM_MODEL_DATA = "custom-model-data";
+
+  /**
    * the damage key.
    */
   public static final String DAMAGE_KEY = "damage";
