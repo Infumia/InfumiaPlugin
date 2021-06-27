@@ -724,6 +724,10 @@ public abstract class Builder<X extends Builder<X, T>, T extends ItemMeta> imple
         .ifPresent(this.builder::addSerializedEnchantments);
       data.getAsCollection(Keys.FLAG_KEY, String.class)
         .ifPresent(this.builder::addFlags);
+      if (Builder.VERSION >= 14) {
+        data.get(Keys.CUSTOM_MODEL_DATA, int.class)
+          .ifPresent(this.builder::setCustomModelData);
+      }
       itemStack.setItemMeta(itemMeta);
       return this.builder;
     }
