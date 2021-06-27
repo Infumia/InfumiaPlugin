@@ -804,12 +804,10 @@ public abstract class TransformedObject {
       this.set("file-version", this.declaration.getVersionInteger());
     }
     this.declaration.getAllFields().forEach((s, fieldDeclaration) -> {
-      final var version = this.declaration.getVersion();
+      final var version = this.declaration.getVersionInteger();
       final var migration = fieldDeclaration.getMigration();
-      if (migration == null ||
-        migration.value() <= 0 ||
-        version == null ||
-        IntStream.rangeClosed(fileVersion, version.value()).noneMatch(value -> value == migration.value())) {
+      if (migration == null || migration.value() <= 0 ||
+        IntStream.rangeClosed(fileVersion, version).noneMatch(value -> value == migration.value())) {
         return;
       }
       this.remove(fieldDeclaration.getPath());
