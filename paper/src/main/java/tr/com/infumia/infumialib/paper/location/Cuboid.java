@@ -188,10 +188,74 @@ public final class Cuboid {
    *
    * @return {@code true} if the given location is in the cuboid.
    */
-  public boolean isIn(@NotNull final Location location) {
-    return location.getX() >= this.minX && location.getX() <= this.maxX &&
-      this.minY <= location.getY() && location.getY() <= this.maxY &&
-      this.minZ <= location.getZ() && location.getZ() <= this.maxZ;
+  public boolean isInX(@NotNull final Location location) {
+    return location.getX() >= this.minX && location.getX() <= this.maxX;
+  }
+
+  /**
+   * checks if the given location is in the cuboid.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if the given location is in the cuboid.
+   */
+  public boolean isInXY(@NotNull final Location location) {
+    return this.isInX(location) && this.isInY(location);
+  }
+
+  /**
+   * checks if the given location is in the cuboid.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if the given location is in the cuboid.
+   */
+  public boolean isInXYZ(@NotNull final Location location) {
+    return this.isInX(location) && this.isInY(location) && this.isInZ(location);
+  }
+
+  /**
+   * checks if the given location is in the cuboid.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if the given location is in the cuboid.
+   */
+  public boolean isInXZ(@NotNull final Location location) {
+    return this.isInX(location) && this.isInZ(location);
+  }
+
+  /**
+   * checks if the given location is in the cuboid.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if the given location is in the cuboid.
+   */
+  public boolean isInY(@NotNull final Location location) {
+    return this.minY <= location.getY() && location.getY() <= this.maxY;
+  }
+
+  /**
+   * checks if the given location is in the cuboid.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if the given location is in the cuboid.
+   */
+  public boolean isInYZ(@NotNull final Location location) {
+    return this.isInY(location) && this.isInZ(location);
+  }
+
+  /**
+   * checks if the given location is in the cuboid.
+   *
+   * @param location the location to check.
+   *
+   * @return {@code true} if the given location is in the cuboid.
+   */
+  public boolean isInZ(@NotNull final Location location) {
+    return this.minZ <= location.getZ() && location.getZ() <= this.maxZ;
   }
 
   /**
