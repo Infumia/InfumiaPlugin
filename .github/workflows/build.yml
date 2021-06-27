@@ -17,15 +17,15 @@ jobs:
         with:
           java-version: 11
 
-      - run: |
-          mvn package -T 2
-          mvn test -Pcoverage jacoco:report
-
-      - uses: codecov/codecov-action@v1.0.14
-
       - uses: actions/cache@v2
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+
+      - run: |
+          mvn package -T 2
+          mvn test -Pcoverage jacoco:report
+
+      - uses: codecov/codecov-action@v1.0.14
