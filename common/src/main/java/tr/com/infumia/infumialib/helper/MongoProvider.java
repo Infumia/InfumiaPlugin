@@ -25,7 +25,6 @@
 
 package tr.com.infumia.infumialib.helper;
 
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
 /**
