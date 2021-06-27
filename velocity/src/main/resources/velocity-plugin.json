@@ -1,5 +1,5 @@
 {
-  "id": "infumialib",
+  "id": "infumialibraryplugin",
   "name": "InfumiaLib",
   "version": "${project.version}",
   "authors": [

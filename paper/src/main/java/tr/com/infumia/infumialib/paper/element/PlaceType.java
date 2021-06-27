@@ -48,43 +48,43 @@ public interface PlaceType {
   @NotNull
   static Optional<Deserializer> getByType(@NotNull final String type) {
     final var replaced = type.replace("_", "-").toLowerCase(Locale.ROOT).trim();
-    if ("fill".equalsIgnoreCase(replaced)) {
+    if (replaced.equalsIgnoreCase("fill")) {
       return Optional.of(PtFill.Deserializer.INSTANCE);
-    } else if ("fill-borders".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-borders")) {
       return Optional.of(PtFillBorders.Deserializer.INSTANCE);
-    } else if ("fill-column".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-column")) {
       return Optional.of(PtFillColumn.Deserializer.INSTANCE);
-    } else if ("fill-empties".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-empties")) {
       return Optional.of(PtFillEmpties.Deserializer.INSTANCE);
-    } else if ("fill-pattern".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-pattern")) {
       return Optional.of(PtFillPattern.Deserializer.INSTANCE);
-    } else if ("fill-pattern-start".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-pattern-start")) {
       return Optional.of(PtFillPatternStart.Deserializer.INSTANCE);
-    } else if ("fill-pattern-start-index".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-pattern-start-index")) {
       return Optional.of(PtFillPatternStartIndex.Deserializer.INSTANCE);
-    } else if ("fill-rect-from-to".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-rect-from-to")) {
       return Optional.of(PtFillRectFromTo.Deserializer.INSTANCE);
-    } else if ("fill-rect-index".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-rect-index")) {
       return Optional.of(PtFillRectIndex.Deserializer.INSTANCE);
-    } else if ("fill-repeating-pattern".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-repeating-pattern")) {
       return Optional.of(PtFillRepeatingPattern.Deserializer.INSTANCE);
-    } else if ("fill-repeating-pattern-start".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-repeating-pattern-start")) {
       return Optional.of(PtFillRepeatingPatternStart.Deserializer.INSTANCE);
-    } else if ("fill-repeating-pattern-start-index".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-repeating-pattern-start-index")) {
       return Optional.of(PtFillRepeatingPatternStartIndex.Deserializer.INSTANCE);
-    } else if ("fill-row".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-row")) {
       return Optional.of(PtFillRow.Deserializer.INSTANCE);
-    } else if ("fill-square-from-to".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-square-from-to")) {
       return Optional.of(PtFillSquareFromTo.Deserializer.INSTANCE);
-    } else if ("fill-square-index".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("fill-square-index")) {
       return Optional.of(PtFillSquareIndex.Deserializer.INSTANCE);
-    } else if ("insert".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("insert")) {
       return Optional.of(PtInsert.Deserializer.INSTANCE);
-    } else if ("insert-index".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("insert-index")) {
       return Optional.of(PtInsertIndex.Deserializer.INSTANCE);
-    } else if ("none".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("none")) {
       return Optional.of(PtNone.Deserializer.INSTANCE);
-    } else if ("slots".equalsIgnoreCase(replaced)) {
+    } else if (replaced.equalsIgnoreCase("slots")) {
       return Optional.of(PtSlots.Deserializer.INSTANCE);
     }
     return Optional.empty();

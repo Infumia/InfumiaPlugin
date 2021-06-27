@@ -7,6 +7,26 @@
 
 ## How to Use (Developers)
 
+### Plugin.yml (Paper)
+
+```yml
+depend:
+  - InfumiaLibraryPlugin
+```
+
+### velocity-plugin.json (Velocity)
+
+```json
+{
+  "dependencies": [
+    {
+      "id": "infumialibraryplugin",
+      "optional": false
+    }
+  ]
+}
+```
+
 ### Maven
 
 ```xml
@@ -47,8 +67,8 @@ repositories {
 
 ```groovy
 dependencies {
-    compileOnly("com.github.Infumia.InfumiaLib:InfumiaPaper:${version}")
-    compileOnly("com.github.Infumia.InfumiaLib:InfumiaVelocity:${version}")
+  compileOnly("com.github.Infumia.InfumiaLib:InfumiaPaper:${version}")
+  compileOnly("com.github.Infumia.InfumiaLib:InfumiaVelocity:${version}")
 }
 ```
 
