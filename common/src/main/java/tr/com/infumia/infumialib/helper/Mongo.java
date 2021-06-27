@@ -25,11 +25,12 @@
 
 package tr.com.infumia.infumialib.helper;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import dev.morphia.Datastore;
+import dev.morphia.Morphia;
+import dev.morphia.mapping.MapperOptions;
 import org.jetbrains.annotations.NotNull;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 
 /**
  * Represents an individual Mongo datasource, created by the library.
@@ -70,30 +71,10 @@ public interface Mongo extends AutoCloseable {
   MongoDatabase getDatabase();
 
   /**
-   * Gets the Morphia instance for this datasource
-   *
-   * @return the morphia instance
-   */
-  @NotNull
-  Morphia getMorphia();
-
-  /**
    * Gets the main Morphia datastore in use by the instance
    *
    * @return the main datastore
    */
   @NotNull
   Datastore getMorphiaDatastore();
-
-  /**
-   * Gets a specific Morphia datastore instance
-   *
-   * @param name the name of the database
-   *
-   * @return the datastore
-   */
-  @NotNull
-  default Datastore getMorphiaDatastore(@NotNull final String name) {
-    return this.getMorphia().createDatastore(this.getClient(), name);
-  }
 }

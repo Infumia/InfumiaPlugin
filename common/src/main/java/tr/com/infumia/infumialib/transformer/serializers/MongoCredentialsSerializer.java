@@ -15,11 +15,13 @@ public final class MongoCredentialsSerializer implements ObjectSerializer<MongoD
   public Optional<MongoDatabaseCredentials> deserialize(@NotNull final TransformedData transformedData,
                                                         @Nullable final GenericDeclaration declaration) {
     return Optional.of(MongoDatabaseCredentials.of(
-      transformedData.get("address", String.class).orElse("localhost"),
-      transformedData.get("port", int.class).orElse(27017),
+      transformedData.get("auth-source", String.class).orElse("admin"),
       transformedData.get("database", String.class).orElse(""),
-      transformedData.get("username", String.class).orElse(""),
-      transformedData.get("password", String.class).orElse("")));
+      transformedData.get("host", String.class).orElse("127.0.0.1"),
+      transformedData.get("password", String.class).orElse(""),
+      transformedData.get("port", int.class).orElse(27017),
+      transformedData.get("uri", String.class).orElse(""),
+      transformedData.get("username", String.class).orElse("")));
   }
 
   @NotNull
@@ -33,11 +35,13 @@ public final class MongoCredentialsSerializer implements ObjectSerializer<MongoD
   @Override
   public void serialize(@NotNull final MongoDatabaseCredentials helperMongo,
                         @NotNull final TransformedData transformedData) {
-    transformedData.add("address", helperMongo.getAddress(), String.class);
-    transformedData.add("port", helperMongo.getPort(), int.class);
+    transformedData.add("auth-source", helperMongo.getAuthSource(), String.class);
     transformedData.add("database", helperMongo.getDatabase(), String.class);
-    transformedData.add("username", helperMongo.getUsername(), String.class);
+    transformedData.add("host", helperMongo.getHost(), String.class);
     transformedData.add("password", helperMongo.getPassword(), String.class);
+    transformedData.add("port", helperMongo.getPort(), int.class);
+    transformedData.add("uri", helperMongo.getUsername(), String.class);
+    transformedData.add("username", helperMongo.getUsername(), String.class);
   }
 
   @Override

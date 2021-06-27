@@ -140,8 +140,9 @@
       <artifactId>jedis</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.mongodb.morphia</groupId>
-      <artifactId>morphia</artifactId>
+      <groupId>dev.morphia.morphia</groupId>
+      <artifactId>morphia-core</artifactId>
+      <version>2.2.1</version>
     </dependency>
   </dependencies>
 </project>

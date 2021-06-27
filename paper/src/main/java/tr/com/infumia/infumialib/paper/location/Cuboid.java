@@ -4,9 +4,11 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -18,58 +20,78 @@ import org.jetbrains.annotations.NotNull;
  *
  * @todo #1:15m Make methods, which have many calculation in it, completable future.
  */
-@Getter
-@ToString(of = {"maximumLocation", "minimumLocation"})
+@ToString(of = {"maxX", "maxY", "maxZ", "minX", "minY", "minZ", "worldName"})
 @EqualsAndHashCode(of = {"maximumLocation", "minimumLocation"})
 public final class Cuboid {
 
   /**
    * the maximum x.
    */
+  @Getter
   private final double maxX;
 
   /**
    * the maximum y.
    */
+  @Getter
   private final double maxY;
 
   /**
    * the maximum z.
    */
+  @Getter
   private final double maxZ;
 
   /**
    * the maximum location.
    */
   @NotNull
+  @Getter
   private final Location maximumLocation;
 
   /**
    * the minimum x.
    */
+  @Getter
   private final double minX;
 
   /**
    * the minimum y.
    */
+  @Getter
   private final double minY;
 
   /**
    * the minimum z.
    */
+  @Getter
   private final double minZ;
 
   /**
    * the minimum location.
    */
   @NotNull
+  @Getter
   private final Location minimumLocation;
 
   /**
-   * the common world.
+   * the world.
    */
   @NotNull
   private final World world;
+
+  /**
+   * the world name.
+   */
+  @NotNull
+  @Getter
+  private final String worldName;
+
+  /**
+   * the world unique id.
+   */
+  @NotNull
+  private final UUID worldUniqueId;
 
   /**
    * ctor.
@@ -100,6 +122,8 @@ public final class Cuboid {
     this.minimumLocation = minimumLocation;
     this.maximumLocation = maximumLocation;
     this.world = world;
+    this.worldName = world.getName();
+    this.worldUniqueId = world.getUID();
     this.minX = Math.min(minimumLocation.getX(), maximumLocation.getX());
     this.minY = Math.min(minimumLocation.getX(), maximumLocation.getX());
     this.minZ = Math.min(minimumLocation.getX(), maximumLocation.getX());
@@ -115,6 +139,7 @@ public final class Cuboid {
    */
   @NotNull
   public List<Block> blocks() {
+    this.checkWorldNullability();
     final var result = new ArrayList<Block>();
     for (double x = this.minX; x <= this.maxX; ++x) {
       for (double y = this.minY; y <= this.maxY; ++y) {
@@ -133,6 +158,7 @@ public final class Cuboid {
    */
   @NotNull
   public Location center() {
+    this.checkWorldNullability();
     return new Location(
       this.world,
       this.minX + (this.maxX - this.minX) / 2.0d,
@@ -147,6 +173,7 @@ public final class Cuboid {
    */
   @NotNull
   public Location centerBottom() {
+    this.checkWorldNullability();
     return new Location(
       this.world,
       this.minX + (this.maxX - this.minX) / 2.0d,
@@ -174,6 +201,7 @@ public final class Cuboid {
    */
   @NotNull
   public List<Location> locations() {
+    this.checkWorldNullability();
     final var result = new ArrayList<Location>();
     for (double x = this.minX; x <= this.maxX; ++x) {
       for (double y = this.minY; y <= this.maxY; ++y) {
@@ -225,5 +253,14 @@ public final class Cuboid {
    */
   public void set(@NotNull final Material material) {
     this.blocks().forEach(block -> block.setType(material));
+  }
+
+  /**
+   * checks if the world is null or not.
+   *
+   * @throws NullPointerException if the world is currently null.
+   */
+  private void checkWorldNullability() {
+    Objects.requireNonNull(Bukkit.getWorld(this.worldUniqueId), "world");
   }
 }
