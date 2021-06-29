@@ -1,7 +1,7 @@
 package tr.com.infumia.infumialib.paper.hooks.hooks;
 
+import com.SirBlobman.combatlogx.api.ICombatLogX;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.hooks.Hook;
@@ -11,7 +11,7 @@ public final class CombatLogXHook implements Hook<CombatLogXWrapper> {
   public static final String COMBAT_LOG_X_ID = "CombatLogX";
 
   @Nullable
-  private Plugin plugin;
+  private ICombatLogX plugin;
 
   @NotNull
   @Override
@@ -19,7 +19,7 @@ public final class CombatLogXHook implements Hook<CombatLogXWrapper> {
     if (this.plugin == null) {
       throw new IllegalStateException("CombatLogX not initiated! Use CombatLogXHook#initiate() method.");
     }
-    return new CombatLogXWrapper();
+    return new CombatLogXWrapper(this.plugin);
   }
 
   @NotNull
@@ -30,6 +30,6 @@ public final class CombatLogXHook implements Hook<CombatLogXWrapper> {
 
   @Override
   public boolean initiate() {
-    return (this.plugin = Bukkit.getPluginManager().getPlugin("CombatLogX")) != null;
+    return (this.plugin = (ICombatLogX) Bukkit.getPluginManager().getPlugin("CombatLogX")) != null;
   }
 }
