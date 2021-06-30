@@ -15,10 +15,6 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>org.spongepowered</groupId>
-      <artifactId>configurate-yaml</artifactId>
-    </dependency>
-    <dependency>
       <groupId>io.lettuce</groupId>
       <artifactId>lettuce-core</artifactId>
     </dependency>
