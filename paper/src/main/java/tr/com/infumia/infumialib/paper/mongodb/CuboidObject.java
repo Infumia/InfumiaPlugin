@@ -51,22 +51,22 @@ public final class CuboidObject {
   }
 
   @NotNull
-  public World getBukkitWorld() {
-    return Objects.requireNonNull(Bukkit.getWorld(this.world), "World not found!");
-  }
-
-  @NotNull
   public Cuboid getCuboid() {
     return new Cuboid(this.getMinimumLocation(), this.getMaximumLocation());
   }
 
   @NotNull
-  public Location getMaximumLocation() {
+  private World getBukkitWorld() {
+    return Objects.requireNonNull(Bukkit.getWorld(this.world), "World not found!");
+  }
+
+  @NotNull
+  private Location getMaximumLocation() {
     return new Location(this.getBukkitWorld(), this.maxX, this.maxY, this.maxZ);
   }
 
   @NotNull
-  public Location getMinimumLocation() {
+  private Location getMinimumLocation() {
     return new Location(this.getBukkitWorld(), this.minX, this.minY, this.minZ);
   }
 }
