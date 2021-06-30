@@ -183,6 +183,23 @@ public final class Cuboid {
   }
 
   /**
+   * obtains center bottom of the cuboid.
+   *
+   * @return center bottom of the cuboid.
+   */
+  @NotNull
+  public Location centerHighestBottomUp() {
+    this.checkWorldNullability();
+    final var x = this.minX + (this.maxX - this.minX) / 2.0d;
+    final var z = this.minZ + (this.maxZ - this.minZ) / 2.0d;
+    return new Location(
+      this.world,
+      x,
+      this.world.getHighestBlockAt((int) x, (int) z).getY() + 1,
+      z);
+  }
+
+  /**
    * checks if the given location is in the cuboid.
    *
    * @param location the location to check.
