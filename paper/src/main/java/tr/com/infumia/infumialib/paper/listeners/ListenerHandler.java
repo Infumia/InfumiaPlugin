@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @param <E> type of the event to handle.
  */
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public abstract class ListenerHandler<E extends Event> implements Listener {
 
   /**
@@ -35,8 +35,7 @@ public abstract class ListenerHandler<E extends Event> implements Listener {
    * @param plugin the plugin.
    */
   protected ListenerHandler(@NotNull final Plugin plugin) {
-    this.plugin = plugin;
-    this.pluginManager = plugin.getServer().getPluginManager();
+    this(plugin, plugin.getServer().getPluginManager());
   }
 
   /**

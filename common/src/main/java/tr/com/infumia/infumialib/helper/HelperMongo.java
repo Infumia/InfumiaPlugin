@@ -47,7 +47,7 @@ public final class HelperMongo implements Mongo {
   private final Datastore morphiaDatastore;
 
   public HelperMongo(@NotNull final ClassLoader classLoader, @NotNull final MongoDatabaseCredentials credentials,
-                     @NotNull final Class<?>... mapPackages) {
+                     @NotNull final Class<?>... classes) {
     final var authParams = !credentials.getUsername().isEmpty() && !credentials.getPassword().isEmpty()
       ? credentials.getUsername() + ":" + credentials.getPassword() + "@"
       : "";
@@ -59,7 +59,7 @@ public final class HelperMongo implements Mongo {
       : "mongodb://" + authParams + credentials.getHost() + ":" + credentials.getPort() + authSource;
     this.client = MongoClients.create(uri);
     this.database = this.getDatabase(credentials.getDatabase());
-    this.morphiaDatastore = this.getMorphiaDatastore(classLoader, credentials.getDatabase(), mapPackages);
+    this.morphiaDatastore = this.getMorphiaDatastore(classLoader, credentials.getDatabase(), classes);
   }
 
   /**

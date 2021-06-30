@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  * @todo #1:15m Make methods, which have many calculation in it, completable future.
  */
 @ToString(of = {"maxX", "maxY", "maxZ", "minX", "minY", "minZ", "worldName"})
-@EqualsAndHashCode(of = {"maximumLocation", "minimumLocation"})
+@EqualsAndHashCode(of = {"maxX", "maxY", "maxZ", "minX", "minY", "minZ", "worldName"})
 public final class Cuboid {
 
   /**
@@ -43,13 +43,6 @@ public final class Cuboid {
   private final double maxZ;
 
   /**
-   * the maximum location.
-   */
-  @NotNull
-  @Getter
-  private final Location maximumLocation;
-
-  /**
    * the minimum x.
    */
   @Getter
@@ -66,13 +59,6 @@ public final class Cuboid {
    */
   @Getter
   private final double minZ;
-
-  /**
-   * the minimum location.
-   */
-  @NotNull
-  @Getter
-  private final Location minimumLocation;
 
   /**
    * the world.
@@ -119,17 +105,15 @@ public final class Cuboid {
     final var minWorld = Objects.requireNonNull(minimumLocation.getWorld(), "minimum world");
     final var maxWorld = Objects.requireNonNull(maximumLocation.getWorld(), "maximum world");
     Preconditions.checkState(Objects.equals(minWorld, maxWorld), "%s and %s are not equals!", minWorld, maxWorld);
-    this.minimumLocation = minimumLocation;
-    this.maximumLocation = maximumLocation;
     this.world = world;
     this.worldName = world.getName();
     this.worldUniqueId = world.getUID();
     this.minX = Math.min(minimumLocation.getX(), maximumLocation.getX());
-    this.minY = Math.min(minimumLocation.getX(), maximumLocation.getX());
-    this.minZ = Math.min(minimumLocation.getX(), maximumLocation.getX());
+    this.minY = Math.min(minimumLocation.getY(), maximumLocation.getY());
+    this.minZ = Math.min(minimumLocation.getZ(), maximumLocation.getZ());
     this.maxX = Math.max(minimumLocation.getX(), maximumLocation.getX());
-    this.maxY = Math.max(minimumLocation.getX(), maximumLocation.getX());
-    this.maxZ = Math.max(minimumLocation.getX(), maximumLocation.getX());
+    this.maxY = Math.max(minimumLocation.getY(), maximumLocation.getY());
+    this.maxZ = Math.max(minimumLocation.getZ(), maximumLocation.getZ());
   }
 
   /**
@@ -179,6 +163,40 @@ public final class Cuboid {
       this.minX + (this.maxX - this.minX) / 2.0d,
       this.minY,
       this.minZ + (this.maxZ - this.minZ) / 2.0d);
+  }
+
+  /**
+   * obtains center bottom of the cuboid.
+   *
+   * @return center bottom of the cuboid.
+   */
+  @NotNull
+  public Location centerHighestBottom() {
+    this.checkWorldNullability();
+    final var x = this.minX + (this.maxX - this.minX) / 2.0d;
+    final var z = this.minZ + (this.maxZ - this.minZ) / 2.0d;
+    return new Location(
+      this.world,
+      x,
+      this.world.getHighestBlockAt((int) x, (int) z).getY(),
+      z);
+  }
+
+  /**
+   * obtains center bottom of the cuboid.
+   *
+   * @return center bottom of the cuboid.
+   */
+  @NotNull
+  public Location centerHighestBottomUp() {
+    this.checkWorldNullability();
+    final var x = this.minX + (this.maxX - this.minX) / 2.0d;
+    final var z = this.minZ + (this.maxZ - this.minZ) / 2.0d;
+    return new Location(
+      this.world,
+      x,
+      this.world.getHighestBlockAt((int) x, (int) z).getY() + 1,
+      z);
   }
 
   /**
