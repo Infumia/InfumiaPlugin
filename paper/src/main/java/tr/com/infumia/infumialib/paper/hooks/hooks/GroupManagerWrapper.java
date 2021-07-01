@@ -21,6 +21,29 @@ public final class GroupManagerWrapper implements Wrapped {
    * permission pattern should be like 'xxx.yyy.zzz.'
    *
    * @param permission the permission to get.
+   * @param player the player to get.
+   * @param defaultValue the default value to get.
+   *
+   * @return player's limit in the permission.
+   */
+  public long getEffectiveLimitedPermission(@NotNull final String permission, @NotNull final Player player,
+                                            final long defaultValue) {
+    final var calculatedLimit = new AtomicLong(defaultValue);
+    final var effectivePermissions = this.groupManager.getWorldsHolder().getWorldPermissions(player);
+    final var permissions = effectivePermissions.getAllPlayersPermissions(player.getName());
+    if (permissions.isEmpty()) {
+      return calculatedLimit.get();
+    }
+    Groups.calculatePermissionLimit(permission, permissions, calculatedLimit);
+    return calculatedLimit.get();
+  }
+
+  /**
+   * gets player's limit in the given permission.
+   * <p>
+   * permission pattern should be like 'xxx.yyy.zzz.'
+   *
+   * @param permission the permission to get.
    * @param name the player name to get.
    * @param defaultValue the default value to get.
    *
@@ -36,22 +59,6 @@ public final class GroupManagerWrapper implements Wrapped {
     }
     Groups.calculatePermissionLimit(permission, permissions, calculatedLimit);
     return calculatedLimit.get();
-  }
-
-  /**
-   * gets player's limit in the given permission.
-   * <p>
-   * permission pattern should be like 'xxx.yyy.zzz.'
-   *
-   * @param permission the permission to get.
-   * @param player the player to get.
-   * @param defaultValue the default value to get.
-   *
-   * @return player's limit in the permission.
-   */
-  public long getEffectiveLimitedPermission(@NotNull final String permission, @NotNull final Player player,
-                                            final long defaultValue) {
-    return this.getEffectiveLimitedPermission(permission, player.getName(), defaultValue);
   }
 
   @NotNull
