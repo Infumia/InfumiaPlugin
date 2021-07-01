@@ -1,12 +1,16 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
 import com.cryptomorin.xseries.SkullUtils;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
+import tr.com.infumia.infumialib.paper.smartinventory.util.ReflectionUtils;
+import tr.com.infumia.infumialib.reflection.RefConstructed;
+import tr.com.infumia.infumialib.reflection.clazz.ClassOf;
 import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
@@ -107,6 +111,19 @@ public final class SkullItemBuilder extends Builder<SkullItemBuilder, SkullMeta>
   @NotNull
   public SkullItemBuilder setOwner(@NotNull final String texture) {
     SkullUtils.applySkin(this.getItemMeta(), texture);
+    final var cls = new ClassOf<>(this.getItemMeta());
+    final var profile = cls.getField("profile")
+      .flatMap(refField -> refField.of(this.getItemMeta()).getValue())
+      .orElseThrow();
+    final var nbt = new ClassOf<>(Objects.requireNonNull(ReflectionUtils.getNMSClass("NBTTagCompound"))).getConstructor()
+      .flatMap(RefConstructed::create)
+      .orElseThrow();
+    final var serialized = new ClassOf<>(Objects.requireNonNull(ReflectionUtils.getNMSClass("GameProfileSerializer"))).getMethodByName("serialize")
+      .flatMap(refMethod -> refMethod.call(nbt, profile))
+      .orElseThrow();
+    cls.getField("serializedProfile")
+      .map(refField -> refField.of(this.getItemMeta()))
+      .ifPresent(refFieldExecuted -> refFieldExecuted.setValue(serialized));
     return this.getSelf();
   }
 
