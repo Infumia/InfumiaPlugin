@@ -3,10 +3,12 @@ package tr.com.infumia.infumialib.paper.bukkititembuilder;
 import com.cryptomorin.xseries.SkullUtils;
 import java.util.Optional;
 import java.util.function.Function;
+import lombok.SneakyThrows;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.util.Keys;
+import tr.com.infumia.infumialib.reflection.clazz.ClassOf;
 import tr.com.infumia.infumialib.transformer.TransformedData;
 
 /**
@@ -14,7 +16,7 @@ import tr.com.infumia.infumialib.transformer.TransformedData;
  * <p>
  * serialization:
  * <pre>
- * texture: string (texture can be username, textures.minecraft.net url or base64) (for 8 and newer versions)
+ * texture: string (texture can be unique id, username, textures.minecraft.net url or base64) (for 8 and newer versions)
  * </pre>
  */
 public final class SkullItemBuilder extends Builder<SkullItemBuilder, SkullMeta> {
@@ -76,6 +78,7 @@ public final class SkullItemBuilder extends Builder<SkullItemBuilder, SkullMeta>
     return this;
   }
 
+  @SneakyThrows
   @Override
   public void serialize(@NotNull final TransformedData data) {
     super.serialize(data);
@@ -100,13 +103,13 @@ public final class SkullItemBuilder extends Builder<SkullItemBuilder, SkullMeta>
   /**
    * sets owner of the skull.
    *
-   * @param texture the texture to set.
+   * @param value the value to set.
    *
    * @return {@code this} for builder chain.
    */
   @NotNull
-  public SkullItemBuilder setOwner(@NotNull final String texture) {
-    SkullUtils.applySkin(this.getItemMeta(), texture);
+  public SkullItemBuilder setOwner(@NotNull final String value) {
+    SkullUtils.applySkin(this.getItemMeta(), value);
     return this.getSelf();
   }
 
