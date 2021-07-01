@@ -531,16 +531,16 @@ public final class FileElement {
   }
 
   @NotNull
-  public static FileElement from(@NotNull final Builder<?, ?> builder, @NotNull final PlaceType placeType,
+  public static FileElement from(@NotNull final Builder<?, ?> itemStack, @NotNull final PlaceType placeType,
                                  @NotNull final List<Consumer<ClickEvent>> events) {
-    return new FileElement(events, builder, placeType);
+    return new FileElement(events, itemStack, placeType);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement from(@NotNull final Builder<?, ?> builder, @NotNull final PlaceType placeType,
+  public static FileElement from(@NotNull final Builder<?, ?> itemStack, @NotNull final PlaceType placeType,
                                  @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(builder, placeType, Arrays.asList(events));
+    return FileElement.from(itemStack, placeType, Arrays.asList(events));
   }
 
   @SafeVarargs
