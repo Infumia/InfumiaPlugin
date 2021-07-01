@@ -52,7 +52,7 @@ public final class FileElement {
   private final List<Consumer<ClickEvent>> events;
 
   @NotNull
-  private final ItemStack itemStack;
+  private final Builder<?, ?> itemStack;
 
   @NotNull
   @Getter
@@ -60,15 +60,14 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fill(@NotNull final ItemStack itemStack, @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, PtFill.INSTANCE, events);
+  public static FileElement fill(@NotNull final Builder<?, ?> builder, @NotNull final Consumer<ClickEvent>... events) {
+    return FileElement.from(builder, PtFill.INSTANCE, events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fill(@NotNull final Builder<?, ?> builder,
-                                 @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fill(builder.getItemStack(), events);
+  public static FileElement fill(@NotNull final ItemStack itemStack, @NotNull final Consumer<ClickEvent>... events) {
+    return FileElement.fill(ItemStackBuilder.from(itemStack), events);
   }
 
   @SafeVarargs
@@ -85,16 +84,16 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillBorders(@NotNull final ItemStack itemStack,
+  public static FileElement fillBorders(@NotNull final Builder<?, ?> builder,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, PtFillBorders.INSTANCE, events);
+    return FileElement.from(builder, PtFillBorders.INSTANCE, events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillBorders(@NotNull final Builder<?, ?> builder,
+  public static FileElement fillBorders(@NotNull final ItemStack itemStack,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillBorders(builder.getItemStack(), events);
+    return FileElement.fillBorders(ItemStackBuilder.from(itemStack), events);
   }
 
   @SafeVarargs
@@ -115,14 +114,14 @@ public final class FileElement {
   @NotNull
   public static FileElement fillColumn(@NotNull final ItemStack itemStack, final int column,
                                        @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillColumn(column), events);
+    return FileElement.fillColumn(ItemStackBuilder.from(itemStack), column, events);
   }
 
   @SafeVarargs
   @NotNull
   public static FileElement fillColumn(@NotNull final Builder<?, ?> builder, final int column,
                                        @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillColumn(builder.getItemStack(), column, events);
+    return FileElement.from(builder, new PtFillColumn(column), events);
   }
 
   @SafeVarargs
@@ -141,16 +140,16 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillEmpties(@NotNull final ItemStack itemStack,
+  public static FileElement fillEmpties(@NotNull final Builder<?, ?> builder,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, PtFillEmpties.INSTANCE, events);
+    return FileElement.from(builder, PtFillEmpties.INSTANCE, events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillEmpties(@NotNull final Builder<?, ?> builder,
+  public static FileElement fillEmpties(@NotNull final ItemStack itemStack,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillEmpties(builder.getItemStack(), events);
+    return FileElement.fillEmpties(ItemStackBuilder.from(itemStack), events);
   }
 
   @SafeVarargs
@@ -169,18 +168,18 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPattern(@NotNull final ItemStack itemStack, final boolean wrapAround,
+  public static FileElement fillPattern(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
                                         @NotNull final List<String> pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillPattern(wrapAround, pattern), events);
+    return FileElement.from(builder, new PtFillPattern(wrapAround, pattern), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPattern(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillPattern(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                         @NotNull final List<String> pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillPattern(builder.getItemStack(), wrapAround, pattern, events);
+    return FileElement.fillPattern(ItemStackBuilder.from(itemStack), wrapAround, pattern, events);
   }
 
   @SafeVarargs
@@ -201,18 +200,19 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPatternStart(@NotNull final ItemStack itemStack, final boolean wrapAround,
+  public static FileElement fillPatternStart(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
                                              @NotNull final List<String> pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillPatternStart(wrapAround, pattern, startRow, startColumn), events);
+    return FileElement.from(builder, new PtFillPatternStart(wrapAround, pattern, startRow, startColumn), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPatternStart(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillPatternStart(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                              @NotNull final List<String> pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn, events);
+    return FileElement.fillPatternStart(ItemStackBuilder.from(itemStack), wrapAround, pattern, startRow, startColumn,
+      events);
   }
 
   @SafeVarargs
@@ -235,18 +235,18 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPatternStartIndex(@NotNull final ItemStack itemStack, final boolean wrapAround,
+  public static FileElement fillPatternStartIndex(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
                                                   @NotNull final List<String> pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillPatternStartIndex(wrapAround, pattern, startIndex), events);
+    return FileElement.from(builder, new PtFillPatternStartIndex(wrapAround, pattern, startIndex), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPatternStartIndex(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillPatternStartIndex(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                                   @NotNull final List<String> pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex, events);
+    return FileElement.fillPatternStartIndex(ItemStackBuilder.from(itemStack), wrapAround, pattern, startIndex, events);
   }
 
   @SafeVarargs
@@ -269,18 +269,18 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRectFromTo(@NotNull final ItemStack itemStack, final int fromRow, final int fromColumn,
+  public static FileElement fillRectFromTo(@NotNull final Builder<?, ?> builder, final int fromRow, final int fromColumn,
                                            final int toRow, final int toColumn,
                                            @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillRectFromTo(fromRow, fromColumn, toRow, toColumn), events);
+    return FileElement.from(builder, new PtFillRectFromTo(fromRow, fromColumn, toRow, toColumn), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRectFromTo(@NotNull final Builder<?, ?> builder, final int fromRow,
+  public static FileElement fillRectFromTo(@NotNull final ItemStack itemStack, final int fromRow,
                                            final int fromColumn, final int toRow, final int toColumn,
                                            @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillRectFromTo(builder.getItemStack(), fromRow, fromColumn, toRow, toColumn, events);
+    return FileElement.fillRectFromTo(ItemStackBuilder.from(itemStack), fromRow, fromColumn, toRow, toColumn, events);
   }
 
   @SafeVarargs
@@ -303,16 +303,16 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRectIndex(@NotNull final ItemStack itemStack, final int fromIndex, final int toIndex,
+  public static FileElement fillRectIndex(@NotNull final Builder<?, ?> builder, final int fromIndex, final int toIndex,
                                           @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillRectIndex(fromIndex, toIndex), events);
+    return FileElement.from(builder, new PtFillRectIndex(fromIndex, toIndex), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRectIndex(@NotNull final Builder<?, ?> builder, final int fromIndex,
+  public static FileElement fillRectIndex(@NotNull final ItemStack itemStack, final int fromIndex,
                                           final int toIndex, @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillRectIndex(builder.getItemStack(), fromIndex, toIndex, events);
+    return FileElement.fillRectIndex(ItemStackBuilder.from(itemStack), fromIndex, toIndex, events);
   }
 
   @SafeVarargs
@@ -331,18 +331,18 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRepeatingPattern(@NotNull final ItemStack itemStack, final boolean wrapAround,
+  public static FileElement fillRepeatingPattern(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
                                                  @NotNull final List<String> pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillRepeatingPattern(wrapAround, pattern), events);
+    return FileElement.from(builder, new PtFillRepeatingPattern(wrapAround, pattern), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRepeatingPattern(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillRepeatingPattern(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                                  @NotNull final List<String> pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillRepeatingPattern(builder.getItemStack(), wrapAround, pattern, events);
+    return FileElement.fillRepeatingPattern(ItemStackBuilder.from(itemStack), wrapAround, pattern, events);
   }
 
   @SafeVarargs
@@ -363,22 +363,22 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRepeatingPatternStart(@NotNull final ItemStack itemStack, final boolean wrapAround,
+  public static FileElement fillRepeatingPatternStart(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
                                                       @NotNull final List<String> pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack,
+    return FileElement.from(builder,
       new PtFillRepeatingPatternStart(wrapAround, pattern, startRow, startColumn, endRow, endColumn), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRepeatingPatternStart(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillRepeatingPatternStart(@NotNull final ItemStack itemStack, final boolean wrapAround,
                                                       @NotNull final List<String> pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillRepeatingPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn,
-      endRow, endColumn, events);
+    return FileElement.fillRepeatingPatternStart(ItemStackBuilder.from(itemStack), wrapAround, pattern, startRow,
+      startColumn, endRow, endColumn, events);
   }
 
   @SafeVarargs
@@ -403,20 +403,20 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRepeatingPatternStartIndex(@NotNull final ItemStack itemStack,
-                                                           final boolean wrapAround, @NotNull final List<String> pattern,
-                                                           final int startIndex, final int endIndex,
-                                                           @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillRepeatingPatternStartIndex(wrapAround, pattern, startIndex, endIndex), events);
-  }
-
-  @SafeVarargs
-  @NotNull
   public static FileElement fillRepeatingPatternStartIndex(@NotNull final Builder<?, ?> builder,
                                                            final boolean wrapAround, @NotNull final List<String> pattern,
                                                            final int startIndex, final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillRepeatingPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex,
+    return FileElement.from(builder, new PtFillRepeatingPatternStartIndex(wrapAround, pattern, startIndex, endIndex), events);
+  }
+
+  @SafeVarargs
+  @NotNull
+  public static FileElement fillRepeatingPatternStartIndex(@NotNull final ItemStack itemStack,
+                                                           final boolean wrapAround, @NotNull final List<String> pattern,
+                                                           final int startIndex, final int endIndex,
+                                                           @NotNull final Consumer<ClickEvent>... events) {
+    return FileElement.fillRepeatingPatternStartIndex(ItemStackBuilder.from(itemStack), wrapAround, pattern, startIndex,
       endIndex, events);
   }
 
@@ -442,16 +442,16 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRow(@NotNull final ItemStack itemStack, final int row,
+  public static FileElement fillRow(@NotNull final Builder<?, ?> builder, final int row,
                                     @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillRow(row), events);
+    return FileElement.from(builder, new PtFillRow(row), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRow(@NotNull final Builder<?, ?> builder, final int row,
+  public static FileElement fillRow(@NotNull final ItemStack itemStack, final int row,
                                     @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillRow(builder.getItemStack(), row, events);
+    return FileElement.fillRow(ItemStackBuilder.from(itemStack), row, events);
   }
 
   @SafeVarargs
@@ -470,18 +470,18 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillSquareFromTo(@NotNull final ItemStack itemStack, final int fromRow,
+  public static FileElement fillSquareFromTo(@NotNull final Builder<?, ?> builder, final int fromRow,
                                              final int fromColumn, final int toRow, final int toColumn,
                                              @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillSquareFromTo(fromRow, fromColumn, toRow, toColumn), events);
+    return FileElement.from(builder, new PtFillSquareFromTo(fromRow, fromColumn, toRow, toColumn), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillSquareFromTo(@NotNull final Builder<?, ?> builder, final int fromRow,
+  public static FileElement fillSquareFromTo(@NotNull final ItemStack itemStack, final int fromRow,
                                              final int fromColumn, final int toRow, final int toColumn,
                                              @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillSquareFromTo(builder.getItemStack(), fromRow, fromColumn, toRow, toColumn, events);
+    return FileElement.fillSquareFromTo(ItemStackBuilder.from(itemStack), fromRow, fromColumn, toRow, toColumn, events);
   }
 
   @SafeVarargs
@@ -504,16 +504,16 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillSquareIndex(@NotNull final ItemStack itemStack, final int fromIndex,
+  public static FileElement fillSquareIndex(@NotNull final Builder<?, ?> builder, final int fromIndex,
                                             final int toIndex, @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtFillSquareIndex(fromIndex, toIndex), events);
+    return FileElement.from(builder, new PtFillSquareIndex(fromIndex, toIndex), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillSquareIndex(@NotNull final Builder<?, ?> builder, final int fromIndex,
+  public static FileElement fillSquareIndex(@NotNull final ItemStack itemStack, final int fromIndex,
                                             final int toIndex, @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.fillSquareIndex(builder.getItemStack(), fromIndex, toIndex, events);
+    return FileElement.fillSquareIndex(ItemStackBuilder.from(itemStack), fromIndex, toIndex, events);
   }
 
   @SafeVarargs
@@ -531,30 +531,30 @@ public final class FileElement {
   }
 
   @NotNull
-  public static FileElement from(@NotNull final ItemStack itemStack, @NotNull final PlaceType placeType,
+  public static FileElement from(@NotNull final Builder<?, ?> itemStack, @NotNull final PlaceType placeType,
                                  @NotNull final List<Consumer<ClickEvent>> events) {
     return new FileElement(events, itemStack, placeType);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement from(@NotNull final ItemStack itemStack, @NotNull final PlaceType placeType,
+  public static FileElement from(@NotNull final Builder<?, ?> itemStack, @NotNull final PlaceType placeType,
                                  @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.from(itemStack, placeType, Arrays.asList(events));
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement insert(@NotNull final ItemStack itemStack, final int row, final int column,
+  public static FileElement insert(@NotNull final Builder<?, ?> builder, final int row, final int column,
                                    @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtInsert(row, column), events);
+    return FileElement.from(builder, new PtInsert(row, column), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement insert(@NotNull final Builder<?, ?> builder, final int row, final int column,
+  public static FileElement insert(@NotNull final ItemStack itemStack, final int row, final int column,
                                    @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.insert(builder.getItemStack(), row, column, events);
+    return FileElement.insert(ItemStackBuilder.from(itemStack), row, column, events);
   }
 
   @SafeVarargs
@@ -573,16 +573,16 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement insertIndex(@NotNull final ItemStack itemStack, final int index,
+  public static FileElement insertIndex(@NotNull final Builder<?, ?> builder, final int index,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtInsertIndex(index), events);
+    return FileElement.from(builder, new PtInsertIndex(index), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement insertIndex(@NotNull final Builder<?, ?> builder, final int index,
+  public static FileElement insertIndex(@NotNull final ItemStack itemStack, final int index,
                                         @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.insertIndex(builder.getItemStack(), index, events);
+    return FileElement.insertIndex(ItemStackBuilder.from(itemStack), index, events);
   }
 
   @SafeVarargs
@@ -601,15 +601,15 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement none(@NotNull final ItemStack itemStack, @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, PtNone.INSTANCE, events);
+  public static FileElement none(@NotNull final Builder<?, ?> builder, @NotNull final Consumer<ClickEvent>... events) {
+    return FileElement.from(builder, PtNone.INSTANCE, events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement none(@NotNull final Builder<?, ?> builder,
+  public static FileElement none(@NotNull final ItemStack itemStack,
                                  @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.none(builder.getItemStack(), events);
+    return FileElement.none(ItemStackBuilder.from(itemStack), events);
   }
 
   @SafeVarargs
@@ -626,16 +626,16 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement slots(@NotNull final ItemStack itemStack, @NotNull final List<Integer> slots,
+  public static FileElement slots(@NotNull final Builder<?, ?> builder, @NotNull final List<Integer> slots,
                                   @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.from(itemStack, new PtSlots(slots), events);
+    return FileElement.from(builder, new PtSlots(slots), events);
   }
 
   @SafeVarargs
   @NotNull
-  public static FileElement slots(@NotNull final Builder<?, ?> builder, @NotNull final List<Integer> slots,
+  public static FileElement slots(@NotNull final ItemStack itemStack, @NotNull final List<Integer> slots,
                                   @NotNull final Consumer<ClickEvent>... events) {
-    return FileElement.slots(builder.getItemStack(), slots, events);
+    return FileElement.from(ItemStackBuilder.from(itemStack), new PtSlots(slots), events);
   }
 
   @SafeVarargs
@@ -735,7 +735,7 @@ public final class FileElement {
 
   @NotNull
   public ItemStack getItemStack() {
-    return this.itemStack.clone();
+    return this.itemStack.getItemStack().clone();
   }
 
   public void place(@NotNull final InventoryContents contents) {
@@ -802,17 +802,17 @@ public final class FileElement {
 
   @NotNull
   private FileElement duplicate(@NotNull final ItemStack itemStack) {
-    return FileElement.from(itemStack, this.placeType, this.getEvents());
+    return FileElement.from(ItemStackBuilder.from(itemStack), this.placeType, this.getEvents());
   }
 
   @NotNull
   private FileElement duplicate(@NotNull final PlaceType type) {
-    return FileElement.from(this.getItemStack(), type, this.getEvents());
+    return FileElement.from(ItemStackBuilder.from(this.getItemStack()), type, this.getEvents());
   }
 
   @NotNull
   private FileElement duplicate(@NotNull final List<Consumer<ClickEvent>> events) {
-    return FileElement.from(this.getItemStack(), this.placeType, events);
+    return FileElement.from(ItemStackBuilder.from(this.getItemStack()), this.placeType, events);
   }
 
   public static final class Serializer implements ObjectSerializer<FileElement> {
@@ -845,7 +845,7 @@ public final class FileElement {
       if (placeType.isEmpty()) {
         return Optional.empty();
       }
-      return Optional.of(FileElement.from(itemStack.get(), placeType.get())
+      return Optional.of(FileElement.from(ItemStackBuilder.from(itemStack.get()), placeType.get())
         .changeEvent(fileElement.getEvents()));
     }
 
