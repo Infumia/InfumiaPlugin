@@ -525,7 +525,8 @@ public abstract class Builder<X extends Builder<X, T>, T extends ItemMeta> imple
   @NotNull
   @Override
   public final ItemStack getItemStack(final boolean update) {
-    if (update) {
+    if (update &&
+      !Objects.equals(this.itemMeta, this.itemStack.getItemMeta())) {
       this.itemStack.setItemMeta(this.itemMeta);
     }
     return this.itemStack;
