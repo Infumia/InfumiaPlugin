@@ -24,7 +24,7 @@ public final class LuckPermsWrapper implements Wrapped {
   private final LuckPerms luckPerms;
 
   /**
-   * gets player's li in the given permission.
+   * gets player's limit in the given permission.
    * <p>
    * permission pattern should be like 'xxx.yyy.zzz.'
    *
@@ -40,20 +40,20 @@ public final class LuckPermsWrapper implements Wrapped {
   }
 
   /**
-   * gets player's li in the given permission.
+   * gets player's limit in the given permission.
    * <p>
    * permission pattern should be like 'xxx.yyy.zzz.'
    *
    * @param permission the permission to get.
-   * @param uuid the uuid of player to get.
+   * @param uniqueId the unique id of player to get.
    * @param defaultValue the default value to get.
    *
    * @return player's limit in the permission.
    */
-  public long getEffectiveLimitedPermission(@NotNull final String permission, @NotNull final UUID uuid,
+  public long getEffectiveLimitedPermission(@NotNull final String permission, @NotNull final UUID uniqueId,
                                             final long defaultValue) {
     final var calculatedLimit = new AtomicLong(defaultValue);
-    final var user = this.luckPerms.getUserManager().getUser(uuid);
+    final var user = this.luckPerms.getUserManager().getUser(uniqueId);
     if (user == null) {
       return calculatedLimit.get();
     }
