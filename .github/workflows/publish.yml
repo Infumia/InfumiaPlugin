@@ -15,12 +15,6 @@ jobs:
       - if: ${{ steps.release-label.outputs.level == null }}
         run: exit 1
 
-      - uses: softprops/turnstyle@v1
-        with:
-          poll-interval-seconds: 10
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: actions/checkout@v2
 
       - uses: pozetroninc/github-action-get-latest-release@v0.5.0
