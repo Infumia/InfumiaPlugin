@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.element.Placeholder;
-import tr.com.infumia.infumialib.paper.bukkititembuilder.Builder;
 import tr.com.infumia.infumialib.paper.bukkititembuilder.ItemStackBuilder;
 import tr.com.infumia.infumialib.paper.element.types.PtFill;
 import tr.com.infumia.infumialib.paper.element.types.PtFillBorders;
@@ -66,7 +65,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fill(@NotNull final Builder<?, ?> builder,
+  public static FileElement fill(@NotNull final ItemStackBuilder builder,
                                  @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fill(builder.getItemStack(), events);
   }
@@ -92,7 +91,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillBorders(@NotNull final Builder<?, ?> builder,
+  public static FileElement fillBorders(@NotNull final ItemStackBuilder builder,
                                         @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillBorders(builder.getItemStack(), events);
   }
@@ -120,7 +119,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillColumn(@NotNull final Builder<?, ?> builder, final int column,
+  public static FileElement fillColumn(@NotNull final ItemStackBuilder builder, final int column,
                                        @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillColumn(builder.getItemStack(), column, events);
   }
@@ -148,7 +147,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillEmpties(@NotNull final Builder<?, ?> builder,
+  public static FileElement fillEmpties(@NotNull final ItemStackBuilder builder,
                                         @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillEmpties(builder.getItemStack(), events);
   }
@@ -177,7 +176,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPattern(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillPattern(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                         @NotNull final List<String> pattern,
                                         @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPattern(builder.getItemStack(), wrapAround, pattern, events);
@@ -209,7 +208,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPatternStart(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillPatternStart(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                              @NotNull final List<String> pattern, final int startRow,
                                              final int startColumn, @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPatternStart(builder.getItemStack(), wrapAround, pattern, startRow, startColumn, events);
@@ -243,7 +242,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillPatternStartIndex(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillPatternStartIndex(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                                   @NotNull final List<String> pattern, final int startIndex,
                                                   @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillPatternStartIndex(builder.getItemStack(), wrapAround, pattern, startIndex, events);
@@ -277,7 +276,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRectFromTo(@NotNull final Builder<?, ?> builder, final int fromRow,
+  public static FileElement fillRectFromTo(@NotNull final ItemStackBuilder builder, final int fromRow,
                                            final int fromColumn, final int toRow, final int toColumn,
                                            @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRectFromTo(builder.getItemStack(), fromRow, fromColumn, toRow, toColumn, events);
@@ -310,7 +309,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRectIndex(@NotNull final Builder<?, ?> builder, final int fromIndex,
+  public static FileElement fillRectIndex(@NotNull final ItemStackBuilder builder, final int fromIndex,
                                           final int toIndex, @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRectIndex(builder.getItemStack(), fromIndex, toIndex, events);
   }
@@ -339,7 +338,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRepeatingPattern(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillRepeatingPattern(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                                  @NotNull final List<String> pattern,
                                                  @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRepeatingPattern(builder.getItemStack(), wrapAround, pattern, events);
@@ -373,7 +372,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRepeatingPatternStart(@NotNull final Builder<?, ?> builder, final boolean wrapAround,
+  public static FileElement fillRepeatingPatternStart(@NotNull final ItemStackBuilder builder, final boolean wrapAround,
                                                       @NotNull final List<String> pattern, final int startRow,
                                                       final int startColumn, final int endRow, final int endColumn,
                                                       @NotNull final Consumer<ClickEvent>... events) {
@@ -412,7 +411,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRepeatingPatternStartIndex(@NotNull final Builder<?, ?> builder,
+  public static FileElement fillRepeatingPatternStartIndex(@NotNull final ItemStackBuilder builder,
                                                            final boolean wrapAround, @NotNull final List<String> pattern,
                                                            final int startIndex, final int endIndex,
                                                            @NotNull final Consumer<ClickEvent>... events) {
@@ -449,7 +448,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillRow(@NotNull final Builder<?, ?> builder, final int row,
+  public static FileElement fillRow(@NotNull final ItemStackBuilder builder, final int row,
                                     @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillRow(builder.getItemStack(), row, events);
   }
@@ -478,7 +477,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillSquareFromTo(@NotNull final Builder<?, ?> builder, final int fromRow,
+  public static FileElement fillSquareFromTo(@NotNull final ItemStackBuilder builder, final int fromRow,
                                              final int fromColumn, final int toRow, final int toColumn,
                                              @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillSquareFromTo(builder.getItemStack(), fromRow, fromColumn, toRow, toColumn, events);
@@ -511,7 +510,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement fillSquareIndex(@NotNull final Builder<?, ?> builder, final int fromIndex,
+  public static FileElement fillSquareIndex(@NotNull final ItemStackBuilder builder, final int fromIndex,
                                             final int toIndex, @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.fillSquareIndex(builder.getItemStack(), fromIndex, toIndex, events);
   }
@@ -552,7 +551,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement insert(@NotNull final Builder<?, ?> builder, final int row, final int column,
+  public static FileElement insert(@NotNull final ItemStackBuilder builder, final int row, final int column,
                                    @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.insert(builder.getItemStack(), row, column, events);
   }
@@ -580,7 +579,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement insertIndex(@NotNull final Builder<?, ?> builder, final int index,
+  public static FileElement insertIndex(@NotNull final ItemStackBuilder builder, final int index,
                                         @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.insertIndex(builder.getItemStack(), index, events);
   }
@@ -607,7 +606,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement none(@NotNull final Builder<?, ?> builder,
+  public static FileElement none(@NotNull final ItemStackBuilder builder,
                                  @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.none(builder.getItemStack(), events);
   }
@@ -633,7 +632,7 @@ public final class FileElement {
 
   @SafeVarargs
   @NotNull
-  public static FileElement slots(@NotNull final Builder<?, ?> builder, @NotNull final List<Integer> slots,
+  public static FileElement slots(@NotNull final ItemStackBuilder builder, @NotNull final List<Integer> slots,
                                   @NotNull final Consumer<ClickEvent>... events) {
     return FileElement.slots(builder.getItemStack(), slots, events);
   }
