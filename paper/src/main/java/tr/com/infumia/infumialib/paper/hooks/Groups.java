@@ -78,13 +78,13 @@ public class Groups {
   public long getEffectiveLimitedPermission(@NotNull final String permission,
                                             @NotNull final Player player, final long defaultValue) {
     if (Hooks.supportsGroupManager()) {
-      Hooks.getGroupManagerOrThrow().getEffectiveLimitedPermission(permission, player, defaultValue);
+      return Hooks.getGroupManagerOrThrow().getEffectiveLimitedPermission(permission, player, defaultValue);
     }
     if (Hooks.supportsLuckPerms()) {
-      Hooks.getLuckPermsOrThrow().getEffectiveLimitedPermission(permission, player, defaultValue);
+      return Hooks.getLuckPermsOrThrow().getEffectiveLimitedPermission(permission, player, defaultValue);
     }
     if (Hooks.supportsPermissionsEx()) {
-      Hooks.getPermissionsExOrThrow().getEffectiveLimitedPermission(permission, player, defaultValue);
+      return Hooks.getPermissionsExOrThrow().getEffectiveLimitedPermission(permission, player, defaultValue);
     }
     final var calculatedLimit = new AtomicLong(defaultValue);
     final var permissions = player.getEffectivePermissions().stream()

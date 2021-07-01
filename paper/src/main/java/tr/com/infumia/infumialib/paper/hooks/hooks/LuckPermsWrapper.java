@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public final class LuckPermsWrapper implements Wrapped {
   private final LuckPerms luckPerms;
 
   /**
-   * gets player's li in the given permission.
+   * gets player's limit in the given permission.
    * <p>
    * permission pattern should be like 'xxx.yyy.zzz.'
    *
@@ -35,8 +36,24 @@ public final class LuckPermsWrapper implements Wrapped {
    */
   public long getEffectiveLimitedPermission(@NotNull final String permission, @NotNull final Player player,
                                             final long defaultValue) {
+    return this.getEffectiveLimitedPermission(permission, player.getUniqueId(), defaultValue);
+  }
+
+  /**
+   * gets player's limit in the given permission.
+   * <p>
+   * permission pattern should be like 'xxx.yyy.zzz.'
+   *
+   * @param permission the permission to get.
+   * @param uniqueId the unique id of player to get.
+   * @param defaultValue the default value to get.
+   *
+   * @return player's limit in the permission.
+   */
+  public long getEffectiveLimitedPermission(@NotNull final String permission, @NotNull final UUID uniqueId,
+                                            final long defaultValue) {
     final var calculatedLimit = new AtomicLong(defaultValue);
-    final var user = this.luckPerms.getUserManager().getUser(player.getUniqueId());
+    final var user = this.luckPerms.getUserManager().getUser(uniqueId);
     if (user == null) {
       return calculatedLimit.get();
     }
