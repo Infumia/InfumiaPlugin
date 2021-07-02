@@ -38,4 +38,38 @@ public final class SlotPos {
   public static SlotPos of(final int row, final int column) {
     return new SlotPos(column, row);
   }
+
+  /**
+   * adds column to position.
+   *
+   * @param column the column to add.
+   *
+   * @return a new slot position with the column offset.
+   */
+  @NotNull
+  public SlotPos addColumn(final int column) {
+    return SlotPos.of(this.row, this.column + column);
+  }
+
+  /**
+   * adds row to position.
+   *
+   * @param row the row to add.
+   *
+   * @return a new slot position with the row offset.
+   */
+  @NotNull
+  public SlotPos addRow(final int row) {
+    return SlotPos.of(this.row + row, this.column);
+  }
+
+  /**
+   * reverses the position.
+   *
+   * @return a new reversed slot position.
+   */
+  @NotNull
+  public SlotPos reverse() {
+    return SlotPos.of(this.column, this.row);
+  }
 }
