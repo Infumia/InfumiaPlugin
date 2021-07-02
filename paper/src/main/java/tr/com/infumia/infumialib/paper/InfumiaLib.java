@@ -3,6 +3,7 @@ package tr.com.infumia.infumialib.paper;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -99,9 +100,9 @@ public final class InfumiaLib extends JavaPlugin {
    *
    * @return world border api.
    */
-  @Nullable
-  public static WorldBorderApi getWorldBorderApi() {
-    return InfumiaLib.getInstance().worldBorderApi;
+  @NotNull
+  public static Optional<WorldBorderApi> getWorldBorderApi() {
+    return Optional.ofNullable(InfumiaLib.getInstance().worldBorderApi);
   }
 
   /**
@@ -111,7 +112,7 @@ public final class InfumiaLib extends JavaPlugin {
    */
   @NotNull
   public static WorldBorderApi getWorldBorderApiOrThrow() {
-    return Objects.requireNonNull(InfumiaLib.getWorldBorderApi(), "world border api");
+    return InfumiaLib.getWorldBorderApi().orElseThrow();
   }
 
   /**
