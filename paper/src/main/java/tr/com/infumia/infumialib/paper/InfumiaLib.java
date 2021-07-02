@@ -3,9 +3,11 @@ package tr.com.infumia.infumialib.paper;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,10 +16,13 @@ import tr.com.infumia.infumialib.paper.color.CustomColors;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
 import tr.com.infumia.infumialib.paper.files.PaperConfig;
 import tr.com.infumia.infumialib.paper.hooks.Hooks;
+import tr.com.infumia.infumialib.paper.shade.com.github.yannicklamprecht.worldborder.api.WorldBorderApi;
+import tr.com.infumia.infumialib.paper.shade.com.github.yannicklamprecht.worldborder.plugin.PersistenceWrapper;
 import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
 import tr.com.infumia.infumialib.paper.smartinventory.manager.BasicSmartInventory;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
+import tr.com.infumia.infumialib.paper.utils.Versions;
 
 /**
  * a class that represents main class of Infumia Library plugin.
@@ -34,6 +39,12 @@ public final class InfumiaLib extends JavaPlugin {
    * the inventory.
    */
   private final SmartInventory inventory = new BasicSmartInventory(this);
+
+  /**
+   * teh world border api.
+   */
+  @Nullable
+  private WorldBorderApi worldBorderApi;
 
   /**
    * creates a new command manager.
@@ -85,6 +96,26 @@ public final class InfumiaLib extends JavaPlugin {
   }
 
   /**
+   * obtains the world border api.
+   *
+   * @return world border api.
+   */
+  @NotNull
+  public static Optional<WorldBorderApi> getWorldBorderApi() {
+    return Optional.ofNullable(InfumiaLib.getInstance().worldBorderApi);
+  }
+
+  /**
+   * obtains the world border api.
+   *
+   * @return world border api.
+   */
+  @NotNull
+  public static WorldBorderApi getWorldBorderApiOrThrow() {
+    return InfumiaLib.getWorldBorderApi().orElseThrow();
+  }
+
+  /**
    * loads Infumia Library plugin'ss files.
    */
   public void loadFiles() {
@@ -102,6 +133,7 @@ public final class InfumiaLib extends JavaPlugin {
 
   @Override
   public void onEnable() {
+    this.initiateWorldBorder();
     final var commandManager = InfumiaLib.createCommandManager(this);
     new InfumiaPluginCommands(commandManager, this).register();
     this.inventory.init();
@@ -110,5 +142,16 @@ public final class InfumiaLib extends JavaPlugin {
       GitHubUpdateChecker.checkForUpdate(this, "Infumia", "InfumiaLib");
     }
     new Metrics(this, 11422);
+  }
+
+  /**
+   * initiates the world border.
+   */
+  private void initiateWorldBorder() {
+    if (Versions.MINOR >= 16 && Versions.MICRO == 3) {
+      this.worldBorderApi = new tr.com.infumia.infumialib.paper.shade.com.github.yannicklamprecht.worldborder.v1_16.Border();
+    }
+    this.worldBorderApi = new PersistenceWrapper(this, this.worldBorderApi);
+    this.getServer().getServicesManager().register(WorldBorderApi.class, this.worldBorderApi, this, ServicePriority.High);
   }
 }
