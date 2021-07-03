@@ -210,11 +210,9 @@ public final class Cuboid {
   @NotNull
   public Location centerBottomPlus() {
     this.checkWorldNullability();
-    return new Location(
-      this.world,
-      this.minX + (this.maxX - this.minX) / 2.0d + 0.5,
-      this.minY,
-      this.minZ + (this.maxZ - this.minZ) / 2.0d + 0.5);
+    final var x = this.minX + (this.maxX - this.minX) / 2.0d + 0.5;
+    final var z = this.minZ + (this.maxZ - this.minZ) / 2.0d + 0.5;
+    return new Location(this.world, x, this.minY, z);
   }
 
   /**
