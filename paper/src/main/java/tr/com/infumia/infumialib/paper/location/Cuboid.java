@@ -82,13 +82,61 @@ public final class Cuboid {
   /**
    * ctor.
    *
+   * @param world the world.
+   * @param minimumLocation the minimum location.
+   * @param maximumLocation the maximum location.
+   * @param block the block.
+   *
+   * @throws IllegalStateException if worlds of the given locations are not same.
+   */
+  public Cuboid(@NotNull final World world, @NotNull final Location minimumLocation,
+                @NotNull final Location maximumLocation, final boolean block) {
+    final var minWorld = Objects.requireNonNull(minimumLocation.getWorld(), "minimum world");
+    final var maxWorld = Objects.requireNonNull(maximumLocation.getWorld(), "maximum world");
+    Preconditions.checkState(Objects.equals(minWorld, maxWorld), "%s and %s are not equals!", minWorld, maxWorld);
+    this.world = world;
+    this.worldName = world.getName();
+    this.worldUniqueId = world.getUID();
+    if (block) {
+      this.minX = Math.min(minimumLocation.getBlockX(), maximumLocation.getBlockX());
+      this.minY = Math.min(minimumLocation.getBlockY(), maximumLocation.getBlockY());
+      this.minZ = Math.min(minimumLocation.getBlockZ(), maximumLocation.getBlockZ());
+      this.maxX = Math.max(minimumLocation.getBlockX(), maximumLocation.getBlockX());
+      this.maxY = Math.max(minimumLocation.getBlockY(), maximumLocation.getBlockY());
+      this.maxZ = Math.max(minimumLocation.getBlockZ(), maximumLocation.getBlockZ());
+    } else {
+      this.minX = Math.min(minimumLocation.getX(), maximumLocation.getX());
+      this.minY = Math.min(minimumLocation.getY(), maximumLocation.getY());
+      this.minZ = Math.min(minimumLocation.getZ(), maximumLocation.getZ());
+      this.maxX = Math.max(minimumLocation.getX(), maximumLocation.getX());
+      this.maxY = Math.max(minimumLocation.getY(), maximumLocation.getY());
+      this.maxZ = Math.max(minimumLocation.getZ(), maximumLocation.getZ());
+    }
+  }
+
+  /**
+   * ctor.
+   *
+   * @param minimumLocation the minimum location.
+   * @param maximumLocation the maximum location.
+   * @param block the block.
+   *
+   * @throws IllegalStateException if worlds of the given locations are not same.
+   */
+  public Cuboid(@NotNull final Location minimumLocation, @NotNull final Location maximumLocation, final boolean block) {
+    this(LocationUtil.validWorld(minimumLocation), minimumLocation, maximumLocation, block);
+  }
+
+  /**
+   * ctor.
+   *
    * @param minimumLocation the minimum location.
    * @param maximumLocation the maximum location.
    *
    * @throws IllegalStateException if worlds of the given locations are not same.
    */
   public Cuboid(@NotNull final Location minimumLocation, @NotNull final Location maximumLocation) {
-    this(LocationUtil.validWorld(minimumLocation), minimumLocation, maximumLocation);
+    this(minimumLocation, maximumLocation, false);
   }
 
   /**
@@ -102,18 +150,7 @@ public final class Cuboid {
    */
   public Cuboid(@NotNull final World world, @NotNull final Location minimumLocation,
                 @NotNull final Location maximumLocation) {
-    final var minWorld = Objects.requireNonNull(minimumLocation.getWorld(), "minimum world");
-    final var maxWorld = Objects.requireNonNull(maximumLocation.getWorld(), "maximum world");
-    Preconditions.checkState(Objects.equals(minWorld, maxWorld), "%s and %s are not equals!", minWorld, maxWorld);
-    this.world = world;
-    this.worldName = world.getName();
-    this.worldUniqueId = world.getUID();
-    this.minX = Math.min(minimumLocation.getX(), maximumLocation.getX());
-    this.minY = Math.min(minimumLocation.getY(), maximumLocation.getY());
-    this.minZ = Math.min(minimumLocation.getZ(), maximumLocation.getZ());
-    this.maxX = Math.max(minimumLocation.getX(), maximumLocation.getX());
-    this.maxY = Math.max(minimumLocation.getY(), maximumLocation.getY());
-    this.maxZ = Math.max(minimumLocation.getZ(), maximumLocation.getZ());
+    this(world, minimumLocation, maximumLocation, false);
   }
 
   /**
@@ -163,6 +200,21 @@ public final class Cuboid {
       this.minX + (this.maxX - this.minX) / 2.0d,
       this.minY,
       this.minZ + (this.maxZ - this.minZ) / 2.0d);
+  }
+
+  /**
+   * obtains center bottom of the cuboid.
+   *
+   * @return center bottom of the cuboid.
+   */
+  @NotNull
+  public Location centerBottomPlus() {
+    this.checkWorldNullability();
+    return new Location(
+      this.world,
+      this.minX + (this.maxX - this.minX) / 2.0d + 0.5,
+      this.minY,
+      this.minZ + (this.maxZ - this.minZ) / 2.0d + 0.5);
   }
 
   /**
