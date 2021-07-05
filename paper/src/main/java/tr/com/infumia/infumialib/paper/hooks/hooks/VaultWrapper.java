@@ -1,6 +1,7 @@
 package tr.com.infumia.infumialib.paper.hooks.hooks;
 
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Delegate;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -10,20 +11,12 @@ import tr.com.infumia.infumialib.hooks.Wrapped;
 public final class VaultWrapper implements Wrapped {
 
   @NotNull
+  @Delegate
   private final Economy economy;
 
-  public void addMoney(@NotNull final Player player, final double money) {
-    this.economy.depositPlayer(player, money);
-  }
-
-  public double getMoney(@NotNull final Player player) {
-    return this.economy.getBalance(player);
-  }
-
-  public void removeMoney(@NotNull final Player player, final double money) {
-    if (this.getMoney(player) < money) {
-      return;
+  public void safeWithdrawPlayer(@NotNull final Player player, final double money) {
+    if (this.getBalance(player) >= money) {
+      this.economy.withdrawPlayer(player, money);
     }
-    this.economy.withdrawPlayer(player, money);
   }
 }
