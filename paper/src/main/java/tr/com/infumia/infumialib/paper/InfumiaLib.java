@@ -133,11 +133,11 @@ public final class InfumiaLib extends JavaPlugin {
 
   @Override
   public void onEnable() {
+    Hooks.loadHooks();
     this.initiateWorldBorder();
     final var commandManager = InfumiaLib.createCommandManager(this);
     new InfumiaPluginCommands(commandManager, this).register();
     this.inventory.init();
-    Hooks.loadHooks();
     if (InfumiaLibConfig.checkForUpdate) {
       GitHubUpdateChecker.checkForUpdate(this, "Infumia", "InfumiaLib");
     }

@@ -20,7 +20,7 @@ public final class PaperConfig extends TransformedObject {
    * the hook message.
    */
   @Comment("Hooking message for each plugin/library.")
-  public static RpString hookMessage = RpString.from("%hook% is hooking.")
+  public static RpString hookMessage = RpString.from("{#F0E68C}%hook% {#AFEEEE}is hooking.")
     .regex("%hook%")
     .map(XColor::colorize);
 

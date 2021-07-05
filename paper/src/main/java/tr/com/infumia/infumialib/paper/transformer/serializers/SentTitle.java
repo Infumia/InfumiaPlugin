@@ -89,7 +89,7 @@ public final class SentTitle {
    */
   @SafeVarargs
   public final void send(@NotNull final Player player,
-                         @NotNull final Map.Entry<String, Supplier<String>>... entries) {
+                         @NotNull final Map.Entry<String, Supplier<Object>>... entries) {
     Titles.sendTitle(player, this.fadeIn, this.stay, this.fadeOut,
       this.title == null ? null : this.title.build(entries),
       this.subTitle == null ? null : this.subTitle.build(entries));
@@ -106,7 +106,7 @@ public final class SentTitle {
   @SafeVarargs
   public final void send(@NotNull final Player player, @NotNull final UnaryOperator<String> title,
                          @NotNull final UnaryOperator<String> subTitle,
-                         @NotNull final Map.Entry<String, Supplier<String>>... entries) {
+                         @NotNull final Map.Entry<String, Supplier<Object>>... entries) {
     Titles.sendTitle(player, this.fadeIn, this.stay, this.fadeOut,
       this.title == null ? null : title.apply(this.title.build(entries)),
       this.subTitle == null ? null : subTitle.apply(this.subTitle.build(entries)));
