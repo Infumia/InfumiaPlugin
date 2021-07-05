@@ -54,7 +54,7 @@ public final class MapTask extends BukkitRunnable {
         .map(Claim.Member::getName)
         .collect(Collectors.joining(","))),
       Map.entry("%last_data%", () -> MapTask.DATE_FORMAT.format(new Date(claim.getLastDate()))),
-      Map.entry("%claim_count%", () -> String.valueOf(claim.getChildren().size())),
+      Map.entry("%claim_count%", claim.getChildren()::size),
       Map.entry("%pvp%", () -> claim.isPvp()
         ? ChatColor.stripColor(this.config.getEnabledText())
         : ChatColor.stripColor(this.config.getDisabledText()))
