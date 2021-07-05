@@ -48,7 +48,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    */
   @NotNull
   @Getter
-  private final Map<String, Supplier<String>> replaces = new HashMap<>();
+  private final Map<String, Supplier<Object>> replaces = new HashMap<>();
 
   /**
    * the value.
@@ -66,7 +66,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    */
   @SafeVarargs
   @NotNull
-  public final X build(@NotNull final Map.Entry<String, Supplier<String>>... entries) {
+  public final X build(@NotNull final Map.Entry<String, Supplier<Object>>... entries) {
     return this.build(Arrays.asList(entries));
   }
 
@@ -78,7 +78,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    * @return built value.
    */
   @NotNull
-  public final X build(@NotNull final Collection<Map.Entry<String, Supplier<String>>> entries) {
+  public final X build(@NotNull final Collection<Map.Entry<String, Supplier<Object>>> entries) {
     return this.build(entries.stream()
       .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
   }
@@ -91,7 +91,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    * @return built value.
    */
   @NotNull
-  public final X build(@NotNull final Map.Entry<String, Supplier<String>> entry) {
+  public final X build(@NotNull final Map.Entry<String, Supplier<Object>> entry) {
     return this.build(Collections.singletonList(entry));
   }
 
@@ -104,7 +104,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    * @return built value.
    */
   @NotNull
-  public final X build(@NotNull final String regex, @NotNull final Supplier<String> replace) {
+  public final X build(@NotNull final String regex, @NotNull final Supplier<Object> replace) {
     return this.build(Map.entry(regex, replace));
   }
 
@@ -116,17 +116,17 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    * @return built value.
    */
   @NotNull
-  public final X build(@NotNull final Map<String, Supplier<String>> replaces) {
+  public final X build(@NotNull final Map<String, Supplier<Object>> replaces) {
     final var value = new AtomicReference<>(this.value);
     this.maps.stream()
       .map(operator -> operator.apply(value.get()))
       .forEach(value::set);
     this.replaces.forEach((regex, supplier) ->
-      value.set(this.replace(value.get(), regex, supplier.get())));
+      value.set(this.replace(value.get(), regex, String.valueOf(supplier.get()))));
     this.regex.stream()
       .filter(replaces::containsKey)
       .forEach(regex ->
-        value.set(this.replace(value.get(), regex, replaces.get(regex).get())));
+        value.set(this.replace(value.get(), regex, String.valueOf(replaces.get(regex).get()))));
     return value.get();
   }
 
@@ -141,7 +141,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    */
   @NotNull
   public final <Y> Y buildMap(@NotNull final Function<X, Y> function,
-                              @NotNull final Map<String, Supplier<String>> replaces) {
+                              @NotNull final Map<String, Supplier<Object>> replaces) {
     return function.apply(this.build(replaces));
   }
 
@@ -157,7 +157,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
   @SafeVarargs
   @NotNull
   public final <Y> Y buildMap(@NotNull final Function<X, Y> function,
-                              @NotNull final Map.Entry<String, Supplier<String>>... replaces) {
+                              @NotNull final Map.Entry<String, Supplier<Object>>... replaces) {
     return function.apply(this.build(replaces));
   }
 
@@ -233,7 +233,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    * @return {@code this} for builder chain.
    */
   @NotNull
-  public final S replace(@NotNull final Map<String, Supplier<String>> replaces) {
+  public final S replace(@NotNull final Map<String, Supplier<Object>> replaces) {
     this.replaces.putAll(replaces);
     return this.self();
   }
@@ -247,7 +247,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    */
   @SafeVarargs
   @NotNull
-  public final S replace(@NotNull final Map.Entry<String, Supplier<String>>... replaces) {
+  public final S replace(@NotNull final Map.Entry<String, Supplier<Object>>... replaces) {
     Arrays.stream(replaces).forEach(entry ->
       this.replaces.put(entry.getKey(), entry.getValue()));
     return this.self();
@@ -262,7 +262,7 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    * @return {@code this} for builder chain.
    */
   @NotNull
-  public final S replace(@NotNull final String regex, @NotNull final Supplier<String> replace) {
+  public final S replace(@NotNull final String regex, @NotNull final Supplier<Object> replace) {
     return this.replace(Collections.singletonMap(regex, replace));
   }
 
