@@ -259,7 +259,7 @@ public interface Page {
    */
   @NotNull
   default Inventory open(@NotNull final Player player, final int page, @NotNull final Map<String, Object> properties) {
-    return this.open(player, page, properties, true);
+    return this.open(player, page, properties, false);
   }
 
   /**
