@@ -253,7 +253,15 @@ public abstract class TransformResolver {
    * @return all keys.
    */
   @NotNull
-  public List<String> getAllKeys() {
+  public abstract List<String> getAllKeys();
+
+  /**
+   * obtains all fields keys of the parent object.
+   *
+   * @return all fields keys.
+   */
+  @NotNull
+  public List<String> getKeys() {
     return this.currentObject == null
       ? Collections.emptyList()
       : this.currentObject.getAllKeys();

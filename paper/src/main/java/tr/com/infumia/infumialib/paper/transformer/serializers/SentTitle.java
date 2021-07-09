@@ -117,6 +117,50 @@ public final class SentTitle {
   }
 
   /**
+   * changes the sub title's value.
+   *
+   * @param newSubTitle the new sub title to change.
+   *
+   * @return a new instance with the new sub title.
+   */
+  @NotNull
+  public SentTitle valueOfSubTitle(@Nullable final String newSubTitle) {
+    final var finalNewSubTitle = newSubTitle == null
+      ? null
+      : this.subTitle == null
+      ? RpString.from(newSubTitle)
+      : this.subTitle.value(newSubTitle);
+    return new SentTitle(
+      finalNewSubTitle,
+      this.subTitle,
+      this.fadeIn,
+      this.stay,
+      this.fadeOut);
+  }
+
+  /**
+   * changes the title's value.
+   *
+   * @param newTitle the new title to change.
+   *
+   * @return a new instance with the new title.
+   */
+  @NotNull
+  public SentTitle valueOfTitle(@Nullable final String newTitle) {
+    final var finalNewTitle = newTitle == null
+      ? null
+      : this.title == null
+      ? RpString.from(newTitle)
+      : this.title.value(newTitle);
+    return new SentTitle(
+      finalNewTitle,
+      this.subTitle,
+      this.fadeIn,
+      this.stay,
+      this.fadeOut);
+  }
+
+  /**
    * a class that represents serializer of {@link SentTitle}.
    */
   public static final class Serializer implements ObjectSerializer<SentTitle> {
