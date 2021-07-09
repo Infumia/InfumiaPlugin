@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +20,8 @@ import tr.com.infumia.infumialib.transformer.declarations.GenericDeclaration;
  * a class that helps developers to send title to players easily.
  */
 @Getter
+@ToString
+@EqualsAndHashCode(cacheStrategy = EqualsAndHashCode.CacheStrategy.LAZY, doNotUseGetters = true)
 public final class SentTitle {
 
   /**
