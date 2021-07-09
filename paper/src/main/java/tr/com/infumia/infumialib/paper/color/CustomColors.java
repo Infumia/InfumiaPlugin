@@ -1575,6 +1575,9 @@ public enum CustomColors {
   Ivory("FFFFF0"),
   White("FFFFFF");
 
+  /**
+   * the values.
+   */
   private static final CustomColors[] VALUES = CustomColors.values();
 
   /**
