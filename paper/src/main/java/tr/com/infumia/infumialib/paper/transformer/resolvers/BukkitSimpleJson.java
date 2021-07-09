@@ -20,7 +20,7 @@ public final class BukkitSimpleJson extends SimpleJson {
    *
    * @param parser the parser.
    */
-  public BukkitSimpleJson(final @NotNull JSONParser parser) {
+  public BukkitSimpleJson(@NotNull JSONParser parser) {
     super(parser);
   }
 
