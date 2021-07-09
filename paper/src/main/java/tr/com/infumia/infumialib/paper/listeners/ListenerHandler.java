@@ -1,6 +1,7 @@
 package tr.com.infumia.infumialib.paper.listeners;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -21,6 +22,7 @@ public abstract class ListenerHandler<E extends Event> implements Listener {
    * the plugin.
    */
   @NotNull
+  @Getter(AccessLevel.PROTECTED)
   private final Plugin plugin;
 
   /**
