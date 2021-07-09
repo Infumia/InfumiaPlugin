@@ -137,6 +137,15 @@ public final class SlotPos {
     return this.reverse(false);
   }
 
+  /**
+   * converts row and column into index.
+   *
+   * @return index.
+   */
+  public int toIndex() {
+    return this.row * 9 + this.column;
+  }
+
   @NotNull
   @Override
   public String toString() {
