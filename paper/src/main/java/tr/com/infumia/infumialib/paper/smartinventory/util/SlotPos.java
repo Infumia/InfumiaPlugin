@@ -55,6 +55,30 @@ public final class SlotPos {
   /**
    * creates a simple slot position instance.
    *
+   * @param index the index to create.
+   *
+   * @return a simple slot position instance.
+   */
+  @NotNull
+  public static SlotPos of(final int index) {
+    return SlotPos.of(index, false);
+  }
+
+  /**
+   * creates a simple slot position instance.
+   *
+   * @param index the index to create.
+   *
+   * @return a simple slot position instance.
+   */
+  @NotNull
+  public static SlotPos of(final int index, final boolean absolute) {
+    return SlotPos.of(index / 9, index % 9, absolute);
+  }
+
+  /**
+   * creates a simple slot position instance.
+   *
    * @param row the row to create.
    * @param column the column to create.
    *
@@ -135,6 +159,15 @@ public final class SlotPos {
   @NotNull
   public SlotPos reverse() {
     return this.reverse(false);
+  }
+
+  /**
+   * converts row and column into index.
+   *
+   * @return index.
+   */
+  public int toIndex() {
+    return this.row * 9 + this.column;
   }
 
   @NotNull
