@@ -1,6 +1,7 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -18,13 +19,21 @@ public interface SmartHolder extends InventoryHolder {
   @NotNull
   InventoryContents getContents();
 
+  @Override
+  @NotNull
+  default Inventory getInventory() {
+    return this.getContents().getTopInventory();
+  }
+
   /**
    * obtains the page.
    *
    * @return page.
    */
   @NotNull
-  Page getPage();
+  default Page getPage() {
+    return this.getContents().page();
+  }
 
   /**
    * obtains the player.
@@ -32,7 +41,9 @@ public interface SmartHolder extends InventoryHolder {
    * @return player.
    */
   @NotNull
-  Player getPlayer();
+  default Player getPlayer() {
+    return this.getContents().player();
+  }
 
   /**
    * obtains the plugin.
@@ -40,7 +51,9 @@ public interface SmartHolder extends InventoryHolder {
    * @return plugin.
    */
   @NotNull
-  Plugin getPlugin();
+  default Plugin getPlugin() {
+    return this.getPage().inventory().getPlugin();
+  }
 
   /**
    * checks if the holder is active.
