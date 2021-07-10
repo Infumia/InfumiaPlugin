@@ -53,12 +53,6 @@ public abstract class WrappedTransformResolver extends TransformResolver {
 
   @NotNull
   @Override
-  public List<String> getKeys() {
-    return this.delegate.getKeys();
-  }
-
-  @NotNull
-  @Override
   public Optional<Object> getValue(@NotNull final String path) {
     return this.delegate.getValue(path);
   }
