@@ -218,6 +218,13 @@ public final class BasicPage implements Page {
                         final boolean close) {
     if (close) {
       this.close(player);
+    } else {
+      SmartInventory.getHolder(player).ifPresent(smartHolder -> {
+        final var oldPage = smartHolder.getPage();
+        if (this.row != oldPage.row() || this.column != oldPage.column()) {
+          this.close(player);
+        }
+      });
     }
     final var opener = this.inventory().findOpener(this.type).orElseThrow(() ->
       new IllegalStateException("No opener found for the inventory type " + this.type.name()));

@@ -29,28 +29,4 @@ public final class SmartInventoryHolder implements SmartHolder {
    */
   @Setter
   private boolean active = true;
-
-  @NotNull
-  @Override
-  public Inventory getInventory() {
-    return this.contents.getTopInventory();
-  }
-
-  @NotNull
-  @Override
-  public Page getPage() {
-    return this.contents.page();
-  }
-
-  @NotNull
-  @Override
-  public Player getPlayer() {
-    return this.contents.player();
-  }
-
-  @NotNull
-  @Override
-  public Plugin getPlugin() {
-    return this.getPage().inventory().getPlugin();
-  }
 }
