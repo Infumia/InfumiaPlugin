@@ -839,12 +839,9 @@ public abstract class TransformedObject {
           updateValue = false;
         }
       }
-      System.out.println("first -> " + fieldPath);
       if (!this.resolver.pathExists(fieldPath)) {
         return;
       }
-      System.out.println("second -> " + fieldPath);
-      System.out.println("------------");
       final Object value;
       try {
         value = this.resolver.getValue(fieldPath, type, genericType, fieldDeclaration.getStartingValue()).orElse(null);
