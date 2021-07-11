@@ -119,6 +119,25 @@ public interface InventoryContents {
   }
 
   /**
+   * clears the page.
+   *
+   * @return {@code this}, for chained calls.
+   */
+  @NotNull
+  default InventoryContents clear() {
+    final var all = this.all();
+    for (var row = 0; row < all.length; row++) {
+      for (var column = 0; column < all[0].length; column++) {
+        final var icon = all[row][column];
+        if (icon != null && icon.getItem().getType() != Material.AIR) {
+          this.set(row, column, null);
+        }
+      }
+    }
+    return this;
+  }
+
+  /**
    * fills the inventory with the given item.
    *
    * @param item the item to fill.
