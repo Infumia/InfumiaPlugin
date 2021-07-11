@@ -101,13 +101,21 @@ public final class ChatInput<T, P> {
     final String message = event.getMessage();
     final P wrapped = sender.getWrapped();
     if (message.equalsIgnoreCase(this.builder.getCancel())) {
-      this.builder.getOnCancel().accept(wrapped);
+      try {
+        this.builder.getOnCancel().accept(wrapped);
+      } catch (final Exception e) {
+        e.printStackTrace();
+      }
       this.end(wrapped, EndReason.PLAYER_CANCELS);
       return;
     }
     if (this.builder.getIsValidInput().test(wrapped, message)) {
       final T value = this.builder.getSetValue().apply(wrapped, message);
-      this.builder.getOnFinish().accept(wrapped, value);
+      try {
+        this.builder.getOnFinish().accept(wrapped, value);
+      } catch (final Exception e) {
+        e.printStackTrace();
+      }
       this.end(wrapped, EndReason.FINISH);
     } else {
       if (this.builder.getOnInvalidInput().test(wrapped, message)) {
