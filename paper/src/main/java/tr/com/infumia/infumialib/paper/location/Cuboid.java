@@ -20,44 +20,56 @@ import org.jetbrains.annotations.NotNull;
  *
  * @todo #1:15m Make methods, which have many calculation in it, completable future.
  */
-@ToString(of = {"maxX", "maxY", "maxZ", "minX", "minY", "minZ", "worldName"})
-@EqualsAndHashCode(of = {"maxX", "maxY", "maxZ", "minX", "minY", "minZ", "worldName"})
+@ToString(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public final class Cuboid {
 
   /**
    * the maximum x.
    */
   @Getter
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final double maxX;
 
   /**
    * the maximum y.
    */
   @Getter
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final double maxY;
 
   /**
    * the maximum z.
    */
   @Getter
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final double maxZ;
 
   /**
    * the minimum x.
    */
   @Getter
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final double minX;
 
   /**
    * the minimum y.
    */
   @Getter
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final double minY;
 
   /**
    * the minimum z.
    */
   @Getter
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final double minZ;
 
   /**
@@ -71,6 +83,8 @@ public final class Cuboid {
    */
   @NotNull
   @Getter
+  @ToString.Include
+  @EqualsAndHashCode.Include
   private final String worldName;
 
   /**

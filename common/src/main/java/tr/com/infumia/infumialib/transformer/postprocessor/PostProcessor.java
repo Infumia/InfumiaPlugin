@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
+import lombok.Cleanup;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -132,9 +133,8 @@ public final class PostProcessor {
    */
   @SneakyThrows
   private static void writeOutput(@NotNull final OutputStream outputStream, @NotNull final String text) {
-    try (final var out = new PrintStream(outputStream, true, StandardCharsets.UTF_8.name())) {
-      out.print(text);
-    }
+    @Cleanup final var out = new PrintStream(outputStream, true, StandardCharsets.UTF_8.name());
+    out.print(text);
   }
 
   /**

@@ -131,8 +131,8 @@ public final class SentTitle {
       ? RpString.from(newSubTitle)
       : this.subTitle.value(newSubTitle);
     return new SentTitle(
+      this.title,
       finalNewSubTitle,
-      this.subTitle,
       this.fadeIn,
       this.stay,
       this.fadeOut);

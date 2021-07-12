@@ -420,10 +420,11 @@ public abstract class TransformedObject {
    */
   @NotNull
   public final TransformedObject initiate(@NotNull final Path path, final boolean update) throws TransformException {
-    if (!this.exists(path)) {
-      this.createFileUnchecked(path);
+    final var notExist = !this.exists(path);
+    if (notExist) {
+      this.save(path);
     }
-    return this.load(path, update);
+    return this.load(path, !notExist && update);
   }
 
   /**
@@ -648,7 +649,7 @@ public abstract class TransformedObject {
   @NotNull
   public final TransformedObject save(@NotNull final Path path) throws TransformException {
     try {
-      this.createFile(path);
+      this.createFileUnchecked(path);
       return this.save(new PrintStream(
         new FileOutputStream(path.toFile(), false),
         true,
