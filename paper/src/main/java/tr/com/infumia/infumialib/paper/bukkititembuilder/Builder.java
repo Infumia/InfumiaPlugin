@@ -247,9 +247,9 @@ public abstract class Builder<X extends Builder<X, T>, T extends ItemMeta> imple
    */
   @NotNull
   public final X addFlags(@NotNull final Collection<String> flags) {
-    flags.stream()
-      .map(ItemFlag::valueOf)
-      .forEach(this::addFlag);
+    for (final var flag : flags) {
+      this.addFlag(ItemFlag.valueOf(flag));
+    }
     return this.getSelf();
   }
 

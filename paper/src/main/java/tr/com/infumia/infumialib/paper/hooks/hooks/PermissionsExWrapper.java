@@ -1,9 +1,9 @@
 package tr.com.infumia.infumialib.paper.hooks.hooks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -33,9 +33,10 @@ public final class PermissionsExWrapper implements Wrapped {
     final var calculatedLimit = new AtomicLong(defaultValue);
     final var user = this.permissionsEx.getPermissionsManager().getUser(player.getUniqueId());
     final var permissionMap = user.getAllPermissions();
-    final var permissions = permissionMap.entrySet().stream()
-      .flatMap(entry -> entry.getValue().stream())
-      .collect(Collectors.toList());
+    final var permissions = new ArrayList<String>();
+    for (final var entry : permissionMap.entrySet()) {
+      permissions.addAll(entry.getValue());
+    }
     if (permissions.isEmpty()) {
       return calculatedLimit.get();
     }

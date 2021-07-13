@@ -2,6 +2,7 @@ package tr.com.infumia.infumialib.transformer;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -193,9 +194,9 @@ public abstract class TransformResolver {
           throw new TransformException(String.format("Something went wrong when getting type of %s", genericTarget));
         }
         final var targetList = (Collection<Object>) TransformerPool.createInstance(targetClass);
-        ((Collection<?>) object).stream()
-          .map(item -> this.deserialize(item, GenericDeclaration.of(item), declaration.getType(), declaration, defaultValue))
-          .forEach(targetList::add);
+        for (final var item : (Collection<?>) object) {
+          targetList.add(this.deserialize(item, GenericDeclaration.of(item), declaration.getType(), declaration, defaultValue));
+        }
         return targetClass.cast(targetList);
       }
       if (object instanceof Map<?, ?> && Map.class.isAssignableFrom(targetClass)) {
@@ -453,9 +454,11 @@ public abstract class TransformResolver {
     final var collectionSubtype = genericType == null
       ? null
       : genericType.getSubTypeAt(0).orElse(null);
-    return value.stream()
-      .map(collectionElement -> this.serialize(collectionElement, collectionSubtype, conservative))
-      .collect(Collectors.toList());
+    final var list = new ArrayList<>();
+    for (final var collectionElement : value) {
+      list.add(this.serialize(collectionElement, collectionSubtype, conservative));
+    }
+    return list;
   }
 
   /**
@@ -479,12 +482,13 @@ public abstract class TransformResolver {
     final var valueDeclaration = genericType == null
       ? null
       : genericType.getSubTypeAt(1).orElse(null);
-    return value.entrySet().stream()
-      .map(entry -> Map.entry(
+    final var map = new LinkedHashMap<>();
+    for (final var entry : value.entrySet()) {
+      map.put(
         this.serialize(entry.getKey(), keyDeclaration, conservative),
-        this.serialize(entry.getValue(), valueDeclaration, conservative)
-      ))
-      .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x, y) -> y, LinkedHashMap::new));
+        this.serialize(entry.getValue(), valueDeclaration, conservative));
+    }
+    return map;
   }
 
   /**

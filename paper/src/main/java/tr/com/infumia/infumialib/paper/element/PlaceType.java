@@ -1,11 +1,11 @@
 package tr.com.infumia.infumialib.paper.element;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.element.types.PtFill;
 import tr.com.infumia.infumialib.paper.element.types.PtFillBorders;
@@ -110,16 +110,18 @@ public interface PlaceType {
       return value;
     }
     try {
-      value = ((Collection<?>) map.get(key)).stream()
-        .map(String::valueOf)
-        .map(s -> {
-          try {
-            return Integer.parseInt(s);
-          } catch (final Exception ignored) {
-          }
-          return 0;
-        })
-        .collect(Collectors.toList());
+      final var values = new ArrayList<Integer>();
+      final var objects = (Collection<?>) map.get(key);
+      for (final var object : objects) {
+        final var s = object.toString();
+        var number = 0;
+        try {
+          number = Integer.parseInt(s);
+        } catch (final Exception ignored) {
+        }
+        values.add(number);
+      }
+      value = values;
     } catch (final Exception ignored) {
     }
     return value;
@@ -132,9 +134,11 @@ public interface PlaceType {
       return value;
     }
     try {
-      value = ((Collection<?>) map.get(key)).stream()
-        .map(String::valueOf)
-        .collect(Collectors.toList());
+      final var list = new ArrayList<String>();
+      for (final var o : (Collection<?>) map.get(key)) {
+        list.add(String.valueOf(o));
+      }
+      value = list;
     } catch (final Exception ignored) {
     }
     return value;

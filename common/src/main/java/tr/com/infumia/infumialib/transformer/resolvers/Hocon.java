@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -89,10 +88,14 @@ public class Hocon extends TransformResolver {
   @NotNull
   private static Map<String, Object> hoconToMap(@NotNull final Config config,
                                                 @NotNull final TransformedObjectDeclaration declaration) {
-    return declaration.getNonMigratedFields().values().stream()
-      .map(FieldDeclaration::getPath)
-      .filter(config::hasPath)
-      .collect(Collectors.toMap(path -> path, path -> config.getValue(path).unwrapped(), (a, b) -> b, LinkedHashMap::new));
+    final var result = new LinkedHashMap<String, Object>();
+    for (final var fieldDeclaration : declaration.getNonMigratedFields().values()) {
+      final var path = fieldDeclaration.getPath();
+      if (config.hasPath(path)) {
+        result.put(path, config.getValue(path).unwrapped());
+      }
+    }
+    return result;
   }
 
   /**
@@ -193,12 +196,21 @@ public class Hocon extends TransformResolver {
     }
     final var processor = PostProcessor.of(builder.toString())
       .removeLines(line -> line.startsWith(this.commentPrefix.trim()))
-      .updateLines(line -> declaration.getNonMigratedFields().values().stream()
-        .filter(Hocon.isFieldDeclaredForLine(line))
-        .findAny()
-        .map(FieldDeclaration::getComment)
-        .map(comment -> this.sectionSeparator + PostProcessor.createComment(this.commentPrefix, comment.value()) + line)
-        .orElse(line));
+      .updateLines(line -> {
+        final var predicate = Hocon.isFieldDeclaredForLine(line);
+        for (final var fieldDeclaration : declaration.getNonMigratedFields().values()) {
+          if (predicate.test(fieldDeclaration)) {
+            return Optional.of(fieldDeclaration)
+              .map(FieldDeclaration::getComment)
+              .map(comment -> this.sectionSeparator + PostProcessor.createComment(this.commentPrefix, comment.value()) + line)
+              .orElse(line);
+          }
+        }
+        return Optional.<FieldDeclaration>empty()
+          .map(FieldDeclaration::getComment)
+          .map(comment -> this.sectionSeparator + PostProcessor.createComment(this.commentPrefix, comment.value()) + line)
+          .orElse(line);
+      });
     final var header = declaration.getHeader();
     if (header != null) {
       processor.prependContextComment(this.commentPrefix, header.value());

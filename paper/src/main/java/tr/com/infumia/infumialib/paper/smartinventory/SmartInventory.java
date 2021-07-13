@@ -1,5 +1,6 @@
 package tr.com.infumia.infumialib.paper.smartinventory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,8 +10,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -87,11 +86,11 @@ public interface SmartInventory {
    */
   @NotNull
   static List<SmartHolder> getHolders() {
-    return Bukkit.getOnlinePlayers().stream()
-      .map(SmartInventory::getHolder)
-      .filter(Optional::isPresent)
-      .map(Optional::get)
-      .collect(Collectors.toList());
+    final var list = new ArrayList<SmartHolder>();
+    for (final var player : Bukkit.getOnlinePlayers()) {
+      SmartInventory.getHolder(player).ifPresent(list::add);
+    }
+    return list;
   }
 
   /**
@@ -103,10 +102,13 @@ public interface SmartInventory {
    */
   @NotNull
   static List<Player> getOpenedPlayers(@NotNull final Page page) {
-    return SmartInventory.getHolders().stream()
-      .filter(holder -> page.id().equals(holder.getPage().id()))
-      .map(SmartHolder::getPlayer)
-      .collect(Collectors.toList());
+    final var list = new ArrayList<Player>();
+    for (final var holder : SmartInventory.getHolders()) {
+      if (page.id().equals(holder.getPage().id())) {
+        list.add(holder.getPlayer());
+      }
+    }
+    return list;
   }
 
   /**
@@ -126,10 +128,12 @@ public interface SmartInventory {
    * @param <T> type of the class.
    */
   static <T extends InventoryProvider> void notifyUpdateForAll(@NotNull final Class<T> provider) {
-    SmartInventory.getHolders().stream()
-      .map(SmartHolder::getContents)
-      .filter(contents -> provider.equals(contents.page().provider().getClass()))
-      .forEach(InventoryContents::notifyUpdate);
+    for (final var smartHolder : SmartInventory.getHolders()) {
+      final var contents = smartHolder.getContents();
+      if (provider.equals(contents.page().provider().getClass())) {
+        contents.notifyUpdate();
+      }
+    }
   }
 
   /**
@@ -138,10 +142,12 @@ public interface SmartInventory {
    * @param id the id to find and run the update method.
    */
   static void notifyUpdateForAllById(@NotNull final String id) {
-    SmartInventory.getHolders().stream()
-      .map(SmartHolder::getPage)
-      .filter(page -> page.id().equals(id))
-      .forEach(Page::notifyUpdateForAll);
+    for (final var smartHolder : SmartInventory.getHolders()) {
+      final var page = smartHolder.getPage();
+      if (page.id().equals(id)) {
+        page.notifyUpdateForAll();
+      }
+    }
   }
 
   /**
@@ -153,10 +159,17 @@ public interface SmartInventory {
    */
   @NotNull
   default Optional<InventoryOpener> findOpener(@NotNull final InventoryType type) {
-    return Stream.of(this.getOpeners(), SmartInventory.DEFAULT_OPENERS)
-      .flatMap(Collection::stream)
-      .filter(opener -> opener.supports(type))
-      .findFirst();
+    for (final var opener : this.getOpeners()) {
+      if (opener.supports(type)) {
+        return Optional.of(opener);
+      }
+    }
+    for (final var opener : SmartInventory.DEFAULT_OPENERS) {
+      if (opener.supports(type)) {
+        return Optional.of(opener);
+      }
+    }
+    return Optional.empty();
   }
 
   /**

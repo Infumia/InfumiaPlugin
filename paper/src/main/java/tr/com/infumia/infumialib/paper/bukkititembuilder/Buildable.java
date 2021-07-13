@@ -1,8 +1,8 @@
 package tr.com.infumia.infumialib.paper.bukkititembuilder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.BookMeta;
@@ -298,9 +298,11 @@ public interface Buildable<X extends Buildable<X, T>, T extends ItemMeta> {
       }
       final var flags = itemMeta.getItemFlags();
       if (!flags.isEmpty()) {
-        data.addAsCollection(Keys.FLAG_KEY, flags.stream()
-          .map(Enum::name)
-          .collect(Collectors.toList()), String.class);
+        final var list = new ArrayList<String>();
+        for (final var flag : flags) {
+          list.add(flag.name());
+        }
+        data.addAsCollection(Keys.FLAG_KEY, list, String.class);
       }
       if (Builder.VERSION >= 14 && itemMeta.hasCustomModelData()) {
         data.add(Keys.CUSTOM_MODEL_DATA, itemMeta.getCustomModelData());

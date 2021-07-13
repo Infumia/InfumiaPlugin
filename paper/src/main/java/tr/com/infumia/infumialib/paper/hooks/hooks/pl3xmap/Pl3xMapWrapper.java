@@ -27,20 +27,20 @@ public final class Pl3xMapWrapper implements Wrapped {
     final var plugin = config.getPlugin();
     final var name = plugin.getName();
     final var map = this.tasks.getOrDefault(name, new HashMap<>());
-    this.provider.mapWorlds().stream()
-      .filter(mapWorld -> worldsPredicate.test(mapWorld.name()))
-      .forEach(world -> {
+    for (final var mapWorld : this.provider.mapWorlds()) {
+      if (worldsPredicate.test(mapWorld.name())) {
         final var provider = SimpleLayerProvider
           .builder(config.getControlLabel())
           .showControls(config.isControlShow())
           .defaultHidden(config.isControlHide())
           .build();
-        final var key = Key.of(config.getLayerUniqueIdPattern().replace("%world_unique_id%", world.uuid().toString()));
-        world.layerRegistry().register(key, provider);
-        final var task = new MapTask(config, provider, world);
+        final var key = Key.of(config.getLayerUniqueIdPattern().replace("%world_unique_id%", mapWorld.uuid().toString()));
+        mapWorld.layerRegistry().register(key, provider);
+        final var task = new MapTask(config, provider, mapWorld);
         task.runTaskTimerAsynchronously(plugin, 0, config.getUpdateInterval());
-        map.put(world.uuid(), task);
-      });
+        map.put(mapWorld.uuid(), task);
+      }
+    }
     this.tasks.put(name, map);
   }
 

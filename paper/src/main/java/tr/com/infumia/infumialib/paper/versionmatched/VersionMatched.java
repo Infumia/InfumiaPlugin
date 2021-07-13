@@ -97,8 +97,8 @@ public final class VersionMatched<T> {
     // noinspection unchecked
     return (RefConstructed<T>) new ClassOf<>(match).getPrimitiveConstructor(types)
       .orElseThrow(() ->
-        new IllegalStateException("match() -> Couldn't find any constructor on " +
-          '"' + match.getSimpleName() + '"' + " version!"));
+        new IllegalStateException(String.format("match() -> Couldn't find any constructor on \"%s\" version!",
+          match.getSimpleName())));
   }
 
   /**
@@ -108,12 +108,12 @@ public final class VersionMatched<T> {
    */
   @NotNull
   private Class<? extends T> match() {
-    return this.versionClasses.stream()
-      .filter(versionClass -> versionClass.match(this.version))
-      .map(VersionClass::getVersionClass)
-      .findFirst()
-      .orElseThrow(() ->
-        new IllegalStateException(String.format("match() -> Couldn't find any matched class on \"%s\" version!",
-          this.version.getVersion())));
+    for (final var versionClass : this.versionClasses) {
+      if (versionClass.match(this.version)) {
+        return versionClass.getVersionClass();
+      }
+    }
+    throw new IllegalStateException(String.format("match() -> Couldn't find any matched class on \"%s\" version!",
+      this.version.getVersion()));
   }
 }

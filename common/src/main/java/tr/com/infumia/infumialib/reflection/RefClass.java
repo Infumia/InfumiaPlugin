@@ -1,10 +1,10 @@
 package tr.com.infumia.infumialib.reflection;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -53,9 +53,13 @@ public interface RefClass<T> extends RefAnnotated, RefModifiable {
   @NotNull
   default <A extends Annotation> List<RefField> getDeclaredFieldsWithAnnotation(
     @NotNull final Class<A> annotationClass) {
-    return this.getDeclaredFields().stream()
-      .filter(refField -> refField.hasAnnotation(annotationClass))
-      .collect(Collectors.toList());
+    final var list = new ArrayList<RefField>();
+    for (final var refField : this.getDeclaredFields()) {
+      if (refField.hasAnnotation(annotationClass)) {
+        list.add(refField);
+      }
+    }
+    return list;
   }
 
   /**
@@ -90,9 +94,13 @@ public interface RefClass<T> extends RefAnnotated, RefModifiable {
   @NotNull
   default <A extends Annotation> List<RefMethod> getDeclaredMethodsWithAnnotation(
     @NotNull final Class<A> annotationClass) {
-    return this.getDeclaredMethods().stream()
-      .filter(refMethod -> refMethod.hasAnnotation(annotationClass))
-      .collect(Collectors.toList());
+    final var list = new ArrayList<RefMethod>();
+    for (final var refMethod : this.getDeclaredMethods()) {
+      if (refMethod.hasAnnotation(annotationClass)) {
+        list.add(refMethod);
+      }
+    }
+    return list;
   }
 
   /**
@@ -156,9 +164,13 @@ public interface RefClass<T> extends RefAnnotated, RefModifiable {
    */
   @NotNull
   default <A extends Annotation> List<RefField> getFieldsWithAnnotation(@NotNull final Class<A> annotationClass) {
-    return this.getFields().stream()
-      .filter(refField -> refField.hasAnnotation(annotationClass))
-      .collect(Collectors.toList());
+    final var list = new ArrayList<RefField>();
+    for (final var refField : this.getFields()) {
+      if (refField.hasAnnotation(annotationClass)) {
+        list.add(refField);
+      }
+    }
+    return list;
   }
 
   /**
@@ -170,8 +182,9 @@ public interface RefClass<T> extends RefAnnotated, RefModifiable {
    */
   default <A extends Annotation> void getFieldsWithAnnotation(@NotNull final Class<A> annotationClass,
                                                               @NotNull final BiConsumer<RefField, A> consumer) {
-    this.getFields().forEach(refField ->
-      refField.getAnnotation(annotationClass, a -> consumer.accept(refField, a)));
+    for (final var refField : this.getFields()) {
+      refField.getAnnotation(annotationClass, a -> consumer.accept(refField, a));
+    }
   }
 
   /**
@@ -243,9 +256,13 @@ public interface RefClass<T> extends RefAnnotated, RefModifiable {
    */
   @NotNull
   default <A extends Annotation> List<RefMethod> getMethodsWithAnnotation(@NotNull final Class<A> annotationClass) {
-    return this.getMethods().stream()
-      .filter(refField -> refField.hasAnnotation(annotationClass))
-      .collect(Collectors.toList());
+    final var list = new ArrayList<RefMethod>();
+    for (final var refField : this.getMethods()) {
+      if (refField.hasAnnotation(annotationClass)) {
+        list.add(refField);
+      }
+    }
+    return list;
   }
 
   /**
@@ -257,8 +274,9 @@ public interface RefClass<T> extends RefAnnotated, RefModifiable {
    */
   default <A extends Annotation> void getMethodsWithAnnotation(@NotNull final Class<A> annotationClass,
                                                                @NotNull final BiConsumer<RefMethod, A> consumer) {
-    this.getMethods().forEach(refField ->
-      refField.getAnnotation(annotationClass, a -> consumer.accept(refField, a)));
+    for (final var refField : this.getMethods()) {
+      refField.getAnnotation(annotationClass, a -> consumer.accept(refField, a));
+    }
   }
 
   /**

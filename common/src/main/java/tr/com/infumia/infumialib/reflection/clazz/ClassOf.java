@@ -6,7 +6,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -77,27 +76,34 @@ public final class ClassOf<T> implements RefClass<T> {
   public Optional<RefConstructed<T>> getConstructor(final int number) {
     final var constructors = new ArrayList<>(Arrays.asList(this.clazz.getConstructors()));
     constructors.addAll(Arrays.asList(this.clazz.getDeclaredConstructors()));
-    return constructors.stream()
-      .filter(Objects::nonNull)
-      .filter(constructor -> constructor.getParameterTypes().length == number)
-      .findFirst()
-      .map(constructor -> new ConstructorOf<>((Constructor<T>) constructor));
+    for (final var constructor : constructors) {
+      if (constructor != null) {
+        if (constructor.getParameterTypes().length == number) {
+          return Optional.of(new ConstructorOf<>((Constructor<T>) constructor));
+        }
+      }
+    }
+    return Optional.empty();
   }
 
   @NotNull
   @Override
   public List<RefField> getDeclaredFields() {
-    return Arrays.stream(this.clazz.getDeclaredFields())
-      .map(FieldOf::new)
-      .collect(Collectors.toList());
+    final var list = new ArrayList<RefField>();
+    for (final var field : this.clazz.getDeclaredFields()) {
+      list.add(new FieldOf(field));
+    }
+    return list;
   }
 
   @NotNull
   @Override
   public List<RefMethod> getDeclaredMethods() {
-    return Arrays.stream(this.clazz.getDeclaredMethods())
-      .map(MethodOf::new)
-      .collect(Collectors.toList());
+    final var list = new ArrayList<RefMethod>();
+    for (final var method : this.clazz.getDeclaredMethods()) {
+      list.add(new MethodOf(method));
+    }
+    return list;
   }
 
   @NotNull
@@ -126,18 +132,24 @@ public final class ClassOf<T> implements RefClass<T> {
   public Optional<RefField> getField(@NotNull final Class<?> type) {
     final var fields = this.getFields();
     fields.addAll(this.getDeclaredFields());
-    return fields.stream()
-      .filter(Objects::nonNull)
-      .filter(field -> type.equals(field.getType()))
-      .findFirst();
+    for (final var field : fields) {
+      if (field != null) {
+        if (type.equals(field.getType())) {
+          return Optional.of(field);
+        }
+      }
+    }
+    return Optional.empty();
   }
 
   @NotNull
   @Override
   public List<RefField> getFields() {
-    return Arrays.stream(this.clazz.getFields())
-      .map(FieldOf::new)
-      .collect(Collectors.toList());
+    final var list = new ArrayList<RefField>();
+    for (final var field : this.clazz.getFields()) {
+      list.add(new FieldOf(field));
+    }
+    return list;
   }
 
   @NotNull
@@ -151,14 +163,19 @@ public final class ClassOf<T> implements RefClass<T> {
   public Optional<RefMethod> getMethodByName(@NotNull final String... names) {
     final var methods = this.getMethods();
     methods.addAll(this.getDeclaredMethods());
-    return methods.stream()
-      .filter(Objects::nonNull)
-      .filter(method ->
-        Arrays.stream(names)
-          .findFirst()
-          .map(name -> method.getName().equals(name))
-          .orElse(false))
-      .findFirst();
+    for (final var method : methods) {
+      if (method != null) {
+        String found = null;
+        for (final var s : names) {
+          found = s;
+          break;
+        }
+        if (found != null && method.getName().equals(found)) {
+          return Optional.of(method);
+        }
+      }
+    }
+    return Optional.empty();
   }
 
   @Override
@@ -178,10 +195,14 @@ public final class ClassOf<T> implements RefClass<T> {
   public Optional<RefMethod> getMethodByReturnType(@NotNull final Class<?> type) {
     final var methods = this.getMethods();
     methods.addAll(this.getDeclaredMethods());
-    return methods.stream()
-      .filter(Objects::nonNull)
-      .filter(method -> type.equals(method.getReturnType()))
-      .findFirst();
+    for (final var method : methods) {
+      if (method != null) {
+        if (type.equals(method.getReturnType())) {
+          return Optional.of(method);
+        }
+      }
+    }
+    return Optional.empty();
   }
 
   @NotNull

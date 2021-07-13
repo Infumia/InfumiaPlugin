@@ -2,8 +2,8 @@ package tr.com.infumia.infumialib.scoreboard.line;
 
 import java.io.Closeable;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -136,14 +136,21 @@ public interface Line<O> extends Function<@NotNull O, @NotNull String>, Closeabl
     @NotNull
     @Override
     public String apply(@NotNull final O o) {
-      return this.lines.stream()
-        .map(line -> line.apply(o))
-        .collect(Collectors.joining(""));
+      final var joiner = new StringJoiner("");
+      for (final var line : this.lines) {
+        joiner.add(line.apply(o));
+      }
+      return joiner.toString();
     }
 
     @Override
     public boolean isUpdate() {
-      return this.lines.stream().anyMatch(Line::isUpdate);
+      for (final var line : this.lines) {
+        if (line.isUpdate()) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 }

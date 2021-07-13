@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import org.bukkit.Color;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -119,10 +117,12 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
   @NotNull
   public PotionItemBuilder addCustomEffects(@NotNull final Collection<String> effects, final boolean overwrite) {
     if (Builder.VERSION >= 9) {
-      effects.stream()
-        .map(XPotion::parsePotionEffectFromString)
-        .filter(Objects::nonNull)
-        .forEach(effect -> this.addCustomEffect(effect, overwrite));
+      for (final var effect : effects) {
+        final var potionEffect = XPotion.parsePotionEffectFromString(effect);
+        if (potionEffect != null) {
+          this.addCustomEffect(potionEffect, overwrite);
+        }
+      }
     }
     return this.getSelf();
   }
@@ -151,10 +151,10 @@ public final class PotionItemBuilder extends Builder<PotionItemBuilder, PotionMe
     final var itemMeta = this.getItemMeta();
     if (Builder.VERSION >= 9) {
       final var customEffects = itemMeta.getCustomEffects();
-      final var effects = customEffects.stream()
-        .map(effect ->
-          String.format("%s, %d, %d", effect.getType().getName(), effect.getDuration(), effect.getAmplifier()))
-        .collect(Collectors.toCollection(() -> new ArrayList<>(customEffects.size())));
+      final var effects = new ArrayList<String>(customEffects.size());
+      for (final var effect : customEffects) {
+        effects.add(String.format("%s, %d, %d", effect.getType().getName(), effect.getDuration(), effect.getAmplifier()));
+      }
       data.addAsCollection(Keys.CUSTOM_EFFECTS_KEY, effects, String.class);
       final var potionData = itemMeta.getBasePotionData();
       data.add(Keys.BASE_EFFECT_KEY, String.format("%s, %s, %s",

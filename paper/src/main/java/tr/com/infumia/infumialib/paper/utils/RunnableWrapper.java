@@ -27,9 +27,18 @@ public final class RunnableWrapper extends BukkitRunnable {
   /**
    * ctor.
    *
+   * @param runnable the runnable.
+   */
+  RunnableWrapper(@NotNull final Runnable runnable) {
+    this(r -> runnable.run());
+  }
+
+  /**
+   * ctor.
+   *
    * @param consumer the consumer.
    */
-  public RunnableWrapper(@NotNull final Consumer<BukkitRunnable> consumer) {
+  RunnableWrapper(@NotNull final Consumer<BukkitRunnable> consumer) {
     this(consumer, runnable -> true);
   }
 

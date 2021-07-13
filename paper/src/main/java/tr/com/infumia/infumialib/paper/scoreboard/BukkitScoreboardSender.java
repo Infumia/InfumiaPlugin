@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -45,11 +44,12 @@ public final class BukkitScoreboardSender implements ScoreboardSender<Player> {
   @Synchronized("scoreboards")
   public void send(@NotNull final Board<Player> board, @NotNull final Collection<Player> observers,
                    @NotNull final List<Line<Player>> lines) {
-    observers.stream()
-      .map(Entity::getUniqueId)
-      .map(uniqueId -> this.scoreboards.computeIfAbsent(uniqueId, uuid ->
-        BukkitPlayerScoreboard.create(board, lines, this.plugin, uuid)))
-      .forEach(scoreboard -> scoreboard.update(lines));
+    for (final var observer : observers) {
+      this.scoreboards.computeIfAbsent(
+        observer.getUniqueId(),
+        uuid -> BukkitPlayerScoreboard.create(board, lines, this.plugin, uuid)
+      ).update(lines);
+    }
   }
 
   /**

@@ -38,9 +38,12 @@ public final class TransformRegistry {
    */
   @NotNull
   public Optional<ObjectSerializer<?>> getSerializer(@NotNull final Class<?> cls) {
-    return this.serializers.stream()
-      .filter(serializer -> serializer.supports(cls))
-      .findFirst();
+    for (final var serializer : this.serializers) {
+      if (serializer.supports(cls)) {
+        return Optional.of(serializer);
+      }
+    }
+    return Optional.empty();
   }
 
   /**
@@ -210,9 +213,10 @@ public final class TransformRegistry {
     for (final var transformer : transformers) {
       this.withTransformer(transformer.getPair(), transformer);
     }
-    transformers.stream()
-      .map(TwoSideTransformer::reverse)
-      .forEach(transformer -> this.withTransformer(transformer.getPair(), transformer));
+    for (final var transformer : transformers) {
+      final var reverse = transformer.reverse();
+      this.withTransformer(reverse.getPair(), reverse);
+    }
     return this;
   }
 }

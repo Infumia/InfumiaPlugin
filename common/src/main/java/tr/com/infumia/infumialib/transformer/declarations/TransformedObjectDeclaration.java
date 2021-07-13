@@ -1,11 +1,10 @@
 package tr.com.infumia.infumialib.transformer.declarations;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -90,17 +89,26 @@ public final class TransformedObjectDeclaration {
                                                 @Nullable final TransformedObject object) {
     return TransformedObjectDeclaration.CACHES.computeIfAbsent(cls, clazz -> {
       final var classOf = new ClassOf<>(clazz);
+      final var map = new LinkedHashMap<String, FieldDeclaration>();
+      for (final var field : classOf.getDeclaredFields()) {
+        if (field.getName().startsWith("this$") ||
+          field.hasAnnotation(Exclude.class)) {
+          continue;
+        }
+        final var declaration = FieldDeclaration.of(
+          Names.Calculated.calculateNames(clazz),
+          object,
+          clazz,
+          field);
+        map.merge(declaration.getPath(), declaration, (f1, f2) -> {
+          if (f1.getMigration() != null) {
+            return f2;
+          }
+          throw new IllegalStateException(String.format("Duplicate key %s", f1));
+        });
+      }
       return new TransformedObjectDeclaration(
-        classOf.getDeclaredFields().stream()
-          .filter(field -> !field.getName().startsWith("this$"))
-          .filter(field -> !field.hasAnnotation(Exclude.class))
-          .map(field -> FieldDeclaration.of(Names.Calculated.calculateNames(clazz), object, clazz, field))
-          .collect(Collectors.toMap(FieldDeclaration::getPath, Function.identity(), (f1, f2) -> {
-            if (f1.getMigration() != null) {
-              return f2;
-            }
-            throw new IllegalStateException(String.format("Duplicate key %s", f1));
-          }, LinkedHashMap::new)),
+        map,
         classOf.getAnnotation(Comment.class).orElse(null),
         clazz,
         classOf.getAnnotation(Version.class).orElse(null));
@@ -148,9 +156,15 @@ public final class TransformedObjectDeclaration {
    */
   @NotNull
   public Map<String, FieldDeclaration> getMigratedFields() {
-    return this.fields.entrySet().stream()
-      .filter(entry -> entry.getValue().isMigrated(this))
-      .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
+    final var map = new HashMap<String, FieldDeclaration>();
+    for (final var entry : this.fields.entrySet()) {
+      if (entry.getValue().isMigrated(this)) {
+        if (map.put(entry.getKey(), entry.getValue()) != null) {
+          throw new IllegalStateException("Duplicate key");
+        }
+      }
+    }
+    return Collections.unmodifiableMap(map);
   }
 
   /**
@@ -160,9 +174,15 @@ public final class TransformedObjectDeclaration {
    */
   @NotNull
   public Map<String, FieldDeclaration> getNonMigratedFields() {
-    return this.fields.entrySet().stream()
-      .filter(entry -> entry.getValue().isNotMigrated(this))
-      .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    final var map = new HashMap<String, FieldDeclaration>();
+    for (final var entry : this.fields.entrySet()) {
+      if (entry.getValue().isNotMigrated(this)) {
+        if (map.put(entry.getKey(), entry.getValue()) != null) {
+          throw new IllegalStateException("Duplicate key");
+        }
+      }
+    }
+    return map;
   }
 
   /**

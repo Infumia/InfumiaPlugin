@@ -1,7 +1,7 @@
 package tr.com.infumia.infumialib.element;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,9 +26,11 @@ public final class Placeholder {
 
   @NotNull
   public List<String> replace(@NotNull final List<String> list) {
-    return list.stream()
-      .map(s -> s.replace(this.regex, this.replace()))
-      .collect(Collectors.toList());
+    final var result = new ArrayList<String>();
+    for (final var s : list) {
+      result.add(s.replace(this.regex, this.replace()));
+    }
+    return result;
   }
 
   @NotNull

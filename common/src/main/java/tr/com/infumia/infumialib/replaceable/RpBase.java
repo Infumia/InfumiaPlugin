@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -79,8 +78,13 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
    */
   @NotNull
   public final X build(@NotNull final Collection<Map.Entry<String, Supplier<Object>>> entries) {
-    return this.build(entries.stream()
-      .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+    final var map = new HashMap<String, Supplier<Object>>();
+    for (final var entry : entries) {
+      if (map.put(entry.getKey(), entry.getValue()) != null) {
+        throw new IllegalStateException("Duplicate key");
+      }
+    }
+    return this.build(map);
   }
 
   /**
@@ -118,15 +122,16 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
   @NotNull
   public final X build(@NotNull final Map<String, Supplier<Object>> replaces) {
     final var value = new AtomicReference<>(this.value);
-    this.maps.stream()
-      .map(operator -> operator.apply(value.get()))
-      .forEach(value::set);
+    for (final var operator : this.maps) {
+      value.set(operator.apply(value.get()));
+    }
     this.replaces.forEach((regex, supplier) ->
       value.set(this.replace(value.get(), regex, String.valueOf(supplier.get()))));
-    this.regex.stream()
-      .filter(replaces::containsKey)
-      .forEach(regex ->
-        value.set(this.replace(value.get(), regex, String.valueOf(replaces.get(regex).get()))));
+    for (final var s : this.regex) {
+      if (replaces.containsKey(s)) {
+        value.set(this.replace(value.get(), s, String.valueOf(replaces.get(s).get())));
+      }
+    }
     return value.get();
   }
 
