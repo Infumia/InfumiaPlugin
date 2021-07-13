@@ -23,7 +23,7 @@ public class Times {
   }
 
   public long bySecond(final long time) {
-    return TimeUnit.SECONDS.toSeconds(time);
+    return time;
   }
 
   public long byYear(final long time) {
