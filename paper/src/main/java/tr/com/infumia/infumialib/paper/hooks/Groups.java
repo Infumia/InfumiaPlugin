@@ -47,8 +47,7 @@ public class Groups {
    *
    * @return {@code true} if the player has the group.
    */
-  public boolean containsGroup(@NotNull final String group,
-                               @NotNull final Player player) {
+  public boolean containsGroup(@NotNull final String group, @NotNull final Player player) {
     if (Hooks.supportsGroupManager()) {
       return Hooks.getGroupManagerOrThrow().getGroup(player.getWorld().getName(), player)
         .orElse("")
@@ -78,8 +77,8 @@ public class Groups {
    *
    * @return player's limit in the permission.
    */
-  public long getEffectiveLimitedPermission(@NotNull final String permission,
-                                            @NotNull final Player player, final long defaultValue) {
+  public long getEffectiveLimitedPermission(@NotNull final String permission, @NotNull final Player player,
+                                            final long defaultValue) {
     if (Hooks.supportsGroupManager()) {
       return Hooks.getGroupManagerOrThrow().getEffectiveLimitedPermission(permission, player, defaultValue);
     }
@@ -91,9 +90,9 @@ public class Groups {
     }
     final var calculatedLimit = new AtomicLong(defaultValue);
     final var permissions = new ArrayList<String>();
-    for (final var permissionAttachmentInfo : player.getEffectivePermissions()) {
-      if (permissionAttachmentInfo.getValue()) {
-        permissions.add(permissionAttachmentInfo.getPermission());
+    for (final var info : player.getEffectivePermissions()) {
+      if (info.getValue()) {
+        permissions.add(info.getPermission());
       }
     }
     Groups.calculatePermissionLimit(permission, permissions, calculatedLimit);
