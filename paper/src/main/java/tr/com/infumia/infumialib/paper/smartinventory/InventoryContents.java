@@ -752,7 +752,7 @@ public interface InventoryContents {
    */
   @NotNull
   default <T> T getPropertyOrThrow(@NotNull final String name) {
-    return Objects.requireNonNull(this.getProperty(name), "name");
+    return Objects.requireNonNull(this.getProperty(name), name);
   }
 
   /**
@@ -875,14 +875,14 @@ public interface InventoryContents {
    * opens the next page with using {@link Pagination}.
    */
   default void openNext() {
-    this.page().open(this.player(), this.pagination().next().getPage());
+    this.page().open(this.player(), this.pagination().next().getPage(), this.getProperties());
   }
 
   /**
    * opens the previous page with using {@link Pagination}.
    */
   default void openPrevious() {
-    this.page().open(this.player(), this.pagination().previous().getPage());
+    this.page().open(this.player(), this.pagination().previous().getPage(), this.getProperties());
   }
 
   /**
