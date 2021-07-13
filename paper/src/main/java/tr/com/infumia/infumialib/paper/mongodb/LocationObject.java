@@ -13,13 +13,15 @@ import org.jetbrains.annotations.NotNull;
 
 @ToString
 @EqualsAndHashCode
-@Entity("BlockLocation")
+@Entity("Location")
 @NoArgsConstructor
 @AllArgsConstructor
-public final class BlockLocationObject {
+public final class LocationObject {
 
   @Id
   private int id;
+
+  private float pitch;
 
   private String world;
 
@@ -27,20 +29,25 @@ public final class BlockLocationObject {
 
   private double y;
 
+  private float yaw;
+
   private double z;
 
   @NotNull
-  public static BlockLocationObject from(@NotNull final Location location) {
-    return new BlockLocationObject(
+  public static LocationObject from(@NotNull final Location location) {
+    return new LocationObject(
       0,
+      location.getPitch(),
       location.getWorld().getName(),
       location.getX(),
       location.getY(),
+      location.getYaw(),
       location.getZ());
   }
 
   @NotNull
   public Location getLocation() {
-    return new Location(Objects.requireNonNull(Bukkit.getWorld(this.world), "World not found!"), this.x, this.y, this.z);
+    return new Location(Objects.requireNonNull(Bukkit.getWorld(this.world), "World not found!"), this.x, this.y, this.z,
+      this.yaw, this.pitch);
   }
 }

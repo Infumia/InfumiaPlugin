@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.ObjIntConsumer;
@@ -742,6 +743,19 @@ public interface InventoryContents {
   }
 
   /**
+   * gets the value of the property with the given name.
+   *
+   * @param name the property's name.
+   * @param <T> the type of the value.
+   *
+   * @return the property's value.
+   */
+  @NotNull
+  default <T> T getPropertyOrThrow(@NotNull final String name) {
+    return Objects.requireNonNull(this.getProperty(name), name);
+  }
+
+  /**
    * gets player's top of the inventory.
    *
    * @return top inventory instance.
@@ -861,14 +875,21 @@ public interface InventoryContents {
    * opens the next page with using {@link Pagination}.
    */
   default void openNext() {
-    this.page().open(this.player(), this.pagination().next().getPage());
+    this.page().open(this.player(), this.pagination().next().getPage(), this.getProperties());
+  }
+
+  /**
+   * tries to open the parent page.
+   */
+  default void openParent() {
+    this.page().parent().ifPresent(page -> page.open(this.player(), this.getProperties()));
   }
 
   /**
    * opens the previous page with using {@link Pagination}.
    */
   default void openPrevious() {
-    this.page().open(this.player(), this.pagination().previous().getPage());
+    this.page().open(this.player(), this.pagination().previous().getPage(), this.getProperties());
   }
 
   /**

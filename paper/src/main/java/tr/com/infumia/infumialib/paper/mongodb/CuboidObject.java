@@ -15,7 +15,7 @@ import tr.com.infumia.infumialib.paper.location.Cuboid;
 
 @ToString
 @EqualsAndHashCode
-@Entity("cuboid")
+@Entity("Cuboid")
 @NoArgsConstructor
 @AllArgsConstructor
 public final class CuboidObject {
