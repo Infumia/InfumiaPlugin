@@ -1,5 +1,6 @@
 package tr.com.infumia.infumialib.replaceable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -68,7 +69,11 @@ public final class RpList extends RpBase<RpList, List<String>> {
    */
   @NotNull
   public static RpList fromObjects(@NotNull final List<Object> list) {
-    return RpList.from(list.stream().map(Objects::toString).collect(Collectors.toList()));
+    final var result = new ArrayList<String>();
+    for (final var o : list) {
+      result.add(Objects.toString(o));
+    }
+    return RpList.from(result);
   }
 
   /**
@@ -93,9 +98,11 @@ public final class RpList extends RpBase<RpList, List<String>> {
   @Override
   public List<String> replace(@NotNull final List<String> value, @NotNull final CharSequence regex,
                               @NotNull final CharSequence replace) {
-    return value.stream()
-      .map(s -> s.replace(regex, replace))
-      .collect(Collectors.toList());
+    final var list = new ArrayList<String>();
+    for (final var s : value) {
+      list.add(s.replace(regex, replace));
+    }
+    return list;
   }
 
   @NotNull

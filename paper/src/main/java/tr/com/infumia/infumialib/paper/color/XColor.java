@@ -15,7 +15,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
@@ -428,9 +427,11 @@ public final class XColor {
    */
   @NotNull
   public static List<String> colorize(@NotNull final Collection<String> list) {
-    return list.stream()
-      .map(XColor::colorize)
-      .collect(Collectors.toList());
+    final var result = new ArrayList<String>();
+    for (final var s : list) {
+      result.add(XColor.colorize(s));
+    }
+    return result;
   }
 
   /**
@@ -489,9 +490,11 @@ public final class XColor {
    */
   @NotNull
   public static List<String> deColorize(@NotNull final Collection<String> list) {
-    return list.stream()
-      .map(XColor::deColorize)
-      .collect(Collectors.toList());
+    final var result = new ArrayList<String>();
+    for (final var s : list) {
+      result.add(XColor.deColorize(s));
+    }
+    return result;
   }
 
   /**
@@ -774,9 +777,12 @@ public final class XColor {
    */
   @NotNull
   public static XColor getRandomColor() {
-    final var colors = XColor.BY_NAME.values().stream()
-      .filter(XColor::isColor)
-      .collect(Collectors.toCollection(ArrayList::new));
+    final var colors = new ArrayList<XColor>();
+    for (final var xColor : XColor.BY_NAME.values()) {
+      if (xColor.isColor()) {
+        colors.add(xColor);
+      }
+    }
     Collections.shuffle(colors);
     return colors.get(0);
   }

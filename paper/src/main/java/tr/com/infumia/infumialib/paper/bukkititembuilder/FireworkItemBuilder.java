@@ -3,12 +3,14 @@ package tr.com.infumia.infumialib.paper.bukkititembuilder;
 import com.cryptomorin.xseries.XItemStack;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -165,12 +167,14 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
       final var fwBaseColors = effect.getColors();
       final var fwFadeColors = effect.getFadeColors();
       final var copyCopyCopy = copyCopy.copy();
-      final var baseColors = fwBaseColors.stream()
-        .map(color -> String.format("%d, %d, %d", color.getRed(), color.getGreen(), color.getBlue()))
-        .collect(Collectors.toCollection(() -> new ArrayList<>(fwBaseColors.size())));
-      final var fadeColors = fwFadeColors.stream()
-        .map(color -> String.format("%d, %d, %d", color.getRed(), color.getGreen(), color.getBlue()))
-        .collect(Collectors.toCollection(() -> new ArrayList<>(fwFadeColors.size())));
+      final var baseColors = new ArrayList<String>(fwBaseColors.size());
+      for (final var fwBaseColor : fwBaseColors) {
+        baseColors.add(String.format("%d, %d, %d", fwBaseColor.getRed(), fwBaseColor.getGreen(), fwBaseColor.getBlue()));
+      }
+      final var fadeColors = new ArrayList<String>(fwFadeColors.size());
+      for (final var color : fwFadeColors) {
+        fadeColors.add(String.format("%d, %d, %d", color.getRed(), color.getGreen(), color.getBlue()));
+      }
       copyCopyCopy.addAsCollection(Keys.BASE_KEY, baseColors, String.class);
       copyCopyCopy.addAsCollection(Keys.FADE_KEY, fadeColors, String.class);
       copyCopy.add(Keys.COLORS_KEY, copyCopyCopy);
@@ -249,14 +253,22 @@ public final class FireworkItemBuilder extends Builder<FireworkItemBuilder, Fire
             .ifPresent(colorSection -> {
               final var copyCopy = copy.copy(colorSection);
               final var baseColors = copyCopy.getAsCollection(Keys.BASE_KEY, String.class)
-                .map(strings -> strings.stream()
-                  .map(XItemStack::parseColor)
-                  .collect(Collectors.toSet()))
+                .map(strings -> {
+                  final Set<Color> set = new HashSet<>();
+                  for (final var string : strings) {
+                    set.add(XItemStack.parseColor(string));
+                  }
+                  return set;
+                })
                 .orElse(Collections.emptySet());
               final var fadeColors = copyCopy.getAsCollection(Keys.FADE_KEY, String.class)
-                .map(strings -> strings.stream()
-                  .map(XItemStack::parseColor)
-                  .collect(Collectors.toSet()))
+                .map(strings -> {
+                  final Set<Color> set = new HashSet<>();
+                  for (final var string : strings) {
+                    set.add(XItemStack.parseColor(string));
+                  }
+                  return set;
+                })
                 .orElse(Collections.emptySet());
               fireworkBuilder.withColor(baseColors).withFade(fadeColors);
             });

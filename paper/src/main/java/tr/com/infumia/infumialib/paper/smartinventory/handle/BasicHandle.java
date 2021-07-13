@@ -36,7 +36,14 @@ public final class BasicHandle<T extends SmartEvent> implements Handle<T> {
 
   @Override
   public void accept(@NotNull final T t) {
-    if (this.requirements.stream().allMatch(req -> req.test(t))) {
+    var b = true;
+    for (final var req : this.requirements) {
+      if (!req.test(t)) {
+        b = false;
+        break;
+      }
+    }
+    if (b) {
       this.consumer.accept(t);
     }
   }

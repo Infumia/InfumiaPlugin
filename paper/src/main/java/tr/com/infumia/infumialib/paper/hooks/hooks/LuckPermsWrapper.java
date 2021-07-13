@@ -2,16 +2,13 @@ package tr.com.infumia.infumialib.paper.hooks.hooks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.NodeType;
-import net.luckperms.api.node.types.ChatMetaNode;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.hooks.Wrapped;
@@ -58,10 +55,12 @@ public final class LuckPermsWrapper implements Wrapped {
       return calculatedLimit.get();
     }
     final var permissionMap = user.getCachedData().getPermissionData().getPermissionMap();
-    final var permissions = permissionMap.entrySet().stream()
-      .filter(Map.Entry::getValue)
-      .map(Map.Entry::getKey)
-      .collect(Collectors.toList());
+    final var permissions = new ArrayList<String>();
+    for (final var entry : permissionMap.entrySet()) {
+      if (entry.getValue()) {
+        permissions.add(entry.getKey());
+      }
+    }
     if (permissions.isEmpty()) {
       return calculatedLimit.get();
     }
@@ -79,27 +78,51 @@ public final class LuckPermsWrapper implements Wrapped {
   public Optional<List<String>> getGroupPrefix(@NotNull final String world, @NotNull final String group) {
     return Optional.ofNullable(this.luckPerms.getGroupManager().getGroup(group))
       .map(gr -> new ArrayList<>(gr.getNodes(NodeType.PREFIX)))
-      .map(nodes -> nodes.stream().map(ChatMetaNode::getMetaValue).collect(Collectors.toList()));
+      .map(nodes -> {
+        final var list = new ArrayList<String>();
+        for (final var node : nodes) {
+          list.add(node.getMetaValue());
+        }
+        return list;
+      });
   }
 
   @NotNull
   public Optional<List<String>> getGroupSuffix(@NotNull final String world, @NotNull final String group) {
     return Optional.ofNullable(this.luckPerms.getGroupManager().getGroup(group))
       .map(gr -> new ArrayList<>(gr.getNodes(NodeType.SUFFIX)))
-      .map(nodes -> nodes.stream().map(ChatMetaNode::getMetaValue).collect(Collectors.toList()));
+      .map(nodes -> {
+        final var list = new ArrayList<String>();
+        for (final var node : nodes) {
+          list.add(node.getMetaValue());
+        }
+        return list;
+      });
   }
 
   @NotNull
   public Optional<List<String>> getUserPrefix(@NotNull final Player player) {
     return Optional.ofNullable(this.luckPerms.getUserManager().getUser(player.getUniqueId()))
       .map(gr -> new ArrayList<>(gr.getNodes(NodeType.PREFIX)))
-      .map(nodes -> nodes.stream().map(ChatMetaNode::getMetaValue).collect(Collectors.toList()));
+      .map(nodes -> {
+        final var list = new ArrayList<String>();
+        for (final var node : nodes) {
+          list.add(node.getMetaValue());
+        }
+        return list;
+      });
   }
 
   @NotNull
   public Optional<List<String>> getUserSuffix(@NotNull final Player player) {
     return Optional.ofNullable(this.luckPerms.getUserManager().getUser(player.getUniqueId()))
       .map(gr -> new ArrayList<>(gr.getNodes(NodeType.SUFFIX)))
-      .map(nodes -> nodes.stream().map(ChatMetaNode::getMetaValue).collect(Collectors.toList()));
+      .map(nodes -> {
+        final var list = new ArrayList<String>();
+        for (final var node : nodes) {
+          list.add(node.getMetaValue());
+        }
+        return list;
+      });
   }
 }

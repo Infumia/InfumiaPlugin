@@ -3,9 +3,7 @@ package tr.com.infumia.infumialib.paper.transformer.resolvers;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.configuration.ConfigurationSection;
@@ -101,7 +99,7 @@ public final class BukkitSnakeyaml extends TransformResolver {
                            @Nullable final Object defaultValue)
     throws TransformException {
     if (object instanceof ConfigurationSection) {
-      final var values = this.getMapValues((ConfigurationSection) object, false);
+      final var values = BukkitResolverHelper.getMapValues((ConfigurationSection) object, false);
       return super.deserialize(values, GenericDeclaration.of(values), targetClass, genericTarget, defaultValue);
     }
     return super.deserialize(object, genericSource, targetClass, genericTarget, defaultValue);
@@ -141,7 +139,7 @@ public final class BukkitSnakeyaml extends TransformResolver {
   public Object serialize(@Nullable final Object value, @Nullable final GenericDeclaration genericType,
                           final boolean conservative) throws TransformException {
     if (value instanceof ConfigurationSection) {
-      return this.getMapValues((ConfigurationSection) value, false);
+      return BukkitResolverHelper.getMapValues((ConfigurationSection) value, false);
     }
     return super.serialize(value, genericType, conservative);
   }
@@ -197,27 +195,5 @@ public final class BukkitSnakeyaml extends TransformResolver {
       processor.prependContextComment(this.commentPrefix, this.sectionSeparator, header.value());
     }
     processor.write(outputStream);
-  }
-
-  /**
-   * gets the section value with primitive objects.
-   *
-   * @param section the section to get.
-   * @param deep the deep to get.
-   *
-   * @return map values.
-   */
-  @NotNull
-  private Map<String, Object> getMapValues(@NotNull final ConfigurationSection section, final boolean deep) {
-    return section.getValues(deep).entrySet().stream()
-      .map(entry -> {
-        final var key = entry.getKey();
-        final var value = entry.getValue();
-        if (value instanceof ConfigurationSection) {
-          return Map.entry(key, this.getMapValues((ConfigurationSection) value, deep));
-        }
-        return Map.entry(key, value);
-      })
-      .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
   }
 }

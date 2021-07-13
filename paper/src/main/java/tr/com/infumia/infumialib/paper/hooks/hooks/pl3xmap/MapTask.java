@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.StringJoiner;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import net.pl3x.map.api.Key;
 import net.pl3x.map.api.MapWorld;
@@ -50,9 +50,13 @@ public final class MapTask extends BukkitRunnable {
       Map.entry("<b>", () -> "<span style=\"font-weight:bold;\">"),
       Map.entry("</b>", () -> "</span>"),
       Map.entry("%owner%", claim::getOwner),
-      Map.entry("%members%", () -> claim.getMembers().stream()
-        .map(Claim.Member::getName)
-        .collect(Collectors.joining(","))),
+      Map.entry("%members%", () -> {
+        final var joiner = new StringJoiner(",");
+        for (final var member : claim.getMembers()) {
+          joiner.add(member.getName());
+        }
+        return joiner.toString();
+      }),
       Map.entry("%last_data%", () -> MapTask.DATE_FORMAT.format(new Date(claim.getLastDate()))),
       Map.entry("%claim_count%", claim.getChildren()::size),
       Map.entry("%pvp%", () -> claim.isPvp()
@@ -98,9 +102,12 @@ public final class MapTask extends BukkitRunnable {
   private void updateClaims() {
     this.provider.clearMarkers();
     final var claims = this.config.getClaimSupplier().get();
-    claims.stream()
-      .filter(claim -> claim.getChunk().getWorld().getUID().equals(this.world.uuid()))
-      .filter(claim -> claim.getParentId() == -1)
-      .forEach(this::handleClaim);
+    for (final var claim : claims) {
+      if (claim.getChunk().getWorld().getUID().equals(this.world.uuid())) {
+        if (claim.getParentId() == -1) {
+          this.handleClaim(claim);
+        }
+      }
+    }
   }
 }

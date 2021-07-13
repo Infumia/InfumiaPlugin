@@ -3,7 +3,6 @@ package tr.com.infumia.infumialib.transformer.declarations;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -158,9 +156,11 @@ public final class GenericDeclaration {
    */
   @NotNull
   public static GenericDeclaration of(@Nullable final Class<?> type, @NotNull final List<Class<?>> subTypes) {
-    return GenericDeclaration.ofReady(type, subTypes.stream()
-      .map(GenericDeclaration::ofReady)
-      .collect(Collectors.toList()));
+    final var list = new ArrayList<GenericDeclaration>();
+    for (final var subType : subTypes) {
+      list.add(GenericDeclaration.ofReady(subType));
+    }
+    return GenericDeclaration.ofReady(type, list);
   }
 
   /**
@@ -173,9 +173,11 @@ public final class GenericDeclaration {
    */
   @NotNull
   public static GenericDeclaration of(@Nullable final Class<?> type, @NotNull final Class<?>... subTypes) {
-    return GenericDeclaration.ofReady(type, Arrays.stream(subTypes)
-      .map(GenericDeclaration::ofReady)
-      .collect(Collectors.toList()));
+    final var list = new ArrayList<GenericDeclaration>();
+    for (final var subType : subTypes) {
+      list.add(GenericDeclaration.ofReady(subType));
+    }
+    return GenericDeclaration.ofReady(type, list);
   }
 
   /**
@@ -314,12 +316,15 @@ public final class GenericDeclaration {
    */
   @NotNull
   private static List<GenericDeclaration> convertSimple(@NotNull final List<GenericDeclaration> declarations) {
-    return declarations.stream()
-      .map(declaration ->
-        new GenericDeclaration(declaration.isEnum(), declaration.isPrimitive(),
-          GenericDeclaration.convertSimple(declaration.getSubTypes()),
-          GenericDeclaration.convertSimple(declaration.getType())))
-      .collect(Collectors.toList());
+    final var list = new ArrayList<GenericDeclaration>();
+    for (final var declaration : declarations) {
+      list.add(new GenericDeclaration(
+        declaration.isEnum(),
+        declaration.isPrimitive(),
+        GenericDeclaration.convertSimple(declaration.getSubTypes()),
+        GenericDeclaration.convertSimple(declaration.getType())));
+    }
+    return list;
   }
 
   /**
@@ -364,9 +369,10 @@ public final class GenericDeclaration {
       final var className = builder.toString();
       final var type = GenericDeclaration.getPrimitiveOrClass(className);
       final var genericType = typeName.substring(index + 1, typeName.length() - 1);
-      final var subTypes = GenericDeclaration.getSeparateTypes(genericType).stream()
-        .map(GenericDeclaration::from)
-        .collect(Collectors.toList());
+      final var subTypes = new ArrayList<GenericDeclaration>();
+      for (final var s : GenericDeclaration.getSeparateTypes(genericType)) {
+        subTypes.add(GenericDeclaration.from(s));
+      }
       return GenericDeclaration.ofReady(type, subTypes);
     }
     return GenericDeclaration.ofReady(GenericDeclaration.getPrimitiveOrClass(builder.toString()));

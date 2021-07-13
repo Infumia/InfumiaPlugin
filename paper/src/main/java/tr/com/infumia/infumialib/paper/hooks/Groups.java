@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.utils.NumberUtil;
 
@@ -26,14 +24,19 @@ public class Groups {
    */
   public void calculatePermissionLimit(@NotNull final String permission, @NotNull final List<String> permissions,
                                        @NotNull final AtomicLong calculatedLimit) {
-    permissions.stream()
-      .filter(perm -> !perm.startsWith("-"))
-      .filter(perm -> perm.startsWith(permission))
-      .map(perm -> perm.substring(perm.lastIndexOf(".") + 1))
-      .filter(NumberUtil::isLong)
-      .mapToLong(Integer::parseInt)
-      .filter(limit -> limit > calculatedLimit.get())
-      .forEach(calculatedLimit::set);
+    for (final var perm : permissions) {
+      if (perm.startsWith("-") || !perm.startsWith(permission)) {
+        continue;
+      }
+      final var substring = perm.substring(perm.lastIndexOf(".") + 1);
+      if (!NumberUtil.isLong(substring)) {
+        continue;
+      }
+      final var limit = Integer.parseInt(substring);
+      if (limit > calculatedLimit.get()) {
+        calculatedLimit.set(limit);
+      }
+    }
   }
 
   /**
@@ -87,10 +90,12 @@ public class Groups {
       return Hooks.getPermissionsExOrThrow().getEffectiveLimitedPermission(permission, player, defaultValue);
     }
     final var calculatedLimit = new AtomicLong(defaultValue);
-    final var permissions = player.getEffectivePermissions().stream()
-      .filter(PermissionAttachmentInfo::getValue)
-      .map(PermissionAttachmentInfo::getPermission)
-      .collect(Collectors.toList());
+    final var permissions = new ArrayList<String>();
+    for (final var permissionAttachmentInfo : player.getEffectivePermissions()) {
+      if (permissionAttachmentInfo.getValue()) {
+        permissions.add(permissionAttachmentInfo.getPermission());
+      }
+    }
     Groups.calculatePermissionLimit(permission, permissions, calculatedLimit);
     return calculatedLimit.get();
   }

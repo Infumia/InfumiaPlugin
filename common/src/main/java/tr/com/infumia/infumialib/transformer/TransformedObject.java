@@ -82,11 +82,12 @@ public abstract class TransformedObject {
     if (this.resolver == null) {
       return map;
     }
-    this.resolver.getAllKeys().stream()
-      .filter(keyName -> !map.containsKey(keyName))
-      .forEach(keyName ->
+    for (final var keyName : this.resolver.getAllKeys()) {
+      if (!map.containsKey(keyName)) {
         this.resolver.getValue(keyName).ifPresent(value ->
-          map.put(keyName, this.resolver.serialize(value, GenericDeclaration.of(value), conservative))));
+          map.put(keyName, this.resolver.serialize(value, GenericDeclaration.of(value), conservative)));
+      }
+    }
     return map;
   }
 

@@ -51,10 +51,12 @@ public final class BasicIcon implements Icon {
   public <T extends IconEvent> void accept(@NotNull final T event) {
     final var contents = event.contents();
     if (this.canSee.test(contents) && this.canUse.test(contents)) {
-      this.handles.stream()
-        .filter(target -> target.type().isAssignableFrom(event.getClass()))
-        .map(target -> (Handle<T>) target)
-        .forEach(target -> target.accept(event));
+      for (final var target : this.handles) {
+        if (target.type().isAssignableFrom(event.getClass())) {
+          //noinspection unchecked
+          ((Handle<T>) target).accept(event);
+        }
+      }
     }
   }
 

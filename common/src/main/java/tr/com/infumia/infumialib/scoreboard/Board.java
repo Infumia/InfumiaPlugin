@@ -17,7 +17,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -788,24 +787,46 @@ public final class Board<O> implements Closeable {
     @NotNull
     @Synchronized("staticObservers")
     private Collection<O> getObservers() {
-      final var observers = this.staticObservers.stream()
-        .filter(observer ->
-          this.board.getFilters().stream()
-            .allMatch(predicate -> predicate.test(observer)))
-        .collect(Collectors.toSet());
-      this.board.getDynamicObservers().stream()
-        .map(Supplier::get)
-        .filter(observer ->
-          this.board.getFilters().stream()
-            .allMatch(predicate -> predicate.test(observer)))
-        .forEach(observers::add);
-      this.board.getDynamicObserverList().stream()
-        .map(Supplier::get)
-        .flatMap(Collection::stream)
-        .filter(observer ->
-          this.board.getFilters().stream()
-            .allMatch(predicate -> predicate.test(observer)))
-        .forEach(observers::add);
+      final var observers = new HashSet<O>();
+      for (final var staticObserver : this.staticObservers) {
+        var b = true;
+        for (final var predicate : this.board.getFilters()) {
+          if (!predicate.test(staticObserver)) {
+            b = false;
+            break;
+          }
+        }
+        if (b) {
+          observers.add(staticObserver);
+        }
+      }
+      for (final var supplier : this.board.getDynamicObservers()) {
+        final var o = supplier.get();
+        var b = true;
+        for (final var predicate : this.board.getFilters()) {
+          if (!predicate.test(o)) {
+            b = false;
+            break;
+          }
+        }
+        if (b) {
+          observers.add(o);
+        }
+      }
+      for (final var supplier : this.board.getDynamicObserverList()) {
+        for (final var observer : supplier.get()) {
+          var b = true;
+          for (final var predicate : this.board.getFilters()) {
+            if (!predicate.test(observer)) {
+              b = false;
+              break;
+            }
+          }
+          if (b) {
+            observers.add(observer);
+          }
+        }
+      }
       return observers;
     }
 
@@ -814,9 +835,14 @@ public final class Board<O> implements Closeable {
      */
     @Synchronized("staticObservers")
     private void staticObserversRemoveIf() {
-      this.staticObservers.removeIf(observer ->
-        this.board.getRemoveIf().stream()
-          .anyMatch(predicate -> predicate.test(observer)));
+      this.staticObservers.removeIf(observer -> {
+        for (final var predicate : this.board.getRemoveIf()) {
+          if (predicate.test(observer)) {
+            return true;
+          }
+        }
+        return false;
+      });
     }
   }
 }
