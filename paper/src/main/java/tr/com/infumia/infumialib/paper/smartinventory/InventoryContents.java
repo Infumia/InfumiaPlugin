@@ -879,6 +879,13 @@ public interface InventoryContents {
   }
 
   /**
+   * tries to open the parent page.
+   */
+  default void openParent() {
+    this.page().parent().ifPresent(page -> page.open(this.player(), this.getProperties()));
+  }
+
+  /**
    * opens the previous page with using {@link Pagination}.
    */
   default void openPrevious() {
