@@ -44,7 +44,7 @@ public class Times {
 
   public static long[] getTimeDifference(final long difference) {
     var tempDiff = difference;
-    final var result = new long[7];
+    final var result = new long[6];
     final var year = tempDiff / Times.ONE_YEAR;
     tempDiff %= Times.ONE_YEAR;
     final var month = tempDiff / Times.ONE_MONTH;
