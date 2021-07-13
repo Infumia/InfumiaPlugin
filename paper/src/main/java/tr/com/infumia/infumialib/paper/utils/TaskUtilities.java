@@ -34,9 +34,36 @@ public class TaskUtilities {
    * @return a newly run bukkit task instance.
    */
   @NotNull
+  public BukkitTask async(@NotNull final Runnable job) {
+    return new RunnableWrapper(job)
+      .runTaskAsynchronously(TaskUtilities.getPlugin());
+  }
+
+  /**
+   * runs the given job.
+   *
+   * @param job the job to run.
+   *
+   * @return a newly run bukkit task instance.
+   */
+  @NotNull
   public BukkitTask async(@NotNull final Consumer<BukkitRunnable> job) {
     return new RunnableWrapper(job)
       .runTaskAsynchronously(TaskUtilities.getPlugin());
+  }
+
+  /**
+   * runs the given job with a delay.
+   *
+   * @param delay the delay to run.
+   * @param job the job to run.
+   *
+   * @return a newly run bukkit task instance.
+   */
+  @NotNull
+  public BukkitTask asyncLater(final long delay, @NotNull final Runnable job) {
+    return new RunnableWrapper(job)
+      .runTaskLaterAsynchronously(TaskUtilities.getPlugin(), delay);
   }
 
   /**
@@ -194,9 +221,36 @@ public class TaskUtilities {
    * @return a newly run bukkit task instance.
    */
   @NotNull
+  public BukkitTask sync(@NotNull final Runnable job) {
+    return new RunnableWrapper(job)
+      .runTask(TaskUtilities.getPlugin());
+  }
+
+  /**
+   * runs the given job.
+   *
+   * @param job the job to run.
+   *
+   * @return a newly run bukkit task instance.
+   */
+  @NotNull
   public BukkitTask sync(@NotNull final Consumer<BukkitRunnable> job) {
     return new RunnableWrapper(job)
       .runTask(TaskUtilities.getPlugin());
+  }
+
+  /**
+   * runs the given job with a delay.
+   *
+   * @param delay the delay to run.
+   * @param job the job to run.
+   *
+   * @return a newly run bukkit task instance.
+   */
+  @NotNull
+  public BukkitTask syncLater(final long delay, @NotNull final Runnable job) {
+    return new RunnableWrapper(job)
+      .runTaskLater(TaskUtilities.getPlugin(), delay);
   }
 
   /**
