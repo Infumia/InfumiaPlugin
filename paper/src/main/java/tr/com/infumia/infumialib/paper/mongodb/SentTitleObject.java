@@ -12,7 +12,7 @@ import tr.com.infumia.infumialib.replaceable.RpString;
 
 @ToString
 @EqualsAndHashCode
-@Entity("title")
+@Entity("Title")
 @NoArgsConstructor
 @AllArgsConstructor
 public final class SentTitleObject {
