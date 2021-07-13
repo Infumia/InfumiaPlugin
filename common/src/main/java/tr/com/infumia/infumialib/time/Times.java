@@ -1,12 +1,22 @@
 package tr.com.infumia.infumialib.time;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Times {
+
+  private final long ONE_HOUR = Times.ONE_DAY / 24L;
+
+  private final long ONE_MINUTE = Times.ONE_HOUR / 60L;
+
+  private final long ONE_SECOND = Times.ONE_MINUTE / 60L;
+
+  private final long ONE_YEAR = 60L * 60L * 24L * 30L * 12L;
+
+  private final long ONE_MONTH = Times.ONE_YEAR / 12L;
+
+  private final long ONE_DAY = Times.ONE_MONTH / 30L;
 
   public long byDay(final long time) {
     return TimeUnit.SECONDS.toDays(time);
@@ -21,14 +31,37 @@ public class Times {
   }
 
   public long byMonth(final long time) {
-    return TimeUnit.SECONDS.convert(Duration.of(time, ChronoUnit.MONTHS));
+    return time / 2592000;
   }
 
   public long bySecond(final long time) {
-    return TimeUnit.SECONDS.toSeconds(time);
+    return time;
   }
 
   public long byYear(final long time) {
-    return TimeUnit.SECONDS.convert(Duration.of(time, ChronoUnit.YEARS));
+    return time / 31536000;
+  }
+
+  public static long[] getTimeDifference(final long difference) {
+    var tempDiff = difference;
+    final var result = new long[6];
+    final var year = tempDiff / Times.ONE_YEAR;
+    tempDiff %= Times.ONE_YEAR;
+    final var month = tempDiff / Times.ONE_MONTH;
+    tempDiff %= Times.ONE_MONTH;
+    final var day = tempDiff / Times.ONE_DAY;
+    tempDiff %= Times.ONE_DAY;
+    final var hour = tempDiff / Times.ONE_HOUR;
+    tempDiff %= Times.ONE_HOUR;
+    final var minute = tempDiff / Times.ONE_MINUTE;
+    tempDiff %= Times.ONE_MINUTE;
+    final var second = tempDiff / Times.ONE_SECOND;
+    result[0] = year;
+    result[1] = month;
+    result[2] = day;
+    result[3] = hour;
+    result[4] = minute;
+    result[5] = second;
+    return result;
   }
 }
