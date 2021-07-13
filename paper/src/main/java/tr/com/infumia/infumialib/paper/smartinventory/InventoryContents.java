@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.ObjIntConsumer;
@@ -739,6 +740,19 @@ public interface InventoryContents {
   default <T> T getPropertyOrDefault(@NotNull final String name, @NotNull final T def) {
     //noinspection unchecked
     return (T) this.getProperties().getOrDefault(name, def);
+  }
+
+  /**
+   * gets the value of the property with the given name.
+   *
+   * @param name the property's name.
+   * @param <T> the type of the value.
+   *
+   * @return the property's value.
+   */
+  @NotNull
+  default <T> T getPropertyOrThrow(@NotNull final String name) {
+    return Objects.requireNonNull(this.getProperty(name), "name");
   }
 
   /**
