@@ -1,7 +1,5 @@
 package tr.com.infumia.infumialib.time;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
 import lombok.experimental.UtilityClass;
 
@@ -21,7 +19,7 @@ public class Times {
   }
 
   public long byMonth(final long time) {
-    return TimeUnit.SECONDS.convert(Duration.of(time, ChronoUnit.MONTHS));
+    return time / 2592000;
   }
 
   public long bySecond(final long time) {
@@ -29,6 +27,6 @@ public class Times {
   }
 
   public long byYear(final long time) {
-    return TimeUnit.SECONDS.convert(Duration.of(time, ChronoUnit.YEARS));
+    return time / 31536000;
   }
 }
