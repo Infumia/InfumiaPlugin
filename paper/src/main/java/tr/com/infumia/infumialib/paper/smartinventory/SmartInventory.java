@@ -50,16 +50,13 @@ public interface SmartInventory {
     new InventoryDragListener());
 
   /**
-   * obtains the given {@code uniqueId}'s smart holder.
-   *
-   * @param uniqueId the unique id to obtain.
-   *
-   * @return smart holder.
+   * closes all the smart inventories which are opened.
    */
-  @NotNull
-  static Optional<SmartHolder> getHolder(@NotNull final UUID uniqueId) {
-    return Optional.ofNullable(Bukkit.getPlayer(uniqueId))
-      .flatMap(SmartInventory::getHolder);
+  static void closeAllSmartInventories() {
+    for (final var player : Bukkit.getOnlinePlayers()) {
+      SmartInventory.getHolder(player).ifPresent(smartHolder ->
+        smartHolder.getPage().close(smartHolder.getPlayer()));
+    }
   }
 
   /**
@@ -77,6 +74,19 @@ public interface SmartInventory {
     }
     return Optional.of((SmartHolder) holder)
       .filter(SmartHolder::isActive);
+  }
+
+  /**
+   * obtains the given {@code uniqueId}'s smart holder.
+   *
+   * @param uniqueId the unique id to obtain.
+   *
+   * @return smart holder.
+   */
+  @NotNull
+  static Optional<SmartHolder> getHolder(@NotNull final UUID uniqueId) {
+    return Optional.ofNullable(Bukkit.getPlayer(uniqueId))
+      .flatMap(SmartInventory::getHolder);
   }
 
   /**
