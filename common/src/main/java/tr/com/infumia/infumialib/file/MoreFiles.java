@@ -1,7 +1,6 @@
 package tr.com.infumia.infumialib.file;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,8 +49,8 @@ public class MoreFiles {
     if (!Files.exists(path) || !Files.isDirectory(path)) {
       return;
     }
-    @Cleanup final DirectoryStream<Path> contents = Files.newDirectoryStream(path)
-    for (final Path file : contents) {
+    @Cleanup final var contents = Files.newDirectoryStream(path);
+    for (final var file : contents) {
       if (Files.isDirectory(file)) {
         MoreFiles.deleteDirectory(file);
       } else {
