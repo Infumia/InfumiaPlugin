@@ -153,6 +153,10 @@
       <artifactId>pl3xmap-api</artifactId>
       <exclusions>
         <exclusion>
+          <groupId>net.pl3x.purpur</groupId>
+          <artifactId>purpur-api</artifactId>
+        </exclusion>
+        <exclusion>
           <groupId>net.kyori</groupId>
           <artifactId>adventure-api</artifactId>
         </exclusion>
