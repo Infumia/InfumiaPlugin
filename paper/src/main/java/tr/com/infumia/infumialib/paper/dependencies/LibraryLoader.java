@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.dependencies;
+package tr.com.infumia.infumialib.paper.dependencies;
 
 import com.google.common.base.Suppliers;
 import java.io.File;
@@ -6,12 +6,15 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
+import java.util.concurrent.CountDownLatch;
 import java.util.function.Supplier;
+import java.util.logging.Level;
 import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.plugin.InfumiaPlugin;
+import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
 import tr.com.infumia.infumialib.reflection.clazz.ClassOf;
 
 @Log4j2
@@ -29,7 +32,7 @@ public final class LibraryLoader {
   });
 
   @NotNull
-  private final InfumiaPlugin plugin;
+  private final Plugin plugin;
 
   public void load(@NotNull final String groupId, @NotNull final String artifactId, @NotNull final String version) {
     this.load(groupId, artifactId, version, "https://repo1.maven.org/maven2");
@@ -80,15 +83,31 @@ public final class LibraryLoader {
 
   public void loadAll(@NotNull final Class<?> clazz) {
     new ClassOf<>(clazz).getAnnotation(MavenLibraries.class, libs -> {
-      for (final var lib : libs.value()) {
-        this.load(lib.groupId(), lib.artifactId(), lib.version(), lib.repo().url());
+      final var libraries = libs.value();
+      final var latch = new CountDownLatch(libraries.length);
+      TaskUtilities.async(() -> {
+        for (final var lib : libraries) {
+          try {
+            this.load(lib.groupId(), lib.artifactId(), lib.version(), lib.repo().url());
+          } catch (final Throwable e) {
+            this.plugin.getLogger().log(Level.SEVERE, String.format("Unable to load dependency %s.",
+              lib.artifactId()), e);
+          } finally {
+            latch.countDown();
+          }
+        }
+      });
+      try {
+        latch.await();
+      } catch (final InterruptedException e) {
+        Thread.currentThread().interrupt();
       }
     });
   }
 
   @NotNull
   private File getLibFolder() {
-    final var libs = new File(this.plugin.getDataDirectory().toFile(), "libs");
+    final var libs = new File(this.plugin.getDataFolder(), "libs");
     libs.mkdirs();
     return libs;
   }

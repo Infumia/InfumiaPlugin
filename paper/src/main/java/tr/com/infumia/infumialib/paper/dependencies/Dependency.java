@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.dependencies;
+package tr.com.infumia.infumialib.paper.dependencies;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -12,7 +12,7 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.dependencies.LibraryLoader;
+import tr.com.infumia.infumialib.paper.dependencies.LibraryLoader;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.color.CustomColors;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;

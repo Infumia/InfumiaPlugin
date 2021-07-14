@@ -1,4 +1,4 @@
-package tr.com.infumia.infumialib.dependencies;
+package tr.com.infumia.infumialib.paper.dependencies;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

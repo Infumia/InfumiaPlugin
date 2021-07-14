@@ -1,8 +1,8 @@
 package tr.com.infumia.infumialib.paper;
 
-import tr.com.infumia.infumialib.dependencies.MavenLibraries;
-import tr.com.infumia.infumialib.dependencies.MavenLibrary;
-import tr.com.infumia.infumialib.dependencies.Repository;
+import tr.com.infumia.infumialib.paper.dependencies.MavenLibraries;
+import tr.com.infumia.infumialib.paper.dependencies.MavenLibrary;
+import tr.com.infumia.infumialib.paper.dependencies.Repository;
 
 @MavenLibraries({
   @MavenLibrary(
