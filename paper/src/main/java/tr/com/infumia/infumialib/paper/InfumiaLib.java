@@ -2,6 +2,7 @@ package tr.com.infumia.infumialib.paper;
 
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
+import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -11,6 +12,7 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.dependencies.MavenLibraries;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.color.CustomColors;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
@@ -23,11 +25,13 @@ import tr.com.infumia.infumialib.paper.smartinventory.manager.BasicSmartInventor
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
 import tr.com.infumia.infumialib.paper.utils.Versions;
+import tr.com.infumia.infumialib.plugin.InfumiaPlugin;
 
 /**
  * a class that represents main class of Infumia Library plugin.
  */
-public final class InfumiaLib extends JavaPlugin {
+@MavenLibraries
+public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
 
   /**
    * the instance.
@@ -113,6 +117,12 @@ public final class InfumiaLib extends JavaPlugin {
   @NotNull
   public static WorldBorderApi getWorldBorderApiOrThrow() {
     return InfumiaLib.getWorldBorderApi().orElseThrow();
+  }
+
+  @NotNull
+  @Override
+  public Path getDataDirectory() {
+    return this.getDataFolder().toPath();
   }
 
   /**
