@@ -2,7 +2,6 @@ package tr.com.infumia.infumialib.dependencies;
 
 import com.google.common.base.Suppliers;
 import java.io.File;
-import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -47,20 +46,20 @@ public final class LibraryLoader {
   }
 
   public void load(@NotNull final Dependency dependency) {
-    LibraryLoader.log.info("Loading dependency {}:{}:{} from {}",
+    LibraryLoader.log.debug("Loading dependency {}:{}:{} from {}",
       dependency.getGroupId(), dependency.getArtifactId(), dependency.getVersion(), dependency.getRepoUrl());
     final var name = String.format("%s-%s",
       dependency.getArtifactId(), dependency.getVersion());
     final var saveLocation = new File(this.getLibFolder(), String.format("%s.jar", name));
     if (!saveLocation.exists()) {
       try {
-        LibraryLoader.log.info("Dependency '{}' is not already in the libraries folder. Attempting to download...", name);
-        @Cleanup final InputStream is = dependency.getUrl().openStream();
+        LibraryLoader.log.debug("Dependency '{}' is not already in the libraries folder. Attempting to download...", name);
+        @Cleanup final var is = dependency.getUrl().openStream();
         Files.copy(is, saveLocation.toPath());
       } catch (final Exception e) {
         e.printStackTrace();
       }
-      LibraryLoader.log.info("Dependency '{}' successfully downloaded.", name);
+      LibraryLoader.log.debug("Dependency '{}' successfully downloaded.", name);
     }
     if (!saveLocation.exists()) {
       throw new RuntimeException("Unable to download dependency: " + dependency);
@@ -72,7 +71,7 @@ public final class LibraryLoader {
     } catch (final Exception e) {
       throw new RuntimeException(String.format("Unable to load dependency: %s", saveLocation), e);
     }
-    LibraryLoader.log.info("Loaded dependency '{}' successfully.", name);
+    LibraryLoader.log.debug("Loaded dependency '{}' successfully.", name);
   }
 
   public void loadAll(@NotNull final Object object) {

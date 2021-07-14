@@ -13,7 +13,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import tr.com.infumia.infumialib.dependencies.LibraryLoader;
-import tr.com.infumia.infumialib.dependencies.MavenLibraries;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.color.CustomColors;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
@@ -31,7 +30,6 @@ import tr.com.infumia.infumialib.plugin.InfumiaPlugin;
 /**
  * a class that represents main class of Infumia Library plugin.
  */
-@MavenLibraries
 public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
 
   /**
@@ -141,7 +139,7 @@ public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
 
   @Override
   public void onLoad() {
-    this.libraryLoader.loadAll(this);
+    this.libraryLoader.loadAll(Libs.class);
     InfumiaLib.instance = this;
     CustomColors.registerAll();
     TaskUtilities.init(this);

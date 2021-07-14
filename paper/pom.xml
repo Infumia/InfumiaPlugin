@@ -31,6 +31,30 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.kohsuke</groupId>
+      <artifactId>github-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>dev.morphia.morphia</groupId>
+      <artifactId>morphia-core</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mongodb</groupId>
+          <artifactId>bson</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.mongodb</groupId>
+          <artifactId>mongodb-driver-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+      </exclusions>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>net.kyori</groupId>
       <artifactId>adventure-text-minimessage</artifactId>
       <exclusions>
@@ -39,6 +63,7 @@
           <artifactId>checker-qual</artifactId>
         </exclusion>
       </exclusions>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.destroystokyo.paper</groupId>
@@ -65,22 +90,27 @@
     <dependency>
       <groupId>io.github.bananapuncher714</groupId>
       <artifactId>NBTEditor</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>net.wesjd</groupId>
       <artifactId>anvilgui</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.github.cryptomorin</groupId>
       <artifactId>XSeries</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>cloud.commandframework</groupId>
       <artifactId>cloud-paper</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>me.lucko</groupId>
       <artifactId>commodore</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>me.clip</groupId>
