@@ -2,22 +2,21 @@ package tr.com.infumia.infumialib.paper;
 
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.paper.PaperCommandManager;
-import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.ServicePriority;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import tr.com.infumia.infumialib.paper.dependencies.LibraryLoader;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.color.CustomColors;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
 import tr.com.infumia.infumialib.paper.files.PaperConfig;
 import tr.com.infumia.infumialib.paper.hooks.Hooks;
+import tr.com.infumia.infumialib.paper.dependencies.CommonLibraries;
+import tr.com.infumia.infumialib.paper.plugin.InfumiaPlugin;
 import tr.com.infumia.infumialib.paper.shade.com.github.yannicklamprecht.worldborder.api.WorldBorderApi;
 import tr.com.infumia.infumialib.paper.shade.com.github.yannicklamprecht.worldborder.plugin.PersistenceWrapper;
 import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
@@ -25,12 +24,11 @@ import tr.com.infumia.infumialib.paper.smartinventory.manager.BasicSmartInventor
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
 import tr.com.infumia.infumialib.paper.utils.Versions;
-import tr.com.infumia.infumialib.plugin.InfumiaPlugin;
 
 /**
  * a class that represents main class of Infumia Library plugin.
  */
-public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
+public final class InfumiaLib extends InfumiaPlugin {
 
   /**
    * the instance.
@@ -42,11 +40,6 @@ public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
    * the inventory.
    */
   private final SmartInventory inventory = new BasicSmartInventory(this);
-
-  /**
-   * the library loader.
-   */
-  private final LibraryLoader libraryLoader = new LibraryLoader(this);
 
   /**
    * teh world border api.
@@ -123,12 +116,6 @@ public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
     return InfumiaLib.getWorldBorderApi().orElseThrow();
   }
 
-  @NotNull
-  @Override
-  public Path getDataDirectory() {
-    return this.getDataFolder().toPath();
-  }
-
   /**
    * loads Infumia Library plugin's files.
    */
@@ -138,16 +125,11 @@ public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
   }
 
   @Override
-  public void onLoad() {
-    this.libraryLoader.loadAll(Libs.class);
-    InfumiaLib.instance = this;
-    CustomColors.registerAll();
-    TaskUtilities.init(this);
-    this.loadFiles();
+  protected void disable() {
   }
 
   @Override
-  public void onEnable() {
+  public void enable() {
     Hooks.loadHooks();
     this.initiateWorldBorder();
     final var commandManager = InfumiaLib.createCommandManager(this);
@@ -157,6 +139,15 @@ public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
       GitHubUpdateChecker.checkForUpdate(this, "Infumia", "InfumiaLib");
     }
     new Metrics(this, 11422);
+  }
+
+  @Override
+  public void load() {
+    InfumiaLib.instance = this;
+    this.libraryLoader.loadAll(CommonLibraries.class);
+    TaskUtilities.init(this);
+    CustomColors.registerAll();
+    this.loadFiles();
   }
 
   /**
