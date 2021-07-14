@@ -15,6 +15,10 @@
   </build>
   <dependencies>
     <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.lettuce</groupId>
       <artifactId>lettuce-core</artifactId>
     </dependency>
@@ -160,6 +164,10 @@
         <exclusion>
           <groupId>com.fasterxml.jackson.core</groupId>
           <artifactId>jackson-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <artifactId>kotlin-stdlib</artifactId>
+          <groupId>org.jetbrains.kotlin</groupId>
         </exclusion>
       </exclusions>
     </dependency>
