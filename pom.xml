@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.github.parentpom</groupId>
     <artifactId>ppom</artifactId>
-    <version>3.4.11</version>
+    <version>3.4.27</version>
   </parent>
   <groupId>tr.com.infumia</groupId>
   <artifactId>InfumiaLib</artifactId>
@@ -19,6 +19,7 @@
     <minimize.jar>false</minimize.jar>
     <velocity.version>3.0.0</velocity.version>
     <paper.version>1.16.5-R0.1-SNAPSHOT</paper.version>
+    <spigot.version>1.16.5-R0.1-SNAPSHOT</spigot.version>
   </properties>
   <modules>
     <module>common</module>
@@ -63,6 +64,12 @@
         <groupId>com.destroystokyo.paper</groupId>
         <artifactId>paper-api</artifactId>
         <version>${paper.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.spigotmc</groupId>
+        <artifactId>spigot</artifactId>
+        <version>${spigot.version}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
