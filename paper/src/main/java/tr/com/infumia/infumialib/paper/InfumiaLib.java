@@ -12,6 +12,7 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tr.com.infumia.infumialib.dependencies.LibraryLoader;
 import tr.com.infumia.infumialib.dependencies.MavenLibraries;
 import tr.com.infumia.infumialib.files.InfumiaLibConfig;
 import tr.com.infumia.infumialib.paper.color.CustomColors;
@@ -43,6 +44,11 @@ public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
    * the inventory.
    */
   private final SmartInventory inventory = new BasicSmartInventory(this);
+
+  /**
+   * the library loader.
+   */
+  private final LibraryLoader libraryLoader = new LibraryLoader(this);
 
   /**
    * teh world border api.
@@ -126,7 +132,7 @@ public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
   }
 
   /**
-   * loads Infumia Library plugin'ss files.
+   * loads Infumia Library plugin's files.
    */
   public void loadFiles() {
     InfumiaLibConfig.loadConfig(this.getDataFolder());
@@ -135,6 +141,7 @@ public final class InfumiaLib extends JavaPlugin implements InfumiaPlugin {
 
   @Override
   public void onLoad() {
+    this.libraryLoader.loadAll(this);
     InfumiaLib.instance = this;
     CustomColors.registerAll();
     TaskUtilities.init(this);
