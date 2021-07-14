@@ -116,7 +116,10 @@ import tr.com.infumia.infumialib.dependencies.Repository;
   @MavenLibrary(
     groupId = "com.github.Querz",
     artifactId = "NBT",
-    version = "6.1"
+    version = "6.1",
+    repo = @Repository(
+      url = "https://jitpack.io/"
+    )
   ),
   @MavenLibrary(
     groupId = "org.slf4j",
