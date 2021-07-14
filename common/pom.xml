@@ -167,8 +167,12 @@
           <artifactId>jackson-core</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>kotlin-stdlib</artifactId>
           <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-stdlib</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-stdlib-common</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
