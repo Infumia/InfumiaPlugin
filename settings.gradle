@@ -1,0 +1,9 @@
+rootProject.name = 'InfumiaLibraryPlugin'
+include(
+        'common',
+        'common:loader-utils',
+        'paper:loader',
+        'paper',
+        'velocity'
+)
+

@@ -1,0 +1,96 @@
+plugins {
+    id 'java'
+    id "io.spring.dependency-management" version "1.0.11.RELEASE"
+}
+
+defaultTasks 'build'
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencyManagement {
+        imports {
+            mavenBom 'io.github.parentpom:ppom:3.4.31'
+        }
+    }
+
+    group = 'tr.com.infumia.infumialib'
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    dependencies {
+        // Annotations
+        compileOnly 'org.jetbrains:annotations:21.0.1'
+        compileOnly 'org.projectlombok:lombok:1.18.20'
+        annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+        testCompileOnly 'org.projectlombok:lombok:1.18.20'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+        // General
+        compileOnly 'org.jetbrains.kotlin:kotlin-stdlib'
+        compileOnly 'io.lettuce:lettuce-core'
+        compileOnly 'com.zaxxer:HikariCP'
+        compileOnly 'org.kohsuke:github-api'
+        compileOnly 'org.mongodb:mongodb-driver-sync'
+        compileOnly 'org.mongodb:mongo-java-driver'
+        compileOnly 'com.flowpowered:flow-nbt'
+        compileOnly 'commons-io:commons-io'
+        compileOnly 'com.github.luben:zstd-jni'
+        compileOnly 'com.google.code.gson:gson'
+        compileOnly 'org.javassist:javassist'
+        compileOnly 'org.yaml:snakeyaml'
+        compileOnly 'com.github.tomas-langer:chalk'
+        compileOnly 'com.google.protobuf:protobuf-java'
+        compileOnly 'org.apache.httpcomponents:httpclient'
+        compileOnly 'org.apache.httpcomponents:httpcore'
+        compileOnly 'org.apache.httpcomponents:httpclient-cache'
+        compileOnly 'org.apache.httpcomponents:httpmime'
+        compileOnly 'org.cactoos:cactoos'
+        compileOnly 'com.github.ben-manes.caffeine:guava'
+        compileOnly 'com.google.guava:guava'
+        compileOnly 'com.github.Querz:NBT'
+        compileOnly 'org.slf4j:slf4j-log4j12'
+        compileOnly 'eu.okaeri:okaeri-hjson'
+        compileOnly 'com.googlecode.json-simple:json-simple'
+        compileOnly 'com.typesafe:config'
+        compileOnly 'it.unimi.dsi:fastutil'
+        compileOnly 'com.fasterxml.jackson.core:jackson-databind'
+        compileOnly 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+        compileOnly 'io.minio:minio'
+        compileOnly 'redis.clients:jedis'
+        compileOnly 'dev.morphia.morphia:morphia-core'
+        compileOnly 'org.spongepowered:configurate-gson'
+        compileOnly 'org.spongepowered:configurate-hocon'
+        compileOnly 'org.spongepowered:configurate-jackson'
+        compileOnly 'org.spongepowered:configurate-xml'
+        compileOnly 'org.spongepowered:configurate-yaml'
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url 'https://nexus.velocitypowered.com/repository/maven-public/' }
+        maven { url 'https://papermc.io/repo/repository/maven-public/' }
+        maven { url 'https://storehouse.okaeri.eu/repository/maven-public/' }
+        maven { url 'https://repo.codemc.org/repository/maven-public/' }
+        maven { url 'https://repo.codemc.org/repository/nms/' }
+        maven { url 'https://jitpack.io/' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+        maven { url 'https://maven.enginehub.org/repo/' }
+        maven { url 'https://mvn.intellectualsites.com/content/repositories/releases/' }
+        maven { url 'https://repo.dmulloy2.net/repository/public/' }
+        maven { url 'https://repo.citizensnpcs.co/' }
+        maven { url 'https://repo.glaremasters.me/repository/concuncan/' }
+        maven { url 'https://repo.pl3x.net/' }
+        maven { url 'https://libraries.minecraft.net/' }
+        maven { url 'https://nexus.savagelabs.net/repository/maven-releases/' }
+    }
+}

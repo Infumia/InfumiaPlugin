@@ -18,4 +18,4 @@ jobs:
           java-version: 16
 
       - run: |
-          mvn clean package
+          .\gradlew build

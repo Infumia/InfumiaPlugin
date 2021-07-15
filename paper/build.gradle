@@ -1,0 +1,112 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+}
+
+dependencies {
+    // Common project
+    implementation project(':common')
+    implementation project(':common:loader-utils')
+
+    // Paper and Spigot
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT'
+
+    // General
+    compileOnly 'net.kyori:adventure-text-minimessage'
+    compileOnly 'io.github.bananapuncher714:NBTEditor'
+    compileOnly 'net.wesjd:anvilgui'
+    compileOnly 'com.github.cryptomorin:XSeries'
+    compileOnly 'cloud.commandframework:cloud-paper'
+    compileOnly 'me.lucko:commodore'
+
+    // Other Plugins
+    compileOnly 'me.clip:placeholderapi'
+    compileOnly 'net.luckperms:api'
+    compileOnly 'org.anjocaido:groupmanagerx'
+    compileOnly 'ru.tehkode:PermissionsEx'
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit'
+    compileOnly 'com.sk89q.worldedit:worldedit-bukkit'
+    compileOnly 'com.github.MilkBowl:VaultAPI'
+    compileOnly 'net.pl3x.map:pl3xmap-api'
+    compileOnly 'net.citizensnpcs:citizens-main'
+    compileOnly 'com.SirBlobman.combatlogx:CombatLogX-API'
+    compileOnly 'com.gmail.filoghost.holographicdisplays:holographicdisplays-api'
+    compileOnly 'de.tr7zw:item-nbt-api-plugin'
+    compileOnly 'world.bentobox:level:2.7.0-SNAPSHOT'
+    compileOnly 'world.bentobox:bentobox:1.17.1-SNAPSHOT'
+}
+
+shadowJar {
+    archiveFileName = 'infumialibraryplugin.jarinjar'
+    final String group = "tr.com.infumia.infumialib"
+    dependencies {
+        include(dependency("${group}:.*"))
+    }
+    final String prefix = "${group}.libs."
+    relocate "com.crutomorin.xseries", "${prefix}xseries"
+    relocate "net.wesjd.anvilgui", "${prefix}anvilgui"
+    relocate "io.github.bananapuncher714.nbteditor", "${prefix}nbteditor"
+    relocate "net.kyori.adventure.text.minimessage", "${prefix}minimessage"
+    relocate "cloud.commandframework", "${prefix}cloud"
+    relocate "com.github.benmanes.caffeine", "${prefix}caffeine"
+    relocate "okio", "${prefix}okio"
+    relocate "okhttp3", "${prefix}okhttp3"
+    relocate "me.lucko.commodore", "${prefix}commodore"
+    relocate "com.zaxxer.hikari", "${prefix}hikari"
+    relocate "com.mongodb", "${prefix}mongodb"
+    relocate "com.fasterxml.jackson", "${prefix}jackson"
+    relocate "com.flowpowered.nbt", "${prefix}flownbt"
+    relocate "com.github.benmanes.caffeine", "${prefix}caffeine"
+    relocate "com.github.luben.luben.zstd", "${prefix}zstd"
+    relocate "com.github.tomaslanger.chalk", "${prefix}chalk"
+    relocate "com.google.common", "${prefix}guava"
+    relocate "com.google.thirdparty", "${prefix}guavathirdparty"
+    relocate "com.google.errorprone", "${prefix}errorprone"
+    relocate "com.google.gson", "${prefix}gson"
+    relocate "com.google.j2objc", "${prefix}j2objc"
+    relocate "com.google.protobuf", "${prefix}protobuf"
+    relocate "com.mongodb", "${prefix}mongodb"
+    relocate "com.typesafe.config", "${prefix}config"
+    relocate "com.zaxxer.hikari", "${prefix}hikari"
+    relocate "dev.morphia", "${prefix}morphia"
+    relocate "edu.umd.cs.findbugs", "${prefix}findbugs"
+    relocate "eu.okaeri.hjson", "${prefix}okaerihsjon"
+    relocate "google.protobuf", "${prefix}googleprotobuf"
+    relocate "io.github.classgraph", "${prefix}classgraph"
+    relocate "io.leangen.geantyref", "${prefix}geantyref"
+    relocate "io.lettuce", "${prefix}lettuce"
+    relocate "io.minio", "${prefix}minio"
+    relocate "io.netty", "${prefix}netty"
+    relocate "it.unimi.dsi.fastutil", "${prefix}fastutil"
+    relocate "javassist", "${prefix}javassist"
+    relocate "javax.annotation", "${prefix}javaxannotation"
+    relocate "kotlin", "${prefix}kotlin"
+    relocate "net.bytebuddy", "${prefix}bytebuddy"
+    relocate "net.querz", "${prefix}querz"
+    relocate "nonapi.io.github.classgraph", "${prefix}nonapiclassgraph"
+    relocate "okhttp3", "${prefix}okhttp3"
+    relocate "okio", "${prefix}okio"
+    relocate "org.apache.commons.codec", "${prefix}apachecodec"
+    relocate "org.apache.commons.io", "${prefix}apacheio"
+    relocate "org.apache.commons.lang3", "${prefix}apachelang3"
+    relocate "org.apache.commons.logging", "${prefix}apachelogging"
+    relocate "org.apache.commons.pool2", "${prefix}apachepool2"
+    relocate "org.apache.http.", "${prefix}apachehttp"
+    relocate "org.apache.log4j", "${prefix}apachelog4j"
+    relocate "org.bson", "${prefix}bson"
+    relocate "org.cactoos", "${prefix}cactoos"
+    relocate "org.checkerframework", "${prefix}checkerframework"
+    relocate "org.json.simple", "${prefix}jsonsimple"
+    relocate "org.kohsuke.github", "${prefix}kohsukegithub"
+    relocate "org.reactivestreams", "${prefix}reactivestreams"
+    relocate "org.simpleframework.xml", "${prefix}simpleframeworkxml"
+    relocate "org.slf4j", "${prefix}slf4j"
+    relocate "org.spongepowered.configurate", "${prefix}configurate"
+    relocate "org.yaml.snakeyaml", "${prefix}snakeyaml"
+    relocate "reactor", "${prefix}reactor"
+    relocate "redis.clients.jedis", "${prefix}jedis"
+}
+
+artifacts {
+    archives shadowJar
+}
