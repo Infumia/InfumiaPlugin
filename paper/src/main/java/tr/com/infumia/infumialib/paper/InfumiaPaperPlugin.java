@@ -27,13 +27,13 @@ import tr.com.infumia.infumialib.paper.utils.Versions;
 /**
  * a class that represents main class of Infumia Library plugin.
  */
-public final class InfumiaLib extends JavaPlugin {
+public final class InfumiaPaperPlugin extends JavaPlugin {
 
   /**
    * the instance.
    */
   @Nullable
-  private static InfumiaLib instance;
+  private static InfumiaPaperPlugin instance;
 
   /**
    * the inventory.
@@ -81,8 +81,8 @@ public final class InfumiaLib extends JavaPlugin {
    * @return instance.
    */
   @NotNull
-  public static InfumiaLib getInstance() {
-    return Objects.requireNonNull(InfumiaLib.instance, "not initiated");
+  public static InfumiaPaperPlugin getInstance() {
+    return Objects.requireNonNull(InfumiaPaperPlugin.instance, "not initiated");
   }
 
   /**
@@ -92,7 +92,7 @@ public final class InfumiaLib extends JavaPlugin {
    */
   @NotNull
   public static SmartInventory getInventory() {
-    return InfumiaLib.getInstance().inventory;
+    return InfumiaPaperPlugin.getInstance().inventory;
   }
 
   /**
@@ -102,7 +102,7 @@ public final class InfumiaLib extends JavaPlugin {
    */
   @NotNull
   public static Optional<WorldBorderApi> getWorldBorderApi() {
-    return Optional.ofNullable(InfumiaLib.getInstance().worldBorderApi);
+    return Optional.ofNullable(InfumiaPaperPlugin.getInstance().worldBorderApi);
   }
 
   /**
@@ -112,7 +112,7 @@ public final class InfumiaLib extends JavaPlugin {
    */
   @NotNull
   public static WorldBorderApi getWorldBorderApiOrThrow() {
-    return InfumiaLib.getWorldBorderApi().orElseThrow();
+    return InfumiaPaperPlugin.getWorldBorderApi().orElseThrow();
   }
 
   /**
@@ -125,7 +125,7 @@ public final class InfumiaLib extends JavaPlugin {
 
   @Override
   public void onLoad() {
-    InfumiaLib.instance = this;
+    InfumiaPaperPlugin.instance = this;
     CustomColors.registerAll();
     TaskUtilities.init(this);
     this.loadFiles();
@@ -135,7 +135,7 @@ public final class InfumiaLib extends JavaPlugin {
   public void onEnable() {
     Hooks.loadHooks();
     this.initiateWorldBorder();
-    final var commandManager = InfumiaLib.createCommandManager(this);
+    final var commandManager = InfumiaPaperPlugin.createCommandManager(this);
     new InfumiaPluginCommands(commandManager, this).register();
     this.inventory.init();
     if (InfumiaLibConfig.checkForUpdate) {

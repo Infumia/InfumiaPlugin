@@ -11,7 +11,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.InfumiaLib;
+import tr.com.infumia.infumialib.paper.InfumiaPaperPlugin;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
 
 /**
@@ -30,7 +30,7 @@ public final class InfumiaPluginCommands implements Command {
    * the plugin.
    */
   @NotNull
-  private final InfumiaLib plugin;
+  private final InfumiaPaperPlugin plugin;
 
   @Override
   public void register() {
