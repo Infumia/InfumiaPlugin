@@ -15,7 +15,6 @@ import tr.com.infumia.infumialib.paper.color.CustomColors;
 import tr.com.infumia.infumialib.paper.commands.InfumiaPluginCommands;
 import tr.com.infumia.infumialib.paper.files.PaperConfig;
 import tr.com.infumia.infumialib.paper.hooks.Hooks;
-import tr.com.infumia.infumialib.paper.dependencies.CommonLibraries;
 import tr.com.infumia.infumialib.paper.plugin.InfumiaPlugin;
 import tr.com.infumia.infumialib.paper.shade.com.github.yannicklamprecht.worldborder.api.WorldBorderApi;
 import tr.com.infumia.infumialib.paper.shade.com.github.yannicklamprecht.worldborder.plugin.PersistenceWrapper;
@@ -144,7 +143,6 @@ public final class InfumiaLib extends InfumiaPlugin {
   @Override
   public void load() {
     InfumiaLib.instance = this;
-    this.libraryLoader.loadAll(CommonLibraries.class);
     TaskUtilities.init(this);
     CustomColors.registerAll();
     this.loadFiles();
