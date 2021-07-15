@@ -27,8 +27,6 @@ public final class InfumiaLib extends InfumiaPlugin {
 
   @Override
   public void enable() {
-    this.libraryLoader.loadAll(CommonDependencies.class);
-    this.libraryLoader.loadAll(BukkitDependencies.class);
     InfumiaPlugin.getInventory().init();
     final var commandManager = this.createCommandManager();
     new InfumiaPluginCommands(commandManager, this).register();
@@ -41,6 +39,8 @@ public final class InfumiaLib extends InfumiaPlugin {
 
   @Override
   public void load() {
+    this.libraryLoader.loadAll(CommonDependencies.class);
+    this.libraryLoader.loadAll(BukkitDependencies.class);
     CustomColors.registerAll();
     TaskUtilities.init(this);
     this.loadFiles();
