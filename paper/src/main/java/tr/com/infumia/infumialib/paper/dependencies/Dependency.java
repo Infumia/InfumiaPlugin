@@ -1,67 +1,42 @@
 package tr.com.infumia.infumialib.paper.dependencies;
 
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import java.net.MalformedURLException;
+import java.net.URL;
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+@Getter
+@Builder
+@ToString
+@EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum Dependency {
-  ;
-
-  private static final String MAVEN_FORMAT = "%s/%s/%s/%s-%s.jar";
-
-  private final byte @NotNull [] checksum;
+public final class Dependency {
 
   @NotNull
-  @Getter
-  private final String mavenRepoPath;
+  private final String artifactId;
 
   @NotNull
-  private final Collection<Relocation> relocations;
+  private final String groupId;
+
+  @NotNull
+  private final String repoUrl;
 
   @NotNull
   private final String version;
 
-  Dependency(@NotNull final String groupId, @NotNull final String artifactId, @NotNull final String version,
-             @NotNull final String checksum, @NotNull final Relocation... relocations) {
-    this(
-      Base64.getDecoder().decode(checksum),
-      String.format(Dependency.MAVEN_FORMAT,
-        Dependency.rewriteEscaping(groupId).replace(".", "/"),
-        Dependency.rewriteEscaping(artifactId),
-        version,
-        Dependency.rewriteEscaping(artifactId),
-        version),
-      List.of(relocations),
-      version);
-  }
-
   @NotNull
-  private static String rewriteEscaping(@NotNull final String s) {
-    return s.replace("{}", ".");
-  }
-
-  public boolean checksumMatches(final byte @NotNull [] hash) {
-    return Arrays.equals(this.checksum, hash);
-  }
-
-  public byte @NotNull [] getChecksum() {
-    return this.checksum.clone();
-  }
-
-  @NotNull
-  public String getFileName(@Nullable final String classifier) {
-    return this.name().toLowerCase(Locale.ROOT).replace('_', '-') +
-      "-" +
-      this.version +
-      (classifier == null || classifier.isEmpty() ? "" : "-" + classifier) +
-      ".jar";
+  public URL getUrl() throws MalformedURLException {
+    var repo = this.repoUrl;
+    if (!repo.endsWith("/")) {
+      repo += "/";
+    }
+    repo += "%s/%s/%s/%s-%s.jar";
+    return new URL(String.format(repo,
+      this.groupId.replace(".", "/"), this.artifactId, this.version, this.artifactId, this.version));
   }
 }
