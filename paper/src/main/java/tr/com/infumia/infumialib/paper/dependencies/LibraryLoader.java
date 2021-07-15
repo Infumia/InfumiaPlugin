@@ -6,15 +6,14 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Supplier;
-import java.util.logging.Level;
 import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
+import tr.com.infumia.infumialib.paper.plugin.InfumiaPlugin;
 import tr.com.infumia.infumialib.reflection.clazz.ClassOf;
 
 @Log4j2
@@ -32,19 +31,23 @@ public final class LibraryLoader {
   });
 
   @NotNull
-  private final Plugin plugin;
+  private final InfumiaPlugin plugin;
 
-  public void load(@NotNull final String groupId, @NotNull final String artifactId, @NotNull final String version) {
-    this.load(groupId, artifactId, version, "https://repo1.maven.org/maven2");
+  public void load(@NotNull final String groupId, @NotNull final String artifactId, @NotNull final String version,
+                   @NotNull final String relocationPattern, @NotNull final String relocatedPattern) {
+    this.load(groupId, artifactId, version, "https://repo1.maven.org/maven2", relocationPattern, relocatedPattern);
   }
 
   public void load(@NotNull final String groupId, @NotNull final String artifactId, @NotNull final String version,
-                   @NotNull final String repoUrl) {
+                   @NotNull final String repoUrl,
+                   @NotNull final String relocationPattern, @NotNull final String relocatedPattern) {
     this.load(Dependency.builder()
       .artifactId(artifactId)
       .groupId(groupId)
       .version(version)
       .repoUrl(repoUrl)
+      .relocationPattern(relocationPattern)
+      .relocatedPattern(relocatedPattern)
       .build());
   }
 
@@ -85,12 +88,15 @@ public final class LibraryLoader {
     new ClassOf<>(clazz).getAnnotation(MavenLibraries.class, libs -> {
       final var libraries = libs.value();
       final var latch = new CountDownLatch(libraries.length);
-      TaskUtilities.async(() -> {
+      CompletableFuture.runAsync(() -> {
         for (final var lib : libraries) {
           try {
-            this.load(lib.groupId(), lib.artifactId(), lib.version(), lib.repo().url());
+            this.load(
+              lib.groupId(), lib.artifactId(), lib.version(),
+              lib.repo(),
+              lib.relocationPattern(), lib.relocatedPattern());
           } catch (final Throwable e) {
-            this.plugin.getLogger().log(Level.SEVERE, String.format("Unable to load dependency %s.",
+            this.plugin.getInfumiaLogger().fatal(String.format("Unable to load dependency %s.",
               lib.artifactId()), e);
           } finally {
             latch.countDown();

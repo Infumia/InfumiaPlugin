@@ -24,6 +24,12 @@ public final class Dependency {
   private final String groupId;
 
   @NotNull
+  private final String relocatedPattern;
+
+  @NotNull
+  private final String relocationPattern;
+
+  @NotNull
   private final String repoUrl;
 
   @NotNull

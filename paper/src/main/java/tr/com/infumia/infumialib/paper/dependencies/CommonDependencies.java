@@ -1,8 +1,4 @@
-package tr.com.infumia.infumialib.paper;
-
-import tr.com.infumia.infumialib.paper.dependencies.MavenLibraries;
-import tr.com.infumia.infumialib.paper.dependencies.MavenLibrary;
-import tr.com.infumia.infumialib.paper.dependencies.Repository;
+package tr.com.infumia.infumialib.paper.dependencies;
 
 @MavenLibraries({
   @MavenLibrary(
@@ -28,20 +24,28 @@ import tr.com.infumia.infumialib.paper.dependencies.Repository;
   @MavenLibrary(
     groupId = "org.mongodb",
     artifactId = "mongodb-driver-sync",
-    version = "4.2.3"
+    version = "4.3.0"
+  ),
+  @MavenLibrary(
+    groupId = "org.mongodb",
+    artifactId = "mongodb-driver-core",
+    version = "4.3.0"
+  ),
+  @MavenLibrary(
+    groupId = "org.mongodb",
+    artifactId = "bson",
+    version = "4.3.0"
   ),
   @MavenLibrary(
     groupId = "org.mongodb",
     artifactId = "mongo-java-driver",
-    version = "3.12.8"
+    version = "3.12.9"
   ),
   @MavenLibrary(
     groupId = "com.flowpowered",
     artifactId = "flow-nbt",
     version = "2.0.0",
-    repo = @Repository(
-      url = "https://repo.glaremasters.me/repository/concuncan/"
-    )
+    repo = "https://repo.glaremasters.me/repository/concuncan/"
   ),
   @MavenLibrary(
     groupId = "commons-io",
@@ -117,9 +121,7 @@ import tr.com.infumia.infumialib.paper.dependencies.Repository;
     groupId = "com.github.Querz",
     artifactId = "NBT",
     version = "6.1",
-    repo = @Repository(
-      url = "https://jitpack.io/"
-    )
+    repo = "https://jitpack.io/"
   ),
   @MavenLibrary(
     groupId = "org.slf4j",
@@ -140,11 +142,79 @@ import tr.com.infumia.infumialib.paper.dependencies.Repository;
     groupId = "eu.okaeri",
     artifactId = "okaeri-hjson",
     version = "4.0.0",
-    repo = @Repository(
-      url = "https://storehouse.okaeri.eu/repository/maven-public/"
-    )
+    repo = "https://storehouse.okaeri.eu/repository/maven-public/"
+  ),
+  @MavenLibrary(
+    groupId = "com.googlecode.json-simple",
+    artifactId = "json-simple",
+    version = "1.1.1"
+  ),
+  @MavenLibrary(
+    groupId = "com.typesafe",
+    artifactId = "config",
+    version = "1.4.1"
+  ),
+  @MavenLibrary(
+    groupId = "it.unimi.dsi",
+    artifactId = "fastutil",
+    version = "8.5.4"
+  ),
+  @MavenLibrary(
+    groupId = "com.fasterxml.jackson.core",
+    artifactId = "jackson-databind",
+    version = "2.12.4"
+  ),
+  @MavenLibrary(
+    groupId = "com.fasterxml.jackson.dataformat",
+    artifactId = "jackson-dataformat-yaml",
+    version = "2.12.4"
+  ),
+  @MavenLibrary(
+    groupId = "io.minio",
+    artifactId = "minio",
+    version = "8.2.2"
+  ),
+  @MavenLibrary(
+    groupId = "redis.clients",
+    artifactId = "jedis",
+    version = "3.6.1"
+  ),
+  @MavenLibrary(
+    groupId = "dev.morphia.morphia",
+    artifactId = "morphia-core",
+    version = "2.2.1"
+  ),
+  @MavenLibrary(
+    groupId = "org.spongepowered",
+    artifactId = "configurate-gson",
+    version = "4.1.1"
+  ),
+  @MavenLibrary(
+    groupId = "org.spongepowered",
+    artifactId = "configurate-hocon",
+    version = "4.1.1"
+  ),
+  @MavenLibrary(
+    groupId = "org.spongepowered",
+    artifactId = "configurate-jackson",
+    version = "4.1.1"
+  ),
+  @MavenLibrary(
+    groupId = "org.spongepowered",
+    artifactId = "configurate-xml",
+    version = "4.1.1"
+  ),
+  @MavenLibrary(
+    groupId = "org.spongepowered",
+    artifactId = "configurate-yaml",
+    version = "4.1.1"
+  ),
+  @MavenLibrary(
+    groupId = "io.leangen.geantyref",
+    artifactId = "geantyref",
+    version = "1.3.11"
   )
 })
-final class Libs {
+public final class CommonDependencies {
 
 }

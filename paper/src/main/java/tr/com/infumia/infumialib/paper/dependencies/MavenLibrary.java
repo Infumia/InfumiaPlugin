@@ -21,7 +21,16 @@ public @interface MavenLibrary {
   String groupId();
 
   @NotNull
-  Repository repo() default @Repository(url = "https://repo1.maven.org/maven2");
+  String relocatedPattern() default "";
+
+  @NotNull
+  String relocationPattern() default "";
+
+  @NotNull
+  String repo() default "https://repo1.maven.org/maven2";
+
+  @NotNull
+  String sha256() default "";
 
   @NotNull
   String version();
