@@ -180,9 +180,9 @@ public abstract class TransformResolver {
       final ObjectSerializer serializer = serializerOptional.get();
       final Optional<?> value;
       if (defaultValue == null) {
-        value = serializer.deserialize(deserialization, genericTarget);
+        value = serializer.deserialize(deserialization, target);
       } else {
-        value = serializer.deserialize(defaultValue, deserialization, genericTarget);
+        value = serializer.deserialize(defaultValue, deserialization, target);
       }
       return value.map(targetClass::cast).orElse(null);
     }
