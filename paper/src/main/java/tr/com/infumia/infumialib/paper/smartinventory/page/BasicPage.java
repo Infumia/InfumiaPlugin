@@ -18,6 +18,7 @@ import tr.com.infumia.infumialib.paper.smartinventory.Handle;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryProvider;
 import tr.com.infumia.infumialib.paper.smartinventory.Page;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartHolder;
 import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
 import tr.com.infumia.infumialib.paper.smartinventory.content.BasicInventoryContents;
 import tr.com.infumia.infumialib.paper.smartinventory.event.PgCloseEvent;
@@ -160,14 +161,13 @@ public final class BasicPage implements Page {
   }
 
   @Override
-  public void close(@NotNull final Player player) {
-    SmartInventory.getHolder(player).ifPresent(holder -> {
-      this.accept(new PgCloseEvent(holder.getContents(), new InventoryCloseEvent(player.getOpenInventory())));
-      this.inventory().stopTick(player.getUniqueId());
-      this.source.unsubscribe(this.provider());
-      holder.setActive(false);
-      player.closeInventory();
-    });
+  public void close(@NotNull final SmartHolder holder) {
+    final var player = holder.getPlayer();
+    this.accept(new PgCloseEvent(holder.getContents(), new InventoryCloseEvent(player.getOpenInventory())));
+    this.inventory().stopTick(player.getUniqueId());
+    this.source.unsubscribe(this.provider());
+    holder.setActive(false);
+    player.closeInventory();
   }
 
   @Override
@@ -219,12 +219,13 @@ public final class BasicPage implements Page {
   public Inventory open(@NotNull final Player player, final int page, @NotNull final Map<String, Object> properties,
                         final boolean close) {
     if (close) {
-      this.close(player);
+      SmartInventory.getHolder(player).ifPresent(holder ->
+        holder.getPage().close(holder));
     } else {
-      SmartInventory.getHolder(player).ifPresent(smartHolder -> {
-        final var oldPage = smartHolder.getPage();
+      SmartInventory.getHolder(player).ifPresent(holder -> {
+        final var oldPage = holder.getPage();
         if (this.row != oldPage.row() || this.column != oldPage.column()) {
-          this.close(player);
+          oldPage.close(holder);
         }
       });
     }

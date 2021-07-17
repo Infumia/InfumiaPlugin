@@ -54,8 +54,8 @@ public interface SmartInventory {
    */
   static void closeAllSmartInventories() {
     for (final var player : Bukkit.getOnlinePlayers()) {
-      SmartInventory.getHolder(player).ifPresent(smartHolder ->
-        smartHolder.getPage().close(smartHolder.getPlayer()));
+      SmartInventory.getHolder(player).ifPresent(holder ->
+        holder.getPage().close(holder));
     }
   }
 
@@ -68,7 +68,7 @@ public interface SmartInventory {
    */
   @NotNull
   static Optional<SmartHolder> getHolder(@NotNull final Player player) {
-    final InventoryHolder holder = player.getOpenInventory().getTopInventory().getHolder();
+    final var holder = player.getOpenInventory().getTopInventory().getHolder();
     if (!(holder instanceof SmartHolder)) {
       return Optional.empty();
     }
@@ -273,7 +273,7 @@ public interface SmartInventory {
    * @param page the page to start.
    */
   default void tick(@NotNull final UUID uniqueId, @NotNull final Page page) {
-    final BukkitRunnable task = new BukkitRunnable() {
+    final var task = new BukkitRunnable() {
       @Override
       public void run() {
         SmartInventory.getHolder(uniqueId)
