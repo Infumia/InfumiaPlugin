@@ -675,12 +675,7 @@ public interface InventoryContents {
     if (column < 0 || column >= all[row].length) {
       return Optional.empty();
     }
-    final var icon = Optional.ofNullable(all[row][column]);
-    if (icon.isPresent()) {
-      return icon;
-    }
-    return Optional.ofNullable(this.getTopInventory().getItem(row * 9 + column))
-      .map(Icon::from);
+    return Optional.ofNullable(all[row][column]);
   }
 
   /**
