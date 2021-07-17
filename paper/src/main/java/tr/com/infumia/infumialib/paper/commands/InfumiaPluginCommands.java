@@ -2,7 +2,6 @@ package tr.com.infumia.infumialib.paper.commands;
 
 import cloud.commandframework.ArgumentDescription;
 import cloud.commandframework.paper.PaperCommandManager;
-import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -13,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.InfumiaLib;
 import tr.com.infumia.infumialib.paper.utils.GitHubUpdateChecker;
+import tr.com.infumia.infumialib.paper.utils.TaskUtilities;
 
 /**
  * a class that contains Infumia plugin's commands.
@@ -44,8 +44,10 @@ public final class InfumiaPluginCommands implements Command {
       .literal("reload", ArgumentDescription.of("Reloads Infumia Library plugin's configuration files."))
       .permission("infumiaplugin.command.reload")
       .handler(context ->
-        CompletableFuture.runAsync(this.plugin::loadFiles)
-          .whenComplete((x, y) -> context.getSender().sendMessage(this.getReloadCompleteMessage())));
+        TaskUtilities.async(() -> {
+          this.plugin.loadFiles();
+          context.getSender().sendMessage(this.getReloadCompleteMessage());
+        }));
     // Update Command.
     final var updateCommand = builder
       .literal("update", ArgumentDescription.of("Checks for update ıf Infumia Library plugin."))
