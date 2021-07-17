@@ -35,16 +35,14 @@ public final class InventoryCloseListener implements Listener {
       return;
     }
     final var smartHolder = (SmartHolder) holder;
-    final var inventory = event.getInventory();
     final var page = smartHolder.getPage();
     final var close = new PgCloseEvent(smartHolder.getContents(), event);
-    page.accept(close);
     if (!page.canClose(close)) {
       Bukkit.getScheduler().runTask(smartHolder.getPlugin(), () ->
-        event.getPlayer().openInventory(inventory));
+        event.getPlayer().openInventory(event.getInventory()));
       return;
     }
-    inventory.clear();
+    page.accept(close);
     this.stopTickFunction.accept(event.getPlayer().getUniqueId());
   }
 }
