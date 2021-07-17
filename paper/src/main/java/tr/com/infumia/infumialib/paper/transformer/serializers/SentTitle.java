@@ -117,6 +117,26 @@ public final class SentTitle {
   }
 
   /**
+   * obtains value of the sub title.
+   *
+   * @return value of the sub title.
+   */
+  @NotNull
+  public String getSubTitleAsValue() {
+    return this.subTitle == null ? "" : this.subTitle.getValue();
+  }
+
+  /**
+   * obtains value of the title.
+   *
+   * @return value of the title.
+   */
+  @NotNull
+  public String getTitleAsValue() {
+    return this.title == null ? "" : this.title.getValue();
+  }
+
+  /**
    * changes the sub title's value.
    *
    * @param newSubTitle the new sub title to change.
