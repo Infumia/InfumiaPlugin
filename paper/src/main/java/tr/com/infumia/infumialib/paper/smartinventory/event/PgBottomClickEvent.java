@@ -6,6 +6,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import tr.com.infumia.infumialib.paper.smartinventory.InventoryContents;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
 import tr.com.infumia.infumialib.paper.smartinventory.event.abs.BottomClickEvent;
 
 /**
@@ -40,7 +41,8 @@ public final class PgBottomClickEvent implements BottomClickEvent {
   @Override
   public void close() {
     Bukkit.getScheduler().runTask(this.plugin, () ->
-      this.contents.page().close(this.contents.player()));
+      SmartInventory.getHolder(this.contents.player()).ifPresent(holder ->
+        holder.getPlayer().closeInventory()));
   }
 
   @NotNull

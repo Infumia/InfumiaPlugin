@@ -4,7 +4,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * an interface to determine close evet.
+ * an interface to determine close event.
  */
 public interface CloseEvent extends PageEvent {
 

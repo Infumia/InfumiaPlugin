@@ -125,9 +125,9 @@ public interface Page {
   /**
    * closes the player's page.
    *
-   * @param player the player to close.
+   * @param holder the holder to close.
    */
-  void close(@NotNull Player player);
+  void close(@NotNull SmartHolder holder);
 
   /**
    * obtains column of the page.
