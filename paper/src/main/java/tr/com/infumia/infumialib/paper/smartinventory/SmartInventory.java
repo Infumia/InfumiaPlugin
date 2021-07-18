@@ -8,13 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -41,11 +38,11 @@ public interface SmartInventory {
   /**
    * all listener to register.
    */
-  Function<Consumer<UUID>, List<Listener>> LISTENERS = function -> Arrays.asList(
+  List<Listener> LISTENERS = Arrays.asList(
     new InventoryClickListener(),
     new InventoryOpenListener(),
-    new InventoryCloseListener(function),
-    new PlayerQuitListener(function),
+    new InventoryCloseListener(),
+    new PlayerQuitListener(),
     new PluginDisableListener(),
     new InventoryDragListener());
 
@@ -54,8 +51,9 @@ public interface SmartInventory {
    */
   static void closeAllSmartInventories() {
     for (final var player : Bukkit.getOnlinePlayers()) {
-      SmartInventory.getHolder(player).ifPresent(holder ->
-        holder.getPage().close(holder));
+      if (SmartInventory.getHolder(player).isPresent()) {
+        player.closeInventory();
+      }
     }
   }
 
@@ -222,7 +220,7 @@ public interface SmartInventory {
    * initiates the manager.
    */
   default void init() {
-    SmartInventory.LISTENERS.apply(this::stopTick).forEach(listener ->
+    SmartInventory.LISTENERS.forEach(listener ->
       Bukkit.getPluginManager().registerEvents(listener, this.getPlugin()));
   }
 

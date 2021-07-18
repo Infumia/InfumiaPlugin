@@ -3,7 +3,7 @@ package tr.com.infumia.infumialib.paper.smartinventory.listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import tr.com.infumia.infumialib.paper.smartinventory.SmartHolder;
+import tr.com.infumia.infumialib.paper.smartinventory.SmartInventory;
 import tr.com.infumia.infumialib.paper.smartinventory.event.PgOpenEvent;
 
 /**
@@ -18,11 +18,7 @@ public final class InventoryOpenListener implements Listener {
    */
   @EventHandler
   public void onInventoryOpen(final InventoryOpenEvent event) {
-    final var holder = event.getInventory().getHolder();
-    if (!(holder instanceof SmartHolder)) {
-      return;
-    }
-    final var smartHolder = (SmartHolder) holder;
-    smartHolder.getPage().accept(new PgOpenEvent(smartHolder.getContents(), event, smartHolder.getPlugin()));
+    SmartInventory.getHolder(event.getPlayer().getUniqueId()).ifPresent(holder ->
+      holder.getPage().accept(new PgOpenEvent(holder.getContents(), event, holder.getPlugin())));
   }
 }

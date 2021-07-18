@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -163,11 +164,18 @@ public final class BasicPage implements Page {
   @Override
   public void close(@NotNull final SmartHolder holder) {
     final var player = holder.getPlayer();
-    this.accept(new PgCloseEvent(holder.getContents(), new InventoryCloseEvent(player.getOpenInventory())));
+    final var contents = holder.getContents();
+    final var event = new PgCloseEvent(
+      contents,
+      new InventoryCloseEvent(player.getOpenInventory()));
+    if (!this.canClose(event)) {
+      Bukkit.getScheduler().runTask(holder.getPlugin(), contents::reopen);
+      return;
+    }
+    this.accept(event);
     this.inventory().stopTick(player.getUniqueId());
     this.source.unsubscribe(this.provider());
     holder.setActive(false);
-    player.closeInventory();
   }
 
   @Override
@@ -220,12 +228,12 @@ public final class BasicPage implements Page {
                         final boolean close) {
     if (close) {
       SmartInventory.getHolder(player).ifPresent(holder ->
-        holder.getPage().close(holder));
+        holder.getPlayer().closeInventory());
     } else {
       SmartInventory.getHolder(player).ifPresent(holder -> {
         final var oldPage = holder.getPage();
         if (this.row != oldPage.row() || this.column != oldPage.column()) {
-          oldPage.close(holder);
+          holder.getPlayer().closeInventory();
         }
       });
     }

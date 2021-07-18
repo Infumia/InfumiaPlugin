@@ -42,7 +42,7 @@ public final class PgBottomClickEvent implements BottomClickEvent {
   public void close() {
     Bukkit.getScheduler().runTask(this.plugin, () ->
       SmartInventory.getHolder(this.contents.player()).ifPresent(holder ->
-        this.contents.page().close(holder)));
+        holder.getPlayer().closeInventory()));
   }
 
   @NotNull
