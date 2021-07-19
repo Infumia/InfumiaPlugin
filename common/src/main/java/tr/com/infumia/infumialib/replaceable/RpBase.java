@@ -167,19 +167,6 @@ public abstract class RpBase<S extends RpBase<S, X>, X> {
   }
 
   /**
-   * builds the replaceable object with the given function.
-   *
-   * @param function the function to build.
-   * @param <Y> type of the value.
-   *
-   * @return built value.
-   */
-  @NotNull
-  public final <Y> Y buildMap(@NotNull final Function<X, Y> function) {
-    return function.apply(this.build());
-  }
-
-  /**
    * adds the given map to {@link #maps}.
    *
    * @param map the map to add.
