@@ -116,7 +116,7 @@ public final class InfumiaLib extends JavaPlugin {
   }
 
   /**
-   * loads Infumia Library plugin'ss files.
+   * loads Infumia Library plugin's files.
    */
   public void loadFiles() {
     InfumiaLibConfig.loadConfig(this.getDataFolder());
